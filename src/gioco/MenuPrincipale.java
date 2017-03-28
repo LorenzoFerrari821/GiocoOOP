@@ -1,7 +1,10 @@
+package gioco;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +23,8 @@ import java.awt.event.MouseEvent;
 
 public class MenuPrincipale extends JFrame {
 
-	/**
-	 * 
-	 */
-	private JPanel contentPane;
+
+	private JPanel contentPane;  
 	private JPanel panelsx;
 	private JPanel paneldx;
 	private JButton btnNuovaPartita;
@@ -37,29 +38,15 @@ public class MenuPrincipale extends JFrame {
 	private BufferedImage myPicture;
 	private JLabel titolo;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuPrincipale frame = new MenuPrincipale();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public MenuPrincipale() {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 720);
+		
+		setMinimumSize(new Dimension(800,600));   // Questo impedisce che la finestra venga rimpicciolita troppo
+		
+		setBounds(0, 0, 1280, 720);
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1) {
@@ -75,24 +62,27 @@ public class MenuPrincipale extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 		contentPane = new JPanel();
 		panelsx = new JPanel();
 		paneldx = new JPanel();
 		panelTitolo = new JPanel();
 		
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(4,4));
+		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
+		contentPane.setLayout(new BorderLayout(0,0));
 		setContentPane(contentPane);
+
 		
-		panelsx.setLayout(new GridLayout(14, 1, 5, 5));
+		panelsx.setLayout(new GridLayout(12, 1, 5, 5));
 		panelsx.setBackground(Color.green);
 		contentPane.add(panelsx, BorderLayout.LINE_START);
+		
 		
 		paneldx.setLayout(new GridLayout(1, 1, 5, 5));
 		paneldx.setBackground(Color.orange);
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		
-		panelTitolo.setLayout(new BorderLayout(4, 4));
+		panelTitolo.setLayout(new BorderLayout(4, 4)); //questi numeri non hanno effetto
 		panelTitolo.setBackground(Color.red);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		
@@ -116,23 +106,30 @@ public class MenuPrincipale extends JFrame {
 		panelsx.add(btnObiettivi);
 		
 		btnEsci = new JButton("Esci");
+		panelsx.add(btnEsci);
+		
 		btnEsci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				dispose();
 			}
 		});
-		panelsx.add(btnEsci);
 		
+		//Ho modificato la parte che riguarda l'immagine per permettere di ridimensionare
+		//Così è come avevamo fatto prima
 		
-		
-		try {
+		/*
+		 * try {
 			myPicture = ImageIO.read(new File("media/cartman.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		titolo = new JLabel(new ImageIcon(myPicture));
+		*/
+		// Così invece è possibile ridimensionare a piacimento usando vari algoritmi come SCALE_DEFAULT
+		ImageIcon icon = new ImageIcon("media/titolo.png");
+		Image scaleImage = icon.getImage().getScaledInstance(378, 133,Image.SCALE_DEFAULT);
+		titolo = new JLabel(new ImageIcon(scaleImage));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}
 
