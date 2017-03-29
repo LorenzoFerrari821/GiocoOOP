@@ -34,16 +34,19 @@ public class MenuPrincipale extends JFrame {
 	private JButton btnExtra;
 	private JButton btnObiettivi;
 	private JButton btnEsci;
-	private JPanel panelTitolo;
-	private BufferedImage myPicture;
+	private JPanel panelTitolo;;
 	private JLabel titolo;
-	
-	
+	private JPanel nuovapartita;
+	private JLabel giocatore;
+	private JLabel tutorial;
+	private JLabel mappa;
+
+
 	public MenuPrincipale() {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setMinimumSize(new Dimension(800,600));   // Questo impedisce che la finestra venga rimpicciolita troppo
+		setMinimumSize(new Dimension(800,600));   
 		
 		setBounds(0, 0, 1280, 720);
 		
@@ -90,6 +93,27 @@ public class MenuPrincipale extends JFrame {
 		btnNuovaPartita = new JButton("Nuova Partita");
 		panelsx.add(btnNuovaPartita);
 		
+		btnNuovaPartita.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				nuovapartita=new JPanel();
+				nuovapartita.setLayout(new GridLayout(5,2,5,5));
+				nuovapartita.setBackground(Color.white);
+				contentPane.add(nuovapartita,BorderLayout.CENTER);
+				giocatore=new JLabel("                                        Nome Giocatore");
+				tutorial=new JLabel("                                        Tutorial");
+				mappa=new JLabel("                                         Mappa");
+				nuovapartita.add(giocatore);
+				nuovapartita.add(tutorial);
+				nuovapartita.add(mappa);
+				
+			
+				
+				
+			}
+		});
+		
 		btnCaricaPartita = new JButton("Carica Partita");
 		panelsx.add(btnCaricaPartita);
 		
@@ -115,18 +139,6 @@ public class MenuPrincipale extends JFrame {
 			}
 		});
 		
-		//Ho modificato la parte che riguarda l'immagine per permettere di ridimensionare
-		//Così è come avevamo fatto prima
-		
-		/*
-		 * try {
-			myPicture = ImageIO.read(new File("media/cartman.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		// Così invece è possibile ridimensionare a piacimento usando vari algoritmi come SCALE_DEFAULT
 		ImageIcon icon = new ImageIcon("media/titolo.png");
 		Image scaleImage = icon.getImage().getScaledInstance(378, 133,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleImage));
