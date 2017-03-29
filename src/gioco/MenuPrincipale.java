@@ -74,16 +74,16 @@ public class MenuPrincipale extends JFrame {
 
 		
 		panelsx.setLayout(new GridLayout(12, 1, 5, 5));
-		panelsx.setBackground(Color.green);
+		panelsx.setBackground(Color.DARK_GRAY);
 		contentPane.add(panelsx, BorderLayout.LINE_START);
 		
 		
 		paneldx.setLayout(new GridLayout(1, 1, 5, 5));
-		paneldx.setBackground(Color.orange);
+		paneldx.setBackground(Color.decode("0xFABCD"));
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		
 		panelTitolo.setLayout(new BorderLayout(4, 4)); //questi numeri non hanno effetto
-		panelTitolo.setBackground(Color.red);
+		panelTitolo.setBackground(Color.white);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		
 		
