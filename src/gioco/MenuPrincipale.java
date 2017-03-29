@@ -20,6 +20,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class MenuPrincipale extends JFrame {
 
@@ -40,6 +42,8 @@ public class MenuPrincipale extends JFrame {
 	private JLabel giocatore;
 	private JLabel tutorial;
 	private JLabel mappa;
+	private JLabel civilta;
+	private JLabel difficolta;
 
 
 	public MenuPrincipale() {
@@ -99,18 +103,20 @@ public class MenuPrincipale extends JFrame {
 				paneldx.setVisible(false);
 				nuovapartita=new JPanel();
 				nuovapartita.setLayout(new GridLayout(5,2,5,5));
-				nuovapartita.setBackground(Color.white);
+				nuovapartita.setBackground(Color.decode("0x9379db"));
 				contentPane.add(nuovapartita,BorderLayout.CENTER);
 				giocatore=new JLabel("                                        Nome Giocatore");
 				tutorial=new JLabel("                                        Tutorial");
 				mappa=new JLabel("                                         Mappa");
+				civilta=new JLabel("                                      Civiltà");
+				difficolta=new JLabel("                                   difficoltà");
 				nuovapartita.add(giocatore);
 				nuovapartita.add(tutorial);
 				nuovapartita.add(mappa);
+				nuovapartita.add(civilta);
+				nuovapartita.add(difficolta);
 				
-			
-				
-				
+					
 			}
 		});
 		
