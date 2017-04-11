@@ -8,7 +8,7 @@ public class Gioco {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuPrincipale frame = new MenuPrincipale();
+					GUIMenuPrincipale frame = new GUIMenuPrincipale();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

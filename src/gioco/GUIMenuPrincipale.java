@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,33 +21,28 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 
-public class MenuPrincipale extends JFrame {
+public class GUIMenuPrincipale extends JFrame {
 
 
 	private JPanel contentPane;  
 	private JPanel panelsx;
 	private JPanel paneldx;
-	private JButton btnNuovaPartita;
-	private JButton btnCaricaPartita;
-	private JButton btnMultiplayer;
-	private JButton btnOpzioni;
-	private JButton btnExtra;
-	private JButton btnObiettivi;
-	private JButton btnEsci;
+	private RoundedCornerButton btnNuovaPartita;
+	private RoundedCornerButton btnCaricaPartita;
+	private RoundedCornerButton btnMultiplayer;
+	private RoundedCornerButton btnOpzioni;
+	private RoundedCornerButton btnExtra;
+	private RoundedCornerButton btnObiettivi;
+	private RoundedCornerButton btnEsci;
 	private JPanel panelTitolo;;
 	private JLabel titolo;
-	private JPanel nuovapartita;
-	private JLabel giocatore;
-	private JLabel tutorial;
-	private JLabel mappa;
-	private JLabel civilta;
-	private JLabel difficolta;
+	private GUINuovaPartita panelNuovaPartita;
+	
 
 
-	public MenuPrincipale() {
+	public GUIMenuPrincipale() {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -94,48 +90,56 @@ public class MenuPrincipale extends JFrame {
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		
 		
-		btnNuovaPartita = new JButton("Nuova Partita");
+		btnNuovaPartita = new RoundedCornerButton();
+		ImageIcon iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
+		Image scalebtnNuovaPartita = iconbtnNuovaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnNuovaPartita.setIcon(iconbtnNuovaPartita);
 		panelsx.add(btnNuovaPartita);
-		
+
 		btnNuovaPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				paneldx.setVisible(false);
-				nuovapartita=new JPanel();
-				nuovapartita.setLayout(new GridLayout(5,2,5,5));
-				nuovapartita.setBackground(Color.decode("0x9379db"));
-				contentPane.add(nuovapartita,BorderLayout.CENTER);
-				giocatore=new JLabel("                                        Nome Giocatore");
-				tutorial=new JLabel("                                        Tutorial");
-				mappa=new JLabel("                                         Mappa");
-				civilta=new JLabel("                                      Civiltà");
-				difficolta=new JLabel("                                   difficoltà");
-				nuovapartita.add(giocatore);
-				nuovapartita.add(tutorial);
-				nuovapartita.add(mappa);
-				nuovapartita.add(civilta);
-				nuovapartita.add(difficolta);
+				panelNuovaPartita=new GUINuovaPartita();
 				
-					
+				contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
 			}
 		});
 		
-		btnCaricaPartita = new JButton("Carica Partita");
+		btnCaricaPartita = new RoundedCornerButton();
+		ImageIcon iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
+		Image scalebtnCaricaPartita = iconbtnCaricaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnCaricaPartita.setIcon(iconbtnCaricaPartita);
 		panelsx.add(btnCaricaPartita);
 		
-		btnMultiplayer = new JButton("Multiplayer");
+		btnMultiplayer = new RoundedCornerButton();
+		ImageIcon iconbtnMultiplayer = new ImageIcon("media/btnMultiplayer.png");
+		Image scalebtnMultiplayer = iconbtnMultiplayer.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnMultiplayer.setIcon(iconbtnMultiplayer);
 		panelsx.add(btnMultiplayer);
 		
-		btnOpzioni = new JButton("Opzioni");
+		btnOpzioni = new RoundedCornerButton();
+		ImageIcon iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
+		Image scalebtnOpzioni = iconbtnOpzioni.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnOpzioni.setIcon(iconbtnOpzioni);
 		panelsx.add(btnOpzioni);
 		
-		btnExtra = new JButton("Extra");
+		btnExtra = new RoundedCornerButton();
+		ImageIcon iconbtnExtra = new ImageIcon("media/btnExtra.png");
+		Image scalebtnExtra = iconbtnExtra.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnExtra.setIcon(iconbtnExtra);
 		panelsx.add(btnExtra);
 		
-		btnObiettivi = new JButton("Obiettivi");
+		btnObiettivi = new RoundedCornerButton();
+		ImageIcon iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
+		Image scalebtnObiettivi = iconbtnObiettivi.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnObiettivi.setIcon(iconbtnObiettivi);
 		panelsx.add(btnObiettivi);
 		
-		btnEsci = new JButton("Esci");
+		btnEsci = new RoundedCornerButton();
+		ImageIcon iconbtnEsci = new ImageIcon("media/btnEsci.png");
+		Image scalebtnEsci = iconbtnEsci.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
+		btnEsci.setIcon(iconbtnEsci);
 		panelsx.add(btnEsci);
 		
 		btnEsci.addMouseListener(new MouseAdapter() {
@@ -145,9 +149,9 @@ public class MenuPrincipale extends JFrame {
 			}
 		});
 		
-		ImageIcon icon = new ImageIcon("media/titolo.png");
-		Image scaleImage = icon.getImage().getScaledInstance(378, 133,Image.SCALE_DEFAULT);
-		titolo = new JLabel(new ImageIcon(scaleImage));
+		ImageIcon iconTitolo = new ImageIcon("media/titolo.png");
+		Image scaleTitolo = iconTitolo.getImage().getScaledInstance(378, 133,Image.SCALE_DEFAULT);
+		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}
 
