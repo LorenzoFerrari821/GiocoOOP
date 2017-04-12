@@ -28,6 +28,7 @@ public class GUICaricaPartita extends JPanel {
 	private JLabel lblNomeGiocatore, lblNomeGiocatorev;
 	private JLabel lblTutorial, lblTutorialv;
 	private JLabel lblDifficolta, lblDifficoltav;
+	private JLabel lblMappa, lblMappav;
 	private JLabel lblCivilta, lblCiviltav;
 	private JLabel lblTurno, lblTurnov;
 	private JLabel lblEpoca, lblEpocav;
@@ -66,6 +67,8 @@ public class GUICaricaPartita extends JPanel {
 		lblTutorial.setFont(lblTutorial.getFont().deriveFont(20f));
 		lblDifficolta = new JLabel("Difficoltà: ");
 		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(20f));
+		lblMappa = new JLabel("Mappa: ");
+		lblMappa.setFont(lblMappa.getFont().deriveFont(20f));
 		lblCivilta = new JLabel("Civiltà: ");
 		lblCivilta.setFont(lblCivilta.getFont().deriveFont(20f));
 		lblTurno = new JLabel("Turno: ");
@@ -94,6 +97,8 @@ public class GUICaricaPartita extends JPanel {
 		c.gridy ++;
 		pnlInfoPartita.add(lblDifficolta, c);
 		c.gridy ++;
+		pnlInfoPartita.add(lblMappa, c);
+		c.gridy ++;
 		pnlInfoPartita.add(lblCivilta, c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblTurno, c);
@@ -114,6 +119,8 @@ public class GUICaricaPartita extends JPanel {
 		lblTutorialv.setFont(lblTutorialv.getFont().deriveFont(16f));
 		lblDifficoltav = new JLabel("Medio");
 		lblDifficoltav.setFont(lblDifficoltav.getFont().deriveFont(16f));
+		lblMappav = new JLabel("Predefinita");
+		lblMappav.setFont(lblMappav.getFont().deriveFont(16f));
 		lblCiviltav = new JLabel("Romani");
 		lblCiviltav.setFont(lblCiviltav.getFont().deriveFont(16f));
 		lblTurnov = new JLabel("13");
@@ -138,6 +145,8 @@ public class GUICaricaPartita extends JPanel {
 		pnlInfoPartita.add(lblTutorialv, c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblDifficoltav, c);
+		c.gridy ++;
+		pnlInfoPartita.add(lblMappav, c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblCiviltav, c);
 		c.gridy ++;

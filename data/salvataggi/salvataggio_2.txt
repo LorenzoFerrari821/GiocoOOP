@@ -1,0 +1,11 @@
+NomeGiocatore_:Lorenzo
+Tutorial_:No
+Difficolta_:Difficile
+Mappa_:Predefinita
+Civilta_:Sassoni
+Turno_:21
+Epoca_:Medioevo
+Oro_:13000
+Materiali_:25000
+PuntiRicerca_:7
+

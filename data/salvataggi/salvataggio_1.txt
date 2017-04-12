@@ -1,0 +1,11 @@
+NomeGiocatore_:Werther158
+Tutorial_:No
+Difficolta_:Medio
+Mappa_:Predefinita
+Civilta_:Romani
+Turno_:13
+Epoca_:Medioevo
+Oro_:13000
+Materiali_:25000
+PuntiRicerca_:7
+

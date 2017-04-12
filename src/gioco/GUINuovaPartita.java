@@ -13,6 +13,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -21,6 +23,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -84,6 +87,16 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 		
+		lblDifficolta = new JLabel("Difficoltà: ");
+		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(22f));
+		pnlMenu.add(lblDifficolta, c);
+		
+		
+		
+		c.gridy ++;
+		pnlMenu.add(new JLabel(" "), c);
+		c.gridy ++;
+		
 		lblMappa = new JLabel("Mappa: ");
 		lblMappa.setFont(lblMappa.getFont().deriveFont(22f));
 		pnlMenu.add(lblMappa, c);
@@ -95,14 +108,6 @@ public class GUINuovaPartita extends JPanel {
 		lblCivilta = new JLabel("Civiltà: ");
 		lblCivilta.setFont(lblCivilta.getFont().deriveFont(22f));
 		pnlMenu.add(lblCivilta, c);
-		
-		c.gridy ++;
-		pnlMenu.add(new JLabel(" "), c);
-		c.gridy ++;
-		
-		lblDifficolta = new JLabel("Difficoltà: ");
-		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(22f));
-		pnlMenu.add(lblDifficolta, c);
 		
 		c.gridy = 0;
 		c.gridx = 2;
@@ -118,6 +123,18 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
+		
+		listDifficolta = new  JComboBox<String>();
+		listDifficolta.addItem("Facile");
+		listDifficolta.addItem("Medio");
+		listDifficolta.addItem("Difficile");
+		listDifficolta.addItem("Maestro");
+		pnlMenu.add(listDifficolta, c);
+		
+		c.gridy ++;
+		pnlMenu.add(new JLabel(" "), c);
+		c.gridy ++;
+		
 		listMappa = new  JComboBox<String>();
 		listMappa.addItem("Predefinita");
 		listMappa.addItem("Generata casualmente");
@@ -135,18 +152,6 @@ public class GUINuovaPartita extends JPanel {
 		listCivilta.addItem("Britanni");
 		listCivilta.addItem("Sassoni");
 		pnlMenu.add(listCivilta, c);
-		
-		c.gridy ++;
-		pnlMenu.add(new JLabel(" "), c);
-		c.gridy ++;
-		
-		listDifficolta = new  JComboBox<String>();
-		listDifficolta.addItem("Facile");
-		listDifficolta.addItem("Medio");
-		listDifficolta.addItem("Difficile");
-		listDifficolta.addItem("Maestro");
-		pnlMenu.add(listDifficolta, c);
-		
 		
 		c.gridx = 0;
 		c.gridy ++;
@@ -173,8 +178,63 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 		btnAvvia = new RoundedCornerButton("AVVIA PARTITA");
 		btnAvvia.setFont(fontFuturist.deriveFont(16f));
+		btnAvvia.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				creaNuovaPartita();
+			}
+		});
 		pnlMenu.add(btnAvvia, c);
 		
 		add(pnlMenu, BorderLayout.CENTER);
+	}
+	
+	public void creaNuovaPartita()
+	{
+		if(txtNomeGiocatore.getText().equals(""))
+		{
+			JOptionPane.showMessageDialog(pnlMenu, "Il campo Nome Giocatore non può essere vuoto.");
+		}
+		else
+		{
+			long numFile = -1;
+			String nomeFile;
+			
+			try {
+				numFile = Files.list(Paths.get("data/salvataggi")).count();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
+						+ "nella creazione della partita, verificare che la cartella dei salvataggi esista.");
+			}
+			
+			if(numFile != -1)
+			{
+				Boolean nomeUnico = true;
+				File folder = new File("data/salvataggi");
+				File[] listOfFiles = folder.listFiles();
+				do {
+					nomeUnico = true;
+					nomeFile = "salvataggio_" + Long.toString(numFile + 1) + ".txt";
+					for(File f : listOfFiles)
+					{
+						if(nomeFile.equals(f.getName()))
+							nomeUnico = false;
+					}
+					if(nomeUnico == false)
+						numFile++;
+				}while(nomeUnico == false);
+				
+				
+				File f = new File("data/salvataggi/"+ nomeFile);
+				f.getParentFile().mkdirs();
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
