@@ -18,7 +18,7 @@ class RoundedCornerButton extends JButton {
     protected static final int FOCUS_STROKE = 2;
     protected final Color fc = new Color(100, 150, 255, 200);
     protected final Color ac = new Color(230, 230, 230);
-    protected final Color rc = Color.BLUE;
+    protected final Color rc = Color.DARK_GRAY;
     protected Shape shape;
     protected Shape border;
     protected Shape base;

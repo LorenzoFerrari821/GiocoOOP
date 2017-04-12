@@ -94,17 +94,20 @@ public class GUIMenuPrincipale extends JFrame {
 		ImageIcon iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
 		Image scalebtnNuovaPartita = iconbtnNuovaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnNuovaPartita.setIcon(iconbtnNuovaPartita);
-		panelsx.add(btnNuovaPartita);
 
 		btnNuovaPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				paneldx.setVisible(false);
-				panelNuovaPartita=new GUINuovaPartita();
-				
-				contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
+				try {
+					panelNuovaPartita.setVisible(true);
+				}catch(NullPointerException e){
+					panelNuovaPartita=new GUINuovaPartita();
+					contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
+				};
 			}
 		});
+		panelsx.add(btnNuovaPartita);
 		
 		btnCaricaPartita = new RoundedCornerButton();
 		ImageIcon iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
