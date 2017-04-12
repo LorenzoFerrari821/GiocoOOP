@@ -39,6 +39,11 @@ public class GUIMenuPrincipale extends JFrame {
 	private JPanel panelTitolo;;
 	private JLabel titolo;
 	private GUINuovaPartita panelNuovaPartita;
+	private GUICaricaPartita panelCaricaPartita;
+	private GUIMultiplayer panelMultiplayer;
+	private GUIOpzioni panelOpzioni;
+	private GUIExtra panelExtra;
+	private GUIObiettivi panelObiettivi;
 	
 
 
@@ -99,6 +104,7 @@ public class GUIMenuPrincipale extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
 				try {
 					panelNuovaPartita.setVisible(true);
 				}catch(NullPointerException e){
@@ -113,30 +119,96 @@ public class GUIMenuPrincipale extends JFrame {
 		ImageIcon iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
 		Image scalebtnCaricaPartita = iconbtnCaricaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnCaricaPartita.setIcon(iconbtnCaricaPartita);
+		btnCaricaPartita.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
+				try {
+					panelCaricaPartita.setVisible(true);
+				}catch(NullPointerException e){
+					panelCaricaPartita=new GUICaricaPartita();
+					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
+				};
+			}
+		});
 		panelsx.add(btnCaricaPartita);
 		
 		btnMultiplayer = new RoundedCornerButton();
 		ImageIcon iconbtnMultiplayer = new ImageIcon("media/btnMultiplayer.png");
 		Image scalebtnMultiplayer = iconbtnMultiplayer.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnMultiplayer.setIcon(iconbtnMultiplayer);
+		
+		btnMultiplayer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
+				try {
+					panelMultiplayer.setVisible(true);
+				}catch(NullPointerException e){
+					panelMultiplayer=new GUIMultiplayer();
+					contentPane.add(panelMultiplayer,BorderLayout.CENTER);
+				};
+			}
+		});
 		panelsx.add(btnMultiplayer);
 		
 		btnOpzioni = new RoundedCornerButton();
 		ImageIcon iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
 		Image scalebtnOpzioni = iconbtnOpzioni.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnOpzioni.setIcon(iconbtnOpzioni);
+		btnOpzioni.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
+				try {
+					panelOpzioni.setVisible(true);
+				}catch(NullPointerException e){
+					panelOpzioni=new GUIOpzioni();
+					contentPane.add(panelOpzioni,BorderLayout.CENTER);
+				};
+			}
+		});
 		panelsx.add(btnOpzioni);
 		
 		btnExtra = new RoundedCornerButton();
 		ImageIcon iconbtnExtra = new ImageIcon("media/btnExtra.png");
 		Image scalebtnExtra = iconbtnExtra.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnExtra.setIcon(iconbtnExtra);
+		btnExtra.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
+				try {
+					panelExtra.setVisible(true);
+				}catch(NullPointerException e){
+					panelExtra = new GUIExtra();
+					contentPane.add(panelExtra, BorderLayout.CENTER);
+				};
+			}
+		});
 		panelsx.add(btnExtra);
 		
 		btnObiettivi = new RoundedCornerButton();
 		ImageIcon iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
 		Image scalebtnObiettivi = iconbtnObiettivi.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnObiettivi.setIcon(iconbtnObiettivi);
+		btnObiettivi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				paneldx.setVisible(false);
+				allPanelsdxNotVisibles();
+				try {
+					panelObiettivi.setVisible(true);
+				}catch(NullPointerException e){
+					panelObiettivi = new GUIObiettivi();
+					contentPane.add(panelObiettivi,BorderLayout.CENTER);
+				};
+			}
+		});
 		panelsx.add(btnObiettivi);
 		
 		btnEsci = new RoundedCornerButton();
@@ -157,5 +229,26 @@ public class GUIMenuPrincipale extends JFrame {
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}
-
+	
+	public void allPanelsdxNotVisibles()
+	{
+		try {
+			panelNuovaPartita.setVisible(false);
+		}catch(NullPointerException e){};
+		try {
+			panelCaricaPartita.setVisible(false);
+		}catch(NullPointerException e){};
+		try {
+			panelMultiplayer.setVisible(false);
+		}catch(NullPointerException e){};
+		try {
+			panelOpzioni.setVisible(false);
+		}catch(NullPointerException e){};
+		try {
+			panelExtra.setVisible(false);
+		}catch(NullPointerException e){};
+		try {
+			panelObiettivi.setVisible(false);
+		}catch(NullPointerException e){};
+	}
 }
