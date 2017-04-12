@@ -12,6 +12,12 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+/**
+ * Definisce e modella lo stile dei JButton arrotondati. Non creata da noi ma utilizzata
+ * per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
+ * @author others
+ *
+ */
 class RoundedCornerButton extends JButton {
     private static final double ARC_WIDTH  = 16d;
     private static final double ARC_HEIGHT = 16d;

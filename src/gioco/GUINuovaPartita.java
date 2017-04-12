@@ -28,6 +28,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+/**
+ * Questa classe si occupa di organizzare e definire l'interfaccia grafica
+ * del sottomenù 'Nuova Partita', contiene anche i mouseListener dei relativi
+ * pulsanti in essa contenuti e le azioni da compiere.
+ * @author Werther&Lorenzo
+ *
+ */
 public class GUINuovaPartita extends JPanel {
 
 	private JPanel pnlMenu;
@@ -46,6 +53,10 @@ public class GUINuovaPartita extends JPanel {
 	private JLabel lblDifficolta;
 	private Font fontFuturist;
 	
+	/**
+	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
+	 * all'interno dell'interfaccia.
+	 */
 	GUINuovaPartita() {	
 		try {
 		    //Creo un font custom
@@ -189,6 +200,11 @@ public class GUINuovaPartita extends JPanel {
 		add(pnlMenu, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Questo metodo viene invocato nel momento in cui il JButton Avvia Partita è
+	 * premuto. Raccoglie la configurazione della partita inserita dall'utente e con
+	 * essi crea un primo file di salvataggio nella cartella 'data/salvataggi'.
+	 */
 	public void creaNuovaPartita()
 	{
 		if(txtNomeGiocatore.getText().equals(""))

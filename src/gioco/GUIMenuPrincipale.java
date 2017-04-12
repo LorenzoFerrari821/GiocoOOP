@@ -23,8 +23,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 
+/**
+ * Questa classe rappresenta il JFrame relativo al Menù Principale,
+ * al suo interno vengono richiamati tutti i sottomenù e vengono gestite
+ * le azioni sui bottoni principali. 
+ * @author Werther&Lorenzo
+ *
+ */
 public class GUIMenuPrincipale extends JFrame {
-
 
 	private JPanel contentPane;  
 	private JPanel panelsx;
@@ -46,7 +52,11 @@ public class GUIMenuPrincipale extends JFrame {
 	private GUIObiettivi panelObiettivi;
 	
 
-
+	/**
+	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
+	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
+	 * per la GUI, insieme a tutti gli altri elementi.
+	 */
 	public GUIMenuPrincipale() {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -230,6 +240,12 @@ public class GUIMenuPrincipale extends JFrame {
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Questo metodo quando invocato si assicura che tutti i JPanel nella zona a destra
+	 * siano non visibili. Viene invocato per permettere l'apertura di uno specifico JPanel
+	 * che, prima di poter essere reso visibile, necessita che lo spazio che andrà ad occupare
+	 * sia vuoto.
+	 */
 	public void allPanelsdxNotVisibles()
 	{
 		try {
