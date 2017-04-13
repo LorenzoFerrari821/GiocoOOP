@@ -254,6 +254,8 @@ public class GUICaricaPartita extends JPanel {
 	{
 		File folder = new File("data/salvataggi");
 		File[] listFile = folder.listFiles();
+		cmbSalvataggi.removeAllItems();
+		
 		for(File f : listFile)
 		{
 			cmbSalvataggi.addItem(f.getName());
