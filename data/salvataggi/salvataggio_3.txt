@@ -1,4 +1,4 @@
-NomeGiocatore_:gfhfgh
+NomeGiocatore_:Pollo
 Tutorial_:No
 Difficolta_:Facile
 Mappa_:Predefinita

@@ -1,0 +1,10 @@
+NomeGiocatore_:mario
+Tutorial_:Si
+Difficolta_:Maestro
+Mappa_:Generata casualmente
+Civilta_:Sassoni
+Turno_:0
+Epoca_:Classica
+Oro_:0
+Materiali_:0
+PuntiRicerca_:0

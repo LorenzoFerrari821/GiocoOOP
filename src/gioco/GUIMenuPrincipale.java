@@ -100,7 +100,7 @@ public class GUIMenuPrincipale extends JFrame {
 		paneldx.setBackground(Color.decode("0xFABCD"));
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		
-		panelTitolo.setLayout(new BorderLayout(4, 4)); //questi numeri non hanno effetto
+		panelTitolo.setLayout(new BorderLayout(4, 4));
 		panelTitolo.setBackground(Color.white);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		
@@ -136,6 +136,7 @@ public class GUIMenuPrincipale extends JFrame {
 				allPanelsdxNotVisibles();
 				try {
 					panelCaricaPartita.setVisible(true);
+					panelCaricaPartita.caricaFileInComboBox();
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita();
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);

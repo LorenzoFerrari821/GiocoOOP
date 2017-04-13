@@ -11,7 +11,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -221,7 +223,8 @@ public class GUINuovaPartita extends JPanel {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
-						+ "nella creazione della partita, verificare che la cartella dei salvataggi esista.");
+						+ "nella creazione della partita, verificare che la cartella dei salvataggi esista.",
+						"Errore", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			if(numFile != -1)
@@ -244,8 +247,36 @@ public class GUINuovaPartita extends JPanel {
 				
 				File f = new File("data/salvataggi/"+ nomeFile);
 				f.getParentFile().mkdirs();
+				BufferedWriter out;
+				
 				try {
 					f.createNewFile();
+					FileWriter fstream = new FileWriter("data/salvataggi/" + nomeFile, true);
+					out = new BufferedWriter(fstream);
+					out.write("NomeGiocatore_:" + txtNomeGiocatore.getText());
+					out.newLine();
+					if(chkTut.isSelected())
+						out.write("Tutorial_:Si");
+					else
+						out.write("Tutorial_:No");
+					out.newLine();
+					out.write("Difficolta_:" + listDifficolta.getItemAt(listDifficolta.getSelectedIndex()));
+					out.newLine();
+					out.write("Mappa_:" + listMappa.getItemAt(listMappa.getSelectedIndex()));
+					out.newLine();
+					out.write("Civilta_:" + listCivilta.getItemAt(listCivilta.getSelectedIndex()));
+					out.newLine();
+					out.write("Turno_:0");
+					out.newLine();
+					out.write("Epoca_:Classica");
+					out.newLine();
+					out.write("Oro_:0");
+					out.newLine();
+					out.write("Materiali_:0");
+					out.newLine();
+					out.write("PuntiRicerca_:0");
+					out.newLine();
+					out.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

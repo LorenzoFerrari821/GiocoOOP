@@ -7,14 +7,22 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -40,6 +48,7 @@ public class GUICaricaPartita extends JPanel {
 	private RoundedCornerButton btnIndietro;
 	private RoundedCornerButton btnCarica;
 	private RoundedCornerButton btnElimina;
+	private List<JLabel> lblValues;
 	
 	GUICaricaPartita() {	
 		try {
@@ -111,28 +120,40 @@ public class GUICaricaPartita extends JPanel {
 		c.gridy ++;
 		pnlInfoPartita.add(lblPuntiRicerca, c);
 		
-		lblNomeSalvataggiov = new JLabel("Salvataggio 1");
+		lblNomeSalvataggiov = new JLabel("");
 		lblNomeSalvataggiov.setFont(lblNomeSalvataggiov.getFont().deriveFont(16f));
-		lblNomeGiocatorev = new JLabel("Werther158");
+		lblNomeGiocatorev = new JLabel("");
 		lblNomeGiocatorev.setFont(lblNomeGiocatorev.getFont().deriveFont(16f));
-		lblTutorialv = new JLabel("NO");
+		lblTutorialv = new JLabel("");
 		lblTutorialv.setFont(lblTutorialv.getFont().deriveFont(16f));
-		lblDifficoltav = new JLabel("Medio");
+		lblDifficoltav = new JLabel("");
 		lblDifficoltav.setFont(lblDifficoltav.getFont().deriveFont(16f));
-		lblMappav = new JLabel("Predefinita");
+		lblMappav = new JLabel("");
 		lblMappav.setFont(lblMappav.getFont().deriveFont(16f));
-		lblCiviltav = new JLabel("Romani");
+		lblCiviltav = new JLabel("");
 		lblCiviltav.setFont(lblCiviltav.getFont().deriveFont(16f));
-		lblTurnov = new JLabel("13");
+		lblTurnov = new JLabel("");
 		lblTurnov.setFont(lblTurnov.getFont().deriveFont(16f));
-		lblEpocav = new JLabel("Medioevo");
+		lblEpocav = new JLabel("");
 		lblEpocav.setFont(lblEpocav.getFont().deriveFont(16f));
-		lblOrov = new JLabel("13000");
+		lblOrov = new JLabel("");
 		lblOrov.setFont(lblOrov.getFont().deriveFont(16f));
-		lblMaterialiv = new JLabel("25000");
+		lblMaterialiv = new JLabel("");
 		lblMaterialiv.setFont(lblMaterialiv.getFont().deriveFont(16f));
-		lblPuntiRicercav = new JLabel("7");
+		lblPuntiRicercav = new JLabel("");
 		lblPuntiRicercav.setFont(lblPuntiRicercav.getFont().deriveFont(16f));
+		
+		lblValues = new ArrayList<JLabel>();
+		lblValues.add(lblNomeGiocatorev);
+		lblValues.add(lblTutorialv);
+		lblValues.add(lblDifficoltav);
+		lblValues.add(lblMappav);
+		lblValues.add(lblCiviltav);
+		lblValues.add(lblTurnov);
+		lblValues.add(lblEpocav);
+		lblValues.add(lblOrov);
+		lblValues.add(lblMaterialiv);
+		lblValues.add(lblPuntiRicercav);
 		
 		c.anchor = new GridBagConstraints().LINE_START;
 		c.gridx = 1;
@@ -172,7 +193,12 @@ public class GUICaricaPartita extends JPanel {
 		d.gridy ++;
 		
 		cmbSalvataggi = new JComboBox<String>();
-		cmbSalvataggi.addItem("...");
+		cmbSalvataggi.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent event) {
+				if(event.getStateChange() == ItemEvent.SELECTED)
+					caricaInfoFile();
+			}
+		});
 		pnlMenu.add(cmbSalvataggi, d);
 		
 		d.gridy ++;
@@ -219,7 +245,52 @@ public class GUICaricaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnElimina, d);
+		caricaFileInComboBox();
 		
 		add(pnlMenu, BorderLayout.CENTER);
+	}
+	
+	public void caricaFileInComboBox()
+	{
+		File folder = new File("data/salvataggi");
+		File[] listFile = folder.listFiles();
+		for(File f : listFile)
+		{
+			cmbSalvataggi.addItem(f.getName());
+		}
+		if(listFile.length == 0)
+		{
+			cmbSalvataggi.addItem("Nessun salvataggio trovato");
+		}		
+	}
+	
+	public void caricaInfoFile()
+	{
+		try {
+			File f = new File("data/salvataggi/" + cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
+			FileReader freader = new FileReader(f);
+			BufferedReader breader = new BufferedReader(freader);
+			String linea;
+			
+			lblNomeSalvataggiov.setText(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
+			
+			try {
+				for(JLabel lbl : lblValues)
+				{
+					linea = breader.readLine();
+					linea = linea.substring(linea.indexOf("_:") + 2);
+					lbl.setText(linea);
+				}
+			}catch(NullPointerException e)
+			{
+				JOptionPane.showMessageDialog(this, "Il salvataggio selezionato non è valido", 
+						"Errore", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+			
+			
+		} catch (IOException e) {}
+		
 	}
 }
