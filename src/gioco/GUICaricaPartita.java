@@ -26,6 +26,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Questa classe si occupa di organizzare e definire l'interfaccia grafica
+ * del sottomenù 'Carica Partita', contiene anche i mouseListener dei relativi
+ * pulsanti in essa contenuti e le azioni da compiere.
+ * @author Werther&Lorenzo
+ *
+ */
 public class GUICaricaPartita extends JPanel {
 
 	private JPanel pnlMenu;
@@ -50,6 +57,9 @@ public class GUICaricaPartita extends JPanel {
 	private RoundedCornerButton btnElimina;
 	private List<JLabel> lblValues;
 	
+	/**
+	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
+	 */
 	GUICaricaPartita() {	
 		try {
 		    //Creo un font custom
@@ -250,6 +260,9 @@ public class GUICaricaPartita extends JPanel {
 		add(pnlMenu, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Cerca tutti i nomi di file nella cartella data/salvataggi e li carica nella ComboBox
+	 */
 	public void caricaFileInComboBox()
 	{
 		File folder = new File("data/salvataggi");
@@ -266,6 +279,10 @@ public class GUICaricaPartita extends JPanel {
 		}		
 	}
 	
+	/**
+	 * Controlla il nome del salvataggio selezionato nella combobox e ne carica le informazioni
+	 * sul pannello panelInfo
+	 */
 	public void caricaInfoFile()
 	{
 		try {
