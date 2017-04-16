@@ -54,6 +54,7 @@ public class GUINuovaPartita extends JPanel {
 	private JLabel lblCivilta;
 	private JLabel lblDifficolta;
 	private Font fontFuturist;
+	private GUIPartita framePartita;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -194,7 +195,11 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				creaNuovaPartita();
+				if(creaNuovaPartita() == 1)
+				{
+					framePartita = new GUIPartita();
+					framePartita.setVisible(true);
+				}
 			}
 		});
 		pnlMenu.add(btnAvvia, c);
@@ -207,11 +212,12 @@ public class GUINuovaPartita extends JPanel {
 	 * premuto. Raccoglie la configurazione della partita inserita dall'utente e con
 	 * essi crea un primo file di salvataggio nella cartella 'data/salvataggi'.
 	 */
-	public void creaNuovaPartita()
+	public int creaNuovaPartita()
 	{
 		if(txtNomeGiocatore.getText().equals(""))
 		{
 			JOptionPane.showMessageDialog(pnlMenu, "Il campo Nome Giocatore non può essere vuoto.");
+			return -1;
 		}
 		else
 		{
@@ -280,8 +286,10 @@ public class GUINuovaPartita extends JPanel {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return -1;
 				}
 			}
 		}
+		return 1;
 	}
 }
