@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -13,6 +16,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -23,6 +28,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -37,10 +43,10 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBottom;
 	private JPanel panelCenter;
 	private JPanel panelBtnGoRight;
-	//private JPanel panelPartita;
+	private JPanel panelMsg;
 	private JPanel panelStats;
 	private JPanel panelMappa;
-	//private JPanel panelPulsanti;
+	private JPanel panelPulsanti;
 	private JLabel lblOro;
 	private JLabel lblOrov;
 	private JLabel lblMateriali;
@@ -60,6 +66,13 @@ public class GUIPartita extends JFrame{
 	Image scalelblPartita;
 	ImageIcon newiconlblPartita;
 	int partitaHeight = 16, partitaWidth = 31;
+	private Font fontFuturist;
+	private JButton btnApriMsg;
+	private JTextField txtMsg;
+	private JButton btnCostruisci;
+	private JButton btnRicerca;
+	private JButton btnInfoPartita;
+	private JButton btnImpostazioni;
 	
 	GUIPartita()
 	{
@@ -69,6 +82,19 @@ public class GUIPartita extends JFrame{
 		setMinimumSize(new Dimension(1280,720));   
 		
 		setBounds(0, 0, 1280, 720);
+		
+		try {
+		    //Creo un font custom
+		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //registro il font
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1) {
@@ -89,17 +115,29 @@ public class GUIPartita extends JFrame{
 		contentPane.setLayout(new GridLayout2(3, 1, 0, 0));
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
 		panelTop = new JPanel(new GridLayout(1, 3, 0, 0));
-		panelBottom = new JPanel(new GridLayout2(1, 3, 0, 0));
+		panelBottom = new JPanel(new GridLayout(1, 3, 0, 0));
 		panelCenter = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
 		
-		lblOro = new JLabel("Oro: ");
+		lblOro = new JLabel("ORO");
+		lblOro.setFont(fontFuturist.deriveFont(13f));
+		lblOro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblOrov = new JLabel("0");
-		lblMateriali = new JLabel("Materiali: ");
+		lblOrov.setFont(fontFuturist.deriveFont(13f));
+		lblOrov.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		lblMateriali = new JLabel("MATERIALI");
+		lblMateriali.setFont(fontFuturist.deriveFont(13f));
+		lblMateriali.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblMaterialiv = new JLabel("0");
-		lblPuntiRicerca = new JLabel("Punti ricerca: ");
+		lblMaterialiv.setFont(fontFuturist.deriveFont(13f));
+		lblMaterialiv.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		lblPuntiRicerca = new JLabel("PUNTI RICERCA");
+		lblPuntiRicerca.setFont(fontFuturist.deriveFont(13f));
+		lblPuntiRicerca.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblPuntiRicercav = new JLabel("0");
+		lblPuntiRicercav.setFont(fontFuturist.deriveFont(13f));
+		lblPuntiRicercav.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		panelStats = new JPanel(new GridBagLayout());
 		
@@ -107,25 +145,21 @@ public class GUIPartita extends JFrame{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.WEST;
-		panelStats.add(lblOro, c);
+		panelStats.add(new JLabel(" "));
 		c.gridx ++;
-		panelStats.add(new JLabel("  "), c);
+		panelStats.add(lblOro, c);
 		c.gridx ++;
 		panelStats.add(lblOrov, c);
 		c.gridx ++;
-		panelStats.add(new JLabel("      "), c);
+		panelStats.add(new JLabel("    "), c);
 		c.gridx ++;
 		panelStats.add(lblMateriali, c);
 		c.gridx ++;
-		panelStats.add(new JLabel("  "), c);
-		c.gridx ++;
 		panelStats.add(lblMaterialiv, c);
 		c.gridx ++;
-		panelStats.add(new JLabel("      "), c);
+		panelStats.add(new JLabel("    "), c);
 		c.gridx ++;
 		panelStats.add(lblPuntiRicerca, c);
-		c.gridx ++;
-		panelStats.add(new JLabel("  "), c);
 		c.gridx ++;
 		panelStats.add(lblPuntiRicercav, c);
 		
@@ -238,7 +272,18 @@ public class GUIPartita extends JFrame{
 		
 		panelCenter.add(panelBtnGoRight);
 		
-		panelBottom.add(new JLabel("Ciao mondo"));
+		panelMsg = new JPanel(new GridBagLayout());
+		btnApriMsg = new JButton(">");
+		txtMsg = new JTextField(20);
+		txtMsg.setEditable(false);
+		GridBagConstraints d = new GridBagConstraints();
+		d.gridx = 0;
+		d.gridy = 0;
+		panelMsg.add(btnApriMsg, d);
+		d.gridx ++;
+		panelMsg.add(txtMsg, d);
+		
+		panelBottom.add(panelMsg);
 		
 		btnGoDown = new RoundedCornerButton();
 		ImageIcon iconbtnGoDown = new ImageIcon("media/btnGoDown.png");
@@ -257,7 +302,68 @@ public class GUIPartita extends JFrame{
 		
 		panelBottom.add(panelBtnGoDown);
 		
-		panelBottom.add(new JLabel("Ciao mondo"));
+		panelPulsanti = new JPanel(new GridBagLayout());
+		btnCostruisci = new JButton();
+		ImageIcon iconbtnCostruisci = new ImageIcon("media/btnCostruisci.png");
+		Image scalebtnCostruisci = iconbtnCostruisci.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnCostruisci = new ImageIcon(scalebtnCostruisci);
+		
+		btnCostruisci.setIcon(newiconbtnCostruisci);
+		btnCostruisci.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		btnCostruisci.setSize(30, 33);
+		
+		btnRicerca = new JButton();
+		ImageIcon iconbtnRicerca = new ImageIcon("media/btnRicerca.png");
+		Image scalebtnRicerca = iconbtnRicerca.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnRicerca = new ImageIcon(scalebtnRicerca);
+		
+		btnRicerca.setIcon(newiconbtnRicerca);
+		btnRicerca.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		
+		btnInfoPartita = new JButton();
+		ImageIcon iconbtnInfoPartita = new ImageIcon("media/btnInfoPartita.png");
+		Image scalebtnInfoPartita = iconbtnInfoPartita.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnInfoPartita = new ImageIcon(scalebtnInfoPartita);
+		
+		btnInfoPartita.setIcon(newiconbtnInfoPartita);
+		btnInfoPartita.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		
+		btnImpostazioni = new JButton();
+		ImageIcon iconbtnImpostazioni = new ImageIcon("media/btnImpostazioni.png");
+		Image scalebtnImpostazioni = iconbtnImpostazioni.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnImpostazioni = new ImageIcon(scalebtnImpostazioni);
+		
+		btnImpostazioni.setIcon(newiconbtnImpostazioni);
+		btnImpostazioni.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		
+		GridBagConstraints f = new GridBagConstraints();
+		f.gridx = 0;
+		f.gridy = 0;
+		panelPulsanti.add(btnCostruisci, f);
+		f.gridx ++;
+		panelPulsanti.add(btnRicerca, f);
+		f.gridx ++;
+		panelPulsanti.add(btnInfoPartita, f);
+		f.gridx ++;
+		panelPulsanti.add(btnImpostazioni, f);
+		
+		panelBottom.add(panelPulsanti);
 		
 		contentPane.add(panelTop);
 		contentPane.add(panelCenter);
