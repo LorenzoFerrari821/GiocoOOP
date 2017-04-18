@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -23,7 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class GUIPartita extends JFrame{
 
@@ -49,13 +52,15 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBtnGoUp;
 	private JPanel panelBtnGoDown;
 	private JPanel panelBtnGoLeft;
+	private JLabel[][] lblsGioco;
+	private JPanel panelGioco;
 	
 	GUIPartita()
 	{
 		setTitle("Play");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setMinimumSize(new Dimension(800,600));   
+		setMinimumSize(new Dimension(1280,720));   
 		
 		setBounds(0, 0, 1280, 720);
 		try {
@@ -79,7 +84,7 @@ public class GUIPartita extends JFrame{
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
 		panelTop = new JPanel(new GridLayout(1, 3, 0, 0));
 		panelBottom = new JPanel(new GridLayout(1, 3, 0, 0));
-		panelCenter = new JPanel(new GridLayout(1, 3, 0, 0));
+		panelCenter = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
 		panelTop.setBackground(Color.DARK_GRAY);
@@ -170,7 +175,27 @@ public class GUIPartita extends JFrame{
 		panelBtnGoLeft.add(btnGoLeft);
 		
 		panelCenter.add(panelBtnGoLeft);
-		panelCenter.add(new JLabel("ciao"));
+		lblsGioco = new JLabel[15][30];
+		panelGioco = new JPanel(new GridLayout2(15, 30, 0, 0));
+		
+		ImageIcon iconlblPartita = new ImageIcon("media/paesaggio.png");
+		Image scalelblPartita = iconlblPartita.getImage().getScaledInstance(36, 37, Image.SCALE_DEFAULT);
+		ImageIcon newiconlblPartita = new ImageIcon(scalelblPartita);
+		
+		for(int i = 0; i < 15; i++)
+		{
+			for(int j = 0; j < 30; j++)
+			{
+				lblsGioco[i][j] = new JLabel();
+				
+				lblsGioco[i][j].setIcon(newiconlblPartita);
+				lblsGioco[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+				panelGioco.add(lblsGioco[i][j]);
+				
+			}	
+		}
+		panelCenter.add(panelGioco);
+		
 		panelCenter.add(panelBtnGoRight);
 		
 		panelBottom.add(new JLabel("Ciao mondo"));
@@ -197,5 +222,8 @@ public class GUIPartita extends JFrame{
 		contentPane.add(panelCenter);
 		contentPane.add(panelBottom);
 		this.add(contentPane);
+		
+		pack();
+		System.out.println(lblsGioco[0][0].getSize());
 	}
 }
