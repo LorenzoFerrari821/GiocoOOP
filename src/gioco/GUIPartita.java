@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -35,16 +37,17 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBottom;
 	private JPanel panelCenter;
 	private JPanel panelBtnGoRight;
-	private JPanel panelPartita;
+	//private JPanel panelPartita;
 	private JPanel panelStats;
 	private JPanel panelMappa;
-	private JPanel panelPulsanti;
+	//private JPanel panelPulsanti;
 	private JLabel lblOro;
 	private JLabel lblOrov;
 	private JLabel lblMateriali;
 	private JLabel lblMaterialiv;
 	private JLabel lblPuntiRicerca;
 	private JLabel lblPuntiRicercav;
+	private JLabel lblMappa;
 	private RoundedCornerButton btnGoUp;
 	private RoundedCornerButton btnGoRight;
 	private RoundedCornerButton btnGoDown;
@@ -54,6 +57,9 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBtnGoLeft;
 	private JLabel[][] lblsGioco;
 	private JPanel panelGioco;
+	Image scalelblPartita;
+	ImageIcon newiconlblPartita;
+	int partitaHeight = 16, partitaWidth = 31;
 	
 	GUIPartita()
 	{
@@ -83,11 +89,10 @@ public class GUIPartita extends JFrame{
 		contentPane.setLayout(new GridLayout2(3, 1, 0, 0));
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
 		panelTop = new JPanel(new GridLayout(1, 3, 0, 0));
-		panelBottom = new JPanel(new GridLayout(1, 3, 0, 0));
+		panelBottom = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelCenter = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
-		panelTop.setBackground(Color.DARK_GRAY);
 		
 		lblOro = new JLabel("Oro: ");
 		lblOrov = new JLabel("0");
@@ -132,8 +137,10 @@ public class GUIPartita extends JFrame{
 		btnGoLeft = new RoundedCornerButton();
 		
 		ImageIcon iconbtnGoUp = new ImageIcon("media/btnGoUp.png");
-		Image scalebtnGoUp = iconbtnGoUp.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-		btnGoUp.setIcon(iconbtnGoUp);
+		Image scalebtnGoUp = iconbtnGoUp.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnGoUp = new ImageIcon(scalebtnGoUp);
+		
+		btnGoUp.setIcon(newiconbtnGoUp);
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -143,57 +150,90 @@ public class GUIPartita extends JFrame{
 		panelBtnGoUp.add(btnGoUp);
 		
 		panelTop.add(panelBtnGoUp);
-		JLabel mondo = new JLabel("Ciao Mondo");
-		mondo.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		panelMappa = new JPanel(new GridLayout2(1, 1, 0, 0));
+		lblMappa = new JLabel();
+		ImageIcon iconlblMappa = new ImageIcon("media/mappa.png");
+		Image scalelblMappa = iconlblMappa.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+		ImageIcon newiconlblMappa = new ImageIcon(scalelblMappa);
+		lblMappa.setIcon(newiconlblMappa);
+		lblMappa.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelTop.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panelTop.add(mondo);
+		panelTop.add(lblMappa);
 		
 		btnGoRight = new RoundedCornerButton();
 		ImageIcon iconbtnGoRight = new ImageIcon("media/btnGoRight.png");
-		Image scalebtnGoRight = iconbtnGoUp.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-		btnGoRight.setIcon(iconbtnGoRight);
+		Image scalebtnGoRight = iconbtnGoRight.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnGoRight = new ImageIcon(scalebtnGoRight);
+		
+		btnGoRight.setIcon(newiconbtnGoRight);
 		btnGoRight.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 			}
 		});
 
-		panelBtnGoRight.setBackground(Color.BLUE);
+		panelBtnGoRight.setLayout(new BoxLayout(panelBtnGoRight, BoxLayout.PAGE_AXIS));
+		panelBtnGoRight.add(Box.createVerticalGlue());
 		panelBtnGoRight.add(btnGoRight);
+		panelBtnGoRight.add(Box.createVerticalGlue());
 		
 		btnGoLeft = new RoundedCornerButton();
 		ImageIcon iconbtnGoLeft = new ImageIcon("media/btnGoLeft.png");
-		Image scalebtnGoLeft = iconbtnGoLeft.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-		btnGoLeft.setIcon(iconbtnGoLeft);
+		Image scalebtnGoLeft = iconbtnGoLeft.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnGoLeft = new ImageIcon(scalebtnGoLeft);
+		
+		btnGoLeft.setIcon(newiconbtnGoLeft);
 		btnGoLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 			}
 		});
 
-		panelBtnGoLeft.setBackground(Color.BLUE);
+		panelBtnGoLeft.setLayout(new BoxLayout(panelBtnGoLeft, BoxLayout.PAGE_AXIS));
+		panelBtnGoLeft.add(Box.createVerticalGlue());
 		panelBtnGoLeft.add(btnGoLeft);
+		panelBtnGoLeft.add(Box.createVerticalGlue());
 		
 		panelCenter.add(panelBtnGoLeft);
-		lblsGioco = new JLabel[15][30];
-		panelGioco = new JPanel(new GridLayout2(15, 30, 0, 0));
+		lblsGioco = new JLabel[partitaHeight][partitaWidth];
+		panelGioco = new JPanel(new GridLayout(16, 31, 0, 0));
 		
 		ImageIcon iconlblPartita = new ImageIcon("media/paesaggio.png");
-		Image scalelblPartita = iconlblPartita.getImage().getScaledInstance(36, 37, Image.SCALE_DEFAULT);
-		ImageIcon newiconlblPartita = new ImageIcon(scalelblPartita);
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(36, 37, Image.SCALE_DEFAULT);
+		newiconlblPartita = new ImageIcon(scalelblPartita);
 		
-		for(int i = 0; i < 15; i++)
+		for(int i = 0; i < partitaHeight; i++)
 		{
-			for(int j = 0; j < 30; j++)
+			for(int j = 0; j < partitaWidth; j++)
 			{
 				lblsGioco[i][j] = new JLabel();
-				
 				lblsGioco[i][j].setIcon(newiconlblPartita);
-				lblsGioco[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 				panelGioco.add(lblsGioco[i][j]);
 				
 			}	
 		}
+		
+		panelGioco.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e)
+			{
+				scalelblPartita = iconlblPartita.getImage().getScaledInstance(lblsGioco[0][0].getSize().width, 
+						lblsGioco[0][0].getSize().height+1, Image.SCALE_DEFAULT);
+				newiconlblPartita = new ImageIcon(scalelblPartita);
+				panelGioco.removeAll();
+				
+				for(int i = 0; i < partitaHeight; i++)
+				{
+					for(int j = 0; j < partitaWidth; j++)
+					{
+						lblsGioco[i][j].setIcon(newiconlblPartita);
+						panelGioco.add(lblsGioco[i][j]);
+					}
+				}
+			}
+		});
+		
 		panelCenter.add(panelGioco);
 		
 		panelCenter.add(panelBtnGoRight);
@@ -202,8 +242,10 @@ public class GUIPartita extends JFrame{
 		
 		btnGoDown = new RoundedCornerButton();
 		ImageIcon iconbtnGoDown = new ImageIcon("media/btnGoDown.png");
-		Image scalebtnGoDown = iconbtnGoDown.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-		btnGoDown.setIcon(iconbtnGoDown);
+		Image scalebtnGoDown = iconbtnGoDown.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnGoDown = new ImageIcon(scalebtnGoDown);
+		
+		btnGoDown.setIcon(newiconbtnGoDown);
 		btnGoDown.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -211,7 +253,6 @@ public class GUIPartita extends JFrame{
 		});
 		
 		panelBtnGoDown = new JPanel();
-		panelBtnGoDown.setBackground(Color.BLUE);
 		panelBtnGoDown.add(btnGoDown);
 		
 		panelBottom.add(panelBtnGoDown);
@@ -224,6 +265,5 @@ public class GUIPartita extends JFrame{
 		this.add(contentPane);
 		
 		pack();
-		System.out.println(lblsGioco[0][0].getSize());
 	}
 }

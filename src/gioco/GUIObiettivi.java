@@ -12,12 +12,5 @@ public class GUIObiettivi extends JPanel {
 
 	GUIObiettivi() {
 		setBackground(Color.red);
-		
-		JLabel lbl = new JLabel();
-		ImageIcon iconlblPartita = new ImageIcon("media/cartman.png");
-		
-		lbl.setIcon(iconlblPartita);
-		lbl.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(lbl);
 	}
 }
