@@ -37,7 +37,7 @@ public class GUICaricaPartita extends JPanel {
 	private GridBagConstraints c, d;
 	private Font fontFuturist;
 	private JLabel lblData,lblDatav;
-	private JLabel lblNomeSalvataggio, lblNomeSalvataggiov;
+	private JLabel lblNumSalvataggio;
 	private JLabel lblNomeGiocatore, lblNomeGiocatorev;
 	private JLabel lblTutorial, lblTutorialv;
 	private JLabel lblDifficolta, lblDifficoltav;
@@ -86,6 +86,8 @@ public class GUICaricaPartita extends JPanel {
 
 		//		lblNomeSalvataggio = new JLabel("Salvataggio: ");
 		//		lblNomeSalvataggio.setFont(lblNomeSalvataggio.getFont().deriveFont(20f));
+		lblNumSalvataggio=new JLabel("Salvataggio numero:");
+		lblNumSalvataggio.setFont(lblNumSalvataggio.getFont().deriveFont(20f));
 		lblData=new JLabel("Data: ");
 		lblData.setFont(lblData.getFont().deriveFont(20f));
 		lblNomeGiocatore = new JLabel("Giocatore: ");
@@ -207,8 +209,10 @@ public class GUICaricaPartita extends JPanel {
 					caricaInfoFile();
 			}
 		});
+		d.gridx--;
+		pnlMenu.add(lblNumSalvataggio,d);
+		d.gridx++;
 		pnlMenu.add(cmbSalvataggi, d);
-
 		d.gridy ++;
 		pnlMenu.add(new JLabel(" "), d);
 		d.gridy ++;
