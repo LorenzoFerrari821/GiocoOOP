@@ -1,6 +1,7 @@
 package gioco;
 
 import java.awt.BorderLayout;
+import java.sql.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -17,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -55,6 +57,9 @@ public class GUINuovaPartita extends JPanel {
 	private JLabel lblDifficolta;
 	private Font fontFuturist;
 	private GUIPartita framePartita;
+	private ConnectionDB s = null;
+	private String Tutorial;
+	private int k;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -195,7 +200,8 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(creaNuovaPartita() == 1)
+				k=creaNuovaPartita();
+				if(k == 1)
 				{
 					framePartita = new GUIPartita();
 					framePartita.setVisible(true);
@@ -203,93 +209,50 @@ public class GUINuovaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnAvvia, c);
-		
+
 		add(pnlMenu, BorderLayout.CENTER);
 	}
-	
+
 	/**
 	 * Questo metodo viene invocato nel momento in cui il JButton Avvia Partita è
 	 * premuto. Raccoglie la configurazione della partita inserita dall'utente e con
-	 * essi crea un primo file di salvataggio nella cartella 'data/salvataggi'.
+	 * essi crea un salvataggio nel DataBase Salvataggi.
 	 */
-	public int creaNuovaPartita()
-	{
-		if(txtNomeGiocatore.getText().equals(""))
-		{
-			JOptionPane.showMessageDialog(pnlMenu, "Il campo Nome Giocatore non può essere vuoto.");
-			return -1;
-		}
-		else
-		{
-			long numFile = -1;
-			String nomeFile;
-			
-			try {
-				numFile = Files.list(Paths.get("data/salvataggi")).count();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
-						+ "nella creazione della partita, verificare che la cartella dei salvataggi esista.",
-						"Errore", JOptionPane.ERROR_MESSAGE);
-			}
-			
-			if(numFile != -1)
+	private int creaNuovaPartita()	{   
+		try {	
+			s = new ConnectionDB();           //Connessione al database
+
+			if(txtNomeGiocatore.getText().equals(""))
 			{
-				Boolean nomeUnico = true;
-				File folder = new File("data/salvataggi");
-				File[] listOfFiles = folder.listFiles();
-				do {
-					nomeUnico = true;
-					nomeFile = "salvataggio_" + Long.toString(numFile + 1) + ".txt";
-					for(File f : listOfFiles)
-					{
-						if(nomeFile.equals(f.getName()))
-							nomeUnico = false;
-					}
-					if(nomeUnico == false)
-						numFile++;
-				}while(nomeUnico == false);
-				
-				
-				File f = new File("data/salvataggi/"+ nomeFile);
-				f.getParentFile().mkdirs();
-				BufferedWriter out;
-				
-				try {
-					f.createNewFile();
-					FileWriter fstream = new FileWriter("data/salvataggi/" + nomeFile, true);
-					out = new BufferedWriter(fstream);
-					out.write("NomeGiocatore_:" + txtNomeGiocatore.getText());
-					out.newLine();
-					if(chkTut.isSelected())
-						out.write("Tutorial_:Si");
-					else
-						out.write("Tutorial_:No");
-					out.newLine();
-					out.write("Difficolta_:" + listDifficolta.getItemAt(listDifficolta.getSelectedIndex()));
-					out.newLine();
-					out.write("Mappa_:" + listMappa.getItemAt(listMappa.getSelectedIndex()));
-					out.newLine();
-					out.write("Civilta_:" + listCivilta.getItemAt(listCivilta.getSelectedIndex()));
-					out.newLine();
-					out.write("Turno_:0");
-					out.newLine();
-					out.write("Epoca_:Classica");
-					out.newLine();
-					out.write("Oro_:0");
-					out.newLine();
-					out.write("Materiali_:0");
-					out.newLine();
-					out.write("PuntiRicerca_:0");
-					out.newLine();
-					out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return -1;
-				}
+				JOptionPane.showMessageDialog(pnlMenu, "Il campo Nome Giocatore non può essere vuoto.");
+				return -1;
 			}
-		}
-		return 1;
+
+			if(chkTut.isSelected())
+				Tutorial="Si";
+			else
+				Tutorial="No";		
+
+			k=s.init(txtNomeGiocatore.getText(),Tutorial,listDifficolta.getItemAt(listDifficolta.getSelectedIndex()),listMappa.getItemAt(listMappa.getSelectedIndex()),
+					listCivilta.getItemAt(listCivilta.getSelectedIndex()));
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
+					+ "nella creazione della partita.",
+					"Errore", JOptionPane.ERROR_MESSAGE);
+			return -1;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
+					+ "nella creazione della partita.",
+					"Errore", JOptionPane.ERROR_MESSAGE);
+			return -1;
+		}   finally {
+			if(s!=null)
+				s.closeConnection();
+		}			
+		return k;
+
 	}
 }

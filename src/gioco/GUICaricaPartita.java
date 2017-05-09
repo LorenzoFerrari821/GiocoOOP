@@ -11,14 +11,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,10 +33,11 @@ import javax.swing.JTextField;
 public class GUICaricaPartita extends JPanel {
 
 	private JPanel pnlMenu;
+	private JPanel pnlerror;
 	private GridBagConstraints c, d;
 	private Font fontFuturist;
+	private JLabel lblData,lblDatav;
 	private JLabel lblNomeSalvataggio, lblNomeSalvataggiov;
-	private JLabel lblDataSave, lblDataSavev;
 	private JLabel lblNomeGiocatore, lblNomeGiocatorev;
 	private JLabel lblTutorial, lblTutorialv;
 	private JLabel lblDifficolta, lblDifficoltav;
@@ -51,35 +49,45 @@ public class GUICaricaPartita extends JPanel {
 	private JLabel lblMateriali, lblMaterialiv;
 	private JLabel lblPuntiRicerca, lblPuntiRicercav;
 	private JPanel pnlInfoPartita;
-	private JComboBox<String> cmbSalvataggi;
+	private JComboBox<Integer> cmbSalvataggi;
 	private RoundedCornerButton btnIndietro;
 	private RoundedCornerButton btnCarica;
 	private RoundedCornerButton btnElimina;
-	private List<JLabel> lblValues;
-	
+	private ConnectionDB connessione1 = null;
+	private ConnectionDB connessione2 = null;
+	private ConnectionDB connessione3 = null;
+	private ResultSet rs;
+	private int index;
+	private String linea;
+	private int val;
+	private int i=0;
+	private int k=0;
+
 	/**
 	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
 	 */
 	GUICaricaPartita() {	
 		try {
-		    //Creo un font custom
-		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
-		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    //registro il font
-		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+			//Creo un font custom
+			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			//registro il font
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		} catch(FontFormatException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 		pnlMenu = new JPanel(new GridBagLayout());
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
 		pnlMenu.setBackground(Color.WHITE);
-		
-		lblNomeSalvataggio = new JLabel("Salvataggio: ");
-		lblNomeSalvataggio.setFont(lblNomeSalvataggio.getFont().deriveFont(20f));
+
+		//		lblNomeSalvataggio = new JLabel("Salvataggio: ");
+		//		lblNomeSalvataggio.setFont(lblNomeSalvataggio.getFont().deriveFont(20f));
+		lblData=new JLabel("Data: ");
+		lblData.setFont(lblData.getFont().deriveFont(20f));
 		lblNomeGiocatore = new JLabel("Giocatore: ");
 		lblNomeGiocatore.setFont(lblNomeGiocatore.getFont().deriveFont(20f));
 		lblTutorial = new JLabel("Tutorial: ");
@@ -100,15 +108,15 @@ public class GUICaricaPartita extends JPanel {
 		lblMateriali.setFont(lblMateriali.getFont().deriveFont(20f));
 		lblPuntiRicerca = new JLabel("Punti ricerca: ");
 		lblPuntiRicerca.setFont(lblPuntiRicerca.getFont().deriveFont(20f));
-		
+
 		pnlInfoPartita = new JPanel(new GridBagLayout());
-		
+
 		c = new GridBagConstraints();
 		c.anchor = new GridBagConstraints().LINE_END;
 		c.gridx = 0;
 		c.gridy = 0;
-		
-		pnlInfoPartita.add(lblNomeSalvataggio, c);
+
+		pnlInfoPartita.add(lblData,c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblNomeGiocatore, c);
 		c.gridy ++;
@@ -129,9 +137,9 @@ public class GUICaricaPartita extends JPanel {
 		pnlInfoPartita.add(lblMateriali, c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblPuntiRicerca, c);
-		
-		lblNomeSalvataggiov = new JLabel("");
-		lblNomeSalvataggiov.setFont(lblNomeSalvataggiov.getFont().deriveFont(16f));
+
+		lblDatav=new JLabel("");
+		lblDatav.setFont(lblDatav.getFont().deriveFont(16f));
 		lblNomeGiocatorev = new JLabel("");
 		lblNomeGiocatorev.setFont(lblNomeGiocatorev.getFont().deriveFont(16f));
 		lblTutorialv = new JLabel("");
@@ -152,24 +160,14 @@ public class GUICaricaPartita extends JPanel {
 		lblMaterialiv.setFont(lblMaterialiv.getFont().deriveFont(16f));
 		lblPuntiRicercav = new JLabel("");
 		lblPuntiRicercav.setFont(lblPuntiRicercav.getFont().deriveFont(16f));
-		
-		lblValues = new ArrayList<JLabel>();
-		lblValues.add(lblNomeGiocatorev);
-		lblValues.add(lblTutorialv);
-		lblValues.add(lblDifficoltav);
-		lblValues.add(lblMappav);
-		lblValues.add(lblCiviltav);
-		lblValues.add(lblTurnov);
-		lblValues.add(lblEpocav);
-		lblValues.add(lblOrov);
-		lblValues.add(lblMaterialiv);
-		lblValues.add(lblPuntiRicercav);
-		
+
+
+
 		c.anchor = new GridBagConstraints().LINE_START;
 		c.gridx = 1;
 		c.gridy = 0;
-		
-		pnlInfoPartita.add(lblNomeSalvataggiov, c);
+
+		pnlInfoPartita.add(lblDatav,c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblNomeGiocatorev, c);
 		c.gridy ++;
@@ -190,19 +188,19 @@ public class GUICaricaPartita extends JPanel {
 		pnlInfoPartita.add(lblMaterialiv, c);
 		c.gridy ++;
 		pnlInfoPartita.add(lblPuntiRicercav, c);
-		
+
 		d = new GridBagConstraints();
 		d.gridx = 2;
 		d.gridy = 0;
 		pnlMenu.add(pnlInfoPartita,  d);
-		
+
 		d.gridy ++;
 		pnlMenu.add(new JLabel(" "), d);
 		d.gridy ++;
 		pnlMenu.add(new JLabel(" "), d);
 		d.gridy ++;
-		
-		cmbSalvataggi = new JComboBox<String>();
+
+		cmbSalvataggi = new JComboBox<Integer>();
 		cmbSalvataggi.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
 				if(event.getStateChange() == ItemEvent.SELECTED)
@@ -210,13 +208,13 @@ public class GUICaricaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(cmbSalvataggi, d);
-		
+
 		d.gridy ++;
 		pnlMenu.add(new JLabel(" "), d);
 		d.gridy ++;
 		pnlMenu.add(new JLabel(" "), d);
 		d.gridy ++;
-		
+
 		d.gridx = 0;
 		btnIndietro = new RoundedCornerButton("INDIETRO");
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
@@ -227,11 +225,11 @@ public class GUICaricaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnIndietro, d);
-		
+
 		d.gridx ++;
 		pnlMenu.add(new JLabel("     "), d);
 		d.gridx ++;
-		
+
 		btnCarica = new RoundedCornerButton("CARICA PARTITA");
 		btnCarica.setFont(fontFuturist.deriveFont(16f));
 		btnCarica.addMouseListener(new MouseAdapter() {
@@ -241,75 +239,110 @@ public class GUICaricaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnCarica, d);
-		
+
 		d.gridx ++;
 		pnlMenu.add(new JLabel("     "), d);
 		d.gridx ++;
-		
+
 		btnElimina = new RoundedCornerButton("ELIMINA PARTITA");
 		btnElimina.setFont(fontFuturist.deriveFont(16f));
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("Elimino la partita!");
+				System.out.println("Elimino la partita selezionata!");
+				try {
+					connessione3=new ConnectionDB();
+					index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));   
+					connessione3.elimina(index);
+					creaComboBox();
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				} finally{
+					if(connessione3!=null)
+						connessione3.closeConnection();
+				}
 			}
 		});
 		pnlMenu.add(btnElimina, d);
-		caricaFileInComboBox();
-		
+		creaComboBox();
+
 		add(pnlMenu, BorderLayout.CENTER);
 	}
-	
+
 	/**
-	 * Cerca tutti i nomi di file nella cartella data/salvataggi e li carica nella ComboBox
+	 * Cerca tutti i salvataggi nel database e li carica nella ComboBox
 	 */
-	public void caricaFileInComboBox()
-	{
-		File folder = new File("data/salvataggi");
-		File[] listFile = folder.listFiles();
-		cmbSalvataggi.removeAllItems();
-		
-		for(File f : listFile)
-		{
-			cmbSalvataggi.addItem(f.getName());
-		}
-		if(listFile.length == 0)
-		{
-			cmbSalvataggi.addItem("Nessun salvataggio trovato");
-		}		
-	}
-	
-	/**
-	 * Controlla il nome del salvataggio selezionato nella combobox e ne carica le informazioni
-	 * sul pannello panelInfo
-	 */
-	public void caricaInfoFile()
-	{
-		try {
-			File f = new File("data/salvataggi/" + cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
-			FileReader freader = new FileReader(f);
-			BufferedReader breader = new BufferedReader(freader);
-			String linea;
-			
-			lblNomeSalvataggiov.setText(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
-			
-			try {
-				for(JLabel lbl : lblValues)
-				{
-					linea = breader.readLine();
-					linea = linea.substring(linea.indexOf("_:") + 2);
-					lbl.setText(linea);
-				}
-			}catch(NullPointerException e)
-			{
-				JOptionPane.showMessageDialog(this, "Il salvataggio selezionato non è valido", 
+	public void creaComboBox(){
+		cmbSalvataggi.removeAllItems();	
+		try {	
+			connessione2 = new ConnectionDB();           //Connessione al database
+			rs=connessione2.executeQuery();              //Lettura di tutti i salvataggi
+			for(i=0;rs.next();++i){
+			}
+			for(k=0;k<i;++k)
+				cmbSalvataggi.addItem(k+1);
+			if(cmbSalvataggi.getItemCount() == 0){
+				pnlerror = new JPanel();
+				pnlerror.setBackground(Color.WHITE);
+				JOptionPane.showMessageDialog(pnlerror, "Non sono stati trovati salvataggi.",
 						"Errore", JOptionPane.ERROR_MESSAGE);
 			}
-			
-			
-			
-			
-		} catch (IOException e) {}
-		
+		} catch(SQLException |ClassNotFoundException e) {
+			e.printStackTrace();
+		}  finally{
+			if(connessione2!=null)
+				connessione2.closeConnection();
+		}
 	}
+
+	/**
+	 * Controlla il salvataggio selezionato e visualizza le relative informazioni
+	 */
+	public void caricaInfoFile(){
+		try {			
+			connessione1 = new ConnectionDB();
+			rs=connessione1.executeQuery();
+			index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
+			while(rs.getRow()!=index)
+				rs.next();  
+			linea=rs.getString("Data");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblDatav.setText(linea);
+			linea=rs.getString("NomeGiocatore");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblNomeGiocatorev.setText(linea);
+			linea=rs.getString("Tutorial");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblTutorialv.setText(linea);
+			linea=rs.getString("Difficoltà");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblDifficoltav.setText(linea);
+			linea=rs.getString("Mappa");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblMappav.setText(linea);
+			linea=rs.getString("Civiltà");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblCiviltav.setText(linea);
+			val=rs.getInt("Turno");						
+			lblTurnov.setText(Integer.toString(val));
+			linea=rs.getString("Epoca");
+			linea=linea.substring(linea.indexOf("_:")+1);
+			lblEpocav.setText(linea);
+			val=rs.getInt("Oro");						
+			lblOrov.setText(Integer.toString(val));
+			val=rs.getInt("Materiali");						
+			lblMaterialiv.setText(Integer.toString(val));
+			val=rs.getInt("Punti_ricerca");						
+			lblPuntiRicercav.setText(Integer.toString(val));
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}  finally{
+			if(connessione1!=null)
+				connessione1.closeConnection();
+		}
+	}			
 }
+
+

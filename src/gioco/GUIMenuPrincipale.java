@@ -155,7 +155,6 @@ public class GUIMenuPrincipale extends JFrame {
 				allPanelsdxNotVisibles();
 				try {
 					panelCaricaPartita.setVisible(true);
-					panelCaricaPartita.caricaFileInComboBox();
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita();
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
@@ -175,7 +174,6 @@ public class GUIMenuPrincipale extends JFrame {
 				allPanelsdxNotVisibles();
 				try {
 					panelCaricaPartita.setVisible(true);
-					panelCaricaPartita.caricaFileInComboBox();
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita();
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);

@@ -1,0 +1,10 @@
+NomeGiocatore_:Topolino
+Tutorial_:Si
+Difficolta_:Medio
+Mappa_:Estiva
+Civilta_:Britanni
+Turno_:0
+Epoca_:Classica
+Oro_:0
+Materiali_:0
+PuntiRicerca_:0

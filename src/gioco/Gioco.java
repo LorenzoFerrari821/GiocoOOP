@@ -10,10 +10,10 @@ import java.io.File;
  */
 public class Gioco {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {	
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
 					frame.setVisible(true);
 					File musica= new File("media/Musica.wav");
@@ -23,6 +23,7 @@ public class Gioco {
 				}
 			}
 		});
+
 	}
 
 }
