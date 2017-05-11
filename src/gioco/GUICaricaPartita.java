@@ -57,6 +57,7 @@ public class GUICaricaPartita extends JPanel {
 	private ConnectionDB connessione2 = null;
 	private ConnectionDB connessione3 = null;
 	private ResultSet rs;
+	private int dialogResult;
 	private int index;
 	private String linea;
 	private int val;
@@ -84,8 +85,6 @@ public class GUICaricaPartita extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		pnlMenu.setBackground(Color.WHITE);
 
-		//		lblNomeSalvataggio = new JLabel("Salvataggio: ");
-		//		lblNomeSalvataggio.setFont(lblNomeSalvataggio.getFont().deriveFont(20f));
 		lblNumSalvataggio=new JLabel("Salvataggio numero:");
 		lblNumSalvataggio.setFont(lblNumSalvataggio.getFont().deriveFont(20f));
 		lblData=new JLabel("Data: ");
@@ -253,23 +252,30 @@ public class GUICaricaPartita extends JPanel {
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("Elimino la partita selezionata!");
-				try {
-					connessione3=new ConnectionDB();
-					index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));   
-					connessione3.elimina(index);
-					creaComboBox();
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-				} finally{
-					if(connessione3!=null)
-						connessione3.closeConnection();
+				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
+				if(dialogResult== JOptionPane.YES_OPTION){
+					System.out.println("Elimino la partita selezionata!");
+					try {
+						connessione3=new ConnectionDB();
+						index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));  
+						connessione3.elimina(index);
+						creaComboBox();
+					} catch (ClassNotFoundException | SQLException  | NullPointerException e) {
+						e.printStackTrace();
+						pnlerror = new JPanel();
+						pnlerror.setBackground(Color.WHITE);
+						JOptionPane.showMessageDialog(pnlerror, "Nessun salvataggio da eliminare",
+								"Errore", JOptionPane.ERROR_MESSAGE);
+						if(connessione3!=null)
+							connessione3.closeConnection();
+					} finally{
+						if(connessione3!=null)
+							connessione3.closeConnection();
+					}
 				}
 			}
 		});
 		pnlMenu.add(btnElimina, d);
-		creaComboBox();
-
 		add(pnlMenu, BorderLayout.CENTER);
 	}
 
@@ -289,10 +295,12 @@ public class GUICaricaPartita extends JPanel {
 				pnlerror = new JPanel();
 				pnlerror.setBackground(Color.WHITE);
 				JOptionPane.showMessageDialog(pnlerror, "Non sono stati trovati salvataggi.",
-						"Errore", JOptionPane.ERROR_MESSAGE);
+						"Attenzione", JOptionPane.WARNING_MESSAGE);
 			}
 		} catch(SQLException |ClassNotFoundException e) {
 			e.printStackTrace();
+			if(connessione2!=null)
+				connessione2.closeConnection();
 		}  finally{
 			if(connessione2!=null)
 				connessione2.closeConnection();
@@ -302,7 +310,7 @@ public class GUICaricaPartita extends JPanel {
 	/**
 	 * Controlla il salvataggio selezionato e visualizza le relative informazioni
 	 */
-	public void caricaInfoFile(){
+	private void caricaInfoFile(){
 		try {			
 			connessione1 = new ConnectionDB();
 			rs=connessione1.executeQuery();
@@ -342,6 +350,8 @@ public class GUICaricaPartita extends JPanel {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			if(connessione1!=null)
+				connessione1.closeConnection();
 		}  finally{
 			if(connessione1!=null)
 				connessione1.closeConnection();

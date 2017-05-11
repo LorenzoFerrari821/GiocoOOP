@@ -83,6 +83,8 @@ public class ConnectionDB {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			pnlerror = new JPanel();
+			pnlerror.setBackground(Color.WHITE);
 			JOptionPane.showMessageDialog(pnlerror, "Errore durante la cancellazione del salvataggio",
 					"Errore", JOptionPane.ERROR_MESSAGE);
 		}

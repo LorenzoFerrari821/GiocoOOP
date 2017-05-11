@@ -66,7 +66,6 @@ public class GUIMenuPrincipale extends JFrame {
 	public GUIMenuPrincipale() {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		setMinimumSize(new Dimension(1280, 720));   
 		
 		setBounds(0, 0, 1280, 720);
@@ -177,6 +176,7 @@ public class GUIMenuPrincipale extends JFrame {
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita();
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
+					panelCaricaPartita.creaComboBox();
 				};
 			}
 		});

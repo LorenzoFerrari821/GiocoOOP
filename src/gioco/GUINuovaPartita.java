@@ -5,11 +5,13 @@ import java.sql.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
@@ -60,6 +62,7 @@ public class GUINuovaPartita extends JPanel {
 	private ConnectionDB s = null;
 	private String Tutorial;
 	private int k;
+	private Window[] finestreAttive;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -203,6 +206,8 @@ public class GUINuovaPartita extends JPanel {
 				k=creaNuovaPartita();
 				if(k == 1)
 				{
+					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
+					finestreAttive[0].dispose();            //Chiude la prima finestra, quella del menù
 					framePartita = new GUIPartita();
 					framePartita.setVisible(true);
 				}
