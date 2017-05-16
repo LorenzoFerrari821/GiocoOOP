@@ -63,125 +63,125 @@ public class GUINuovaPartita extends JPanel {
 	private String Tutorial;
 	private int k;
 	private Window[] finestreAttive;
-	
+
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia.
 	 */
 	GUINuovaPartita() {	
 		try {
-		    //Creo un font custom
-		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
-		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    //registro il font
-		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+			//Creo un font custom
+			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			//registro il font
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		} catch(FontFormatException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 		pnlMenu = new JPanel(new GridBagLayout());
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
-		
+
 		pnlMenu.setBackground(Color.WHITE);
-		
+
 		c = new GridBagConstraints();
-		
+
 		c.gridx = 1;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.LINE_END;
-		
+
 		lblNomeGiocatore = new JLabel("Nome Giocatore: ");
 		lblNomeGiocatore.setFont(lblNomeGiocatore.getFont().deriveFont(22f));
 		pnlMenu.add(lblNomeGiocatore, c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		lblTutorial = new JLabel("Tutorial: ");
 		lblTutorial.setFont(lblTutorial.getFont().deriveFont(22f));
 		pnlMenu.add(lblTutorial, c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		lblDifficolta = new JLabel("Difficoltà: ");
 		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(22f));
 		pnlMenu.add(lblDifficolta, c);
-		
-		
-		
+
+
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		lblMappa = new JLabel("Mappa: ");
 		lblMappa.setFont(lblMappa.getFont().deriveFont(22f));
 		pnlMenu.add(lblMappa, c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		lblCivilta = new JLabel("Civiltà: ");
 		lblCivilta.setFont(lblCivilta.getFont().deriveFont(22f));
 		pnlMenu.add(lblCivilta, c);
-		
+
 		c.gridy = 0;
 		c.gridx = 2;
 		c.anchor = GridBagConstraints.LINE_START;
-		
+
 		pnlMenu.add(txtNomeGiocatore = new JTextField(16), c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 		pnlMenu.add(chkTut = new JCheckBox(), c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		listDifficolta = new  JComboBox<String>();
 		listDifficolta.addItem("Facile");
 		listDifficolta.addItem("Medio");
 		listDifficolta.addItem("Difficile");
 		listDifficolta.addItem("Maestro");
 		pnlMenu.add(listDifficolta, c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		listMappa = new  JComboBox<String>();
 		listMappa.addItem("Predefinita");
 		listMappa.addItem("Generata casualmente");
 		listMappa.addItem("Estiva");
 		listMappa.addItem("Invernale");
 		pnlMenu.add(listMappa, c);
-		
+
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		listCivilta = new  JComboBox<String>();
 		listCivilta.addItem("Romani");
 		listCivilta.addItem("Galli");
 		listCivilta.addItem("Britanni");
 		listCivilta.addItem("Sassoni");
 		pnlMenu.add(listCivilta, c);
-		
+
 		c.gridx = 0;
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		
+
 		btnIndietro = new RoundedCornerButton("INDIETRO");
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
@@ -191,7 +191,7 @@ public class GUINuovaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnIndietro, c);
-		
+
 		c.gridy -= 2;
 		c.gridx += 3;
 		pnlMenu.add(new JLabel(" "), c);
@@ -204,10 +204,10 @@ public class GUINuovaPartita extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				k=creaNuovaPartita();
-				if(k == 1)
+				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 				{
 					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
-					finestreAttive[0].dispose();            //Chiude la prima finestra, quella del menù
+					finestreAttive[0].dispose();            //Chiude la prima finestra, quella del menù, così abbiamo solo la finestra di gioco attiva
 					framePartita = new GUIPartita();
 					framePartita.setVisible(true);
 				}
@@ -237,27 +237,22 @@ public class GUINuovaPartita extends JPanel {
 				Tutorial="Si";
 			else
 				Tutorial="No";		
-
+			//Adesso creiamo il salvataggio iniziale con i dati che abbiamo raccolto (e alcuni di default)
 			k=s.init(txtNomeGiocatore.getText(),Tutorial,listDifficolta.getItemAt(listDifficolta.getSelectedIndex()),listMappa.getItemAt(listMappa.getSelectedIndex()),
 					listCivilta.getItemAt(listCivilta.getSelectedIndex()));
-		
-		} catch(SQLException e) {
+
+		} catch(SQLException  | ClassNotFoundException e ){
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
 					+ "nella creazione della partita.",
 					"Errore", JOptionPane.ERROR_MESSAGE);
+			if(s!=null)
+				s.closeConnection();
 			return -1;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
-					+ "nella creazione della partita.",
-					"Errore", JOptionPane.ERROR_MESSAGE);
-			return -1;
-		}   finally {
+		}    finally {
 			if(s!=null)
 				s.closeConnection();
 		}			
 		return k;
-
 	}
 }

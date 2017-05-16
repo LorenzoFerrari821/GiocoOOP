@@ -255,7 +255,7 @@ public class GUICaricaPartita extends JPanel {
 				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
 					System.out.println("Elimino la partita selezionata!");
-					try {
+					try {    //Otteniamo l'indice del salvataggio da cancellare e chiamiamo la funzione apposita
 						connessione3=new ConnectionDB();
 						index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));  
 						connessione3.elimina(index);
@@ -287,11 +287,11 @@ public class GUICaricaPartita extends JPanel {
 		try {	
 			connessione2 = new ConnectionDB();           //Connessione al database
 			rs=connessione2.executeQuery();              //Lettura di tutti i salvataggi
-			for(i=0;rs.next();++i){
+			for(i=0;rs.next();++i){                      //Conteggio delle righe 
 			}
-			for(k=0;k<i;++k)
+			for(k=0;k<i;++k)                             //Riempiamo la ComboBox con i vari indici
 				cmbSalvataggi.addItem(k+1);
-			if(cmbSalvataggi.getItemCount() == 0){
+			if(cmbSalvataggi.getItemCount() == 0){       //Errore se non vengono trovati salvataggi
 				pnlerror = new JPanel();
 				pnlerror.setBackground(Color.WHITE);
 				JOptionPane.showMessageDialog(pnlerror, "Non sono stati trovati salvataggi.",
@@ -312,11 +312,11 @@ public class GUICaricaPartita extends JPanel {
 	 */
 	private void caricaInfoFile(){
 		try {			
-			connessione1 = new ConnectionDB();
-			rs=connessione1.executeQuery();
-			index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));
-			while(rs.getRow()!=index)
-				rs.next();  
+			connessione1 = new ConnectionDB();             //Crea la connessione al DB
+			rs=connessione1.executeQuery();                
+			index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));     //Otteniamo l'indice selezionato dall'utente
+			while(rs.getRow()!=index)     //Cerchiamo la riga corrispondente all'indice e leggiamo le varie informazioni
+				rs.next();                         
 			linea=rs.getString("Data");
 			linea=linea.substring(linea.indexOf("_:")+1);
 			lblDatav.setText(linea);
@@ -346,9 +346,7 @@ public class GUICaricaPartita extends JPanel {
 			lblMaterialiv.setText(Integer.toString(val));
 			val=rs.getInt("Punti_ricerca");						
 			lblPuntiRicercav.setText(Integer.toString(val));
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			if(connessione1!=null)
 				connessione1.closeConnection();
