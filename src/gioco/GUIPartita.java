@@ -177,7 +177,7 @@ public class GUIPartita extends JFrame{
 		btnGoUp.setIcon(newiconbtnGoUp);
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		panelBtnGoUp = new JPanel();
@@ -203,7 +203,7 @@ public class GUIPartita extends JFrame{
 		btnGoRight.setIcon(newiconbtnGoRight);
 		btnGoRight.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 
@@ -220,7 +220,7 @@ public class GUIPartita extends JFrame{
 		btnGoLeft.setIcon(newiconbtnGoLeft);
 		btnGoLeft.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 
@@ -293,7 +293,7 @@ public class GUIPartita extends JFrame{
 		btnGoDown.setIcon(newiconbtnGoDown);
 		btnGoDown.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		
@@ -311,7 +311,7 @@ public class GUIPartita extends JFrame{
 		btnCostruisci.setIcon(newiconbtnCostruisci);
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		btnCostruisci.setSize(30, 33);
@@ -324,7 +324,7 @@ public class GUIPartita extends JFrame{
 		btnRicerca.setIcon(newiconbtnRicerca);
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		
@@ -336,7 +336,7 @@ public class GUIPartita extends JFrame{
 		btnInfoPartita.setIcon(newiconbtnInfoPartita);
 		btnInfoPartita.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		
@@ -348,7 +348,7 @@ public class GUIPartita extends JFrame{
 		btnImpostazioni.setIcon(newiconbtnImpostazioni);
 		btnImpostazioni.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		

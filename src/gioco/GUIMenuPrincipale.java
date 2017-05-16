@@ -63,7 +63,7 @@ public class GUIMenuPrincipale extends JFrame {
 	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
 	 * per la GUI, insieme a tutti gli altri elementi.
 	 */
-	public GUIMenuPrincipale() {
+	public GUIMenuPrincipale() throws IllegalAccessException {
 		setTitle("GiocoOOP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
@@ -72,19 +72,11 @@ public class GUIMenuPrincipale extends JFrame {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1) {
+		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 
 		contentPane = new JPanel();
 		panelsx = new JPanel();
@@ -110,7 +102,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnNuovaSmall.setIcon(iconbtnNuovaSmall);
 		btnNuovaSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -130,7 +122,7 @@ public class GUIMenuPrincipale extends JFrame {
 
 		btnNuovaPartita.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -149,7 +141,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnCaricaSmall.setIcon(iconbtnCaricaSmall);
 		btnCaricaSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -169,7 +161,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnCaricaPartita.setIcon(iconbtnCaricaPartita);
 		btnCaricaPartita.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -189,7 +181,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnMultiplayerSmall.setIcon(iconbtnMultiplayerSmall);
 		btnMultiplayerSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -209,7 +201,7 @@ public class GUIMenuPrincipale extends JFrame {
 
 		btnMultiplayer.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -229,7 +221,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnOpzioniSmall.setIcon(iconbtnOpzioniSmall);
 		btnOpzioniSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -248,7 +240,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnOpzioni.setIcon(iconbtnOpzioni);
 		btnOpzioni.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -268,7 +260,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnExtraSmall.setIcon(iconbtnExtraSmall);
 		btnExtraSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -287,7 +279,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnExtra.setIcon(iconbtnExtra);
 		btnExtra.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -307,7 +299,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnObiettiviSmall.setIcon(iconbtnObiettiviSmall);
 		btnObiettiviSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -326,7 +318,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnObiettivi.setIcon(iconbtnObiettivi);
 		btnObiettivi.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -346,7 +338,7 @@ public class GUIMenuPrincipale extends JFrame {
 		btnEsciSmall.setIcon(iconbtnEsciSmall);
 		btnEsciSmall.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				dispose();
 			}
 		});
@@ -359,7 +351,7 @@ public class GUIMenuPrincipale extends JFrame {
 
 		btnEsci.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				dispose();
 			}
 		});

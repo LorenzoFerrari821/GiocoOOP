@@ -223,7 +223,7 @@ public class GUICaricaPartita extends JPanel {
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				setVisible(false);
 			}
 		});
@@ -237,8 +237,7 @@ public class GUICaricaPartita extends JPanel {
 		btnCarica.setFont(fontFuturist.deriveFont(16f));
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("Carico la partita!");
+			public void mousePressed(MouseEvent arg0) {
 			}
 		});
 		pnlMenu.add(btnCarica, d);
@@ -251,10 +250,9 @@ public class GUICaricaPartita extends JPanel {
 		btnElimina.setFont(fontFuturist.deriveFont(16f));
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {
 				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
-					System.out.println("Elimino la partita selezionata!");
 					try {    //Otteniamo l'indice del salvataggio da cancellare e chiamiamo la funzione apposita
 						connessione3=new ConnectionDB();
 						index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));  
@@ -291,7 +289,18 @@ public class GUICaricaPartita extends JPanel {
 			}
 			for(k=0;k<i;++k)                             //Riempiamo la ComboBox con i vari indici
 				cmbSalvataggi.addItem(k+1);
-			if(cmbSalvataggi.getItemCount() == 0){       //Errore se non vengono trovati salvataggi
+			if(cmbSalvataggi.getItemCount() == 0){       //Errore se non vengono trovati salvataggi. Non mostriamo nessuna informazione
+				lblDatav.setText("");
+				lblNomeGiocatorev.setText("");
+				lblTutorialv.setText("");
+				lblDifficoltav.setText("");
+				lblMappav.setText("");
+				lblCiviltav.setText("");					
+				lblTurnov.setText("");
+				lblEpocav.setText("");					
+				lblOrov.setText("");					
+				lblMaterialiv.setText("");				
+				lblPuntiRicercav.setText("");
 				pnlerror = new JPanel();
 				pnlerror.setBackground(Color.WHITE);
 				JOptionPane.showMessageDialog(pnlerror, "Non sono stati trovati salvataggi.",
