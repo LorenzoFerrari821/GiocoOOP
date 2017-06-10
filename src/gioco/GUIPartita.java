@@ -76,7 +76,7 @@ public class GUIPartita extends JFrame{
 	
 	GUIPartita()
 	{
-		setTitle("Play");
+		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setMinimumSize(new Dimension(1280,720));   

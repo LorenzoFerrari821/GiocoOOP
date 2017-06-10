@@ -186,7 +186,7 @@ public class GUINuovaPartita extends JPanel {
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				setVisible(false);
 			}
 		});
@@ -202,7 +202,7 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.setFont(fontFuturist.deriveFont(16f));
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				k=creaNuovaPartita();
 				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 				{
@@ -214,7 +214,7 @@ public class GUINuovaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnAvvia, c);
-
+		
 		add(pnlMenu, BorderLayout.CENTER);
 	}
 

@@ -223,7 +223,7 @@ public class GUICaricaPartita extends JPanel {
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				setVisible(false);
 			}
 		});
@@ -237,7 +237,7 @@ public class GUICaricaPartita extends JPanel {
 		btnCarica.setFont(fontFuturist.deriveFont(16f));
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 			}
 		});
 		pnlMenu.add(btnCarica, d);
@@ -250,7 +250,7 @@ public class GUICaricaPartita extends JPanel {
 		btnElimina.setFont(fontFuturist.deriveFont(16f));
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mouseReleased(MouseEvent arg0) {
 				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
 					try {    //Otteniamo l'indice del salvataggio da cancellare e chiamiamo la funzione apposita
