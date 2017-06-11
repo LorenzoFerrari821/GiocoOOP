@@ -256,7 +256,7 @@ public class GUIPartita extends JFrame{
 						lblsGioco[0][0].getSize().height+1, Image.SCALE_DEFAULT);
 				newiconlblPartita = new ImageIcon(scalelblPartita);
 				panelGioco.removeAll();
-				
+				System.out.println(lblsGioco[0][0].getSize());
 				for(int i = 0; i < partitaHeight; i++)
 				{
 					for(int j = 0; j < partitaWidth; j++)
