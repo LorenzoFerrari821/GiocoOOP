@@ -7,15 +7,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,6 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -63,9 +68,9 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBtnGoLeft;
 	private JLabel[][] lblsGioco;
 	private JPanel panelGioco;
-	Image scalelblPartita;
-	ImageIcon newiconlblPartita;
-	int partitaHeight = 16, partitaWidth = 31;
+	private Image scalelblPartita;
+	private ImageIcon newiconlblPartita;
+	private int partitaHeight = 16, partitaWidth = 31;
 	private Font fontFuturist;
 	private JButton btnApriMsg;
 	private JTextField txtMsg;
@@ -73,15 +78,32 @@ public class GUIPartita extends JFrame{
 	private JButton btnRicerca;
 	private JButton btnInfoPartita;
 	private JButton btnImpostazioni;
+	private Window[] finestreAttive;
+	private GUIPartitaOpzioni frmOpzioni;
+	private Scenario scenario;
 	
 	GUIPartita()
 	{
 		setTitle("Empire Conquerors");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //blocco di codice per evitare la chiusura immediata alla chiusura del programma
+		addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+				   int scelta =0;
+				   scelta = JOptionPane.showConfirmDialog(
+						    null, "Stai per tornare al menù principale, perderai i progressi non salvati.\nUscire dalla partita?", "Conferma",
+						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				   finestreAttive = Frame.getWindows();
+				   if(scelta == 0)
+				   {
+					   finestreAttive[0].setVisible(true);
+					   dispose();
+				   }
+			   }
+		});
 		setMinimumSize(new Dimension(1280,720));   
 		
 		setBounds(0, 0, 1280, 720);
+		setLocationRelativeTo(null);
 		
 		try {
 		    //Creo un font custom
@@ -233,6 +255,8 @@ public class GUIPartita extends JFrame{
 		lblsGioco = new JLabel[partitaHeight][partitaWidth];
 		panelGioco = new JPanel(new GridLayout(16, 31, 0, 0));
 		
+		Scenario scenario = new Scenario();
+		
 		ImageIcon iconlblPartita = new ImageIcon("media/paesaggio.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(36, 37, Image.SCALE_DEFAULT);
 		newiconlblPartita = new ImageIcon(scalelblPartita);
@@ -256,7 +280,6 @@ public class GUIPartita extends JFrame{
 						lblsGioco[0][0].getSize().height+1, Image.SCALE_DEFAULT);
 				newiconlblPartita = new ImageIcon(scalelblPartita);
 				panelGioco.removeAll();
-				System.out.println(lblsGioco[0][0].getSize());
 				for(int i = 0; i < partitaHeight; i++)
 				{
 					for(int j = 0; j < partitaWidth; j++)
@@ -349,6 +372,8 @@ public class GUIPartita extends JFrame{
 		btnImpostazioni.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				frmOpzioni = new GUIPartitaOpzioni();
+				frmOpzioni.setVisible(true);
 			}
 		});
 		
@@ -372,4 +397,5 @@ public class GUIPartita extends JFrame{
 		
 		pack();
 	}
+	
 }

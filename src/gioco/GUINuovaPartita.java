@@ -207,7 +207,7 @@ public class GUINuovaPartita extends JPanel {
 				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 				{
 					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
-					finestreAttive[0].dispose();            //Chiude la prima finestra, quella del menù, così abbiamo solo la finestra di gioco attiva
+					finestreAttive[0].setVisible(false);    
 					framePartita = new GUIPartita();
 					framePartita.setVisible(true);
 				}

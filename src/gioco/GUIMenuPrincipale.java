@@ -3,8 +3,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +59,7 @@ public class GUIMenuPrincipale extends JFrame {
 	private GUIOpzioni panelOpzioni;
 	private GUIExtra panelExtra;
 	private GUIObiettivi panelObiettivi;
-
+	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
@@ -69,7 +71,8 @@ public class GUIMenuPrincipale extends JFrame {
 		setMinimumSize(new Dimension(1280, 720));   
 
 		setBounds(0, 0, 1280, 720);
-
+		setLocationRelativeTo(null);
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
