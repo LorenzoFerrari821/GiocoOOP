@@ -89,7 +89,7 @@ public class GUIPartita extends JFrame{
 	private int posSchermataX = 31, posSchermataY = 16;
 	private String[][] scenarioCorrente;
 	private Map<String, ImageIcon> icone;
-	
+	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	GUIPartita()
 	{
 		setTitle("Empire Conquerors");
@@ -199,19 +199,26 @@ public class GUIPartita extends JFrame{
 		btnGoRight = new RoundedCornerButton();
 		btnGoDown = new RoundedCornerButton();
 		btnGoLeft = new RoundedCornerButton();
+		guiPartita = this;
 		
 		ImageIcon iconbtnGoUp = new ImageIcon("media/btnGoUp.png");
 		Image scalebtnGoUp = iconbtnGoUp.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnGoUp = new ImageIcon(scalebtnGoUp);
 		
 		btnGoUp.setIcon(newiconbtnGoUp);
+		
+		
 		btnGoUp.addMouseListener(new MouseAdapter() {
+			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				if(posSchermataY > 0) { //scorriamo la schermata verso destra
-					posSchermataY--;
-					aggiornaSchermata();
-				}
+				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 1);
+				threadScorrimento.start();
+			}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				threadScorrimento.setScorri(false);
+				
 			}
 		});
 		panelBtnGoUp = new JPanel();
@@ -236,12 +243,15 @@ public class GUIPartita extends JFrame{
 		
 		btnGoRight.setIcon(newiconbtnGoRight);
 		btnGoRight.addMouseListener(new MouseAdapter() {
+			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				if(posSchermataX < 62) { //scorriamo la schermata verso destra
-					posSchermataX++;
-					aggiornaSchermata();
-				}
+				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 2);
+				threadScorrimento.start();
+			}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				threadScorrimento.setScorri(false);
 			}
 		});
 
@@ -257,12 +267,15 @@ public class GUIPartita extends JFrame{
 		
 		btnGoLeft.setIcon(newiconbtnGoLeft);
 		btnGoLeft.addMouseListener(new MouseAdapter() {
+			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				if(posSchermataX > 0) { //scorriamo la schermata verso sinistra
-					posSchermataX--;
-					aggiornaSchermata();
-				}
+				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 4);
+				threadScorrimento.start();
+			}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				threadScorrimento.setScorri(false);
 			}
 		});
 
@@ -324,12 +337,15 @@ public class GUIPartita extends JFrame{
 		
 		btnGoDown.setIcon(newiconbtnGoDown);
 		btnGoDown.addMouseListener(new MouseAdapter() {
+			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				if(posSchermataY < 32) {  //se vero allora possiamo scorrere la schermata verso il basso
-					posSchermataY++;
-					aggiornaSchermata();
-				}
+				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 3);
+				threadScorrimento.start();
+			}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				threadScorrimento.setScorri(false);
 			}
 		});
 		
@@ -551,6 +567,22 @@ public class GUIPartita extends JFrame{
 			}
 		}
 		panelGioco.setVisible(true);
+	}
+
+	public int getPosSchermataX() {
+		return posSchermataX;
+	}
+
+	public void setPosSchermataX(int posSchermataX) {
+		this.posSchermataX = posSchermataX;
+	}
+
+	public int getPosSchermataY() {
+		return posSchermataY;
+	}
+
+	public void setPosSchermataY(int posSchermataY) {
+		this.posSchermataY = posSchermataY;
 	}
 	
 }
