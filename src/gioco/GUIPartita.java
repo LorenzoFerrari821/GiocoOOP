@@ -208,6 +208,10 @@ public class GUIPartita extends JFrame{
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(posSchermataY > 0) { //scorriamo la schermata verso destra
+					posSchermataY--;
+					aggiornaSchermata();
+				}
 			}
 		});
 		panelBtnGoUp = new JPanel();
@@ -234,6 +238,10 @@ public class GUIPartita extends JFrame{
 		btnGoRight.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(posSchermataX < 62) { //scorriamo la schermata verso destra
+					posSchermataX++;
+					aggiornaSchermata();
+				}
 			}
 		});
 
@@ -251,6 +259,10 @@ public class GUIPartita extends JFrame{
 		btnGoLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(posSchermataX > 0) { //scorriamo la schermata verso sinistra
+					posSchermataX--;
+					aggiornaSchermata();
+				}
 			}
 		});
 
@@ -270,7 +282,6 @@ public class GUIPartita extends JFrame{
 			for(int j = 0; j < partitaWidth; j++)
 			{
 				lblsGioco[i][j] = new JLabel();
-				//lblsGioco[i][j].setIcon(newiconlblPartita);
 				panelGioco.add(lblsGioco[i][j]);
 				
 			}	
@@ -278,31 +289,14 @@ public class GUIPartita extends JFrame{
 		caricaIcone(36, 37); //Questo metodo carica tutte le icone grafiche all'interno del gioco con dimensione di default (36 e 37)
 		aggiornaSchermata(); //prende la situazione attuale da Scenario e parsando la matrice di stringhe crea il corrispondente grafico
 		
-		/*ImageIcon iconlblPartita = new ImageIcon("media/paesaggio.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(36, 37, Image.SCALE_DEFAULT);
-		newiconlblPartita = new ImageIcon(scalelblPartita);*/
-		
 		
 		
 		panelGioco.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e)
 			{
-				/*scalelblPartita = iconlblPartita.getImage().getScaledInstance(lblsGioco[0][0].getSize().width, 
-						lblsGioco[0][0].getSize().height+1, Image.SCALE_DEFAULT);*/
 				caricaIcone(lblsGioco[0][0].getSize().width, lblsGioco[0][0].getSize().height+1);
 				aggiornaSchermata();
-				/*newiconlblPartita = new ImageIcon(scalelblPartita);
-				panelGioco.removeAll();
-				for(int i = 0; i < partitaHeight; i++)
-				{
-					for(int j = 0; j < partitaWidth; j++)
-					{
-						lblsGioco[i][j].setIcon(newiconlblPartita);
-						panelGioco.add(lblsGioco[i][j]);
-					}
-				}*/
-				
 			}
 		});
 		
@@ -332,6 +326,10 @@ public class GUIPartita extends JFrame{
 		btnGoDown.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(posSchermataY < 32) {  //se vero allora possiamo scorrere la schermata verso il basso
+					posSchermataY++;
+					aggiornaSchermata();
+				}
 			}
 		});
 		
@@ -513,6 +511,20 @@ public class GUIPartita extends JFrame{
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		icone.put("t4", new ImageIcon(scalelblPartita));
 		
+		//caricamento municipio età classica
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		icone.put("ecmunicipio1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		icone.put("ecmunicipio2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		icone.put("ecmunicipio3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		icone.put("ecmunicipio4", new ImageIcon(scalelblPartita));
+		
 	}
 	
 	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
@@ -523,6 +535,7 @@ public class GUIPartita extends JFrame{
 		List<ImageIcon> daAggiungere = new ArrayList<ImageIcon>();
 		CompoundIcon cmpIcon;
 		
+		panelGioco.setVisible(false);
 		for(int y = posSchermataY; y < posSchermataY + 16; y++)
 		{
 			for(int x = posSchermataX; x < posSchermataX + 31; x++)
@@ -537,6 +550,7 @@ public class GUIPartita extends JFrame{
 				lblsGioco[y-posSchermataY][x-posSchermataX].setIcon(cmpIcon);
 			}
 		}
+		panelGioco.setVisible(true);
 	}
 	
 }

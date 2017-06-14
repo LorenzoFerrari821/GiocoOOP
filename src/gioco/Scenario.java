@@ -332,34 +332,26 @@ public class Scenario {
 		}
 		//aggiungo municipi iniziali
 		//su
-		scenario[6][38] += " municipio1";
-		scenario[6][39] += " municipio2";
-		scenario[7][38] += " municipio3";
-		scenario[7][39] += " municipio4";
+		scenario[6][38] += " ecmunicipio1"; //età classica municipio 1
+		scenario[6][39] += " ecmunicipio2";
+		scenario[7][38] += " ecmunicipio3";
+		scenario[7][39] += " ecmunicipio4";
 		//sx
-		scenario[19][9] += " municipio1";
-		scenario[19][10] += " municipio2";
-		scenario[20][9] += " municipio3";
-		scenario[20][10] += " municipio4";
+		scenario[19][9] += " ecmunicipio1";
+		scenario[19][10] += " ecmunicipio2";
+		scenario[20][9] += " ecmunicipio3";
+		scenario[20][10] += " ecmunicipio4";
 		//dx
-		scenario[27][82] += " municipio1";
-		scenario[27][83] += " municipio2";
-		scenario[28][82] += " municipio3";
-		scenario[28][83] += " municipio4";
+		scenario[27][82] += " ecmunicipio1";
+		scenario[27][83] += " ecmunicipio2";
+		scenario[28][82] += " ecmunicipio3";
+		scenario[28][83] += " ecmunicipio4";
 		//giu
-		scenario[40][53] += " municipio1";
-		scenario[40][54] += " municipio1";
-		scenario[41][53] += " municipio1";
-		scenario[41][54] += " municipio1";
+		scenario[40][53] += " ecmunicipio1";
+		scenario[40][54] += " ecmunicipio2";
+		scenario[41][53] += " ecmunicipio3";
+		scenario[41][54] += " ecmunicipio4";
 		
-		/*for(int i = 0; i < 48; i++)
-		{
-			for(int j = 0; j < 93; j++)
-			{
-				System.out.print(scenario[i][j]);
-			}
-			System.out.println("");
-		}*/
 	}
 	
 	public String[][] getScenario() {
