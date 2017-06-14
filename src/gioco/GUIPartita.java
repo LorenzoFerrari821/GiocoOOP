@@ -78,6 +78,7 @@ public class GUIPartita extends JFrame{
 	private int partitaHeight = 16, partitaWidth = 31;
 	private Font fontFuturist;
 	private JButton btnApriMsg;
+	private JButton btnPassaTurno;
 	private JTextField txtMsg;
 	private JButton btnCostruisci;
 	private JButton btnRicerca;
@@ -327,6 +328,9 @@ public class GUIPartita extends JFrame{
 		panelMsg.add(btnApriMsg, d);
 		d.gridx ++;
 		panelMsg.add(txtMsg, d);
+		d.gridx ++;
+		btnPassaTurno = new JButton("Passa");
+		panelMsg.add(btnPassaTurno, d);
 		
 		panelBottom.add(panelMsg);
 		
