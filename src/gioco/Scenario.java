@@ -284,6 +284,7 @@ public class Scenario {
 							scenario[i][j] += " pg";
 						if(j == 89)
 							scenario[i][j] += " z";
+						break;
 					case 42:
 						if(j == 73)
 							scenario[i][j] += " f";
