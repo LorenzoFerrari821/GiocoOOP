@@ -1,37 +1,128 @@
 package gioco;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class GUIPartitaOpzioni extends JFrame{
+	private RoundedCornerButton btnContinua;
+	private RoundedCornerButton btnSalva;
+	private RoundedCornerButton btnCarica;
+	private RoundedCornerButton btnImpostazioni;
 	private RoundedCornerButton btnTornaMenu;
 	private RoundedCornerButton btnEsci;
 	private Window[] finestreAttive;
 	private JPanel contentPane;
+	private Font fontFuturist;
 	
 	GUIPartitaOpzioni () {
-		setLayout(new FlowLayout()); //impostato un flowlayout
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+		    //Creo un font custom
+		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //registro il font
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
+		setLayout(new BorderLayout(0,0)); //impostato un borderlayout
 		contentPane = new JPanel();
-		contentPane.setLayout(new GridLayout2(3, 1, 0, 0));
-		contentPane.setBorder(new EmptyBorder(10 , 10 , 10 , 10 ));
+		contentPane.setLayout(new GridLayout2(13, 1, 0, 0));
+		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0));
 		btnTornaMenu = new RoundedCornerButton();
 		setTitle("Opzioni");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(300, 500));   
 		setLocationRelativeTo(null);
 		
-		btnTornaMenu = new RoundedCornerButton("Torna al menù");
+		contentPane.add(new JLabel(" "));
+		
+		btnContinua = new RoundedCornerButton("CONTINUA PARTITA");
+		btnContinua.setFont(fontFuturist.deriveFont(12f));
+		btnContinua.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+			}
+		});
+		contentPane.add(btnContinua);
+		
+		contentPane.add(new JLabel(" "));
+		
+		btnSalva = new RoundedCornerButton("SALVA PARTITA");
+		btnSalva.setFont(fontFuturist.deriveFont(12f));
+		btnSalva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+			}
+		});
+		contentPane.add(btnSalva);
+		
+		contentPane.add(new JLabel(" "));
+		
+		btnCarica = new RoundedCornerButton("CARICA PARTITA");
+		btnCarica.setFont(fontFuturist.deriveFont(12f));
+		btnCarica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+
+			}
+		});
+		contentPane.add(btnCarica);
+		
+		contentPane.add(new JLabel(" "));
+		
+		btnImpostazioni = new RoundedCornerButton("IMPOSTAZIONI");
+		btnImpostazioni.setFont(fontFuturist.deriveFont(12f));
+		btnImpostazioni.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		contentPane.add(btnImpostazioni);
+		
+		contentPane.add(new JLabel(" "));
+		
+		btnTornaMenu = new RoundedCornerButton("TORNA AL MENÙ");
+		btnTornaMenu.setFont(fontFuturist.deriveFont(12f));
 		btnTornaMenu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -50,7 +141,10 @@ public class GUIPartitaOpzioni extends JFrame{
 		});
 		contentPane.add(btnTornaMenu);
 		
-		btnEsci = new RoundedCornerButton("Esci");
+		contentPane.add(new JLabel(" "));
+		
+		btnEsci = new RoundedCornerButton("ESCI");
+		btnEsci.setFont(fontFuturist.deriveFont(12f));
 		btnEsci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -65,6 +159,6 @@ public class GUIPartitaOpzioni extends JFrame{
 		contentPane.add(btnEsci);
 		
 		
-		add(contentPane);
+		add(contentPane, BorderLayout.CENTER);
 	}
 }

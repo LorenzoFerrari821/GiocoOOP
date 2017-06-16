@@ -22,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Questa classe si occupa di organizzare e definire l'interfaccia grafica
@@ -77,6 +79,15 @@ public class GUICaricaPartita extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch(FontFormatException e) {
+			e.printStackTrace();
+		}
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

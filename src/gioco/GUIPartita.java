@@ -91,6 +91,8 @@ public class GUIPartita extends JFrame{
 	private String[][] scenarioCorrente;
 	private Map<String, ImageIcon> icone;
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
+	private GUIPartitaInformazioni frmInfo;
+	
 	GUIPartita()
 	{
 		setTitle("Empire Conquerors");
@@ -128,16 +130,10 @@ public class GUIPartita extends JFrame{
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
+		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -393,6 +389,8 @@ public class GUIPartita extends JFrame{
 		btnInfoPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				frmInfo = new GUIPartitaInformazioni(0,0,0,0,0,0,0,0,0);
+				frmInfo.setVisible(true);
 			}
 		});
 		
