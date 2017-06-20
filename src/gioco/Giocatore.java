@@ -13,13 +13,40 @@ public class Giocatore {
 	private int oro;
 	private int materiali;
 	private int puntiRicerca;
+	
 	private int bonusEconomia;
 	private int bonusMilitare;
 	private int bonusRicerca;
 	
-	private List<UnitaMilitare> unitaMunicipio = new ArrayList<UnitaMilitare>(); //unità attualmente nel municipio
-	private List<GruppoMilitare> armateInAttacco = new ArrayList<GruppoMilitare>(); //gruppi militari attualmente all'esterno del municipio
+	private List<UnitaMilitare> unitaMunicipio; //unità attualmente nel municipio
+	private List<GruppoMilitare> armateInAttacco; //gruppi militari attualmente all'esterno del municipio
 	
-	private List<String> ricercheEffettuate = new ArrayList<String>(); //contiene tutte le ricerche effettuate dal giocatore
-	private List<String> storicoPossedimenti = new ArrayList<String>(); //contiene tutti i possedimenti (case etc) del giocatore
+	private List<String> ricercheEffettuate; //contiene tutte le ricerche effettuate dal giocatore
+	private List<String> storicoPossedimenti; //contiene tutti i possedimenti (case etc) del giocatore
+	
+	Giocatore() {
+		unitaMunicipio = new ArrayList<UnitaMilitare>();
+		armateInAttacco = new ArrayList<GruppoMilitare>();
+		ricercheEffettuate = new ArrayList<String>();
+		storicoPossedimenti = new ArrayList<String>();
+	}
+	
+	public int getCiviltà() {
+		return civiltà;
+	}
+	public void setCiviltà(int civiltà) {
+		this.civiltà = civiltà;
+	}
+	public int getPuntiRicerca() {
+		return puntiRicerca;
+	}
+	public void setPuntiRicerca(int puntiRicerca) {
+		this.puntiRicerca = puntiRicerca;
+	}
+	public List<String> getRicercheEffettuate() {
+		return ricercheEffettuate;
+	}
+	public void setRicercheEffettuate(List<String> ricercheEffettuate) {
+		this.ricercheEffettuate = ricercheEffettuate;
+	}
 }

@@ -92,6 +92,9 @@ public class GUIPartita extends JFrame{
 	private Map<String, ImageIcon> icone;
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	private GUIPartitaInformazioni frmInfo;
+	private GUIPartitaRicerca frmRicerca;
+	private Giocatore giocatore;
+	private ValoriDiGioco valoriDiGioco;
 	
 	GUIPartita()
 	{
@@ -377,6 +380,9 @@ public class GUIPartita extends JFrame{
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				frmRicerca = new GUIPartitaRicerca(giocatore, valoriDiGioco);
+				frmRicerca.setVisible(true);
 			}
 		});
 		
@@ -427,6 +433,14 @@ public class GUIPartita extends JFrame{
 		this.add(contentPane);
 		
 		pack();
+		
+		setupPartita();
+	}
+	
+	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
+	public void setupPartita() {
+		valoriDiGioco = new ValoriDiGioco();
+		
 	}
 	
 	public void caricaIcone(int width, int height) {
