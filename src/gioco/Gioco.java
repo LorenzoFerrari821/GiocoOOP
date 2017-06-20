@@ -17,7 +17,7 @@ public class Gioco {
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
 					frame.setVisible(true);
 					File musica= new File("media/Musica.wav");
-					//MenuMusic.PlaySound(musica);
+					MenuMusic.PlaySound(musica);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
