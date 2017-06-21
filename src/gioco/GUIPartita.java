@@ -381,7 +381,7 @@ public class GUIPartita extends JFrame{
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				giocatore.setCiviltà(1); //TEMPORANEO
+				giocatore.setCiviltà(4); //TEMPORANEO
 				frmRicerca = new GUIPartitaRicerca(giocatore, valoriDiGioco);
 				frmRicerca.setVisible(true);
 			}

@@ -242,7 +242,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		btnIndietro = new RoundedCornerButton();
-		btnIndietro.setFont(fontFuturist.deriveFont(12f));
+		btnIndietro.setFont(fontFuturist.deriveFont(13f));
 		btnIndietro.setText("INDIETRO");
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override

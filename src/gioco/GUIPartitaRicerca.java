@@ -9,12 +9,15 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +30,7 @@ public class GUIPartitaRicerca extends JFrame {
 	
 	private Font fontFuturist;
 	private GridBagConstraints c;
+	private JPanel pnlFooter;
 	private JPanel contentPane;
 	private ImageIcon iconTick;
 	private ImageIcon iconCross;
@@ -36,13 +40,12 @@ public class GUIPartitaRicerca extends JFrame {
 	private int gridXEClassica;
 	private int gridXMedioevo;
 	private int gridXEVittoriana;
+	private RoundedCornerButton btnIndietro;
 	
 	private ValoriDiGioco valoriDiGioco; //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
 	private Giocatore giocatore;  //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
 	
 	GUIPartitaRicerca(Giocatore giocatore, ValoriDiGioco valoriDiGioco) {
-		
-		int valX = 1; //dichiarato qui perchè serve solo per il corretto posizionamento orizzontale grafico delle ricerche
 		
 		try {
 		    //Creo un font custom
@@ -68,11 +71,35 @@ public class GUIPartitaRicerca extends JFrame {
 		
 		setTitle("Ricerca");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 750, 500);
+		setBounds(0, 0, 1000, 550);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new GridBagLayout());
+		pnlFooter = new JPanel(new BorderLayout(0,0));
+		
+		this.valoriDiGioco = valoriDiGioco;
+		this.giocatore = giocatore;
+		
+		creaGUI();
+		btnIndietro = new RoundedCornerButton();
+		btnIndietro.setFont(fontFuturist.deriveFont(13f));
+		btnIndietro.setText("INDIETRO");
+		btnIndietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				dispose();
+			}
+		});
+		pnlFooter.add(btnIndietro, BorderLayout.EAST);
+		
+		add(new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+		add(pnlFooter, BorderLayout.SOUTH);
+	}
+	
+	public void creaGUI()
+	{
+		int valX = 1; //dichiarato qui perchè serve solo per il corretto posizionamento orizzontale grafico delle ricerche
 		
 		//Setting icone tick e cross
 		iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");
@@ -103,9 +130,6 @@ public class GUIPartitaRicerca extends JFrame {
 		contentPane.add(new JLabel("      "), c);
 		
 		c.gridx++;
-		
-		this.valoriDiGioco = valoriDiGioco;
-		this.giocatore = giocatore;
 		
 		//Ricerca sentieri
 		ImageIcon iconSentieri = new ImageIcon("media/asset_grafici/icone/1etaclassica/sentieri.png");
@@ -493,8 +517,6 @@ public class GUIPartitaRicerca extends JFrame {
 		contentPane.add(new JLabel("      "), c);
 		
 		dipingiBackground(gridXEClassica, gridXMedioevo, gridXEVittoriana);
-		
-		add(new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 	}
 	
 	public void dipingiBackground(int gridXEClassica, int gridXMedioevo, int gridXEVittoriana)
@@ -509,18 +531,25 @@ public class GUIPartitaRicerca extends JFrame {
 		c.gridy++;
 		contentPane.add(new JLabel("  "), c);
 		
-		c.gridy--;
+		c.gridy -= 2;
 		c.gridx = gridXMedioevo;
 		JLabel lblMed = new JLabel("MEDIOEVO");
 		lblMed.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblMed, c);
 		c.gridy++;
+		contentPane.add(new JLabel("  "), c);
+		c.gridy++;
+		contentPane.add(new JLabel("  "), c);
 		
+		c.gridy -= 2;
 		c.gridx = gridXEVittoriana;
 		JLabel lblEVit = new JLabel("ETA VITTTORIANA");
 		lblEVit.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblEVit, c);
 		c.gridy++;
+		contentPane.add(new JLabel("  "), c);
+		c.gridy++;
+		contentPane.add(new JLabel("  "), c);
 	}
 	
 	public void from1to1()
