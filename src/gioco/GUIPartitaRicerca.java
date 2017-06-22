@@ -785,7 +785,7 @@ public class GUIPartitaRicerca extends JFrame {
 						int scelta =0;
 						Integer rimanente = giocatore.getPuntiRicerca()-valoriDiGioco.getValoriRicerche().get(nome);
 						scelta = JOptionPane.showConfirmDialog(
-								    null, "Vuoi acquistare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
+								    null, "Vuoi ricercare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
 								    " punti ricerca?\n(Rimarranno "+rimanente.toString()+" punti ricerca).", "Conferma",
 								    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 						if(scelta == 0) //se si
