@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -1049,11 +1050,58 @@ public class GUIPartitaRicerca extends JFrame {
 		lblNome.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		contentPane.add(lblNome, c);
 		
+		JLabel lblcpyTick = new JLabel();  //creata una copia della lblTick per poter utilizzare l'icona tick più volte
+		lblcpyTick.setIcon(lblTick.getIcon());
+		lblcpyTick.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		JLabel lblcpyCross = new JLabel(); //creata una copia della lblCross per poter utilizzare l'icona cross più volte
+		lblcpyCross.setIcon(lblCross.getIcon());
+		lblcpyCross.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
 		//Aggiungo l'icona della ricerca
 		c.gridx++;
 		JLabel lblIcon = new JLabel();
 		lblIcon.setIcon(icona);
 		lblIcon.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		lblIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(giocatore.getRicercheEffettuate().contains(nome)) //se già ricercata
+				{
+					JOptionPane.showMessageDialog(null, "La tecnologia selezionata è già stata ricercata",
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
+				}
+				else
+				{
+					System.out.println(giocatore.getPuntiRicerca());
+					System.out.println(valoriDiGioco.getValoriRicerche().get(nome));
+					if(giocatore.getPuntiRicerca() < valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
+					{
+						JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",
+								"Attenzione", JOptionPane.DEFAULT_OPTION);
+					}
+					else
+					{
+						int scelta =0;
+						Integer rimanente = giocatore.getPuntiRicerca()-valoriDiGioco.getValoriRicerche().get(nome);
+						scelta = JOptionPane.showConfirmDialog(
+								    null, "Vuoi acquistare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
+								    " punti ricerca?\n(Rimarranno "+rimanente.toString()+" punti ricerca).", "Conferma",
+								    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						if(scelta == 0) //se si
+						{
+							giocatore.setPuntiRicerca(rimanente);
+							giocatore.getRicercheEffettuate().add(nome);
+							contentPane.remove(lblcpyCross);
+							c.gridx = posx+1;
+							c.gridy = posy+1;
+							contentPane.add(lblcpyTick, c);
+							contentPane.setVisible(false); //fa una sorta di refresh
+							contentPane.setVisible(true);
+						}
+					}
+				}
+			}
+		});
 		contentPane.add(lblIcon, c);
 		
 		//Aggiungo il costo in punti ricerca
@@ -1067,16 +1115,13 @@ public class GUIPartitaRicerca extends JFrame {
 		
 		//Aggiungo lo stato corrente della ricerca (tick o cross)
 		c.gridx++;
-		if(giocatore.getRicercheEffettuate().contains(nome)) {
-			JLabel lblcpyTick = new JLabel();  //creata una copia della lblTick per poter utilizzare l'icona tick più volte
-			lblcpyTick.setIcon(lblTick.getIcon());
-			lblcpyTick.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		if(giocatore.getRicercheEffettuate().contains(nome)) 
+		{
 			contentPane.add(lblcpyTick, c);
 		}
-		else {
-			JLabel lblcpyCross = new JLabel(); //creata una copia della lblCross per poter utilizzare l'icona cross più volte
-			lblcpyCross.setIcon(lblCross.getIcon());
-			lblcpyCross.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		else
+		{
 			contentPane.add(lblcpyCross, c);
 		}
 	}

@@ -95,6 +95,7 @@ public class GUIPartita extends JFrame{
 	private GUIPartitaRicerca frmRicerca;
 	private Giocatore giocatore;
 	private ValoriDiGioco valoriDiGioco;
+	private GUIPartitaCostruisci frmCostruisci;
 	
 	GUIPartita()
 	{
@@ -367,6 +368,8 @@ public class GUIPartita extends JFrame{
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				frmCostruisci = new GUIPartitaCostruisci();
+				frmCostruisci.setVisible(true);
 			}
 		});
 		btnCostruisci.setSize(30, 33);
@@ -377,11 +380,14 @@ public class GUIPartita extends JFrame{
 		ImageIcon newiconbtnRicerca = new ImageIcon(scalebtnRicerca);
 		
 		btnRicerca.setIcon(newiconbtnRicerca);
+		
+		giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		giocatore.setCiviltà(4); //TEMPORANEO
+		giocatore.setPuntiRicerca(4);
+		
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				giocatore.setCiviltà(4); //TEMPORANEO
 				frmRicerca = new GUIPartitaRicerca(giocatore, valoriDiGioco);
 				frmRicerca.setVisible(true);
 			}
@@ -601,5 +607,4 @@ public class GUIPartita extends JFrame{
 	public void setPosSchermataY(int posSchermataY) {
 		this.posSchermataY = posSchermataY;
 	}
-	
 }

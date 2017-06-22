@@ -42,19 +42,13 @@ public class Scenario {
 					scenario[i][j] = "g";
 				
 				//aggiungo elementi scenario
-				if(i == 0 && j == 0)
-					scenario[i][j] += " c";
-				if(i == 0 && j == 24)
-					scenario[i][j] += " x";
-				if(i == 0 && j == 38)
-					scenario[i][j] += " y";
 				switch(i) {
 					case 0:
 						if(j == 0)
 							scenario[i][j] += " c";
-						if(j == 24)
+						if(j == 39)
 							scenario[i][j] += " x";
-						if(j == 38)
+						if(j == 53)
 							scenario[i][j] += " y";
 						break;
 					case 1:
