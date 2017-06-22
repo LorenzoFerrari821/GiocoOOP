@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class ValoriDiGioco {
 	private Map<String, Integer> valoriRicerche;
+	private Map<String, Integer> valoriOro;
+	private Map<String, Integer> valoriMat;
 	
 	ValoriDiGioco() {
 		valoriRicerche = new HashMap<String, Integer>();
@@ -61,6 +63,67 @@ public class ValoriDiGioco {
 		valoriRicerche.put("Guardie reali", 18);
 		valoriRicerche.put("Carabinieri", 18);
 		valoriRicerche.put("Gardenkorps", 18);
+		
+		valoriOro = new HashMap<String, Integer>();
+		valoriMat = new HashMap<String, Integer>();
+		
+		//Inserimento costi età classica
+		inserisciCosti("Sentiero", 1, 1);
+		inserisciCosti("Casa", 5, 2);
+		inserisciCosti("Caserma", 3, 10);
+		inserisciCosti("Fucina", 2, 5);
+		inserisciCosti("Mercato", 3, 6);
+		inserisciCosti("Orefice", 2, 6);
+		inserisciCosti("Tempio", 3, 7);
+		inserisciCosti("Villa", 8, 4);
+		inserisciCosti("Palazzo", 10, 10);
+		
+		//Inserimento costi medioevo
+		inserisciCosti("Strada lastricata", 5, 5);
+		inserisciCosti("Casa a più piani", 12, 6);
+		inserisciCosti("Biblioteca", 10, 14);
+		inserisciCosti("Campo mercenari", 8, 16);
+		inserisciCosti("Chiesa", 10, 13);
+		inserisciCosti("Ospedale", 12, 14);
+		inserisciCosti("Casa a schiera", 14, 6);
+		inserisciCosti("Rogo", 18, 18);
+		inserisciCosti("Mastro birraio", 12, 19);
+		inserisciCosti("Banca", 15, 18);
+		inserisciCosti("Granaio", 11, 14);
+		
+		//Inserimento costi età vittoriana
+		inserisciCosti("Strada asfaltata", 10, 10);
+		inserisciCosti("Fabbrica", 17, 23);
+		inserisciCosti("Laboratorio", 13, 27);
+		inserisciCosti("Casa con mansarda", 26, 12);
+		inserisciCosti("Caserma eroi", 30, 30);
+		inserisciCosti("Centro cittadino", 19, 28);
+		inserisciCosti("Parlamento", 18, 30);
+		inserisciCosti("Opera", 20, 31);
+		inserisciCosti("Teatro", 31, 20);
+		inserisciCosti("Villetta", 33, 15);
+	}
+	
+	public Map<String, Integer> getValoriOro() {
+		return valoriOro;
+	}
+
+	public void setValoriOro(Map<String, Integer> valoriOro) {
+		this.valoriOro = valoriOro;
+	}
+
+	public Map<String, Integer> getValoriMat() {
+		return valoriMat;
+	}
+
+	public void setValoriMat(Map<String, Integer> valoriMat) {
+		this.valoriMat = valoriMat;
+	}
+
+	public void inserisciCosti(String nome, int oro, int mat)
+	{
+		valoriOro.put(nome, oro);
+		valoriMat.put(nome, mat);
 	}
 
 	public Map<String, Integer> getValoriRicerche() {

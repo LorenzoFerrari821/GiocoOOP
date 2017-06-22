@@ -33,15 +33,13 @@ public class GUIPartitaRicerca extends JFrame {
 	private GridBagConstraints c;
 	private JPanel pnlFooter;
 	private JPanel contentPane;
-	private ImageIcon iconTick;
-	private ImageIcon iconCross;
 	private JLabel lblTick;
 	private JLabel lblCross;
-	private ImageIcon newiconCosto;
 	private int gridXEClassica;
 	private int gridXMedioevo;
 	private int gridXEVittoriana;
 	private RoundedCornerButton btnIndietro;
+	private IconeGrafiche iconeGrafiche;
 	
 	private ValoriDiGioco valoriDiGioco; //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
 	private Giocatore giocatore;  //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
@@ -82,6 +80,8 @@ public class GUIPartitaRicerca extends JFrame {
 		this.valoriDiGioco = valoriDiGioco;
 		this.giocatore = giocatore;
 		
+		iconeGrafiche = new IconeGrafiche();
+		
 		creaGUI();
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
@@ -103,24 +103,12 @@ public class GUIPartitaRicerca extends JFrame {
 		int valX = 1; //dichiarato qui perchè serve solo per il corretto posizionamento orizzontale grafico delle ricerche
 		
 		//Setting icone tick e cross
-		iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");
-		Image scaleTick = iconTick.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconTick = new ImageIcon(scaleTick);
 		lblTick = new JLabel();
-		lblTick.setIcon(newiconTick);
+		lblTick.setIcon(iconeGrafiche.newiconTick);
 		lblTick.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		iconCross = new ImageIcon("media/asset_grafici/icone/cross.png");
-		Image scaleCross = iconCross.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCross = new ImageIcon(scaleCross);
 		lblCross = new JLabel();
-		lblCross.setIcon(newiconCross);
+		lblCross.setIcon(iconeGrafiche.newiconCross);
 		lblCross.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		//Setting icona costo
-		ImageIcon iconCosto = new ImageIcon("media/asset_grafici/icone/ricerca.png");
-		Image scaleCosto = iconCosto.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-		newiconCosto = new ImageIcon(scaleCosto);
 		
 		c = new GridBagConstraints();
 		c.anchor = new GridBagConstraints().CENTER;
@@ -133,35 +121,15 @@ public class GUIPartitaRicerca extends JFrame {
 		c.gridx++;
 		
 		//Ricerca sentieri
-		ImageIcon iconSentieri = new ImageIcon("media/asset_grafici/icone/1etaclassica/sentieri.png");
-		Image scaleSentieri = iconSentieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconSentieri = new ImageIcon(scaleSentieri);
-		
 		gridXEClassica = valX;
-		inserisci1(valX, 7, "Sentieri", newiconSentieri);
+		inserisci1(valX, 7, "Sentieri", iconeGrafiche.newiconSentieri);
 		
 		from1to3();
 		
 		//Ricerca abitazioni, caserma, fucina
-		ImageIcon iconAbitazioni = new ImageIcon("media/asset_grafici/icone/1etaclassica/casa.png");
-		Image scaleAbitazioni = iconAbitazioni.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconAbitazioni = new ImageIcon(scaleAbitazioni);
-		ImageIcon iconCaserma = new ImageIcon("media/asset_grafici/icone/1etaclassica/caserma.png");
-		Image scaleCaserma = iconCaserma.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCaserma = new ImageIcon(scaleCaserma);
-		ImageIcon iconFucina = new ImageIcon("media/asset_grafici/icone/1etaclassica/fucina.png");
-		Image scaleFucina = iconFucina.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconFucina = new ImageIcon(scaleFucina);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Abitazioni", "Caserma", "Fucina", newiconAbitazioni, newiconCaserma, newiconFucina);
-		
-		ImageIcon iconCommercio = new ImageIcon("media/asset_grafici/icone/1etaclassica/mercato.png");
-		Image scaleCommercio = iconCommercio.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCommercio = new ImageIcon(scaleCommercio);
-		ImageIcon iconFanteria = new ImageIcon("media/asset_grafici/icone/1etaclassica/fanteria.png");
-		Image scaleFanteria = iconFanteria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconFanteria = new ImageIcon(scaleFanteria);
+		inserisci3(valX, 4, "Abitazioni", "Caserma", "Fucina", iconeGrafiche.newiconAbitazioni, 
+				iconeGrafiche.newiconCaserma, iconeGrafiche.newiconFucina);
 		
 		if(giocatore.getCiviltà() != 1) //se la civiltà è diversa da romani
 		{
@@ -169,7 +137,7 @@ public class GUIPartitaRicerca extends JFrame {
 			
 			//Ricerca commercio, fanteria
 			valX += 4;
-			inserisci2(valX, 4, "Commercio", "Fanteria", newiconCommercio, newiconFanteria);
+			inserisci2(valX, 4, "Commercio", "Fanteria", iconeGrafiche.newiconCommercio, iconeGrafiche.newiconFanteria);
 			
 			from2to3();
 		}
@@ -178,58 +146,33 @@ public class GUIPartitaRicerca extends JFrame {
 			from3to3();
 			
 			//Ricerca commercio, fanteria, oreficeria
-			ImageIcon iconOreficeria = new ImageIcon("media/asset_grafici/icone/1etaclassica/oreficeria.png");
-			Image scaleOreficeria = iconOreficeria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconOreficeria = new ImageIcon(scaleOreficeria);
-			
 			valX += 4;
-			inserisci3(valX, 4, "Commercio", "Fanteria", "Oreficeria", newiconCommercio, newiconFanteria, newiconOreficeria);
+			inserisci3(valX, 4, "Commercio", "Fanteria", "Oreficeria", iconeGrafiche.newiconCommercio, 
+					iconeGrafiche.newiconFanteria, iconeGrafiche.newiconOreficeria);
 			
 			from3to3();
 		}
 		
 		//Ricerca religione, ville, tiro con l'arco
-		ImageIcon iconReligione = new ImageIcon("media/asset_grafici/icone/1etaclassica/religione.png");
-		Image scaleReligione = iconReligione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconReligione = new ImageIcon(scaleReligione);
-		ImageIcon iconVille = new ImageIcon("media/asset_grafici/icone/1etaclassica/villa.png");
-		Image scaleVille = iconVille.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVille = new ImageIcon(scaleVille);
-		ImageIcon iconTiroConArco = new ImageIcon("media/asset_grafici/icone/1etaclassica/tiroconarco.png");
-		Image scaleTiroConArco = iconTiroConArco.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconTiroConArco = new ImageIcon(scaleTiroConArco);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Religione", "Ville", "Tiro con l'arco", newiconReligione, newiconVille, newiconTiroConArco);
+		inserisci3(valX, 4, "Religione", "Ville", "Tiro con l'arco", iconeGrafiche.newiconReligione,
+				iconeGrafiche.newiconVille, iconeGrafiche.newiconTiroConArco);
 		
 		if(giocatore.getCiviltà() != 1) //se la civiltà del giocatore è diversa da romani
 		{
 			from3to3();
 			//Ricerca oracolo,città, cavalleria
-			ImageIcon iconOracolo = new ImageIcon("media/asset_grafici/icone/1etaclassica/oracolo.png");
-			Image scaleOracolo = iconOracolo.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconOracolo = new ImageIcon(scaleOracolo);
-			ImageIcon iconCitta = new ImageIcon("media/asset_grafici/icone/1etaclassica/palazzo.png");
-			Image scaleCitta = iconCitta.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconCitta = new ImageIcon(scaleCitta);
-			ImageIcon iconCavalleria = new ImageIcon("media/asset_grafici/icone/1etaclassica/cavalleria.png");
-			Image scaleCavalleria = iconCavalleria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconCavalleria = new ImageIcon(scaleCavalleria);
-			
 			valX += 4;
-			inserisci3(valX, 4, "Oracolo", "Città", "Cavalleria", newiconOracolo, newiconCitta, newiconCavalleria);
+			inserisci3(valX, 4, "Oracolo", "Città", "Cavalleria", iconeGrafiche.newiconOracolo,
+					iconeGrafiche.newiconCitta, iconeGrafiche.newiconCavalleria);
 			
 			from3to1();
 			
 			if(giocatore.getCiviltà() == 4) //Se utilizziamo i sassoni
 			{
 				//Ricerca società militare
-				ImageIcon iconSocMil = new ImageIcon("media/asset_grafici/icone/1etaclassica/societamilitare.png");
-				Image scaleSocMil = iconSocMil.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-				ImageIcon newiconSocMil = new ImageIcon(scaleSocMil);
-				
 				valX += 4;
-				inserisci1(valX, 7, "Società militare", newiconSocMil);
+				inserisci1(valX, 7, "Società militare", iconeGrafiche.newiconSocMil);
 				
 				from1to1();
 			}
@@ -239,113 +182,58 @@ public class GUIPartitaRicerca extends JFrame {
 			from3to2();
 			
 			//Ricerca città e cavalleria
-			ImageIcon iconCitta = new ImageIcon("media/asset_grafici/icone/1etaclassica/palazzo.png");
-			Image scaleCitta = iconCitta.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconCitta = new ImageIcon(scaleCitta);
-			ImageIcon iconCavalleria = new ImageIcon("media/asset_grafici/icone/1etaclassica/cavalleria.png");
-			Image scaleCavalleria = iconCavalleria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconCavalleria = new ImageIcon(scaleCavalleria);
-			
 			valX += 4;
-			inserisci2(valX, 4, "Città", "Cavalleria", newiconCitta, newiconCavalleria);
+			inserisci2(valX, 4, "Città", "Cavalleria", iconeGrafiche.newiconCitta, iconeGrafiche.newiconCavalleria);
 			
 			from2to1();
 
 			//Ricerca età imperiale
-			ImageIcon iconEtaImp = new ImageIcon("media/asset_grafici/icone/1etaclassica/etaimperiale.png");
-			Image scaleEtaImp = iconEtaImp.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconEtaImp = new ImageIcon(scaleEtaImp);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Età imperiale", newiconEtaImp);
+			inserisci1(valX, 7, "Età imperiale", iconeGrafiche.newiconEtaImp);
 			
 			from1to1();
 		}
 		
 		//Ricerca strade lastricate
-		ImageIcon iconLastr = new ImageIcon("media/asset_grafici/icone/2medioevo/lastricato.png");
-		Image scaleLastr = iconLastr.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconLastr = new ImageIcon(scaleLastr);
-		
 		valX += 4;
 		gridXMedioevo = valX;
-		inserisci1(valX, 7, "Strade lastricate", newiconLastr);
+		inserisci1(valX, 7, "Strade lastricate", iconeGrafiche.newiconLastr);
 		
 		from1to3();
 		
 		//Ricerca case a più piani, corazze, balestre
-		ImageIcon iconCasaPP = new ImageIcon("media/asset_grafici/icone/2medioevo/casapiupiani.png");
-		Image scaleCasaPP = iconCasaPP.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCasaPP = new ImageIcon(scaleCasaPP);
-		ImageIcon iconCorazze = new ImageIcon("media/asset_grafici/icone/2medioevo/corazze.png");
-		Image scaleCorazze = iconCorazze.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCorazze = new ImageIcon(scaleCorazze);
-		ImageIcon iconBalestre = new ImageIcon("media/asset_grafici/icone/2medioevo/balestre.png");
-		Image scaleBalestre = iconBalestre.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconBalestre = new ImageIcon(scaleBalestre);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Case a più piani", "Corazze", "Balestre", newiconCasaPP, newiconCorazze, newiconBalestre);
+		inserisci3(valX, 4, "Case a più piani", "Corazze", "Balestre", iconeGrafiche.newiconCasaPP,
+				iconeGrafiche.newiconCorazze, iconeGrafiche.newiconBalestre);
 		
 		from3to3();
 		
 		//Ricerca biblioteca, mercenari, clero
-		ImageIcon iconBiblioteca = new ImageIcon("media/asset_grafici/icone/2medioevo/biblioteca.png");
-		Image scaleBiblioteca = iconBiblioteca.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconBiblioteca = new ImageIcon(scaleBiblioteca);
-		ImageIcon iconMercenari = new ImageIcon("media/asset_grafici/icone/2medioevo/mercenari.png");
-		Image scaleMercenari = iconMercenari.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconMercenari = new ImageIcon(scaleMercenari);
-		ImageIcon iconClero = new ImageIcon("media/asset_grafici/icone/2medioevo/chiesa.png");
-		Image scaleClero = iconClero.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconClero = new ImageIcon(scaleClero);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Biblioteca", "Mercenari", "Clero", newiconBiblioteca, newiconMercenari, newiconClero);
+		inserisci3(valX, 4, "Biblioteca", "Mercenari", "Clero", iconeGrafiche.newiconBiblioteca, 
+				iconeGrafiche.newiconMercenari, iconeGrafiche.newiconClero);
 		
 		from3to3();
 		
 		//Ricerca Ospedale, case a schiera, tattiche di cavalleria
-		ImageIcon iconOspedale = new ImageIcon("media/asset_grafici/icone/2medioevo/ospedale.png");
-		Image scaleOspedale = iconOspedale.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOspedale = new ImageIcon(scaleOspedale);
-		ImageIcon iconCaseASchiera = new ImageIcon("media/asset_grafici/icone/2medioevo/casaschiera.png");
-		Image scaleCaseASchiera = iconCaseASchiera.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCaseASchiera = new ImageIcon(scaleCaseASchiera);
-		ImageIcon iconTatCal = new ImageIcon("media/asset_grafici/icone/2medioevo/tattichedicavalleria.png");
-		Image scaleTatCal = iconTatCal.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconTatCal = new ImageIcon(scaleTatCal);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Ospedale", "Case a schiera", "Tattiche di cavalleria", newiconOspedale, newiconCaseASchiera, newiconTatCal);
+		inserisci3(valX, 4, "Ospedale", "Case a schiera", "Tattiche di cavalleria", iconeGrafiche.newiconOspedale, 
+				iconeGrafiche.newiconCaseASchiera, iconeGrafiche.newiconTatCal);
 		
 		if(giocatore.getCiviltà() == 1) //se il giocatore ha civiltà romana
 		{
 			from3to2();
 			
 			//Ricerca inquisizione, granai
-			ImageIcon iconInquisizione = new ImageIcon("media/asset_grafici/icone/2medioevo/inquisizione.png");
-			Image scaleInquisizione = iconInquisizione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconInquisizione = new ImageIcon(scaleInquisizione);
-			ImageIcon iconGranai = new ImageIcon("media/asset_grafici/icone/2medioevo/granai.png");
-			Image scaleGranai = iconGranai.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconGranai = new ImageIcon(scaleGranai);
-			
 			valX += 4;
-			inserisci2(valX, 4, "Inquisizione", "Granai", newiconInquisizione, newiconGranai);
+			inserisci2(valX, 4, "Inquisizione", "Granai", iconeGrafiche.newiconInquisizione, iconeGrafiche.newiconGranai);
 			
 			from2to2();
 			
 			//Ricerca fermentazione, polvere da sparo
-			ImageIcon iconFermentazione = new ImageIcon("media/asset_grafici/icone/2medioevo/fermentazione.png");
-			Image scaleFermentazione = iconFermentazione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconFermentazione = new ImageIcon(scaleFermentazione);
-			ImageIcon iconPolvereDaSparo = new ImageIcon("media/asset_grafici/icone/2medioevo/polveredasparo.png");
-			Image scalePolvereDaSparo = iconPolvereDaSparo.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconPolvereDaSparo = new ImageIcon(scalePolvereDaSparo);
-			
 			valX += 4;
-			inserisci2(valX, 4, "Fermentazione", "Polvere da sparo", newiconFermentazione, newiconPolvereDaSparo);
+			inserisci2(valX, 4, "Fermentazione", "Polvere da sparo", iconeGrafiche.newiconFermentazione,
+					iconeGrafiche.newiconPolvereDaSparo);
 			
 			from2to1();
 		}
@@ -354,121 +242,61 @@ public class GUIPartitaRicerca extends JFrame {
 			from3to1();
 			
 			//Ricerca granai
-			ImageIcon iconGranai = new ImageIcon("media/asset_grafici/icone/2medioevo/granai.png");
-			Image scaleGranai = iconGranai.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconGranai = new ImageIcon(scaleGranai);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Granai", newiconGranai);
+			inserisci1(valX, 7, "Granai", iconeGrafiche.newiconGranai);
 			
 			from1to3();
 			
 			//Ricerca fermentazione, banca, polvere da sparo
-			ImageIcon iconFermentazione = new ImageIcon("media/asset_grafici/icone/2medioevo/fermentazione.png");
-			Image scaleFermentazione = iconFermentazione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconFermentazione = new ImageIcon(scaleFermentazione);
-			ImageIcon iconBanca = new ImageIcon("media/asset_grafici/icone/2medioevo/banca.png");
-			Image scaleBanca = iconBanca.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconBanca = new ImageIcon(scaleBanca);
-			ImageIcon iconPolvereDaSparo = new ImageIcon("media/asset_grafici/icone/2medioevo/polveredasparo.png");
-			Image scalePolvereDaSparo = iconPolvereDaSparo.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconPolvereDaSparo = new ImageIcon(scalePolvereDaSparo);
-			
 			valX += 4;
-			inserisci3(valX, 4, "Fermentazione", "Banca", "Polvere da sparo", newiconFermentazione, newiconBanca, newiconPolvereDaSparo);
+			inserisci3(valX, 4, "Fermentazione", "Banca", "Polvere da sparo", iconeGrafiche.newiconFermentazione, 
+					iconeGrafiche.newiconBanca, iconeGrafiche.newiconPolvereDaSparo);
 			
 			from3to1();
 		}
 		
 		//Ricerca strade asfaltate
-		ImageIcon iconStrAsf = new ImageIcon("media/asset_grafici/icone/3etavittoriana/asfalto.png");
-		Image scaleStrAsf = iconStrAsf.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconStrAsf = new ImageIcon(scaleStrAsf);
-		
 		valX += 4;
 		gridXEVittoriana = valX;
-		inserisci1(valX, 7, "Strade asfaltate", newiconStrAsf);
+		inserisci1(valX, 7, "Strade asfaltate", iconeGrafiche.newiconStrAsf);
 		
 		from1to2();
 		
 		//Ricerca sistema industriale, scienza
-		ImageIcon iconSisInd = new ImageIcon("media/asset_grafici/icone/3etavittoriana/sistemaindustriale.png");
-		Image scaleSisInd = iconSisInd.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconSisInd = new ImageIcon(scaleSisInd);
-		ImageIcon iconScienza = new ImageIcon("media/asset_grafici/icone/3etavittoriana/scienza.png");
-		Image scaleScienza = iconScienza.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconScienza = new ImageIcon(scaleScienza);
-		
 		valX += 4;
-		inserisci2(valX, 4, "Sistema industriale", "Scienza", newiconSisInd, newiconScienza);
+		inserisci2(valX, 4, "Sistema industriale", "Scienza", iconeGrafiche.newiconSisInd, iconeGrafiche.newiconScienza);
 		
 		from2to3();
 		
 		//Ricerca case con mansarda, fucili, gerarchia militare
-		ImageIcon iconCasaMan = new ImageIcon("media/asset_grafici/icone/3etavittoriana/casamansarda.png");
-		Image scaleCasaMan = iconCasaMan.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconCasaMan = new ImageIcon(scaleCasaMan);
-		ImageIcon iconFucili = new ImageIcon("media/asset_grafici/icone/3etavittoriana/fucili.png");
-		Image scaleFucili = iconFucili.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconFucili = new ImageIcon(scaleFucili);
-		ImageIcon iconGerMil = new ImageIcon("media/asset_grafici/icone/3etavittoriana/gerarchiamilitare.png");
-		Image scaleGerMil = iconGerMil.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconGerMil = new ImageIcon(scaleGerMil);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Case con mansarda", "Fucili", "Gerarchia militare", newiconCasaMan, newiconFucili, newiconGerMil);
+		inserisci3(valX, 4, "Case con mansarda", "Fucili", "Gerarchia militare", iconeGrafiche.newiconCasaMan,
+				iconeGrafiche.newiconFucili, iconeGrafiche.newiconGerMil);
 		
 		from3to3();
 		
 		//Ricerca Società borghese, politica, tattiche in campo aperto
-		ImageIcon iconSocBor = new ImageIcon("media/asset_grafici/icone/3etavittoriana/centrocittadino.png");
-		Image scaleSocBor = iconSocBor.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconSocBor = new ImageIcon(scaleSocBor);
-		ImageIcon iconPolitica = new ImageIcon("media/asset_grafici/icone/3etavittoriana/politica.png");
-		Image scalePolitica = iconPolitica.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconPolitica = new ImageIcon(scalePolitica);
-		ImageIcon iconTatCap = new ImageIcon("media/asset_grafici/icone/3etavittoriana/fuciliacavallo.png");
-		Image scaleTatCap = iconTatCap.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconTatCap = new ImageIcon(scaleTatCap);
-		
 		valX += 4;
-		inserisci3(valX, 4, "Società borghese", "Politica", "Tattiche in campo aperto", newiconSocBor, newiconPolitica, newiconTatCap);
+		inserisci3(valX, 4, "Società borghese", "Politica", "Tattiche in campo aperto", iconeGrafiche.newiconSocBor,
+				iconeGrafiche.newiconPolitica, iconeGrafiche.newiconTatCap);
 		
 		from3to3();
 		
 		if(giocatore.getCiviltà() == 1 || giocatore.getCiviltà() == 4) //se civiltà è romana o sassone
 		{
 			//Ricerca musica lirica, villette, balistica
-			ImageIcon iconMusLir = new ImageIcon("media/asset_grafici/icone/3etavittoriana/opera.png");
-			Image scaleMusLir = iconMusLir.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconMusLir = new ImageIcon(scaleMusLir);
-			ImageIcon iconVillette = new ImageIcon("media/asset_grafici/icone/3etavittoriana/villette.png");
-			Image scaleVillette = iconVillette.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconVillette = new ImageIcon(scaleVillette);
-			ImageIcon iconBalistica = new ImageIcon("media/asset_grafici/icone/3etavittoriana/artiglieria.png");
-			Image scaleBalistica = iconBalistica.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconBalistica = new ImageIcon(scaleBalistica);
-			
 			valX += 4;
-			inserisci3(valX, 4, "Musica lirica", "Villette", "Balistica", newiconMusLir, newiconVillette, newiconBalistica);
+			inserisci3(valX, 4, "Musica lirica", "Villette", "Balistica", iconeGrafiche.newiconMusLir, 
+					iconeGrafiche.newiconVillette, iconeGrafiche.newiconBalistica);
 			
 			from3to1();
 		}
 		else
 		{
 			//Ricerca teatri, villette, balistica
-			ImageIcon iconTeatri = new ImageIcon("media/asset_grafici/icone/3etavittoriana/teatro.png");
-			Image scaleTeatri = iconTeatri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconTeatri = new ImageIcon(scaleTeatri);
-			ImageIcon iconVillette = new ImageIcon("media/asset_grafici/icone/3etavittoriana/villette.png");
-			Image scaleVillette = iconVillette.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconVillette = new ImageIcon(scaleVillette);
-			ImageIcon iconBalistica = new ImageIcon("media/asset_grafici/icone/3etavittoriana/artiglieria.png");
-			Image scaleBalistica = iconBalistica.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconBalistica = new ImageIcon(scaleBalistica);
-			
 			valX += 4;
-			inserisci3(valX, 4, "Teatri", "Villette", "Balistica", newiconTeatri, newiconVillette, newiconBalistica);
+			inserisci3(valX, 4, "Teatri", "Villette", "Balistica", iconeGrafiche.newiconTeatri,
+					iconeGrafiche.newiconVillette, iconeGrafiche.newiconBalistica);
 			
 			from3to1();
 		}
@@ -478,39 +306,23 @@ public class GUIPartitaRicerca extends JFrame {
 		{
 		case 1: //romani
 			//Ricerca Carabinieri
-			ImageIcon iconCarabinieri = new ImageIcon("media/asset_grafici/icone/3etavittoriana/carabinieri.png");
-			Image scaleCarabinieri = iconCarabinieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconCarabinieri = new ImageIcon(scaleCarabinieri);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Carabinieri", newiconCarabinieri);
+			inserisci1(valX, 7, "Carabinieri", iconeGrafiche.newiconCarabinieri);
 			break;
 		case 2: //britanni
 			//Ricerca guardie reali britanniche
-			ImageIcon iconGuaRea = new ImageIcon("media/asset_grafici/icone/3etavittoriana/guardiareale.png");
-			Image scaleGuaRea = iconGuaRea.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconGuaRea = new ImageIcon(scaleGuaRea);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Guardie reali", newiconGuaRea);
+			inserisci1(valX, 7, "Guardie reali", iconeGrafiche.newiconGuaRea);
 			break;
 		case 3: //galli
 			//Ricerca galli
-			ImageIcon iconLegione = new ImageIcon("media/asset_grafici/icone/3etavittoriana/legionestraniera.png");
-			Image scaleLegione = iconLegione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconLegione = new ImageIcon(scaleLegione);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Legione straniera", newiconLegione);
+			inserisci1(valX, 7, "Legione straniera", iconeGrafiche.newiconLegione);
 			break;
 		case 4: //sassoni
 			//Ricerca gardenkorps
-			ImageIcon iconGK = new ImageIcon("media/asset_grafici/icone/3etavittoriana/gardenkorps.png");
-			Image scaleGK = iconGK.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-			ImageIcon newiconGK = new ImageIcon(scaleGK);
-			
 			valX += 4;
-			inserisci1(valX, 7, "Gardenkorps", newiconGK);
+			inserisci1(valX, 7, "Gardenkorps", iconeGrafiche.newiconGK);
 			break;
 		}
 		
@@ -524,7 +336,7 @@ public class GUIPartitaRicerca extends JFrame {
 	{
 		c.gridy = 1;
 		c.gridx = gridXEClassica;
-		JLabel lblECla = new JLabel("ETA CLASSICA");
+		JLabel lblECla = new JLabel("ETÀ CLASSICA");
 		lblECla.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblECla, c);
 		c.gridy++;
@@ -544,7 +356,7 @@ public class GUIPartitaRicerca extends JFrame {
 		
 		c.gridy -= 2;
 		c.gridx = gridXEVittoriana;
-		JLabel lblEVit = new JLabel("ETA VITTTORIANA");
+		JLabel lblEVit = new JLabel("ETÀ VITTTORIANA");
 		lblEVit.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblEVit, c);
 		c.gridy++;
@@ -555,466 +367,355 @@ public class GUIPartitaRicerca extends JFrame {
 	
 	public void from1to1()
 	{
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		c.gridy--;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 	}
 	
 	public void from1to2()
 	{
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		c.gridy--;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
-		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
-		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3su = new ImageIcon(scale3su);
 		c.gridx++;
 		JLabel lbl3su = new JLabel();
-		lbl3su.setIcon(newicon3su);
+		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
 		
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		c.gridy--;
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy--;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy--;
-		ImageIcon icon2dxgiu = new ImageIcon("media/asset_grafici/icone/frameRicerca/2dxgiu.png");
-		Image scale2dxgiu = icon2dxgiu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2dxgiu = new ImageIcon(scale2dxgiu);
 		JLabel lbl2dxgiu = new JLabel();
-		lbl2dxgiu.setIcon(newicon2dxgiu);
+		lbl2dxgiu.setIcon(iconeGrafiche.newicon2dxgiu);
 		contentPane.add(lbl2dxgiu, c);
 	}
 	
 	public void from1to3() 
 	{	
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		c.gridy--;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
-		ImageIcon icon4 = new ImageIcon("media/asset_grafici/icone/frameRicerca/4.png");
-		Image scale4 = icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon4 = new ImageIcon(scale4);
 		c.gridx++;
 		JLabel lbl4 = new JLabel();
-		lbl4.setIcon(newicon4);
+		lbl4.setIcon(iconeGrafiche.newicon4);
 		contentPane.add(lbl4, c);
 		
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		c.gridy--;
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy--;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy--;
-		ImageIcon icon2dxgiu = new ImageIcon("media/asset_grafici/icone/frameRicerca/2dxgiu.png");
-		Image scale2dxgiu = icon2dxgiu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2dxgiu = new ImageIcon(scale2dxgiu);
 		JLabel lbl2dxgiu = new JLabel();
-		lbl2dxgiu.setIcon(newicon2dxgiu);
+		lbl2dxgiu.setIcon(iconeGrafiche.newicon2dxgiu);
 		contentPane.add(lbl2dxgiu, c);
 		
 		c.gridy += 4;
 		JLabel lblVert3 = new JLabel();
-		lblVert3.setIcon(newiconVert);
+		lblVert3.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert3, c);
 		
 		c.gridy++;
 		JLabel lblVert4 = new JLabel();
-		lblVert4.setIcon(newiconVert);
+		lblVert4.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert4, c);
 		
 		c.gridy++;
-		ImageIcon icon2sudx = new ImageIcon("media/asset_grafici/icone/frameRicerca/2sudx.png");
-		Image scale2sudx = icon2sudx.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2sudx = new ImageIcon(scale2sudx);
 		JLabel lbl2sudx = new JLabel();
-		lbl2sudx.setIcon(newicon2sudx);
+		lbl2sudx.setIcon(iconeGrafiche.newicon2sudx);
 		contentPane.add(lbl2sudx, c);
 	}
 	
 	public void from2to1()
 	{
 		c.gridy -= 4;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon2giusx = new ImageIcon("media/asset_grafici/icone/frameRicerca/2giusx.png");
-		Image scale2giusx = icon2giusx.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2giusx = new ImageIcon(scale2giusx);
 		JLabel lbl2giusx = new JLabel();
-		lbl2giusx.setIcon(newicon2giusx);
+		lbl2giusx.setIcon(iconeGrafiche.newicon2giusx);
 		contentPane.add(lbl2giusx, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
-		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3su = new ImageIcon(scale3su);
 		JLabel lbl3su = new JLabel();
-		lbl3su.setIcon(newicon3su);
+		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
 	}
 	
 	public void from2to2()
 	{
 		c.gridy -= 4;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon3giu = new ImageIcon("media/asset_grafici/icone/frameRicerca/3giu.png");
-		Image scale3giu = icon3giu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3giu = new ImageIcon(scale3giu);
 		JLabel lbl3giu = new JLabel();
-		lbl3giu.setIcon(newicon3giu);
+		lbl3giu.setIcon(iconeGrafiche.newicon3giu);
 		contentPane.add(lbl3giu, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
-		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3su = new ImageIcon(scale3su);
 		JLabel lbl3su = new JLabel();
-		lbl3su.setIcon(newicon3su);
+		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
 	}
 	
 	public void from3to1()
 	{
 		c.gridy -= 7;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon2giusx = new ImageIcon("media/asset_grafici/icone/frameRicerca/2giusx.png");
-		Image scale2giusx = icon2giusx.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2giusx = new ImageIcon(scale2giusx);
 		JLabel lbl2giusx = new JLabel();
-		lbl2giusx.setIcon(newicon2giusx);
+		lbl2giusx.setIcon(iconeGrafiche.newicon2giusx);
 		contentPane.add(lbl2giusx, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon4 = new ImageIcon("media/asset_grafici/icone/frameRicerca/4.png");
-		Image scale4 = icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon4 = new ImageIcon(scale4);
 		JLabel lbl4 = new JLabel();
-		lbl4.setIcon(newicon4);
+		lbl4.setIcon(iconeGrafiche.newicon4);
 		contentPane.add(lbl4, c);
 		
 		c.gridy++;
 		JLabel lblVert3 = new JLabel();
-		lblVert3.setIcon(newiconVert);
+		lblVert3.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert3, c);
 		
 		c.gridy++;
 		JLabel lblVert4 = new JLabel();
-		lblVert4.setIcon(newiconVert);
+		lblVert4.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert4, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz3 = new JLabel();
-		lblOriz3.setIcon(newiconOriz);
+		lblOriz3.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz3, c);
 		
 		c.gridx++;
-		ImageIcon icon2sxsu = new ImageIcon("media/asset_grafici/icone/frameRicerca/2sxsu.png");
-		Image scale2sxsu = icon2sxsu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2sxsu = new ImageIcon(scale2sxsu);
 		JLabel lbl2sxsu = new JLabel();
-		lbl2sxsu.setIcon(newicon2sxsu);
+		lbl2sxsu.setIcon(iconeGrafiche.newicon2sxsu);
 		contentPane.add(lbl2sxsu, c);
 	}
 	
 	public void from3to2()
 	{
 		c.gridy -= 7;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon3giu = new ImageIcon("media/asset_grafici/icone/frameRicerca/3giu.png");
-		Image scale3giu = icon3giu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3giu = new ImageIcon(scale3giu);
 		JLabel lbl3giu = new JLabel();
-		lbl3giu.setIcon(newicon3giu);
+		lbl3giu.setIcon(iconeGrafiche.newicon3giu);
 		contentPane.add(lbl3giu, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
-		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3su = new ImageIcon(scale3su);
 		JLabel lbl3su = new JLabel();
-		lbl3su.setIcon(newicon3su);
+		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
 	}
 	
 	public void from2to3()
 	{
 		c.gridy -= 4;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon3giu = new ImageIcon("media/asset_grafici/icone/frameRicerca/3giu.png");
-		Image scale3giu = icon3giu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3giu = new ImageIcon(scale3giu);
 		JLabel lbl3giu = new JLabel();
-		lbl3giu.setIcon(newicon3giu);
+		lbl3giu.setIcon(iconeGrafiche.newicon3giu);
 		contentPane.add(lbl3giu, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon4 = new ImageIcon("media/asset_grafici/icone/frameRicerca/4.png");
-		Image scale4 = icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon4 = new ImageIcon(scale4);
 		JLabel lbl4 = new JLabel();
-		lbl4.setIcon(newicon4);
+		lbl4.setIcon(iconeGrafiche.newicon4);
 		contentPane.add(lbl4, c);
 		
 		c.gridy++;
 		JLabel lblVert3 = new JLabel();
-		lblVert3.setIcon(newiconVert);
+		lblVert3.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert3, c);
 		
 		c.gridy++;
 		JLabel lblVert4 = new JLabel();
-		lblVert4.setIcon(newiconVert);
+		lblVert4.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert4, c);
 		
 		c.gridy++;
-		ImageIcon icon2sudx = new ImageIcon("media/asset_grafici/icone/frameRicerca/2sudx.png");
-		Image scale2sudx = icon2sudx.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon2sudx = new ImageIcon(scale2sudx);
 		JLabel lbl2sudx = new JLabel();
-		lbl2sudx.setIcon(newicon2sudx);
+		lbl2sudx.setIcon(iconeGrafiche.newicon2sudx);
 		contentPane.add(lbl2sudx, c);
 	}
 	
 	public void from3to3()
 	{
 		c.gridy -= 7;
-		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
-		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconOriz = new ImageIcon(scaleOriz);
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
-		lblOriz.setIcon(newiconOriz);
+		lblOriz.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz, c);
 		
 		c.gridx++;
-		ImageIcon icon3giu = new ImageIcon("media/asset_grafici/icone/frameRicerca/3giu.png");
-		Image scale3giu = icon3giu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3giu = new ImageIcon(scale3giu);
 		JLabel lbl3giu = new JLabel();
-		lbl3giu.setIcon(newicon3giu);
+		lbl3giu.setIcon(iconeGrafiche.newicon3giu);
 		contentPane.add(lbl3giu, c);
 		
 		c.gridy++;
-		ImageIcon iconVert = new ImageIcon("media/asset_grafici/icone/frameRicerca/verticale.png");
-		Image scaleVert = iconVert.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newiconVert = new ImageIcon(scaleVert);
 		JLabel lblVert = new JLabel();
-		lblVert.setIcon(newiconVert);
+		lblVert.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert, c);
 		
 		c.gridy++;
 		JLabel lblVert2 = new JLabel();
-		lblVert2.setIcon(newiconVert);
+		lblVert2.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert2, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz2 = new JLabel();
-		lblOriz2.setIcon(newiconOriz);
+		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
 		
 		c.gridx++;
-		ImageIcon icon4 = new ImageIcon("media/asset_grafici/icone/frameRicerca/4.png");
-		Image scale4 = icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon4 = new ImageIcon(scale4);
 		JLabel lbl4 = new JLabel();
-		lbl4.setIcon(newicon4);
+		lbl4.setIcon(iconeGrafiche.newicon4);
 		contentPane.add(lbl4, c);
 		
 		c.gridy++;
 		JLabel lblVert3 = new JLabel();
-		lblVert3.setIcon(newiconVert);
+		lblVert3.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert3, c);
 		
 		c.gridy++;
 		JLabel lblVert4 = new JLabel();
-		lblVert4.setIcon(newiconVert);
+		lblVert4.setIcon(iconeGrafiche.newiconVert);
 		contentPane.add(lblVert4, c);
 		
 		c.gridy++;
 		c.gridx--;
 		JLabel lblOriz3 = new JLabel();
-		lblOriz3.setIcon(newiconOriz);
+		lblOriz3.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz3, c);
 		
 		c.gridx++;
-		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
-		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-		ImageIcon newicon3su = new ImageIcon(scale3su);
 		JLabel lbl3su = new JLabel();
-		lbl3su.setIcon(newicon3su);
+		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
 	}
 	
@@ -1108,7 +809,7 @@ public class GUIPartitaRicerca extends JFrame {
 		c.gridx = posx;
 		c.gridy++;
 		JLabel lblCosto = new JLabel("  " + Integer.toString(valoriDiGioco.getValoriRicerche().get(nome)) + "  ");
-		lblCosto.setIcon(newiconCosto);
+		lblCosto.setIcon(iconeGrafiche.newiconCosto);
 		lblCosto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		contentPane.add(lblCosto, c);
 		

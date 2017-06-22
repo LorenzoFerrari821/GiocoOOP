@@ -364,11 +364,16 @@ public class GUIPartita extends JFrame{
 		Image scalebtnCostruisci = iconbtnCostruisci.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnCostruisci = new ImageIcon(scalebtnCostruisci);
 		
+		giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		giocatore.setCiviltà(4); //TEMPORANEO
+		giocatore.setPuntiRicerca(4);
+		giocatore.getRicercheEffettuate().add("Sentieri");
+		
 		btnCostruisci.setIcon(newiconbtnCostruisci);
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				frmCostruisci = new GUIPartitaCostruisci();
+				frmCostruisci = new GUIPartitaCostruisci(giocatore, valoriDiGioco);
 				frmCostruisci.setVisible(true);
 			}
 		});
@@ -380,10 +385,6 @@ public class GUIPartita extends JFrame{
 		ImageIcon newiconbtnRicerca = new ImageIcon(scalebtnRicerca);
 		
 		btnRicerca.setIcon(newiconbtnRicerca);
-		
-		giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		giocatore.setCiviltà(4); //TEMPORANEO
-		giocatore.setPuntiRicerca(4);
 		
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
