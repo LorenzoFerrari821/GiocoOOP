@@ -6,9 +6,6 @@ import java.util.List;
 public class Giocatore {
 	private String proprietario; //possibili valori: utente1 (server), utente2 (client), cpu. Se si gioca in singolo utente1 o cpu
 	private String nomeGiocatore;
-	private boolean tutorial;
-	private int difficolta; //da 1 a 4
-	private int mappa; //1 predefinita, 2 casuale, 3 estiva, 4 invernale
 	private int civiltà; //1 romani, 2 britanni, 3 galli, 4 sassoni
 	private int oro;
 	private int materiali;
