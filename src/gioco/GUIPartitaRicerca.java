@@ -773,8 +773,6 @@ public class GUIPartitaRicerca extends JFrame {
 				}
 				else
 				{
-					System.out.println(giocatore.getPuntiRicerca());
-					System.out.println(valoriDiGioco.getValoriRicerche().get(nome));
 					if(giocatore.getPuntiRicerca() < valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
 					{
 						JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",

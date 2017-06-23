@@ -366,7 +366,7 @@ public class GUIPartita extends JFrame{
 		
 		giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		giocatore.setCiviltà(4); //TEMPORANEO
-		giocatore.setPuntiRicerca(4);
+		giocatore.setPuntiRicerca(400);
 		giocatore.getRicercheEffettuate().add("Sentieri");
 		
 		btnCostruisci.setIcon(newiconbtnCostruisci);

@@ -12,6 +12,8 @@ public class IconeGrafiche {
 	ImageIcon newiconTick;
 	ImageIcon newiconCross;
 	ImageIcon newiconCosto;
+	ImageIcon newiconOro;
+	ImageIcon newiconMat;
 	ImageIcon newiconSentieri;
 	ImageIcon newiconAbitazioni;
 	ImageIcon newiconCaserma;
@@ -85,6 +87,13 @@ public class IconeGrafiche {
 		ImageIcon iconCosto = new ImageIcon("media/asset_grafici/icone/ricerca.png");
 		Image scaleCosto = iconCosto.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconCosto = new ImageIcon(scaleCosto);
+		
+		ImageIcon iconOro = new ImageIcon("media/asset_grafici/icone/oro.png");
+		Image scaleOro = iconOro.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+		newiconOro = new ImageIcon(scaleOro);
+		ImageIcon iconMat = new ImageIcon("media/asset_grafici/icone/materiali.png");
+		Image scaleMat = iconMat.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+		newiconMat = new ImageIcon(scaleMat);
 		
 		ImageIcon iconSentieri = new ImageIcon("media/asset_grafici/icone/1etaclassica/sentieri.png");
 		Image scaleSentieri = iconSentieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
