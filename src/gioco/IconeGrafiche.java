@@ -106,10 +106,10 @@ public class IconeGrafiche {
 		ImageIcon iconFrancesi = new ImageIcon("media/asset_grafici/icone/francia.png");
 		Image scaleFrancesi = iconFrancesi.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconFrancesi = new ImageIcon(scaleFrancesi);
-		ImageIcon iconInglesi = new ImageIcon("media/asset_grafici/icone/germania.png");
-		Image scaleInglesi = iconRomani.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+		ImageIcon iconInglesi = new ImageIcon("media/asset_grafici/icone/inghilterra.png");
+		Image scaleInglesi = iconInglesi.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconInglesi = new ImageIcon(scaleInglesi);
-		ImageIcon iconSassoni = new ImageIcon("media/asset_grafici/icone/inghilterra.png");
+		ImageIcon iconSassoni = new ImageIcon("media/asset_grafici/icone/germania.png");
 		Image scaleSassoni = iconSassoni.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSassoni = new ImageIcon(scaleSassoni);
 		

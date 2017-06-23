@@ -13,7 +13,7 @@ public class Giocatore {
 		this.proprietario = proprietario;
 	}
 	private String nomeGiocatore;
-	private int civiltà; //1 romani, 2 britanni, 3 galli, 4 sassoni
+	private int civiltà; //0 romani, 1 britanni, 2 galli, 3 sassoni
 	private int oro;
 	private int materiali;
 	private int puntiRicerca;

@@ -3,12 +3,13 @@ package gioco;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Partita {
 
 	List<Giocatore> giocatore;
 	private String situazioneDiGioco;
-	ArrayList<Integer> ordineGioco;
+	List<Integer> ordineGioco;
 	private int turnoCorrente; //0, 1, 2, 3
 
 	private boolean tutorial;
@@ -59,7 +60,7 @@ public class Partita {
 		ordineGioco.add(3);
 		
 		Collections.shuffle(ordineGioco);
-		
+
 		avviaPartita();
 	}
 	
