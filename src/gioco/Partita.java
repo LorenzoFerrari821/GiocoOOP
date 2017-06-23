@@ -1,11 +1,15 @@
 package gioco;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Partita {
 
-	private Giocatore giocatori[];
+	List<Giocatore> giocatore;
 	private String situazioneDiGioco;
-	private int ordineGioco[];
-	private int turnoCorrente;
+	ArrayList<Integer> ordineGioco;
+	private int turnoCorrente; //0, 1, 2, 3
 
 	private boolean tutorial;
 	private int difficolta; //da 1 a 4
@@ -33,6 +37,54 @@ public class Partita {
 	
 	public void creaPartita(String nomeGiocatore, int civilta)
 	{
+		giocatore = new ArrayList<Giocatore>();
 		
+		for(int i = 0; i < 4; i++)
+		{
+			if(civilta-1 == i) //giocatore umano
+				giocatore.add(i, new Giocatore(civilta, "utente1", nomeGiocatore));
+			else //cpu
+				giocatore.add(i, new Giocatore(i+1, "cpu", "CPU"));
+			
+			giocatore.get(i).setOro(20);
+			giocatore.get(i).setMateriali(20);
+			giocatore.get(i).setPuntiRicerca(5);
+		}
+		
+		//Randomizzo ordine di gioco
+		ordineGioco = new ArrayList<Integer>();
+		ordineGioco.add(0);
+		ordineGioco.add(1);
+		ordineGioco.add(2);
+		ordineGioco.add(3);
+		
+		Collections.shuffle(ordineGioco);
+		
+		avviaPartita();
+	}
+	
+	/*
+	 * Metodo che scandisce i turni e gestisce il turno con l'ia della cpu (se tocca alla cpu)
+	 * altrimenti lascia giocare il giocatore finchè non passa il turno
+	 */
+	public void avviaPartita()
+	{
+		turnoCorrente = ordineGioco.get(0);
+	}
+
+	public List<Giocatore> getGiocatore() {
+		return giocatore;
+	}
+
+	public void setGiocatore(List<Giocatore> giocatore) {
+		this.giocatore = giocatore;
+	}
+
+	public int getTurnoCorrente() {
+		return turnoCorrente;
+	}
+
+	public void setTurnoCorrente(int turnoCorrente) {
+		this.turnoCorrente = turnoCorrente;
 	}
 }

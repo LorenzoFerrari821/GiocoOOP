@@ -72,6 +72,10 @@ public class IconeGrafiche {
 	ImageIcon newicon3giu;
 	ImageIcon newicon2sxsu;
 	
+	ImageIcon newiconRomani;
+	ImageIcon newiconFrancesi;
+	ImageIcon newiconInglesi;
+	ImageIcon newiconSassoni;
 	
 	IconeGrafiche()
 	{
@@ -88,12 +92,26 @@ public class IconeGrafiche {
 		Image scaleCosto = iconCosto.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconCosto = new ImageIcon(scaleCosto);
 		
+		
 		ImageIcon iconOro = new ImageIcon("media/asset_grafici/icone/oro.png");
 		Image scaleOro = iconOro.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconOro = new ImageIcon(scaleOro);
 		ImageIcon iconMat = new ImageIcon("media/asset_grafici/icone/materiali.png");
 		Image scaleMat = iconMat.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconMat = new ImageIcon(scaleMat);
+		
+		ImageIcon iconRomani = new ImageIcon("media/asset_grafici/icone/roma.png");
+		Image scaleRomani = iconRomani.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+		newiconRomani = new ImageIcon(scaleRomani);
+		ImageIcon iconFrancesi = new ImageIcon("media/asset_grafici/icone/francia.png");
+		Image scaleFrancesi = iconFrancesi.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+		newiconFrancesi = new ImageIcon(scaleFrancesi);
+		ImageIcon iconInglesi = new ImageIcon("media/asset_grafici/icone/germania.png");
+		Image scaleInglesi = iconRomani.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+		newiconInglesi = new ImageIcon(scaleInglesi);
+		ImageIcon iconSassoni = new ImageIcon("media/asset_grafici/icone/inghilterra.png");
+		Image scaleSassoni = iconSassoni.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+		newiconSassoni = new ImageIcon(scaleSassoni);
 		
 		ImageIcon iconSentieri = new ImageIcon("media/asset_grafici/icone/1etaclassica/sentieri.png");
 		Image scaleSentieri = iconSentieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);

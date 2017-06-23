@@ -55,7 +55,7 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBtnGoRight;
 	private JPanel panelMsg;
 	private JPanel panelStats;
-	private JPanel panelMappa;
+	private JPanel panelTurno;
 	private JPanel panelPulsanti;
 	private JLabel lblOro;
 	private JLabel lblOrov;
@@ -63,7 +63,7 @@ public class GUIPartita extends JFrame{
 	private JLabel lblMaterialiv;
 	private JLabel lblPuntiRicerca;
 	private JLabel lblPuntiRicercav;
-	private JLabel lblMappa;
+	private JLabel lblTurno;
 	private RoundedCornerButton btnGoUp;
 	private RoundedCornerButton btnGoRight;
 	private RoundedCornerButton btnGoDown;
@@ -93,9 +93,14 @@ public class GUIPartita extends JFrame{
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	private GUIPartitaInformazioni frmInfo;
 	private GUIPartitaRicerca frmRicerca;
-	private Giocatore giocatore;
+	
+	private Partita partita;
+	
 	private ValoriDiGioco valoriDiGioco;
 	private GUIPartitaCostruisci frmCostruisci;
+	private IconeGrafiche iconeGrafiche;
+	
+	private String proprietario; //INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori
 	
 	GUIPartita()
 	{
@@ -151,23 +156,29 @@ public class GUIPartita extends JFrame{
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
 		
-		lblOro = new JLabel("ORO");
-		lblOro.setFont(fontFuturist.deriveFont(13f));
+		iconeGrafiche = new IconeGrafiche();
+		proprietario = "utente1";
+		
+		lblOro = new JLabel();
+		lblOro.setFont(fontFuturist.deriveFont(15f));
+		lblOro.setIcon(iconeGrafiche.newiconOro);
 		lblOro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblOrov = new JLabel("0");
-		lblOrov.setFont(fontFuturist.deriveFont(13f));
+		lblOrov.setFont(fontFuturist.deriveFont(15f));
 		lblOrov.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		lblMateriali = new JLabel("MATERIALI");
-		lblMateriali.setFont(fontFuturist.deriveFont(13f));
+		lblMateriali = new JLabel();
+		lblMateriali.setFont(fontFuturist.deriveFont(15f));
+		lblMateriali.setIcon(iconeGrafiche.newiconMat);
 		lblMateriali.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblMaterialiv = new JLabel("0");
-		lblMaterialiv.setFont(fontFuturist.deriveFont(13f));
+		lblMaterialiv.setFont(fontFuturist.deriveFont(15f));
 		lblMaterialiv.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		lblPuntiRicerca = new JLabel("PUNTI RICERCA");
-		lblPuntiRicerca.setFont(fontFuturist.deriveFont(13f));
+		lblPuntiRicerca = new JLabel();
+		lblPuntiRicerca.setFont(fontFuturist.deriveFont(15f));
+		lblPuntiRicerca.setIcon(iconeGrafiche.newiconCosto);
 		lblPuntiRicerca.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lblPuntiRicercav = new JLabel("0");
-		lblPuntiRicercav.setFont(fontFuturist.deriveFont(13f));
+		lblPuntiRicercav.setFont(fontFuturist.deriveFont(15f));
 		lblPuntiRicercav.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		panelStats = new JPanel(new GridBagLayout());
@@ -182,13 +193,13 @@ public class GUIPartita extends JFrame{
 		c.gridx ++;
 		panelStats.add(lblOrov, c);
 		c.gridx ++;
-		panelStats.add(new JLabel("    "), c);
+		panelStats.add(new JLabel("   "), c);
 		c.gridx ++;
 		panelStats.add(lblMateriali, c);
 		c.gridx ++;
 		panelStats.add(lblMaterialiv, c);
 		c.gridx ++;
-		panelStats.add(new JLabel("    "), c);
+		panelStats.add(new JLabel("   "), c);
 		c.gridx ++;
 		panelStats.add(lblPuntiRicerca, c);
 		c.gridx ++;
@@ -227,15 +238,15 @@ public class GUIPartita extends JFrame{
 		
 		panelTop.add(panelBtnGoUp);
 		
-		panelMappa = new JPanel(new GridLayout2(1, 1, 0, 0));
-		lblMappa = new JLabel();
-		ImageIcon iconlblMappa = new ImageIcon("media/mappa.png");
-		Image scalelblMappa = iconlblMappa.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-		ImageIcon newiconlblMappa = new ImageIcon(scalelblMappa);
-		lblMappa.setIcon(newiconlblMappa);
-		lblMappa.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelTurno = new JPanel(new GridLayout2(1, 1, 0, 0));
+		lblTurno = new JLabel();
+		ImageIcon iconlblTurno = new ImageIcon("media/mappa.png");
+		Image scalelblTurno = iconlblTurno.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+		ImageIcon newiconlblTurno = new ImageIcon(scalelblTurno);
+		lblTurno.setIcon(newiconlblTurno);
+		lblTurno.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelTop.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panelTop.add(lblMappa);
+		panelTop.add(lblTurno);
 		
 		btnGoRight = new RoundedCornerButton();
 		ImageIcon iconbtnGoRight = new ImageIcon("media/btnGoRight.png");
@@ -364,16 +375,11 @@ public class GUIPartita extends JFrame{
 		Image scalebtnCostruisci = iconbtnCostruisci.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnCostruisci = new ImageIcon(scalebtnCostruisci);
 		
-		giocatore = new Giocatore(); //TEMPORANEO; SARA DA TOGLIERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		giocatore.setCiviltà(4); //TEMPORANEO
-		giocatore.setPuntiRicerca(400);
-		giocatore.getRicercheEffettuate().add("Sentieri");
-		
 		btnCostruisci.setIcon(newiconbtnCostruisci);
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				frmCostruisci = new GUIPartitaCostruisci(giocatore, valoriDiGioco);
+				frmCostruisci = new GUIPartitaCostruisci(partita, valoriDiGioco);
 				frmCostruisci.setVisible(true);
 			}
 		});
@@ -389,7 +395,7 @@ public class GUIPartita extends JFrame{
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				frmRicerca = new GUIPartitaRicerca(giocatore, valoriDiGioco);
+				frmRicerca = new GUIPartitaRicerca(partita, guiPartita, valoriDiGioco, proprietario);
 				frmRicerca.setVisible(true);
 			}
 		});
@@ -403,7 +409,7 @@ public class GUIPartita extends JFrame{
 		btnInfoPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				frmInfo = new GUIPartitaInformazioni(0,0,0,0,0,0,0,0,0);
+				frmInfo = new GUIPartitaInformazioni(partita);
 				frmInfo.setVisible(true);
 			}
 		});
@@ -443,12 +449,6 @@ public class GUIPartita extends JFrame{
 		pack();
 		
 		setupPartita();
-	}
-	
-	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
-	public void setupPartita() {
-		valoriDiGioco = new ValoriDiGioco();
-		
 	}
 	
 	public void caricaIcone(int width, int height) {
@@ -607,5 +607,34 @@ public class GUIPartita extends JFrame{
 
 	public void setPosSchermataY(int posSchermataY) {
 		this.posSchermataY = posSchermataY;
+	}
+	
+	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
+	public void setupPartita() {
+		valoriDiGioco = new ValoriDiGioco();
+		partita = new Partita(null, "Werther", 1, false, 1, 1);
+		aggiornaDatiGUI();
+	}
+	
+	public void aggiornaDatiGUI()
+	{
+		lblOrov.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getOro()));
+		lblMaterialiv.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()));
+		lblPuntiRicercav.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getPuntiRicerca()));
+		switch(partita.getTurnoCorrente())
+		{
+		case 0:
+			lblTurno.setIcon(iconeGrafiche.newiconRomani);
+			break;
+		case 1:
+			lblTurno.setIcon(iconeGrafiche.newiconFrancesi);
+			break;
+		case 2:
+			lblTurno.setIcon(iconeGrafiche.newiconInglesi);
+			break;
+		case 3:
+			lblTurno.setIcon(iconeGrafiche.newiconSassoni);
+			break;
+		}
 	}
 }

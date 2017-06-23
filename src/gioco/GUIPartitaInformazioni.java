@@ -21,15 +21,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUIPartitaInformazioni extends JFrame {
 
-	private int bonusEconomia;
-	private int bonusMilitare;
-	private int bonusRicerca;
-	private int nTruppeDifesa;
-	private int nTruppeAttacco;
-	private int nGruppiAttacco;
-	private int oroXTurno;
-	private int matXTurno;
-	private int ricercaXTurno;
 	private JPanel contentPane;
 	private JLabel lblBonusEco;
 	private JLabel lblBonusMil;
@@ -52,18 +43,11 @@ public class GUIPartitaInformazioni extends JFrame {
 	private RoundedCornerButton btnIndietro;
 	private GridBagConstraints c;
 	private Font fontFuturist;
+	private Partita partita;
 	
-	GUIPartitaInformazioni(int bonusEconomia, int bonusMilitare, int bonusRicerca, int nTruppeDifesa, int nTruppeAttacco,
-			int nGruppiAttacco, int oroXTurno, int matXTurno, int ricercaXTurno) {
-		this.bonusEconomia = bonusEconomia;
-		this.bonusMilitare = bonusMilitare;
-		this.bonusRicerca = bonusRicerca;
-		this.nTruppeDifesa = nTruppeDifesa;
-		this.nTruppeAttacco = nTruppeAttacco;
-		this.nGruppiAttacco = nGruppiAttacco;
-		this.oroXTurno = oroXTurno;
-		this.matXTurno = matXTurno;
-		this.ricercaXTurno = ricercaXTurno;
+	GUIPartitaInformazioni(Partita partita) {
+
+		this.partita = partita;
 		
 		try {
 		    //Creo un font custom
@@ -165,7 +149,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		c.gridx++;
 		c.gridy = 0;
 		lblBEVal = new JLabel();
-		lblBEVal.setText(Integer.toString(bonusEconomia));
+		lblBEVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusEconomia()));
 		lblBEVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBEVal, c);
 		c.gridy++;
@@ -173,7 +157,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblBMVal = new JLabel();
-		lblBMVal.setText(Integer.toString(bonusMilitare));
+		lblBMVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusMilitare()));
 		lblBMVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBMVal, c);
 		c.gridy++;
@@ -181,7 +165,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblBRVal = new JLabel();
-		lblBRVal.setText(Integer.toString(bonusRicerca));
+		lblBRVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusRicerca()));
 		lblBRVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBRVal, c);
 		c.gridy++;
@@ -189,7 +173,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblTruppeDefVal = new JLabel();
-		lblTruppeDefVal.setText(Integer.toString(nTruppeDifesa));
+		lblTruppeDefVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getUnitaMunicipio().size()));
 		lblTruppeDefVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeDefVal, c);
 		c.gridy++;
@@ -197,7 +181,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblTruppeAtkVal = new JLabel();
-		lblTruppeAtkVal.setText(Integer.toString(nTruppeAttacco));
+		lblTruppeAtkVal.setText(Integer.toString(999));
 		lblTruppeAtkVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeAtkVal, c);
 		c.gridy++;
@@ -205,7 +189,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblGruppiAtkVal = new JLabel();
-		lblGruppiAtkVal.setText(Integer.toString(nGruppiAttacco));
+		lblGruppiAtkVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getArmateInAttacco().size()));
 		lblGruppiAtkVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblGruppiAtkVal, c);
 		c.gridy++;
@@ -213,7 +197,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblOroXTurnoVal = new JLabel();
-		lblOroXTurnoVal.setText(Integer.toString(oroXTurno));
+		lblOroXTurnoVal.setText(Integer.toString(999));
 		lblOroXTurnoVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblOroXTurnoVal, c);
 		c.gridy++;
@@ -221,7 +205,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblMatXTurnoVal = new JLabel();
-		lblMatXTurnoVal.setText(Integer.toString(matXTurno));
+		lblMatXTurnoVal.setText(Integer.toString(999));
 		lblMatXTurnoVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblMatXTurnoVal, c);
 		c.gridy++;
@@ -229,7 +213,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblPRXTurnoVal = new JLabel();
-		lblPRXTurnoVal.setText(Integer.toString(ricercaXTurno));
+		lblPRXTurnoVal.setText(Integer.toString(999));
 		lblPRXTurnoVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblPRXTurnoVal, c);
 		c.gridy++;

@@ -50,13 +50,13 @@ public class GUIPartitaCostruisci extends JFrame
 	private RoundedCornerButton btnCompra;
 	private RoundedCornerButton btnIndietro;
 	
-	private Giocatore giocatore;
+	private Partita partita;
 	private IconeGrafiche iconeGrafiche;
 	private ValoriDiGioco valoriDiGioco;
 	
 	private String selezionato; //Opzione al momento selezionata
 	
-	GUIPartitaCostruisci(Giocatore giocatore, ValoriDiGioco valoriDiGioco)
+	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco)
 	{
 		try {
 		    //Creo un font custom
@@ -88,7 +88,7 @@ public class GUIPartitaCostruisci extends JFrame
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new BorderLayout(0,0));
 		
-		this.giocatore = giocatore;
+		this.partita = partita;
 		this.valoriDiGioco = valoriDiGioco;
 		
 		iconeGrafiche = new IconeGrafiche();
@@ -204,7 +204,7 @@ public class GUIPartitaCostruisci extends JFrame
 	
 	public void daiInformazioni(String nome)
 	{
-		if(nome.equals(null))
+		if(nome == null)
 			JOptionPane.showMessageDialog(null, "Nessuna costruzione selezionata.\nPremi su una voce del negozio per selezionarla",
 					"Informazioni", JOptionPane.DEFAULT_OPTION);
 		else
@@ -282,7 +282,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: giocatore.getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Sentieri"))
 				{
@@ -355,7 +355,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: giocatore.getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Strade lastricate"))
 				{
@@ -440,7 +440,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: giocatore.getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Strade asfaltate"))
 				{
