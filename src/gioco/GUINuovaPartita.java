@@ -181,8 +181,8 @@ public class GUINuovaPartita extends JPanel {
 
 		listCivilta = new  JComboBox<String>();
 		listCivilta.addItem("Romani");
-		listCivilta.addItem("Galli");
 		listCivilta.addItem("Britanni");
+		listCivilta.addItem("Galli");
 		listCivilta.addItem("Sassoni");
 		pnlMenu.add(listCivilta, c);
 
@@ -217,9 +217,20 @@ public class GUINuovaPartita extends JPanel {
 				k=creaNuovaPartita();
 				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 				{
+					String nomeGiocatore;
+					int tutorial, difficolta, mappa, civilta;
+					nomeGiocatore = txtNomeGiocatore.getText();
+					if(chkTut.isSelected())
+						tutorial = 1;
+					else
+						tutorial = 0;
+					difficolta = listDifficolta.getSelectedIndex();
+					mappa = listMappa.getSelectedIndex();
+					civilta = listCivilta.getSelectedIndex();
+					
 					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 					finestreAttive[0].setVisible(false);    
-					framePartita = new GUIPartita();
+					framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 					framePartita.setVisible(true);
 				}
 			}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Partita {
 
@@ -12,12 +13,17 @@ public class Partita {
 	List<Integer> ordineGioco;
 	private int turnoCorrente; //0, 1, 2, 3
 
-	private boolean tutorial;
-	private int difficolta; //da 1 a 4
-	private int mappa; //1 predefinita, 2 casuale, 3 estiva, 4 invernale
+	private int tutorial;
+	private int difficolta; //da 0 a 3
+	private int mappa; //0 predefinita, 1 casuale, 2 estiva, 3 invernale
 	
-	Partita(String situazioneDiGioco, String nomeGiocatore, int civilta, boolean tutorial, int difficolta, int mappa)
+	private ThreadCicloPartita threadCicloPartita;
+	private GUIPartita guiPartita;
+	
+	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta, GUIPartita guiPartita)
 	{
+		this.guiPartita = guiPartita;
+		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
 			this.situazioneDiGioco = situazioneDiGioco;
@@ -27,7 +33,9 @@ public class Partita {
 		}
 		else //E' una nuova partita, bisogna crearla
 		{
-			this.situazioneDiGioco = "";
+			situazioneDiGioco = "setup " + nomeGiocatore + " " + Integer.toString(tutorial) + " " + Integer.toString(difficolta) + " "
+					+ Integer.toString(mappa) + " " + Integer.toString(civilta);
+
 			this.tutorial = tutorial;
 			this.difficolta = difficolta;
 			this.mappa = mappa;
@@ -42,10 +50,10 @@ public class Partita {
 		
 		for(int i = 0; i < 4; i++)
 		{
-			if(civilta-1 == i) //giocatore umano
+			if(civilta == i) //giocatore umano
 				giocatore.add(i, new Giocatore(civilta, "utente1", nomeGiocatore));
 			else //cpu
-				giocatore.add(i, new Giocatore(i+1, "cpu", "CPU"));
+				giocatore.add(i, new Giocatore(i, "cpu", "CPU"));
 			
 			giocatore.get(i).setOro(20);
 			giocatore.get(i).setMateriali(20);
@@ -63,14 +71,20 @@ public class Partita {
 
 		avviaPartita();
 	}
-	
+
 	/*
 	 * Metodo che scandisce i turni e gestisce il turno con l'ia della cpu (se tocca alla cpu)
 	 * altrimenti lascia giocare il giocatore finchè non passa il turno
 	 */
 	public void avviaPartita()
 	{
-		turnoCorrente = ordineGioco.get(0);
+		threadCicloPartita = new ThreadCicloPartita(this);
+		threadCicloPartita.start();
+	}
+	
+	public void aggiornaDatiGUI()
+	{
+		guiPartita.aggiornaDatiGUI();
 	}
 
 	public List<Giocatore> getGiocatore() {
@@ -83,6 +97,21 @@ public class Partita {
 
 	public int getTurnoCorrente() {
 		return turnoCorrente;
+	}
+	public ThreadCicloPartita getThreadCicloPartita() {
+		return threadCicloPartita;
+	}
+
+	public void setThreadCicloPartita(ThreadCicloPartita threadCicloPartita) {
+		this.threadCicloPartita = threadCicloPartita;
+	}
+
+	public List<Integer> getOrdineGioco() {
+		return ordineGioco;
+	}
+
+	public void setOrdineGioco(List<Integer> ordineGioco) {
+		this.ordineGioco = ordineGioco;
 	}
 
 	public void setTurnoCorrente(int turnoCorrente) {

@@ -102,7 +102,7 @@ public class GUIPartita extends JFrame{
 	
 	private String proprietario; //INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori
 	
-	GUIPartita()
+	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //blocco di codice per evitare la chiusura immediata alla chiusura del programma
@@ -115,6 +115,7 @@ public class GUIPartita extends JFrame{
 				   finestreAttive = Frame.getWindows();
 				   if(scelta == 0)
 				   {
+					   disattivaThread(); //disattiva tutti i thread prima di chiudere la partita
 					   finestreAttive[0].setVisible(true);
 					   dispose();
 				   }
@@ -341,6 +342,15 @@ public class GUIPartita extends JFrame{
 		panelMsg.add(txtMsg, d);
 		d.gridx ++;
 		btnPassaTurno = new JButton("Passa");
+		btnPassaTurno.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(!partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")){
+					partita.getThreadCicloPartita().setTurnoPersona(false);
+					System.out.println("ciao");
+				}
+			}
+		});
 		panelMsg.add(btnPassaTurno, d);
 		
 		panelBottom.add(panelMsg);
@@ -448,7 +458,7 @@ public class GUIPartita extends JFrame{
 		
 		pack();
 		
-		setupPartita();
+		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 	
 	public void caricaIcone(int width, int height) {
@@ -610,9 +620,10 @@ public class GUIPartita extends JFrame{
 	}
 	
 	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
-	public void setupPartita() {
+	public void setupPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta) {
 		valoriDiGioco = new ValoriDiGioco();
-		partita = new Partita(null, "Werther", 1, false, 1, 1);
+		
+		partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta, this);
 		aggiornaDatiGUI();
 	}
 	
@@ -636,5 +647,10 @@ public class GUIPartita extends JFrame{
 			lblTurno.setIcon(iconeGrafiche.newiconSassoni);
 			break;
 		}
+	}
+	
+	public void disattivaThread()
+	{
+		partita.getThreadCicloPartita().stop();
 	}
 }
