@@ -23,16 +23,17 @@ public class ThreadCicloPartita extends Thread{
 			if(partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")) //il giocatore è ia
 			{
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {}
 			}
 			else //il giocatore è umano
 			{
 				turnoPersona = true;
-				while(true)
+				while(turnoPersona)
 				{
-					if(turnoPersona == false)
-						break;
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {}
 				}
 			}
 			if(indice < 3)

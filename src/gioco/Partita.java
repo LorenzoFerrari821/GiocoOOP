@@ -110,6 +110,14 @@ public class Partita {
 		return ordineGioco;
 	}
 
+	public GUIPartita getGuiPartita() {
+		return guiPartita;
+	}
+
+	public void setGuiPartita(GUIPartita guiPartita) {
+		this.guiPartita = guiPartita;
+	}
+
 	public void setOrdineGioco(List<Integer> ordineGioco) {
 		this.ordineGioco = ordineGioco;
 	}

@@ -14,6 +14,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -73,6 +74,8 @@ public class GUIPartita extends JFrame{
 	private JPanel panelBtnGoLeft;
 	private JLabel[][] lblsGiocoFondo;
 	private JLabel[][] lblsGioco;
+	private String azioneLblsGioco;
+	private String elemLblsGioco;
 	private JPanel panelGioco;
 	private Image scalelblPartita;
 	private int partitaHeight = 16, partitaWidth = 31;
@@ -101,6 +104,7 @@ public class GUIPartita extends JFrame{
 	private IconeGrafiche iconeGrafiche;
 	
 	private String proprietario; //INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori
+	private int indiceProprietario; //INDICA L'INDICE DEL PROPRIETARIO
 	
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
@@ -159,6 +163,28 @@ public class GUIPartita extends JFrame{
 		
 		iconeGrafiche = new IconeGrafiche();
 		proprietario = "utente1";
+		indiceProprietario = civilta;
+		
+		//Posiziono la schermata iniziale a seconda della civiltà scelta dal giocatore
+		switch(civilta)
+		{
+		case 0: //romani
+			posSchermataX = 31;
+			posSchermataY = 32;
+			break;
+		case 1: //britanni
+			posSchermataX = 31;
+			posSchermataY = 0;
+			break;
+		case 2: //galli
+			posSchermataX = 0;
+			posSchermataY = 16;
+			break;
+		case 3: //sassoni
+			posSchermataX = 62;
+			posSchermataY = 16;
+			break;
+		}
 		
 		lblOro = new JLabel();
 		lblOro.setFont(fontFuturist.deriveFont(15f));
@@ -308,8 +334,21 @@ public class GUIPartita extends JFrame{
 			for(int j = 0; j < partitaWidth; j++)
 			{
 				lblsGioco[i][j] = new JLabel();
+				lblsGioco[i][j].addMouseListener(new MouseAdapter() {
+
+					@Override
+					public void mouseReleased(MouseEvent arg0) {
+						for(int i = 0; i < partitaHeight; i++)
+						{
+							for(int j = 0; j < partitaWidth; j++)
+							{
+								if(lblsGioco[i][j] == arg0.getSource())
+									gestoreClickLblGioco(i, j);
+							}
+						}
+					}
+				});
 				panelGioco.add(lblsGioco[i][j]);
-				
 			}	
 		}
 		caricaIcone(36, 37); //Questo metodo carica tutte le icone grafiche all'interno del gioco con dimensione di default (36 e 37)
@@ -347,7 +386,6 @@ public class GUIPartita extends JFrame{
 			public void mouseReleased(MouseEvent arg0) {
 				if(!partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")){
 					partita.getThreadCicloPartita().setTurnoPersona(false);
-					System.out.println("ciao");
 				}
 			}
 		});
@@ -389,7 +427,7 @@ public class GUIPartita extends JFrame{
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				frmCostruisci = new GUIPartitaCostruisci(partita, valoriDiGioco);
+				frmCostruisci = new GUIPartitaCostruisci(partita, valoriDiGioco, guiPartita);
 				frmCostruisci.setVisible(true);
 			}
 		});
@@ -615,6 +653,14 @@ public class GUIPartita extends JFrame{
 		return posSchermataY;
 	}
 
+	public int getIndiceProprietario() {
+		return indiceProprietario;
+	}
+
+	public void setIndiceProprietario(int indiceProprietario) {
+		this.indiceProprietario = indiceProprietario;
+	}
+
 	public void setPosSchermataY(int posSchermataY) {
 		this.posSchermataY = posSchermataY;
 	}
@@ -629,9 +675,9 @@ public class GUIPartita extends JFrame{
 	
 	public void aggiornaDatiGUI()
 	{
-		lblOrov.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getOro()));
-		lblMaterialiv.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()));
-		lblPuntiRicercav.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getPuntiRicerca()));
+		lblOrov.setText(Integer.toString(partita.getGiocatore().get(indiceProprietario).getOro()));
+		lblMaterialiv.setText(Integer.toString(partita.getGiocatore().get(indiceProprietario).getMateriali()));
+		lblPuntiRicercav.setText(Integer.toString(partita.getGiocatore().get(indiceProprietario).getPuntiRicerca()));
 		switch(partita.getTurnoCorrente())
 		{
 		case 0:
@@ -652,5 +698,38 @@ public class GUIPartita extends JFrame{
 	public void disattivaThread()
 	{
 		partita.getThreadCicloPartita().stop();
+	}
+	
+	/**
+	 * Metodo che permette di comprare un elemento dal negozio
+	 */
+	public void posizionaECompra(String elemento)
+	{
+		azioneLblsGioco = "compra"; //Indica che la prossima azione di click su una lblGioco è per comprare
+		elemLblsGioco = elemento; //Indica l'elemento da comprare
+	}
+	
+	public void gestoreClickLblGioco(int i, int j)
+	{
+		if(azioneLblsGioco.equals("compra"))
+		{
+			
+		}
+	}
+
+	public String getAzioneLblsGioco() {
+		return azioneLblsGioco;
+	}
+
+	public void setAzioneLblsGioco(String azioneLblsGioco) {
+		this.azioneLblsGioco = azioneLblsGioco;
+	}
+
+	public String getElemLblsGioco() {
+		return elemLblsGioco;
+	}
+
+	public void setElemLblsGioco(String elemLblsGioco) {
+		this.elemLblsGioco = elemLblsGioco;
 	}
 }

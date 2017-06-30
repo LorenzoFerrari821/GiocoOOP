@@ -51,12 +51,13 @@ public class GUIPartitaCostruisci extends JFrame
 	private RoundedCornerButton btnIndietro;
 	
 	private Partita partita;
+	private GUIPartita guiPartita;
 	private IconeGrafiche iconeGrafiche;
 	private ValoriDiGioco valoriDiGioco;
 	
 	private String selezionato; //Opzione al momento selezionata
 	
-	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco)
+	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco, GUIPartita guiPartita)
 	{
 		try {
 		    //Creo un font custom
@@ -90,6 +91,7 @@ public class GUIPartitaCostruisci extends JFrame
 		
 		this.partita = partita;
 		this.valoriDiGioco = valoriDiGioco;
+		this.guiPartita = guiPartita;
 		
 		iconeGrafiche = new IconeGrafiche();
 		selezionato = null;
@@ -181,7 +183,22 @@ public class GUIPartitaCostruisci extends JFrame
 		btnCompra.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
+						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
+				{
+					JOptionPane.showMessageDialog(null, "Non possiedi sufficiente oro.",
+							"Informazioni", JOptionPane.DEFAULT_OPTION);
+				}
+				else
+				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() < 
+						valoriDiGioco.getValoriMat().get(selezionato)) //il giocatore non possiede abbastanza materiali
+				{
+					JOptionPane.showMessageDialog(null, "Non possiedi sufficienti materiali.",
+							"Informazioni", JOptionPane.DEFAULT_OPTION);
+				}
+				else
+				guiPartita.posizionaECompra(selezionato);
+				dispose();
 			}
 		});
 		pnlBot.add(btnCompra);
@@ -282,7 +299,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Sentieri"))
 				{
@@ -355,7 +372,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Strade lastricate"))
 				{
@@ -440,7 +457,7 @@ public class GUIPartitaCostruisci extends JFrame
 			pnlMid.removeAll();
 			
 			
-			for(String obj: partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate()) //per ogni ricerca
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
 				if(obj.equals("Strade asfaltate"))
 				{

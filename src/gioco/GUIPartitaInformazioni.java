@@ -149,7 +149,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		c.gridx++;
 		c.gridy = 0;
 		lblBEVal = new JLabel();
-		lblBEVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusEconomia()));
+		lblBEVal.setText(Integer.toString(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getBonusEconomia()));
 		lblBEVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBEVal, c);
 		c.gridy++;
@@ -157,7 +157,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblBMVal = new JLabel();
-		lblBMVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusMilitare()));
+		lblBMVal.setText(Integer.toString(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getBonusMilitare()));
 		lblBMVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBMVal, c);
 		c.gridy++;
@@ -165,7 +165,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblBRVal = new JLabel();
-		lblBRVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getBonusRicerca()));
+		lblBRVal.setText(Integer.toString(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getBonusRicerca()));
 		lblBRVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBRVal, c);
 		c.gridy++;
@@ -173,7 +173,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblTruppeDefVal = new JLabel();
-		lblTruppeDefVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getUnitaMunicipio().size()));
+		lblTruppeDefVal.setText(Integer.toString(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getUnitaMunicipio().size()));
 		lblTruppeDefVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeDefVal, c);
 		c.gridy++;
@@ -181,7 +181,15 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblTruppeAtkVal = new JLabel();
-		lblTruppeAtkVal.setText(Integer.toString(999));
+		int truppe = 0;
+		for(GruppoMilitare g: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getGruppiInAttacco())
+		{
+			for(UnitaMilitare u: g.getGruppoMilitare())
+			{
+				truppe++;
+			}
+		}
+		lblTruppeAtkVal.setText(Integer.toString(truppe));
 		lblTruppeAtkVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeAtkVal, c);
 		c.gridy++;
@@ -189,7 +197,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		
 		c.gridy++;
 		lblGruppiAtkVal = new JLabel();
-		lblGruppiAtkVal.setText(Integer.toString(partita.getGiocatore().get(partita.getTurnoCorrente()).getArmateInAttacco().size()));
+		lblGruppiAtkVal.setText(Integer.toString(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getGruppiInAttacco().size()));
 		lblGruppiAtkVal.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblGruppiAtkVal, c);
 		c.gridy++;

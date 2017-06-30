@@ -136,7 +136,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Abitazioni", "Caserma", "Fucina", iconeGrafiche.newiconAbitazioni, 
 				iconeGrafiche.newiconCaserma, iconeGrafiche.newiconFucina);
 		
-		if(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() != 1) //se la civiltà è diversa da romani
+		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() != 1) //se la civiltà è diversa da romani
 		{
 			from3to2();
 			
@@ -163,7 +163,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Religione", "Ville", "Tiro con l'arco", iconeGrafiche.newiconReligione,
 				iconeGrafiche.newiconVille, iconeGrafiche.newiconTiroConArco);
 		
-		if(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() != 1) //se la civiltà del giocatore è diversa da romani
+		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() != 1) //se la civiltà del giocatore è diversa da romani
 		{
 			from3to3();
 			//Ricerca oracolo,città, cavalleria
@@ -173,7 +173,7 @@ public class GUIPartitaRicerca extends JFrame {
 			
 			from3to1();
 			
-			if(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() == 4) //Se utilizziamo i sassoni
+			if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 4) //Se utilizziamo i sassoni
 			{
 				//Ricerca società militare
 				valX += 4;
@@ -225,7 +225,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Ospedale", "Case a schiera", "Tattiche di cavalleria", iconeGrafiche.newiconOspedale, 
 				iconeGrafiche.newiconCaseASchiera, iconeGrafiche.newiconTatCal);
 		
-		if(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() == 1) //se il giocatore ha civiltà romana
+		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 1) //se il giocatore ha civiltà romana
 		{
 			from3to2();
 			
@@ -287,8 +287,8 @@ public class GUIPartitaRicerca extends JFrame {
 		
 		from3to3();
 		
-		if(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() == 1 ||
-				partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà() == 4) //se civiltà è romana o sassone
+		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 1 ||
+				partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 4) //se civiltà è romana o sassone
 		{
 			//Ricerca musica lirica, villette, balistica
 			valX += 4;
@@ -308,7 +308,7 @@ public class GUIPartitaRicerca extends JFrame {
 		}
 		
 		
-		switch(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà())
+		switch(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà())
 		{
 		case 1: //romani
 			//Ricerca Carabinieri
@@ -782,14 +782,14 @@ public class GUIPartitaRicerca extends JFrame {
 				}
 				else
 				{
-					if(partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate().contains(nome)) //se già ricercata
+					if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().contains(nome)) //se già ricercata
 					{
 						JOptionPane.showMessageDialog(null, "La tecnologia selezionata è già stata ricercata",
 								"Attenzione", JOptionPane.DEFAULT_OPTION);
 					}
 					else
 					{
-						if(partita.getGiocatore().get(partita.getTurnoCorrente()).getPuntiRicerca() < 
+						if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() < 
 								valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
 						{
 							JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",
@@ -798,7 +798,7 @@ public class GUIPartitaRicerca extends JFrame {
 						else
 						{
 							int scelta =0;
-							Integer rimanente = partita.getGiocatore().get(partita.getTurnoCorrente()).getPuntiRicerca() - 
+							Integer rimanente = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() - 
 									valoriDiGioco.getValoriRicerche().get(nome);
 							scelta = JOptionPane.showConfirmDialog(
 									    null, "Vuoi ricercare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
@@ -806,8 +806,8 @@ public class GUIPartitaRicerca extends JFrame {
 									    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							if(scelta == 0) //se si
 							{
-								partita.getGiocatore().get(partita.getTurnoCorrente()).setPuntiRicerca(rimanente);
-								partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate().add(nome);
+								partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).setPuntiRicerca(rimanente);
+								partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().add(nome);
 								contentPane.remove(lblcpyCross);
 								c.gridx = posx+1;
 								c.gridy = posy+1;
@@ -835,7 +835,7 @@ public class GUIPartitaRicerca extends JFrame {
 		//Aggiungo lo stato corrente della ricerca (tick o cross)
 		c.gridx++;
 		
-		if(partita.getGiocatore().get(partita.getTurnoCorrente()).getRicercheEffettuate().contains(nome)) 
+		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().contains(nome)) 
 		{
 			contentPane.add(lblcpyTick, c);
 		}
