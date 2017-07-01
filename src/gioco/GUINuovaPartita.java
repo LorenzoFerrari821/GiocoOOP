@@ -227,7 +227,7 @@ public class GUINuovaPartita extends JPanel {
 					difficolta = listDifficolta.getSelectedIndex();
 					mappa = listMappa.getSelectedIndex();
 					civilta = listCivilta.getSelectedIndex();
-					
+
 					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 					finestreAttive[0].setVisible(false);    
 					framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);

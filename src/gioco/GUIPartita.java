@@ -76,6 +76,7 @@ public class GUIPartita extends JFrame{
 	private JLabel[][] lblsGioco;
 	private String azioneLblsGioco;
 	private String elemLblsGioco;
+	private int ioldLblsGioco, joldLblsGioco;
 	private JPanel panelGioco;
 	private Image scalelblPartita;
 	private int partitaHeight = 16, partitaWidth = 31;
@@ -515,7 +516,8 @@ public class GUIPartita extends JFrame{
 				st = new StringTokenizer(scenarioCorrente[y][x]);
 				daAggiungere.clear();
 				while(st.hasMoreTokens()) {
-					daAggiungere.add(iconeGrafiche.getIconeScenario().get(st.nextToken()));
+					String str = st.nextToken();
+					daAggiungere.add(iconeGrafiche.getIconeScenario().get(str));
 				}
 				cmpIcon = new CompoundIcon(CompoundIcon.Axis.Z_AXIS, daAggiungere.toArray(new ImageIcon[daAggiungere.size()]));
 				
@@ -568,10 +570,10 @@ public class GUIPartita extends JFrame{
 			lblTurno.setIcon(iconeGrafiche.newiconRomani);
 			break;
 		case 1:
-			lblTurno.setIcon(iconeGrafiche.newiconFrancesi);
+			lblTurno.setIcon(iconeGrafiche.newiconInglesi);
 			break;
 		case 2:
-			lblTurno.setIcon(iconeGrafiche.newiconInglesi);
+			lblTurno.setIcon(iconeGrafiche.newiconFrancesi);
 			break;
 		case 3:
 			lblTurno.setIcon(iconeGrafiche.newiconSassoni);
@@ -593,6 +595,23 @@ public class GUIPartita extends JFrame{
 		elemLblsGioco = elemento; //Indica l'elemento da comprare
 	}
 	
+	/**
+	 * Metodo che permette di vendere una costruzione
+	 */
+	public void vendiCostruzione()
+	{
+		azioneLblsGioco = "vendi"; //Indica che la prossima azione di click è per vendere
+	}
+	
+	
+	/**
+	 * Metodo che permette di muovere una costruzione
+	 */
+	public void muoviCostruzione()
+	{
+		azioneLblsGioco = "muovi";
+	}
+	
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
 		if(azioneLblsGioco == null)
@@ -608,36 +627,8 @@ public class GUIPartita extends JFrame{
 				partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
 						partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()-valoriDiGioco.getValoriMat().get(elemLblsGioco));
 				
-				/*Posizionamento oggetto sulla plancia di gioco*/
-				if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") ||
-						elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
-						elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
-						elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
-				{ //caso 1x1
-					//aggiungo possedimento al giocatore
-					partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
-				}
-				else
-				{ //caso 2x2
-					partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += "1";
-					
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
-					
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
-					
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
-					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
-				}
+				partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
+				posizionaElementoSuScenario(i, j);
 			}
 			else //il posto dove vuole piazzarlo è già occupato
 			{
@@ -652,6 +643,216 @@ public class GUIPartita extends JFrame{
 			aggiornaSchermata();
 			aggiornaDatiGUI();
 		}
+		else
+		if(azioneLblsGioco.equals("vendi"))
+		{
+			//Controllo che sulla lbl ci sia un elemento vendibile
+			String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
+			
+			if(nome == null || nome.contains("municipio"))
+			{
+				JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else //chiedi se vuole vendere
+			{
+				int scelta =0;
+				scelta = JOptionPane.showConfirmDialog(
+						    null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
+						    		+ "materiali richiesti per l'acquisto)", "Conferma",
+						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(scelta == 0) //se si
+				{
+					char ultimoChar = nome.charAt(nome.length() - 1);
+					
+					if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+						nome = nome.substring(0, nome.length() - 1);
+					}
+					//Rimozione oggetto dai suoi possedimenti
+					for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
+					{
+						if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
+						}
+					}
+					//Accredito della metà dell'oro e di materiali dell'oggetto venduto
+					partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
+					partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
+					
+					rimuoviElementoDaScenario(i, j, ultimoChar);
+				}
+			}
+			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+			
+			aggiornaSchermata();
+			aggiornaDatiGUI();
+		}
+		else
+		if(azioneLblsGioco.equals("muovi"))
+		{
+			String nome = individuaOggetto(i, j);
+			
+			if(nome == null)
+			{
+				JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else
+			{
+				azioneLblsGioco = "posizionaElemento";
+				elemLblsGioco = nome;
+				ioldLblsGioco = i;
+				joldLblsGioco = j;
+			}
+		}
+		else
+		if(azioneLblsGioco.equals("posizionaElemento"))
+		{
+			if(!isPiazzamentoPossibile(i, j))
+			{
+				JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else //piazzamento possibile
+			{
+				char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
+				
+				rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
+				
+				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
+					elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
+				posizionaElementoSuScenario(i, j);
+				
+				//Resetto i dati di azione e elemento in memoria
+				azioneLblsGioco = "";
+				elemLblsGioco = "";
+				
+				aggiornaSchermata();
+				aggiornaDatiGUI();
+			}
+		}
+	}
+	
+	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
+	{
+		//Rimozione dell'oggetto dallo scenario
+		if(ultimoChar == '1')
+		{
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1]
+					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1].lastIndexOf(" "));
+		}
+		else
+		if(ultimoChar == '2')
+		{
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1]
+					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
+		}
+		else
+		if(ultimoChar == '3')
+		{
+			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1]
+					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
+		}
+		else
+		if(ultimoChar == '4')
+		{
+			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1]
+					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+		}
+		else
+		{
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+		}
+	}
+	
+	public void posizionaElementoSuScenario(int i, int j)
+	{
+		/*Posizionamento oggetto sulla plancia di gioco*/
+		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") ||
+				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
+				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
+				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
+		{ //caso 1x1
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+		}
+		else
+		{ //caso 2x2
+			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += "1";
+			
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
+			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
+			
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
+			
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
+			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
+		}
+	}
+	
+	public String individuaOggetto(int i, int j) //i è la x, j è la y
+	{
+		scenarioCorrente = scenario.getScenario();
+		String strCercata = null;
+		
+		StringTokenizer st;
+		int stItera = 0;
+		
+		st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
+		while(st.hasMoreTokens()) {
+			if(stItera == 0) //controllo che il pavimento sia ghiaia
+				if(!st.nextToken().equals("g"))
+				{
+					return null;
+				}
+			stItera++;
+			if(stItera > 1)
+				strCercata = st.nextToken();
+		}
+		if(strCercata == null)
+			return null;
+		
+		strCercata = strCercata.replaceAll("_", " ");
+		
+		return strCercata;
 	}
 	
 	public boolean isPiazzamentoPossibile(int i, int j) //i è la x, j è la y

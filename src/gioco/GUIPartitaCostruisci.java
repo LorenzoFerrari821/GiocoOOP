@@ -150,7 +150,8 @@ public class GUIPartitaCostruisci extends JFrame
 		btnMuovi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+				guiPartita.muoviCostruzione();
+				dispose();
 			}
 		});
 		pnlBot.add(btnMuovi);
@@ -161,7 +162,8 @@ public class GUIPartitaCostruisci extends JFrame
 		btnVendi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+				guiPartita.vendiCostruzione();
+				dispose();
 			}
 		});
 		pnlBot.add(btnVendi);

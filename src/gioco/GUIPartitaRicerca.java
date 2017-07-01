@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -136,7 +137,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Abitazioni", "Caserma", "Fucina", iconeGrafiche.newiconAbitazioni, 
 				iconeGrafiche.newiconCaserma, iconeGrafiche.newiconFucina);
 		
-		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() != 1) //se la civiltà è diversa da romani
+		if(partita.getGuiPartita().getIndiceProprietario() != 0) //se la civiltà è diversa da romani
 		{
 			from3to2();
 			
@@ -163,7 +164,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Religione", "Ville", "Tiro con l'arco", iconeGrafiche.newiconReligione,
 				iconeGrafiche.newiconVille, iconeGrafiche.newiconTiroConArco);
 		
-		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() != 1) //se la civiltà del giocatore è diversa da romani
+		if(partita.getGuiPartita().getIndiceProprietario() != 0) //se la civiltà del giocatore è diversa da romani
 		{
 			from3to3();
 			//Ricerca oracolo,città, cavalleria
@@ -173,7 +174,7 @@ public class GUIPartitaRicerca extends JFrame {
 			
 			from3to1();
 			
-			if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 4) //Se utilizziamo i sassoni
+			if(partita.getGuiPartita().getIndiceProprietario() == 3) //Se utilizziamo i sassoni
 			{
 				//Ricerca società militare
 				valX += 4;
@@ -225,7 +226,7 @@ public class GUIPartitaRicerca extends JFrame {
 		inserisci3(valX, 4, "Ospedale", "Case a schiera", "Tattiche di cavalleria", iconeGrafiche.newiconOspedale, 
 				iconeGrafiche.newiconCaseASchiera, iconeGrafiche.newiconTatCal);
 		
-		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 1) //se il giocatore ha civiltà romana
+		if(partita.getGuiPartita().getIndiceProprietario() == 0) //se il giocatore ha civiltà romana
 		{
 			from3to2();
 			
@@ -287,8 +288,8 @@ public class GUIPartitaRicerca extends JFrame {
 		
 		from3to3();
 		
-		if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 1 ||
-				partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà() == 4) //se civiltà è romana o sassone
+		if(partita.getGuiPartita().getIndiceProprietario() == 0 ||
+				partita.getGuiPartita().getIndiceProprietario() == 3) //se civiltà è romana o sassone
 		{
 			//Ricerca musica lirica, villette, balistica
 			valX += 4;
@@ -307,25 +308,24 @@ public class GUIPartitaRicerca extends JFrame {
 			from3to1();
 		}
 		
-		
-		switch(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getCiviltà())
+		switch(partita.getGuiPartita().getIndiceProprietario())
 		{
-		case 1: //romani
+		case 0: //romani
 			//Ricerca Carabinieri
 			valX += 4;
 			inserisci1(valX, 7, "Carabinieri", iconeGrafiche.newiconCarabinieri);
 			break;
-		case 2: //britanni
+		case 1: //britanni
 			//Ricerca guardie reali britanniche
 			valX += 4;
 			inserisci1(valX, 7, "Guardie reali", iconeGrafiche.newiconGuaRea);
 			break;
-		case 3: //galli
+		case 2: //galli
 			//Ricerca galli
 			valX += 4;
 			inserisci1(valX, 7, "Legione straniera", iconeGrafiche.newiconLegione);
 			break;
-		case 4: //sassoni
+		case 3: //sassoni
 			//Ricerca gardenkorps
 			valX += 4;
 			inserisci1(valX, 7, "Gardenkorps", iconeGrafiche.newiconGK);
@@ -789,32 +789,40 @@ public class GUIPartitaRicerca extends JFrame {
 					}
 					else
 					{
-						if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() < 
-								valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
+						if(!isRicercaRicercabile(nome))
 						{
-							JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",
+							JOptionPane.showMessageDialog(null, "E' necessario prima sbloccare le ricerche precedenti",
 									"Attenzione", JOptionPane.DEFAULT_OPTION);
 						}
 						else
 						{
-							int scelta =0;
-							Integer rimanente = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() - 
-									valoriDiGioco.getValoriRicerche().get(nome);
-							scelta = JOptionPane.showConfirmDialog(
-									    null, "Vuoi ricercare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
-									    " punti ricerca?\n(Rimarranno "+rimanente.toString()+" punti ricerca).", "Conferma",
-									    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-							if(scelta == 0) //se si
+							if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() < 
+									valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
 							{
-								partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).setPuntiRicerca(rimanente);
-								partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().add(nome);
-								contentPane.remove(lblcpyCross);
-								c.gridx = posx+1;
-								c.gridy = posy+1;
-								contentPane.add(lblcpyTick, c);
-								guiPartita.aggiornaDatiGUI();
-								contentPane.setVisible(false); //fa una sorta di refresh
-								contentPane.setVisible(true);
+								JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",
+										"Attenzione", JOptionPane.DEFAULT_OPTION);
+							}
+							else
+							{
+								int scelta =0;
+								Integer rimanente = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() - 
+										valoriDiGioco.getValoriRicerche().get(nome);
+								scelta = JOptionPane.showConfirmDialog(
+										    null, "Vuoi ricercare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
+										    " punti ricerca?\n(Rimarranno "+rimanente.toString()+" punti ricerca).", "Conferma",
+										    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+								if(scelta == 0) //se si
+								{
+									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).setPuntiRicerca(rimanente);
+									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().add(nome);
+									contentPane.remove(lblcpyCross);
+									c.gridx = posx+1;
+									c.gridy = posy+1;
+									contentPane.add(lblcpyTick, c);
+									guiPartita.aggiornaDatiGUI();
+									contentPane.setVisible(false); //fa una sorta di refresh
+									contentPane.setVisible(true);
+								}
 							}
 						}
 					}
@@ -843,5 +851,100 @@ public class GUIPartitaRicerca extends JFrame {
 		{
 			contentPane.add(lblcpyCross, c);
 		}
+	}
+	
+	public boolean isRicercaRicercabile(String nome)
+	{
+		List<String> ric = new ArrayList<String>();
+		ric = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate();
+		int civ = partita.getGuiPartita().getIndiceProprietario();
+		
+		if(nome.equals("Abitazioni") || nome.equals("Caserma") || nome.equals("Fucina")) {
+			if(!ric.contains("Sentieri"))
+				return false; }
+		else
+		if(nome.equals("Commercio") || nome.equals("Fanteria") || nome.equals("Oreficeria")) {
+			if(!ric.contains("Abitazioni") || !ric.contains("Caserma") || !ric.contains("Fucina"))
+				return false; }
+		else
+		if(nome.equals("Religione") || nome.equals("Ville") || nome.equals("Tiro con l'arco")) {
+			if(!ric.contains("Commercio") || !ric.contains("Fanteria"))
+				return false; 
+			if(civ == 0 && !ric.contains("Oreficeria"))
+				return false;}
+		else
+		if(nome.equals("Oracolo") || nome.equals("Città") || nome.equals("Cavalleria")) {
+			if(!ric.contains("Religione") || !ric.contains("Ville") || !ric.contains("Tiro con l'arco"))
+				return false; }
+		else
+		if(nome.equals("Strade lastricate")) {
+			if(!ric.contains("Città") || !ric.contains("Cavalleria"))
+				return false;
+			if(civ != 0 && !ric.contains("Oracolo"))
+				return false; 
+			if(civ == 0 && !ric.contains("Età imperiale"))
+				return false; }
+		else
+		if(nome.equals("Case a più piani") || nome.equals("Corazze") || nome.equals("Balestre")) {
+			if(!ric.contains("Strade lastricate"))
+				return false; }
+		else
+		if(nome.equals("Biblioteca") || nome.equals("Mercenari") || nome.equals("Clero")) {
+			if(!ric.contains("Case a più piani") || !ric.contains("Corazze") || !ric.contains("Balestre"))
+				return false; }
+		else
+		if(nome.equals("Ospedale") || nome.equals("Case a schiera") || nome.equals("Tattiche di cavalleria")) {
+			if(!ric.contains("Biblioteca") || !ric.contains("Mercenari") || !ric.contains("Clero"))
+				return false; }
+		else
+		if(nome.equals("Granai") || nome.equals("Inquisizione")) {
+			if(!ric.contains("Ospedale") || !ric.contains("Case a schiera") || !ric.contains("Tattiche di cavalleria"))
+				return false; }
+		else
+		if(nome.equals("Fermentazione") || nome.equals("Banca") || nome.equals("Polvere da sparo")) {
+			if(!ric.contains("Granai"))
+				return false; 
+			if(civ == 0 && !ric.contains("Inquisizione"))
+				return false; }
+		else
+		if(nome.equals("Strade asfaltate")) {
+			if(!ric.contains("Fermentazione") || !ric.contains("Polvere da sparo"))
+				return false; 
+			if(civ != 0 && !ric.contains("Banca"))
+				return false; }
+		else
+		if(nome.equals("Sistema industriale") || nome.equals("Scienza")) {
+			if(!ric.contains("Strade asfaltate"))
+				return false; }
+		else
+		if(nome.equals("Case con mansarda") || nome.equals("Fucili") || nome.equals("Gerarchia militare")) {
+			if(!ric.contains("Sistema industriale") || !ric.contains("Scienza"))
+				return false; }
+		else
+		if(nome.equals("Società borghese") || nome.equals("Politica") || nome.equals("Tattiche in campo aperto")) {
+			if(!ric.contains("Case con mansarda") || !ric.contains("Fucili") || !ric.contains("Gerarchia militare"))
+				return false; }
+		else
+		if(nome.equals("Teatri") || nome.equals("Villette") || nome.equals("Balistica") || nome.equals("Musica lirica")) {
+			if(!ric.contains("Società borghese") || !ric.contains("Politica") || !ric.contains("Tattiche in campo aperto"))
+				return false;
+		}
+		else
+		if(nome.equals("Carabinieri")) {
+			if(!ric.contains("Musica lirica") || !ric.contains("Villette") || !ric.contains("Balistica"))
+				return false;
+		}
+		if(nome.equals("Guardie reali")) {
+			if(!ric.contains("Teatri") || !ric.contains("Villette") || !ric.contains("Balistica"))
+				return false; }
+		else
+		if(nome.equals("Legione straniera")) {
+				if(!ric.contains("Teatri") || !ric.contains("Villette") || !ric.contains("Balistica"))
+					return false; }
+		else
+		if(nome.equals("Gardenkorps")) {
+			if(!ric.contains("Musica lirica") || !ric.contains("Villette") || !ric.contains("Balistica"))
+				return false; }
+		return true;
 	}
 }
