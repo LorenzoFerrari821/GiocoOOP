@@ -2,6 +2,8 @@ package gioco;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -77,7 +79,150 @@ public class IconeGrafiche {
 	ImageIcon newiconInglesi;
 	ImageIcon newiconSassoni;
 	
+	private Map<String, ImageIcon> iconeScenario;
+	
 	IconeGrafiche()
+	{
+		caricaIconeScenario(36, 37); //Questo metodo carica tutte le icone grafiche scenario all'interno del gioco con dimensione di default (36 e 37)
+		caricaAltreIcone();
+	}
+	
+	public void caricaIconeScenario(int width, int height) {
+		iconeScenario = new HashMap<>();
+		
+		//Caricamento pavimentazioni
+		ImageIcon iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t.png");
+		Image scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("t", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/v.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("v", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/d.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("d", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/n.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("n", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/g.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("g", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/gh.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("gh", new ImageIcon(scalelblPartita));
+		
+		//Caricamento icone scenario
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/x.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("x", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/y.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("y", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/z.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("z", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("at", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/am.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("am", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pm.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("pm", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pg.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("pg", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/ap.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("ap", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/tr.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("tr", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/c.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("c", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/f.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("f", new ImageIcon(scalelblPartita));
+		
+		//caricamento icone alberi tondi
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("at1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("at2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("at3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("at4", new ImageIcon(scalelblPartita));
+		
+		//caricamento icone alberi
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("a1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("a2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("a3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("a4", new ImageIcon(scalelblPartita));
+		
+		//caricamento icone tronchetti
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("t1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("t2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("t3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("t4", new ImageIcon(scalelblPartita));
+		
+		//caricamento municipio età classica
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("ecmunicipio1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("ecmunicipio2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("ecmunicipio3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("ecmunicipio4", new ImageIcon(scalelblPartita));
+		
+		//Caricamento elementi negozio
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/sentieri/Sentiero.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Sentiero", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/casa.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Casa", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/caserma1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Caserma1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/caserma2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Caserma2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/caserma3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Caserma3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/caserma4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("Caserma4", new ImageIcon(scalelblPartita));
+	}
+	
+	public void caricaAltreIcone()
 	{
 		ImageIcon iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");
 		Image scaleTick = iconTick.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
@@ -307,5 +452,13 @@ public class IconeGrafiche {
 		ImageIcon icon2sxsu = new ImageIcon("media/asset_grafici/icone/frameRicerca/2sxsu.png");
 		Image scale2sxsu = icon2sxsu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newicon2sxsu = new ImageIcon(scale2sxsu);
+	}
+
+	public Map<String, ImageIcon> getIconeScenario() {
+		return iconeScenario;
+	}
+
+	public void setIconeScenario(Map<String, ImageIcon> iconeScenario) {
+		this.iconeScenario = iconeScenario;
 	}
 }

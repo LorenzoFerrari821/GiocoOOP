@@ -49,7 +49,7 @@ public class ThreadScorrimentoSchermata extends Thread {
 					break;
 			}
 			try {
-				Thread.sleep(50);
+				Thread.sleep(33);
 			} catch (InterruptedException e) {}
 		}
 	}

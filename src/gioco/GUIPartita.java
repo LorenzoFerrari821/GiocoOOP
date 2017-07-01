@@ -92,7 +92,7 @@ public class GUIPartita extends JFrame{
 	private Scenario scenario;
 	private int posSchermataX = 31, posSchermataY = 16;
 	private String[][] scenarioCorrente;
-	private Map<String, ImageIcon> icone;
+	
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	private GUIPartitaInformazioni frmInfo;
 	private GUIPartitaRicerca frmRicerca;
@@ -162,6 +162,7 @@ public class GUIPartita extends JFrame{
 		panelBtnGoLeft = new JPanel();
 		
 		iconeGrafiche = new IconeGrafiche();
+		scenario = new Scenario();
 		proprietario = "utente1";
 		indiceProprietario = civilta;
 		
@@ -343,7 +344,7 @@ public class GUIPartita extends JFrame{
 							for(int j = 0; j < partitaWidth; j++)
 							{
 								if(lblsGioco[i][j] == arg0.getSource())
-									gestoreClickLblGioco(i, j);
+									gestoreClickLblGioco(j, i);
 							}
 						}
 					}
@@ -351,7 +352,7 @@ public class GUIPartita extends JFrame{
 				panelGioco.add(lblsGioco[i][j]);
 			}	
 		}
-		caricaIcone(36, 37); //Questo metodo carica tutte le icone grafiche all'interno del gioco con dimensione di default (36 e 37)
+		
 		aggiornaSchermata(); //prende la situazione attuale da Scenario e parsando la matrice di stringhe crea il corrispondente grafico
 		
 		
@@ -360,7 +361,7 @@ public class GUIPartita extends JFrame{
 			@Override
 			public void componentResized(ComponentEvent e)
 			{
-				caricaIcone(lblsGioco[0][0].getSize().width, lblsGioco[0][0].getSize().height+1);
+				iconeGrafiche.caricaIconeScenario(lblsGioco[0][0].getSize().width, lblsGioco[0][0].getSize().height+1);
 				aggiornaSchermata();
 			}
 		});
@@ -499,125 +500,8 @@ public class GUIPartita extends JFrame{
 		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 	
-	public void caricaIcone(int width, int height) {
-		icone = new HashMap<>();
-		
-		//Caricamento pavimentazioni
-		ImageIcon iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("t", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/v.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("v", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/d.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("d", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/n.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("n", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/g.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("g", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/gh.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("gh", new ImageIcon(scalelblPartita));
-		
-		//Caricamento icone scenario
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/x.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("x", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/y.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("y", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/z.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("z", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("at", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/am.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("am", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pm.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("pm", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pg.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("pg", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/ap.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("ap", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/tr.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("tr", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/c.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("c", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/f.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("f", new ImageIcon(scalelblPartita));
-		
-		//caricamento icone alberi tondi
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at1.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("at1", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at2.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("at2", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at3.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("at3", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at4.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("at4", new ImageIcon(scalelblPartita));
-		
-		//caricamento icone alberi
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a1.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("a1", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a2.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("a2", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a3.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("a3", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a4.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("a4", new ImageIcon(scalelblPartita));
-		
-		//caricamento icone tronchetti
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t1.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("t1", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t2.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("t2", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t3.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("t3", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t4.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("t4", new ImageIcon(scalelblPartita));
-		
-		//caricamento municipio età classica
-		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio1.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("ecmunicipio1", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio2.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("ecmunicipio2", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio3.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("ecmunicipio3", new ImageIcon(scalelblPartita));
-		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio4.png");
-		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		icone.put("ecmunicipio4", new ImageIcon(scalelblPartita));
-		
-	}
-	
 	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
 	public void aggiornaSchermata() {
-		scenario = new Scenario();
 		scenarioCorrente = scenario.getScenario();
 		StringTokenizer st;
 		List<ImageIcon> daAggiungere = new ArrayList<ImageIcon>();
@@ -631,7 +515,7 @@ public class GUIPartita extends JFrame{
 				st = new StringTokenizer(scenarioCorrente[y][x]);
 				daAggiungere.clear();
 				while(st.hasMoreTokens()) {
-					daAggiungere.add(icone.get(st.nextToken()));
+					daAggiungere.add(iconeGrafiche.getIconeScenario().get(st.nextToken()));
 				}
 				cmpIcon = new CompoundIcon(CompoundIcon.Axis.Z_AXIS, daAggiungere.toArray(new ImageIcon[daAggiungere.size()]));
 				
@@ -709,12 +593,123 @@ public class GUIPartita extends JFrame{
 		elemLblsGioco = elemento; //Indica l'elemento da comprare
 	}
 	
-	public void gestoreClickLblGioco(int i, int j)
+	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
+		if(azioneLblsGioco == null)
+			return;
 		if(azioneLblsGioco.equals("compra"))
 		{
+			if(isPiazzamentoPossibile(i, j)) //compra e piazza
+			{
+				/*Scalo costo in oro*/
+				partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
+						partita.getGiocatore().get(partita.getTurnoCorrente()).getOro()-valoriDiGioco.getValoriOro().get(elemLblsGioco));
+				/*Scalo costo in materiali*/
+				partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
+						partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()-valoriDiGioco.getValoriMat().get(elemLblsGioco));
+				
+				/*Posizionamento oggetto sulla plancia di gioco*/
+				if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") ||
+						elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
+						elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
+						elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
+				{ //caso 1x1
+					//aggiungo possedimento al giocatore
+					partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+				}
+				else
+				{ //caso 2x2
+					partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] += "1";
+					
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
+					
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
+					
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
+					scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
+				}
+			}
+			else //il posto dove vuole piazzarlo è già occupato
+			{
+				JOptionPane.showMessageDialog(null, "Non è possibile piazzare "+ elemLblsGioco + " in questa posizione.",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
 			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+			
+			aggiornaSchermata();
+			aggiornaDatiGUI();
 		}
+	}
+	
+	public boolean isPiazzamentoPossibile(int i, int j) //i è la x, j è la y
+	{
+		int stItera;
+		
+		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") || 
+				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
+				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
+				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
+		{
+			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
+			StringTokenizer st;
+			stItera = 0;
+			
+			scenarioCorrente = scenario.getScenario();
+			st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
+			while(st.hasMoreTokens()) {
+				if(stItera == 0) //controllo che il pavimento sia ghiaia
+					if(!st.nextToken().equals("g"))
+					{
+						return false;
+					}
+				stItera++;
+				if(stItera > 1) //La lbl di posizione i,i è già impegnata
+				{
+					return false;
+				}
+			}
+					
+		}
+		else
+		{
+			//controlliamo che le lbl di posizione i, j; i+1, j; i, j+1; i+1, j+1 siano disponibili (2x2)
+			for(int k = 0; k < 2; k++)
+			{
+				for(int u = 0; u < 2; u++)
+				{
+					//controlliamo che la lbl di posizione i+k, j+k sia disponibile (2x2)
+					StringTokenizer st;
+					stItera = 0;
+					
+					scenarioCorrente = scenario.getScenario();
+					st = new StringTokenizer(scenarioCorrente[j+posSchermataY+u][i+posSchermataX+k]);
+					while(st.hasMoreTokens()) {
+						if(stItera == 0) //controllo che il pavimento sia ghiaia
+							if(!st.nextToken().equals("g"))
+								return false;
+						stItera++;
+						if(stItera > 1) //La lbl di posizione i,i è già impegnata
+						{
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	public String getAzioneLblsGioco() {

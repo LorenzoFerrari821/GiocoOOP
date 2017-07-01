@@ -45,6 +45,14 @@ public class Giocatore {
 		this.nomeGiocatore = nomeGiocatore;
 	}
 	
+	public List<String> getStoricoPossedimenti() {
+		return storicoPossedimenti;
+	}
+
+	public void setStoricoPossedimenti(List<String> storicoPossedimenti) {
+		this.storicoPossedimenti = storicoPossedimenti;
+	}
+
 	public int getCiviltà() {
 		return civiltà;
 	}

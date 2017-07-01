@@ -352,4 +352,8 @@ public class Scenario {
 	public String[][] getScenario() {
 		return scenario;
 	}
+
+	public void setScenario(String[][] scenario) {
+		this.scenario = scenario;
+	}
 }
