@@ -3,6 +3,7 @@ package gioco;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,6 +14,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
@@ -110,6 +113,17 @@ public class GUIPartita extends JFrame{
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
+	
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+		
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor);  
+		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //blocco di codice per evitare la chiusura immediata alla chiusura del programma
 		addWindowListener(new WindowAdapter() {
 			   public void windowClosing(WindowEvent evt) {

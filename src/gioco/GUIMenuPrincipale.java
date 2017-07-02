@@ -1,17 +1,27 @@
 package gioco;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -59,6 +69,7 @@ public class GUIMenuPrincipale extends JFrame {
 	private GUIOpzioni panelOpzioni;
 	private GUIExtra panelExtra;
 	private GUIObiettivi panelObiettivi;
+	private Clip audio;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -69,17 +80,25 @@ public class GUIMenuPrincipale extends JFrame {
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
-
 		setBounds(0, 0, 1280, 720);
 		setLocationRelativeTo(null);
-		
+
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor);    
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 
 		contentPane = new JPanel();
 		panelsx = new JPanel();
@@ -97,7 +116,7 @@ public class GUIMenuPrincipale extends JFrame {
 		paneldx.setBackground(Color.decode("0xFABCD"));
 
 		panelTitolo.setLayout(new BorderLayout(4, 4));
-		panelTitolo.setBackground(Color.white);
+		panelTitolo.setBackground(Color.black);
 
 		btnNuovaSmall = new RoundedCornerButton();
 		ImageIcon iconbtnNuovaSmall = new ImageIcon("media/btnNuovaSmall.png");
@@ -106,6 +125,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnNuovaSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -127,6 +153,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnNuovaPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -147,6 +180,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnCaricaSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -168,6 +208,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnCaricaPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -189,6 +236,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnMultiplayerSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -210,6 +264,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnMultiplayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -231,6 +292,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnOpzioniSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -251,6 +319,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnOpzioni.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -272,6 +347,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnExtraSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -292,6 +374,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnExtra.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -313,6 +402,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnObiettiviSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -333,6 +429,13 @@ public class GUIMenuPrincipale extends JFrame {
 		btnObiettivi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				paneldx.setVisible(false);
 				allPanelsdxNotVisibles();
 				try {
@@ -381,7 +484,7 @@ public class GUIMenuPrincipale extends JFrame {
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		ImageIcon iconTitolo = new ImageIcon("media/titolo.png");
-		Image scaleTitolo = iconTitolo.getImage().getScaledInstance(378, 133,Image.SCALE_DEFAULT);
+		Image scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}

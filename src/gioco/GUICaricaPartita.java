@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -59,6 +64,7 @@ public class GUICaricaPartita extends JPanel {
 	private ConnectionDB connessione2 = null;
 	private ConnectionDB connessione3 = null;
 	private ResultSet rs;
+	private Clip audio;
 	private int dialogResult;
 	private int index;
 	private String linea;
@@ -235,6 +241,13 @@ public class GUICaricaPartita extends JPanel {
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoindietro.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				setVisible(false);
 			}
 		});
@@ -249,6 +262,13 @@ public class GUICaricaPartita extends JPanel {
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 			}
 		});
 		pnlMenu.add(btnCarica, d);
@@ -262,6 +282,13 @@ public class GUICaricaPartita extends JPanel {
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
 					try {    //Otteniamo l'indice del salvataggio da cancellare e chiamiamo la funzione apposita
