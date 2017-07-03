@@ -20,7 +20,7 @@ public class Gioco {
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
 					frame.setVisible(true);
 					File musica= new File("media/MusicaMenu.wav");
-					Music.playSound(musica);
+					//Music.playSound(musica);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
