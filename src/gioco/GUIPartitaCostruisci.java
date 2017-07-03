@@ -2,6 +2,7 @@ package gioco;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -10,6 +11,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -17,6 +20,10 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -56,9 +63,19 @@ public class GUIPartitaCostruisci extends JFrame
 	private ValoriDiGioco valoriDiGioco;
 	
 	private String selezionato; //Opzione al momento selezionata
-	
+	private Clip audio;
 	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco, GUIPartita guiPartita)
 	{
+		
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor); 
 		try {
 		    //Creo un font custom
 		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
@@ -150,6 +167,13 @@ public class GUIPartitaCostruisci extends JFrame
 		btnMuovi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				guiPartita.muoviCostruzione();
 				dispose();
 			}
@@ -162,6 +186,13 @@ public class GUIPartitaCostruisci extends JFrame
 		btnVendi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				guiPartita.vendiCostruzione();
 				dispose();
 			}
@@ -174,6 +205,13 @@ public class GUIPartitaCostruisci extends JFrame
 		btnInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				daiInformazioni(selezionato);
 			}
 		});
@@ -185,6 +223,13 @@ public class GUIPartitaCostruisci extends JFrame
 		btnCompra.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
 						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
 				{
@@ -211,6 +256,13 @@ public class GUIPartitaCostruisci extends JFrame
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoindietro.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				dispose();
 			}
 		});

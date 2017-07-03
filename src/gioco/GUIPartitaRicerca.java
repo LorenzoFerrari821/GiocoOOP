@@ -2,6 +2,7 @@ package gioco;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -9,6 +10,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -16,6 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,6 +48,7 @@ public class GUIPartitaRicerca extends JFrame {
 	private int gridXEVittoriana;
 	private RoundedCornerButton btnIndietro;
 	private IconeGrafiche iconeGrafiche;
+	private Clip audio;
 	
 	private ValoriDiGioco valoriDiGioco; //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
 	private Partita partita;  //Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore
@@ -49,6 +57,15 @@ public class GUIPartitaRicerca extends JFrame {
 	private String proprietario;
 	
 	GUIPartitaRicerca(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, String proprietario) {
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor); 
 		
 		try {
 		    //Creo un font custom
@@ -95,6 +112,13 @@ public class GUIPartitaRicerca extends JFrame {
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoindietro.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				dispose();
 			}
 		});
@@ -813,6 +837,13 @@ public class GUIPartitaRicerca extends JFrame {
 										    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 								if(scelta == 0) //se si
 								{
+									try {
+										audio = AudioSystem.getClip();
+										audio.open(AudioSystem.getAudioInputStream(new File("media/ricercaeffettuata.wav")));
+									} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+										e1.printStackTrace();
+									}
+									audio.start();
 									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).setPuntiRicerca(rimanente);
 									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().add(nome);
 									contentPane.remove(lblcpyCross);

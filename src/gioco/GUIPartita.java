@@ -32,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -96,6 +100,7 @@ public class GUIPartita extends JFrame{
 	private Scenario scenario;
 	private int posSchermataX = 31, posSchermataY = 16;
 	private String[][] scenarioCorrente;
+	private Clip audio;
 	
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	private GUIPartitaInformazioni frmInfo;
@@ -400,6 +405,13 @@ public class GUIPartita extends JFrame{
 		btnPassaTurno.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				if(!partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")){
 					partita.getThreadCicloPartita().setTurnoPersona(false);
 				}
@@ -443,6 +455,13 @@ public class GUIPartita extends JFrame{
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				frmCostruisci = new GUIPartitaCostruisci(partita, valoriDiGioco, guiPartita);
 				frmCostruisci.setVisible(true);
 			}
@@ -459,6 +478,13 @@ public class GUIPartita extends JFrame{
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				frmRicerca = new GUIPartitaRicerca(partita, guiPartita, valoriDiGioco, proprietario);
 				frmRicerca.setVisible(true);
 			}
@@ -473,6 +499,13 @@ public class GUIPartita extends JFrame{
 		btnInfoPartita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				frmInfo = new GUIPartitaInformazioni(partita);
 				frmInfo.setVisible(true);
 			}
@@ -487,6 +520,13 @@ public class GUIPartita extends JFrame{
 		btnImpostazioni.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
 				frmOpzioni = new GUIPartitaOpzioni();
 				frmOpzioni.setVisible(true);
 			}
