@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
@@ -27,36 +25,35 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class GUIPartitaCostruisci extends JFrame 
-{
+public class GUIArruolaUnita extends JFrame {
+	
 	private Font fontFuturist;
 	private JPanel contentPane;
-	private JPanel pnlTop;
 	private JPanel pnlMid;
-	private JPanel pnlBot;
+	private JPanel pnlBot1;
+	private JPanel pnlBot2;
+	private JPanel pnlBot3;
 	
-	private JRadioButton rdoClassica;
-	private JRadioButton rdoMedioevo;
-	private JRadioButton rdoVittoriana;
-	private ButtonGroup groupRdoEta;
-	private JLabel lblEta;
+	private JLabel lblUDaArruolare;
+	private JTextField txtUDaArruolare;
+	private JLabel lblCostoTotale;
+	private JLabel lblOroTot;
+	private JLabel lblMatTot;
 	
-	private RoundedCornerButton btnMuovi;
-	private RoundedCornerButton btnVendi;
-	private RoundedCornerButton btnInfo;
-	private RoundedCornerButton btnCompra;
 	private RoundedCornerButton btnIndietro;
-	
+	private RoundedCornerButton btnInfo;
+	private RoundedCornerButton btnArruola;
+
 	private Partita partita;
 	private GUIPartita guiPartita;
 	private IconeGrafiche iconeGrafiche;
@@ -64,7 +61,8 @@ public class GUIPartitaCostruisci extends JFrame
 	
 	private String selezionato; //Opzione al momento selezionata
 	private Clip audio;
-	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco, GUIPartita guiPartita)
+	
+	GUIArruolaUnita(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche)
 	{
 		
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
@@ -98,7 +96,7 @@ public class GUIPartitaCostruisci extends JFrame
 			e.printStackTrace();
 		}
 		
-		setTitle("Costruisci");
+		setTitle("Arruola unità militari");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 650, 450);
 		setMinimumSize(new Dimension(650, 450));   
@@ -109,154 +107,46 @@ public class GUIPartitaCostruisci extends JFrame
 		this.partita = partita;
 		this.valoriDiGioco = valoriDiGioco;
 		this.guiPartita = guiPartita;
+		this.iconeGrafiche = iconeGrafiche;
 		
-		iconeGrafiche = new IconeGrafiche();
 		selezionato = null;
 		
-		//costruzione pannello top
-		rdoClassica = new JRadioButton("Classica");
-		rdoMedioevo = new JRadioButton("Medioevo");
-		rdoVittoriana = new JRadioButton("Vittoriana");
-		
-		groupRdoEta = new ButtonGroup();
-		groupRdoEta.add(rdoClassica);
-		groupRdoEta.add(rdoMedioevo);
-		groupRdoEta.add(rdoVittoriana);
-		
-		pnlTop = new JPanel(new GridLayout2(1, 4, 0, 0));
-		lblEta = new JLabel("ETÀ:");
-		lblEta.setFont(fontFuturist.deriveFont(13f));
-		pnlTop.add(lblEta);
-		
-		
-		
-		ItemListener itemListener = new ItemListener() 
-		{
-			String lastSelected;
-			public void itemStateChanged(ItemEvent itemEvent) {
-		    AbstractButton aButton = (AbstractButton)itemEvent.getSource();
-		    int state = itemEvent.getStateChange();
-		    String label = aButton.getText(); //label rappresenta la label selezionata al momento
-		    
-		    if (state == ItemEvent.SELECTED) 
-		    {
-		    	popolaNegozio(label, null);
-		    } 
-		  }
-		};
-		
-		rdoClassica.addItemListener(itemListener);
-		rdoMedioevo.addItemListener(itemListener);
-		rdoVittoriana.addItemListener(itemListener);
-		
-	    pnlTop.add(rdoClassica);
-		pnlTop.add(rdoMedioevo);
-		pnlTop.add(rdoVittoriana);
-		contentPane.add(pnlTop, BorderLayout.NORTH);
-		
-		pnlMid = new JPanel(new GridLayout(11, 3));
+		pnlMid = new JPanel(new GridLayout(14, 6));
 		
 		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 		
-		pnlBot = new JPanel(new GridLayout2(1, 5, 0, 0));
+		//PANNELLO BOT 1
+		pnlBot1 = new JPanel(new GridLayout(1, 2, 0, 0));
 		
-		btnMuovi = new RoundedCornerButton();
-		btnMuovi.setFont(fontFuturist.deriveFont(13f));
-		btnMuovi.setText("MUOVI");
-		btnMuovi.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				audio.start();
-				guiPartita.muoviCostruzione();
-				dispose();
-			}
-		});
-		pnlBot.add(btnMuovi);
+		lblUDaArruolare = new JLabel("Unità da arruolare: ");
+		lblUDaArruolare.setFont(fontFuturist.deriveFont(13f));
+		pnlBot1.add(lblUDaArruolare);
 		
-		btnVendi = new RoundedCornerButton();
-		btnVendi.setFont(fontFuturist.deriveFont(13f));
-		btnVendi.setText("VENDI");
-		btnVendi.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				audio.start();
-				guiPartita.vendiCostruzione();
-				dispose();
-			}
-		});
-		pnlBot.add(btnVendi);
+		txtUDaArruolare = new JTextField("1");
+		pnlBot1.add(txtUDaArruolare);
 		
-		btnInfo = new RoundedCornerButton();
-		btnInfo.setFont(fontFuturist.deriveFont(13f));
-		btnInfo.setText("INFORMAZIONI");
-		btnInfo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				audio.start();
-				daiInformazioni(selezionato);
-			}
-		});
-		pnlBot.add(btnInfo);
+		contentPane.add(pnlBot1, BorderLayout.SOUTH);
 		
-		btnCompra = new RoundedCornerButton();
-		btnCompra.setFont(fontFuturist.deriveFont(13f));
-		btnCompra.setText("COMPRA");
-		btnCompra.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				audio.start();
-				if(selezionato == null || !valoriDiGioco.getValoriOro().containsKey(selezionato))
-				{
-					JOptionPane.showMessageDialog(null, "Seleziona un elemento da acquistare",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
-				}
-				else
-				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
-						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
-				{
-					JOptionPane.showMessageDialog(null, "Non possiedi sufficiente oro.",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
-				}
-				else
-				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() < 
-						valoriDiGioco.getValoriMat().get(selezionato)) //il giocatore non possiede abbastanza materiali
-				{
-					JOptionPane.showMessageDialog(null, "Non possiedi sufficienti materiali.",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
-				}
-				else
-				{
-					guiPartita.posizionaECompra(selezionato);
-					dispose();
-				}
-			}
-		});
-		pnlBot.add(btnCompra);
+		//PANNELLO BOT 2
+		pnlBot2 = new JPanel(new GridLayout(1, 3, 0, 0));
+		
+		lblCostoTotale = new JLabel("Costo totale: ");
+		lblCostoTotale.setFont(fontFuturist.deriveFont(13f));
+		pnlBot2.add(lblCostoTotale);
+		
+		lblOroTot = new JLabel(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
+		lblOroTot.setIcon(iconeGrafiche.newiconOro);
+		pnlBot2.add(lblOroTot);
+		
+		lblMatTot = new JLabel(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
+		lblMatTot.setIcon(iconeGrafiche.newiconMat);
+		pnlBot2.add(lblMatTot);
+		
+		contentPane.add(pnlBot2, BorderLayout.SOUTH);
+		
+		//PANNELLO BOT 3
+		pnlBot3 = new JPanel(new GridLayout2(1, 3, 0, 0));
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
@@ -274,9 +164,46 @@ public class GUIPartitaCostruisci extends JFrame
 				dispose();
 			}
 		});
-		pnlBot.add(btnIndietro);
+		pnlBot3.add(btnIndietro);
 		
-		contentPane.add(pnlBot, BorderLayout.SOUTH);
+		btnInfo = new RoundedCornerButton();
+		btnInfo.setFont(fontFuturist.deriveFont(13f));
+		btnInfo.setText("INFORMAZIONI");
+		btnInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				daiInformazioni(selezionato);
+			}
+		});
+		pnlBot3.add(btnInfo);
+		
+		btnArruola = new RoundedCornerButton();
+		btnArruola.setFont(fontFuturist.deriveFont(13f));
+		btnArruola.setText("ARRUOLA");
+		btnArruola.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				//arruolaUnitaMilitare();
+				dispose();
+			}
+		});
+		pnlBot3.add(btnArruola);
+		
+		contentPane.add(pnlBot3, BorderLayout.SOUTH);
 		
 		add(contentPane);
 	}
