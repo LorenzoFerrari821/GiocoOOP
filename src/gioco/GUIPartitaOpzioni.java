@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -103,6 +104,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				dispose();
 			}
@@ -122,6 +125,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();	
 			}
 		});
@@ -140,6 +145,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 			}
 		});
@@ -158,6 +165,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 			}
 		});
@@ -176,6 +185,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				finestreAttive = Frame.getWindows();
 				 int scelta =0;
@@ -187,6 +198,8 @@ public class GUIPartitaOpzioni extends JFrame{
 					   finestreAttive[0].setVisible(true);
 					   finestreAttive[1].dispose();
 					   dispose();
+					   File musica= new File("media/MusicaMenu.wav");
+						Music.playSound(musica);
 				   }
 			}
 		});
@@ -205,6 +218,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				int scelta =0;
 				scelta = JOptionPane.showConfirmDialog(

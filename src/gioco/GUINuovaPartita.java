@@ -24,6 +24,7 @@ import java.sql.SQLException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Box;
@@ -209,6 +210,8 @@ public class GUINuovaPartita extends JPanel {
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				setVisible(false);
 			}
@@ -226,13 +229,6 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0){
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				audio.start();
 				k=creaNuovaPartita();
 				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 				{
@@ -250,6 +246,16 @@ public class GUINuovaPartita extends JPanel {
 					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 					finestreAttive[0].setVisible(false);    
 					framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+					gainControl.setValue(Global.getLivVolume()); 
+					Music.stopSound();
+					audio.start();
 					framePartita.setVisible(true);
 				}
 			}

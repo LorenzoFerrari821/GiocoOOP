@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractButton;
@@ -173,6 +174,8 @@ public class GUIPartitaCostruisci extends JFrame
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				guiPartita.muoviCostruzione();
 				dispose();
@@ -192,6 +195,8 @@ public class GUIPartitaCostruisci extends JFrame
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				guiPartita.vendiCostruzione();
 				dispose();
@@ -211,6 +216,8 @@ public class GUIPartitaCostruisci extends JFrame
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				daiInformazioni(selezionato);
 			}
@@ -229,6 +236,8 @@ public class GUIPartitaCostruisci extends JFrame
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
 						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
@@ -262,6 +271,8 @@ public class GUIPartitaCostruisci extends JFrame
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				dispose();
 			}

@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -267,6 +268,8 @@ public class GUIPartitaInformazioni extends JFrame {
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				dispose();
 			}

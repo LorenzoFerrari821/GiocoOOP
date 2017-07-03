@@ -34,6 +34,7 @@ import java.util.StringTokenizer;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
@@ -142,6 +143,8 @@ public class GUIPartita extends JFrame{
 					   disattivaThread(); //disattiva tutti i thread prima di chiudere la partita
 					   finestreAttive[0].setVisible(true);
 					   dispose();
+					   File musica= new File("media/MusicaMenu.wav");
+						Music.playSound(musica);
 				   }
 			   }
 		});
@@ -411,6 +414,8 @@ public class GUIPartita extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				if(!partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")){
 					partita.getThreadCicloPartita().setTurnoPersona(false);
@@ -461,6 +466,8 @@ public class GUIPartita extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				frmCostruisci = new GUIPartitaCostruisci(partita, valoriDiGioco, guiPartita);
 				frmCostruisci.setVisible(true);
@@ -484,6 +491,8 @@ public class GUIPartita extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				frmRicerca = new GUIPartitaRicerca(partita, guiPartita, valoriDiGioco, proprietario);
 				frmRicerca.setVisible(true);
@@ -505,6 +514,8 @@ public class GUIPartita extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				frmInfo = new GUIPartitaInformazioni(partita);
 				frmInfo.setVisible(true);
@@ -526,6 +537,8 @@ public class GUIPartita extends JFrame{
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				frmOpzioni = new GUIPartitaOpzioni();
 				frmOpzioni.setVisible(true);

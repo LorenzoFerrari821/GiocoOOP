@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
@@ -118,6 +119,8 @@ public class GUIPartitaRicerca extends JFrame {
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				dispose();
 			}
@@ -843,6 +846,8 @@ public class GUIPartitaRicerca extends JFrame {
 									} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 										e1.printStackTrace();
 									}
+									FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+									gainControl.setValue(Global.getLivVolume()); 
 									audio.start();
 									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).setPuntiRicerca(rimanente);
 									partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().add(nome);
