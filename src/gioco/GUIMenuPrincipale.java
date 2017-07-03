@@ -116,7 +116,7 @@ public class GUIMenuPrincipale extends JFrame {
 		paneldx.setBackground(Color.decode("0xFABCD"));
 
 		panelTitolo.setLayout(new BorderLayout(4, 4));
-		panelTitolo.setBackground(Color.black);
+		panelTitolo.setBackground(Color.BLACK);
 
 		btnNuovaSmall = new RoundedCornerButton();
 		ImageIcon iconbtnNuovaSmall = new ImageIcon("media/btnNuovaSmall.png");

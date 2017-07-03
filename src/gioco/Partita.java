@@ -2,7 +2,9 @@ package gioco;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -55,9 +57,9 @@ public class Partita {
 			else //cpu
 				giocatore.add(i, new Giocatore(i, "cpu", "CPU"));
 			
-			giocatore.get(i).setOro(20);
-			giocatore.get(i).setMateriali(20);
-			giocatore.get(i).setPuntiRicerca(5);
+			giocatore.get(i).setOro(2000000);
+			giocatore.get(i).setMateriali(2000000000);
+			giocatore.get(i).setPuntiRicerca(50000);
 		}
 		
 		//Randomizzo ordine di gioco
@@ -80,6 +82,102 @@ public class Partita {
 	{
 		threadCicloPartita = new ThreadCicloPartita(this);
 		threadCicloPartita.start();
+	}
+	
+	/*
+	 * In base a tutti i possedimenti del giocatore corrente, e in base a tutte le cave di materiali, oro e PR calcola
+	 * ed eventualmente incrementa le risorse in più che spettano al giocatore all'inizio del turno
+	 */
+	public void calcolaRisorse(boolean incrementa)
+	{
+		//Variabili di Incremento risorse
+		int iOro = 3, iMat = 3, iPr = 3;
+		double iEconomia = 1, iMilitare = 1, iRicerca = 1;
+		
+		/*Utilizzo HashMap per velocizzare la ricerca sui dati*/
+		Map<String, Integer> oro = new HashMap<String, Integer>();
+		Map<String, Integer> mat = new HashMap<String, Integer>();
+		Map<String, Integer> pr = new HashMap<String, Integer>();
+		
+		Map<String, Double> economia = new HashMap<String, Double>();
+		Map<String, Double> militare = new HashMap<String, Double>();
+		Map<String, Double> ricerca = new HashMap<String, Double>();
+		
+		//Età classica
+		oro.put("Casa", 2);
+		mat.put("Fucina", 4);
+		economia.put("Mercato", 0.2);
+		economia.put("Orefice", 0.2);
+		ricerca.put("Tempio", 0.5);
+		pr.put("Tempio", 5);
+		oro.put("Villa", 4);
+		ricerca.put("Oracolo", 0.3);
+		pr.put("Oracolo", 5);
+		oro.put("Palazzo", 6);
+		
+		//Medioevo
+		oro.put("Casa a più piani", 6);
+		ricerca.put("Biblioteca", 0.5);
+		pr.put("Biblioteca", 7);
+		militare.put("Campo mercenari", 0.2);
+		oro.put("Casa a schiera", 8);
+		ricerca.put("Roghi", 0.3);
+		pr.put("Roghi", 7);
+		economia.put("Mastro birraio", 0.3);
+		economia.put("Banca", 0.3);
+		mat.put("Granaio", 8);
+		
+		
+		//Età vittoriana
+		mat.put("Fabbriche", 10);
+		ricerca.put("Laboratorio", 0.3);
+		pr.put("Laboratorio", 10);
+		oro.put("Casa con mansarda", 10);
+		economia.put("Centro cittadino", 0.5);
+		mat.put("Parlamento", 13);
+		oro.put("Opera", 16);
+		economia.put("Teatro", 0.3);
+		oro.put("Villetta", 12);
+		
+		for(String s : giocatore.get(turnoCorrente).getStoricoPossedimenti())
+		{
+			if(oro.containsKey(s))
+				iOro += oro.get(s);
+			
+			if(mat.containsKey(s))
+				iMat += mat.get(s);
+			
+			if(pr.containsKey(s))
+				iPr += pr.get(s);
+			
+			if(economia.containsKey(s))
+				iEconomia += economia.get(s);
+			
+			if(militare.containsKey(s))
+				iMilitare += militare.get(s);
+			
+			if(ricerca.containsKey(s))
+				iRicerca += ricerca.get(s);
+		}
+		
+		iOro = (int)((double)iOro * iEconomia);
+		iMat = (int)((double)iMat * iEconomia);
+		iPr = (int)((double)iPr * iRicerca);
+		
+		giocatore.get(turnoCorrente).setBonusEconomia(iEconomia);
+		giocatore.get(turnoCorrente).setBonusMilitare(iMilitare);
+		giocatore.get(turnoCorrente).setBonusRicerca(iRicerca);
+		
+		giocatore.get(turnoCorrente).setOroXTurno(iOro);
+		giocatore.get(turnoCorrente).setMatXTurno(iMat);
+		giocatore.get(turnoCorrente).setPrXTurno(iPr);
+		
+		if(incrementa) //Incrementa le risorse del giocatore
+		{
+			giocatore.get(turnoCorrente).setOro(giocatore.get(turnoCorrente).getOro() + iOro);
+			giocatore.get(turnoCorrente).setMateriali(giocatore.get(turnoCorrente).getMateriali() + iMat);
+			giocatore.get(turnoCorrente).setPuntiRicerca(giocatore.get(turnoCorrente).getPuntiRicerca() + iPr);
+		}
 	}
 	
 	public void aggiornaDatiGUI()

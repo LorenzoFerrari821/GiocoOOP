@@ -18,6 +18,7 @@ public class ThreadCicloPartita extends Thread{
 		while(true)
 		{
 			partita.setTurnoCorrente(partita.getOrdineGioco().get(indice));
+			partita.calcolaRisorse(true);
 			partita.aggiornaDatiGUI();
 			
 			if(partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")) //il giocatore è ia

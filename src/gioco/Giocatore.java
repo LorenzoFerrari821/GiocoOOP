@@ -17,9 +17,12 @@ public class Giocatore {
 	private int oro;
 	private int materiali;
 	private int puntiRicerca;
-	private int bonusEconomia;
-	private int bonusMilitare;
-	private int bonusRicerca;
+	private double bonusEconomia;
+	private double bonusMilitare;
+	private double bonusRicerca;
+	private int oroXTurno;
+	private int matXTurno;
+	private int prXTurno;
 	
 	private List<UnitaMilitare> unitaMunicipio; //unità attualmente nel municipio
 	private List<GruppoMilitare> gruppiInAttacco; //gruppi militari attualmente all'esterno del municipio
@@ -40,6 +43,10 @@ public class Giocatore {
 		bonusEconomia = 1;
 		bonusMilitare = 1;
 		bonusRicerca = 1;
+		
+		oroXTurno = 0;
+		matXTurno = 0;
+		prXTurno = 0;
 		
 		this.proprietario = proprietario;
 		this.nomeGiocatore = nomeGiocatore;
@@ -94,28 +101,54 @@ public class Giocatore {
 		this.materiali = materiali;
 	}
 
-	public int getBonusEconomia() {
+	
+
+	public double getBonusEconomia() {
 		return bonusEconomia;
 	}
 
-	public void setBonusEconomia(int bonusEconomia) {
+	public void setBonusEconomia(double bonusEconomia) {
 		this.bonusEconomia = bonusEconomia;
 	}
 
-	public int getBonusMilitare() {
+	public double getBonusMilitare() {
 		return bonusMilitare;
 	}
 
-	public void setBonusMilitare(int bonusMilitare) {
+	public void setBonusMilitare(double bonusMilitare) {
 		this.bonusMilitare = bonusMilitare;
 	}
 
-	public int getBonusRicerca() {
+	public double getBonusRicerca() {
 		return bonusRicerca;
 	}
 
-	public void setBonusRicerca(int bonusRicerca) {
+	public void setBonusRicerca(double bonusRicerca) {
 		this.bonusRicerca = bonusRicerca;
+	}
+
+	public int getOroXTurno() {
+		return oroXTurno;
+	}
+
+	public void setOroXTurno(int oroXTurno) {
+		this.oroXTurno = oroXTurno;
+	}
+
+	public int getMatXTurno() {
+		return matXTurno;
+	}
+
+	public void setMatXTurno(int matXTurno) {
+		this.matXTurno = matXTurno;
+	}
+
+	public int getPrXTurno() {
+		return prXTurno;
+	}
+
+	public void setPrXTurno(int prXTurno) {
+		this.prXTurno = prXTurno;
 	}
 
 	public List<GruppoMilitare> getGruppiInAttacco() {
