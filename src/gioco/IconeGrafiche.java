@@ -80,6 +80,7 @@ public class IconeGrafiche {
 	ImageIcon newiconSassoni;
 	
 	private Map<String, ImageIcon> iconeScenario;
+	private Map<String, ImageIcon> iconeUMilitari; //Icone delle unità militari
 	
 	IconeGrafiche()
 	{
@@ -89,6 +90,7 @@ public class IconeGrafiche {
 	
 	public void caricaIconeScenario(int width, int height) {
 		iconeScenario = new HashMap<>();
+		iconeUMilitari = new HashMap<>();
 		
 		//Caricamento pavimentazioni
 		ImageIcon iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t.png");
@@ -521,6 +523,93 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/villetta.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("Villetta", new ImageIcon(scalelblPartita));
+		
+		//Caricamento icone unità militari età classica
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/arciere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Arciere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/berserk.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Berserk", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/cavaliere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Cavaliere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/druido.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Druido", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/miliziano.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Miliziano", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/pretoriano.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Pretoriano", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/soldato.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Soldato", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/spadaccino.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Spadaccino", new ImageIcon(scalelblPartita));
+		
+		//Caricamento icone unità militari medioevo
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/arcieremercenario.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Arciere mercenario", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/balestriere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Balestriere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/cannone.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Cannone", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/cavalierecrociato.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Cavaliere crociato", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/cavalierepesante.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Cavaliere pesante", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/cavalieretemplare.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Cavaliere templare", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/medico.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Medico", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/soldatoarmaturapesante.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Soldato in armatura pesante", new ImageIcon(scalelblPartita));
+		
+		//Caricamento icone unità militari età vittoriana
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/artiglieria.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Artiglieria", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/carabinieri.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Carabinieri", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/fuciliacavallo.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Fuciliere a cavallo", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/fuciliere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Fuciliere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/gardenkorps.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Gardenkorps", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/granatiere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Granatiere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/guardiareale.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Guardia reale", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/legionestraniera.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Legione straniera", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/lorenzo.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Lorenzo", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/mitragliere.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Mitragliere", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/werther.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeUMilitari.put("Werther", new ImageIcon(scalelblPartita));
 	}
 	
 	public void caricaAltreIcone()

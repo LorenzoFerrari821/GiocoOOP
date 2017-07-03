@@ -8,8 +8,18 @@ public class ValoriDiGioco {
 	private Map<String, Integer> valoriOro;
 	private Map<String, Integer> valoriMat;
 	
+	private Map<String, Integer> atkUnita; //attacco unità
+	private Map<String, Integer> defUnita; //difesa unità
+	private Map<String, Integer> velUnita; //velocità unità
+	
 	ValoriDiGioco() {
 		valoriRicerche = new HashMap<String, Integer>();
+		valoriOro = new HashMap<String, Integer>();
+		valoriMat = new HashMap<String, Integer>();
+		
+		atkUnita = new HashMap<String, Integer>();
+		defUnita = new HashMap<String, Integer>();
+		velUnita = new HashMap<String, Integer>();
 		
 		//Inserimento valori ricerche età classica
 		valoriRicerche.put("Sentieri", 1);
@@ -64,9 +74,6 @@ public class ValoriDiGioco {
 		valoriRicerche.put("Carabinieri", 18);
 		valoriRicerche.put("Gardenkorps", 18);
 		
-		valoriOro = new HashMap<String, Integer>();
-		valoriMat = new HashMap<String, Integer>();
-		
 		//Inserimento costi età classica
 		inserisciCosti("Sentiero", 1, 1);
 		inserisciCosti("Casa", 5, 2);
@@ -102,6 +109,44 @@ public class ValoriDiGioco {
 		inserisciCosti("Opera", 20, 31);
 		inserisciCosti("Teatro", 31, 20);
 		inserisciCosti("Villetta", 33, 15);
+		
+		//Inserimento Unità militari
+		inserisciUMilitare("Miliziano", 1, 1, 1, 1, 4);
+		inserisciUMilitare("Soldato", 3, 1, 5, 5, 4);
+		inserisciUMilitare("Spadaccino", 4, 1, 6, 4, 5);
+		inserisciUMilitare("Arciere", 6, 2, 8, 3, 4);
+		inserisciUMilitare("Cavaliere", 8, 3, 10, 10, 8);
+		inserisciUMilitare("Soldato in armatura pesante", 12, 3, 8, 18, 3);
+		inserisciUMilitare("Balestriere", 12, 4, 17, 7, 4);
+		inserisciUMilitare("Cavaliere pesante", 16, 6, 21, 21, 7);
+		inserisciUMilitare("Cannone", 15, 8, 23, 12, 4);
+		inserisciUMilitare("Fuciliere", 16, 5, 25, 25, 4);
+		inserisciUMilitare("Mitragliere", 19, 4, 27, 21, 3);
+		inserisciUMilitare("Granatiere", 17, 5, 30, 13, 7);
+		inserisciUMilitare("Fuciliere a cavallo", 25, 10, 28, 31, 8);
+		inserisciUMilitare("Artiglieria", 30, 15, 38, 26, 3);
+		
+		inserisciUMilitare("Druido", 5, 3, 2, 13, 3);
+		
+		inserisciUMilitare("Pretoriano", 15, 5, 15, 15, 4);
+		
+		inserisciUMilitare("Berserk", 15, 5, 19, 6, 5);
+		
+		inserisciUMilitare("Spadaccino mercenario", 10, 2, 16, 13, 6);
+		inserisciUMilitare("Arciere mercenario", 12, 1, 19, 7, 5);
+		
+		inserisciUMilitare("Cavaliere templare", 20, 5, 25, 23, 8);
+		inserisciUMilitare("Cavaliere crociato", 20, 5, 23, 25, 8);
+		
+		inserisciUMilitare("Medico", 10, 1, 0, 20, 7);
+		
+		inserisciUMilitare("Lorenzo", 200, 100, 100, 300, 4);
+		inserisciUMilitare("Werther", 200, 100, 300, 100, 4);
+		
+		inserisciUMilitare("Carabinieri", 40, 20, 40, 30, 5);
+		inserisciUMilitare("Legione straniera", 40, 20, 40, 30, 5);
+		inserisciUMilitare("Guardia reale", 40, 20, 40, 30, 5);
+		inserisciUMilitare("Gardenkorps", 40, 20, 40, 30, 5);
 	}
 	
 	public Map<String, Integer> getValoriOro() {
@@ -124,6 +169,15 @@ public class ValoriDiGioco {
 	{
 		valoriOro.put(nome, oro);
 		valoriMat.put(nome, mat);
+	}
+	
+	public void inserisciUMilitare(String nome, int oro, int mat, int atk, int def, int vel)
+	{
+		valoriOro.put(nome, oro);
+		valoriMat.put(nome, mat);
+		atkUnita.put(nome, atk);
+		defUnita.put(nome, def);
+		velUnita.put(nome, vel);
 	}
 
 	public Map<String, Integer> getValoriRicerche() {
