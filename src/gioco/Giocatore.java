@@ -24,14 +24,14 @@ public class Giocatore {
 	private int matXTurno;
 	private int prXTurno;
 	
-	private List<UnitaMilitare> unitaMunicipio; //unità attualmente nel municipio
+	private List<String> unitaMunicipio; //unità attualmente nel municipio
 	private List<GruppoMilitare> gruppiInAttacco; //gruppi militari attualmente all'esterno del municipio
 	
 	private List<String> ricercheEffettuate; //contiene tutte le ricerche effettuate dal giocatore
 	private List<String> storicoPossedimenti; //contiene tutti i possedimenti (case etc) del giocatore
 	
 	Giocatore(int civiltà, String proprietario, String nomeGiocatore) {
-		unitaMunicipio = new ArrayList<UnitaMilitare>();
+		unitaMunicipio = new ArrayList<String>();
 		gruppiInAttacco = new ArrayList<GruppoMilitare>();
 		ricercheEffettuate = new ArrayList<String>();
 		storicoPossedimenti = new ArrayList<String>();
@@ -73,11 +73,11 @@ public class Giocatore {
 		return nomeGiocatore;
 	}
 	
-	public List<UnitaMilitare> getUnitaMunicipio() {
+	public List<String> getUnitaMunicipio() {
 		return unitaMunicipio;
 	}
 
-	public void setUnitaMunicipio(List<UnitaMilitare> unitaMunicipio) {
+	public void setUnitaMunicipio(List<String> unitaMunicipio) {
 		this.unitaMunicipio = unitaMunicipio;
 	}
 

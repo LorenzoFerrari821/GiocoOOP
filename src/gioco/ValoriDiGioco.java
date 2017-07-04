@@ -187,4 +187,29 @@ public class ValoriDiGioco {
 	public void setValoriRicerche(Map<String, Integer> valoriRicerche) {
 		this.valoriRicerche = valoriRicerche;
 	}
+
+	public Map<String, Integer> getAtkUnita() {
+		return atkUnita;
+	}
+
+	public void setAtkUnita(Map<String, Integer> atkUnita) {
+		this.atkUnita = atkUnita;
+	}
+
+	public Map<String, Integer> getDefUnita() {
+		return defUnita;
+	}
+
+	public void setDefUnita(Map<String, Integer> defUnita) {
+		this.defUnita = defUnita;
+	}
+
+	public Map<String, Integer> getVelUnita() {
+		return velUnita;
+	}
+
+	public void setVelUnita(Map<String, Integer> velUnita) {
+		this.velUnita = velUnita;
+	}
+	
 }

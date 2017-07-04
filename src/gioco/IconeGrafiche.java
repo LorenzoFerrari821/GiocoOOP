@@ -16,6 +16,9 @@ public class IconeGrafiche {
 	ImageIcon newiconCosto;
 	ImageIcon newiconOro;
 	ImageIcon newiconMat;
+	ImageIcon newiconAtk;
+	ImageIcon newiconDef;
+	ImageIcon newiconVel;
 	ImageIcon newiconSentieri;
 	ImageIcon newiconAbitazioni;
 	ImageIcon newiconCaserma;
@@ -634,6 +637,15 @@ public class IconeGrafiche {
 		ImageIcon iconMat = new ImageIcon("media/asset_grafici/icone/materiali.png");
 		Image scaleMat = iconMat.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconMat = new ImageIcon(scaleMat);
+		ImageIcon iconAtk = new ImageIcon("media/asset_grafici/icone/attacco.png");
+		Image scaleAtk = iconAtk.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+		newiconAtk = new ImageIcon(scaleAtk);
+		ImageIcon iconDef = new ImageIcon("media/asset_grafici/icone/difesa.png");
+		Image scaleDef = iconDef.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+		newiconDef = new ImageIcon(scaleDef);
+		ImageIcon iconVel = new ImageIcon("media/asset_grafici/icone/velocita.png");
+		Image scaleVel = iconVel.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+		newiconVel = new ImageIcon(scaleVel);
 		
 		ImageIcon iconRomani = new ImageIcon("media/asset_grafici/icone/roma.png");
 		Image scaleRomani = iconRomani.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
@@ -851,4 +863,13 @@ public class IconeGrafiche {
 	public void setIconeScenario(Map<String, ImageIcon> iconeScenario) {
 		this.iconeScenario = iconeScenario;
 	}
+
+	public Map<String, ImageIcon> getIconeUMilitari() {
+		return iconeUMilitari;
+	}
+
+	public void setIconeUMilitari(Map<String, ImageIcon> iconeUMilitari) {
+		this.iconeUMilitari = iconeUMilitari;
+	}
+	
 }

@@ -34,12 +34,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GUIArruolaUnita extends JFrame {
 	
 	private Font fontFuturist;
 	private JPanel contentPane;
 	private JPanel pnlMid;
+	private JPanel pnlBot;
 	private JPanel pnlBot1;
 	private JPanel pnlBot2;
 	private JPanel pnlBot3;
@@ -62,7 +65,9 @@ public class GUIArruolaUnita extends JFrame {
 	private String selezionato; //Opzione al momento selezionata
 	private Clip audio;
 	
-	GUIArruolaUnita(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche)
+	private String edificio;
+	
+	GUIArruolaUnita(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche, String edificio)
 	{
 		
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
@@ -98,8 +103,8 @@ public class GUIArruolaUnita extends JFrame {
 		
 		setTitle("Arruola unità militari");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 650, 450);
-		setMinimumSize(new Dimension(650, 450));   
+		setBounds(0, 0, 700, 470);
+		setMinimumSize(new Dimension(700, 470));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new BorderLayout(0,0));
@@ -108,6 +113,7 @@ public class GUIArruolaUnita extends JFrame {
 		this.valoriDiGioco = valoriDiGioco;
 		this.guiPartita = guiPartita;
 		this.iconeGrafiche = iconeGrafiche;
+		this.edificio = edificio;
 		
 		selezionato = null;
 		
@@ -115,6 +121,8 @@ public class GUIArruolaUnita extends JFrame {
 		
 		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+		
+		pnlBot = new JPanel(new BorderLayout(0, 0));
 		
 		//PANNELLO BOT 1
 		pnlBot1 = new JPanel(new GridLayout(1, 2, 0, 0));
@@ -124,9 +132,28 @@ public class GUIArruolaUnita extends JFrame {
 		pnlBot1.add(lblUDaArruolare);
 		
 		txtUDaArruolare = new JTextField("1");
+		txtUDaArruolare.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+			    gestisci();
+			  }
+			  public void removeUpdate(DocumentEvent e) {
+			    gestisci();
+			  }
+			  public void insertUpdate(DocumentEvent e) {
+			    gestisci();
+			  }
+
+			  public void gestisci() {
+			     if(!selezionato.equals(null))
+			     {
+			    	 lblOroTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
+			    	 lblMatTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
+			     }
+			  }
+			});
 		pnlBot1.add(txtUDaArruolare);
 		
-		contentPane.add(pnlBot1, BorderLayout.SOUTH);
+		pnlBot.add(pnlBot1, BorderLayout.NORTH);
 		
 		//PANNELLO BOT 2
 		pnlBot2 = new JPanel(new GridLayout(1, 3, 0, 0));
@@ -135,15 +162,15 @@ public class GUIArruolaUnita extends JFrame {
 		lblCostoTotale.setFont(fontFuturist.deriveFont(13f));
 		pnlBot2.add(lblCostoTotale);
 		
-		lblOroTot = new JLabel(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
+		lblOroTot = new JLabel("0");
 		lblOroTot.setIcon(iconeGrafiche.newiconOro);
 		pnlBot2.add(lblOroTot);
 		
-		lblMatTot = new JLabel(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
+		lblMatTot = new JLabel("0");
 		lblMatTot.setIcon(iconeGrafiche.newiconMat);
 		pnlBot2.add(lblMatTot);
 		
-		contentPane.add(pnlBot2, BorderLayout.SOUTH);
+		pnlBot.add(pnlBot2, BorderLayout.CENTER);
 		
 		//PANNELLO BOT 3
 		pnlBot3 = new JPanel(new GridLayout2(1, 3, 0, 0));
@@ -203,7 +230,11 @@ public class GUIArruolaUnita extends JFrame {
 		});
 		pnlBot3.add(btnArruola);
 		
-		contentPane.add(pnlBot3, BorderLayout.SOUTH);
+		pnlBot.add(pnlBot3, BorderLayout.SOUTH);
+		
+		contentPane.add(pnlBot, BorderLayout.SOUTH);
+		
+		popolaDiTruppe(edificio, null);
 		
 		add(contentPane);
 	}
@@ -211,317 +242,83 @@ public class GUIArruolaUnita extends JFrame {
 	public void daiInformazioni(String nome)
 	{
 		if(nome == null)
-			JOptionPane.showMessageDialog(null, "Nessuna costruzione selezionata.\nPremi su una voce del negozio per selezionarla",
+			JOptionPane.showMessageDialog(null, "Nessuna unità militare selezionata.\nPremi su un'unità per selezionarla",
 					"Informazioni", JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Sentiero") || nome.equals("Strada lastricata") || nome.equals("Strada asfaltata"))
-			JOptionPane.showMessageDialog(null, nome+" viene utilizzata per collegare tutti gli edifici cittadini al municipio.\n"
-					+ "Un edificio non collegato al municipio non fornisce bonus risorse e non può funzionare",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Casa") || nome.equals("Villa") || nome.equals("Casa a più piani") || nome.equals("Casa a schiera")
-				|| nome.equals("Casa con mansarda") || nome.equals("Villetta"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce oro all'inizio di ogni turno.\nUn buon numero "
-					+ "di abitazioni è necessario per un impero di successo",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Caserma") || nome.equals("Campo mercenari") || nome.equals("Caserma eroi"))
-			JOptionPane.showMessageDialog(null, nome+" è un edificio utilizzato per reclutare potenti unità da "
-					+ "schierare in battaglia.\nUn esercito potente è il segreto di ogni grande conquistatore",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Fucina") || nome.equals("Granaio") || nome.equals("Fabbrica") || nome.equals("Parlamento"))
-			JOptionPane.showMessageDialog(null, nome+" è un edificio che fornisce Materiali all'inizio di ogni turno.\n"
-					+ "Essenziali per non rischiare mai di esaurire le scorte",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Mercato") || nome.equals("Orefice") || nome.equals("Mastro birraio") || nome.equals("Banca")
-				|| nome.equals("Centro cittadino") || nome.equals("Teatro"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce un bonus all'economia.\nOgni moneta "
-					+ "guadagnata verrà moltiplicata per il bonus totale",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Tempio"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce punti ricerca aggiuntivi ad ogni turno.\n"
-					+ "Francesi e inglesi inoltre possono reclutare i Druidi attraverso il tempio",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Palazzo"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce più oro per turno.\nAttraverso il Palazzo i romani possono "
-					+ "reclutare i Pretoriani, i sassoni i Berserk",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Biblioteca") || nome.equals("Rogo") || nome.equals("Laboratorio"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce punti ricerca aggiuntivi ad ogni turno.\n"
-					+ "Il progresso è il fulcro di ogni impero solido",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Campo mercenari"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce un bonus alla forza militare.\n"
-					+ "Permette inoltre di reclutare Spadaccini mercenari e Arcieri mercenari",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Chiesa"))
-			JOptionPane.showMessageDialog(null, nome+" permette di reclutare Cavalieri templari per i romani e Cavalieri crociati"
-					+ "per francesi, inglesi e sassoni",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Ospedale"))
-			JOptionPane.showMessageDialog(null, nome+" permette di reclutare Medico",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
-		else
-		if(nome.equals("Opera"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce oro aggiuntivo ad ogni turno.\nIl popolo nei giorni di "
-					+ "festa adora ascoltare buona musica",
+			JOptionPane.showMessageDialog(null, "Le unità militari sono la punta di diamante di ogni impero potente.\n"
+					+ "Ti permettono di formare armate da schierare in difesa del municipio o per conquistare nuove terre",
 					"Informazioni", JOptionPane.DEFAULT_OPTION);
 	}
 	
 	/*
-	 * Riempie la pagina negozio in base all'età selezionata
+	 * Riempie la pagina in base all'unità militare selezionata
 	 */
-	public void popolaNegozio(String eta, String evidenzia)
+	public void popolaDiTruppe(String edificio, String evidenzia)
 	{
 		int aggiunte = 0;
+		pnlMid.removeAll();
 		
-		if(eta == "Classica")
+		if(edificio.equals("Caserma"))
 		{
-			pnlMid.removeAll();
-			
-			
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Sentieri"))
-				{
-					aggiungiVoce("Sentiero", iconeGrafiche.newiconSentieri, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Abitazioni"))
-				{
-					aggiungiVoce("Casa", iconeGrafiche.newiconAbitazioni, eta, evidenzia);
-					aggiunte++;
-				}
-				else
 				if(obj.equals("Caserma"))
 				{
-					aggiungiVoce("Caserma", iconeGrafiche.newiconCaserma, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Fucina"))
-				{
-					aggiungiVoce("Fucina", iconeGrafiche.newiconFucina, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Commercio"))
-				{
-					aggiungiVoce("Mercato", iconeGrafiche.newiconCommercio, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Oreficeria"))
-				{
-					aggiungiVoce("Orefice", iconeGrafiche.newiconOreficeria, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Religione"))
-				{
-					aggiungiVoce("Tempio", iconeGrafiche.newiconReligione, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Ville"))
-				{
-					aggiungiVoce("Villa", iconeGrafiche.newiconVille, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Città"))
-				{
-					aggiungiVoce("Palazzo", iconeGrafiche.newiconCitta, eta, evidenzia);
+					aggiungiVoce("Miliziano", iconeGrafiche.getIconeUMilitari().get("Miliziano"), evidenzia);
 					aggiunte++;
 				}
 			}
+		}
+		else
+		if(edificio.equals("Tempio"))
+		{
 			
-			for(int i = aggiunte; i < 11; i++)
-			{
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-			}
+		}
+		else
+		if(edificio.equals("Palazzo"))
+		{
 			
-			pnlMid.setVisible(false);
-			pnlMid.setVisible(true);
+		}
+		else
+		if(edificio.equals("Campo mercenari"))
+		{
+			
+		}
+		else
+		if(edificio.equals("Chiesa"))
+		{
+			
+		}
+		else
+		if(edificio.equals("Ospedale"))
+		{
+			
+		}
+		else
+		if(edificio.equals("Caserma eroi"))
+		{
+			
+		}
+		else
+		if(edificio.equals("Parlamento"))
+		{
+			
 		}
 		
-		if(eta == "Medioevo")
+		pnlMid.setVisible(true);
+			
+		for(int i = aggiunte; i < 14; i++)
 		{
-			pnlMid.removeAll();
-			
-			
-			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
-			{
-				if(obj.equals("Strade lastricate"))
-				{
-					aggiungiVoce("Strada lastricata", iconeGrafiche.newiconLastr, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Case a più piani"))
-				{
-					aggiungiVoce("Casa a più piani", iconeGrafiche.newiconCasaPP, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Biblioteca"))
-				{
-					aggiungiVoce("Biblioteca", iconeGrafiche.newiconBiblioteca, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Mercenari"))
-				{
-					aggiungiVoce("Campo mercenari", iconeGrafiche.newiconMercenari, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Clero"))
-				{
-					aggiungiVoce("Chiesa", iconeGrafiche.newiconClero, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Ospedale"))
-				{
-					aggiungiVoce("Ospedale", iconeGrafiche.newiconOspedale, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Case a schiera"))
-				{
-					aggiungiVoce("Casa a schiera", iconeGrafiche.newiconCaseASchiera, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Inquisizione"))
-				{
-					aggiungiVoce("Rogo", iconeGrafiche.newiconInquisizione, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Granai"))
-				{
-					aggiungiVoce("Granaio", iconeGrafiche.newiconGranai, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Fermentazione"))
-				{
-					aggiungiVoce("Mastro birraio", iconeGrafiche.newiconFermentazione, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Banca"))
-				{
-					aggiungiVoce("Banca", iconeGrafiche.newiconBanca, eta, evidenzia);
-					aggiunte++;
-				}
-			}
-			
-			for(int i = aggiunte; i < 11; i++)
-			{
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-			}
-			
-			pnlMid.setVisible(false);
-			pnlMid.setVisible(true);
-		}
-		
-		if(eta == "Vittoriana")
-		{
-			pnlMid.removeAll();
-			
-			
-			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
-			{
-				if(obj.equals("Strade asfaltate"))
-				{
-					aggiungiVoce("Strada asfaltata", iconeGrafiche.newiconStrAsf, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Sistema industriale"))
-				{
-					aggiungiVoce("Fabbrica", iconeGrafiche.newiconSisInd, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Scienza"))
-				{
-					aggiungiVoce("Laboratorio", iconeGrafiche.newiconScienza, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Case con mansarda"))
-				{
-					aggiungiVoce("Casa con mansarda", iconeGrafiche.newiconCasaMan, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Gerarchia militare"))
-				{
-					aggiungiVoce("Caserma eroi", iconeGrafiche.newiconGerMil, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Musica lirica"))
-				{
-					aggiungiVoce("Opera", iconeGrafiche.newiconMusLir, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Società borghese"))
-				{
-					aggiungiVoce("Centro cittadino", iconeGrafiche.newiconSocBor, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Politica"))
-				{
-					aggiungiVoce("Parlamento", iconeGrafiche.newiconPolitica, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Teatri"))
-				{
-					aggiungiVoce("Teatro", iconeGrafiche.newiconTeatri, eta, evidenzia);
-					aggiunte++;
-				}
-				else
-				if(obj.equals("Villette"))
-				{
-					aggiungiVoce("Villetta", iconeGrafiche.newiconVillette, eta, evidenzia);
-					aggiunte++;
-				}
-			}
-			
-			for(int i = aggiunte; i < 11; i++)
-			{
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-				pnlMid.add(new JLabel(" "));
-			}
-			
-			pnlMid.setVisible(false);
-			pnlMid.setVisible(true);
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
 		}
 	}
 	
-	public void aggiungiVoce(String nome, ImageIcon icona, String eta, String evidenzia)
+	public void aggiungiVoce(String nome, ImageIcon icona, String evidenzia)
 	{
 		JLabel lblVoce = new JLabel(nome);
 		lblVoce.setIcon(icona);
@@ -537,6 +334,21 @@ public class GUIArruolaUnita extends JFrame {
 		lblMat.setIcon(iconeGrafiche.newiconMat);
 		pnlMid.add(lblMat);
 		
+		JLabel lblAtk = new JLabel();
+		lblAtk.setText(valoriDiGioco.getAtkUnita().get(nome).toString());
+		lblAtk.setIcon(iconeGrafiche.newiconAtk);
+		pnlMid.add(lblAtk);
+		
+		JLabel lblDef = new JLabel();
+		lblDef.setText(valoriDiGioco.getDefUnita().get(nome).toString());
+		lblDef.setIcon(iconeGrafiche.newiconDef);
+		pnlMid.add(lblDef);
+		
+		JLabel lblVel = new JLabel();
+		lblVel.setText(valoriDiGioco.getVelUnita().get(nome).toString());
+		lblVel.setIcon(iconeGrafiche.newiconVel);
+		pnlMid.add(lblVel);
+		
 		if(nome.equals(evidenzia))
 		{
 			lblVoce.setOpaque(true);
@@ -545,27 +357,57 @@ public class GUIArruolaUnita extends JFrame {
 			lblOro.setBackground(Color.LIGHT_GRAY);
 			lblMat.setOpaque(true);
 			lblMat.setBackground(Color.LIGHT_GRAY);
+			lblAtk.setOpaque(true);
+			lblAtk.setBackground(Color.LIGHT_GRAY);
+			lblDef.setOpaque(true);
+			lblDef.setBackground(Color.LIGHT_GRAY);
+			lblVel.setOpaque(true);
+			lblVel.setBackground(Color.LIGHT_GRAY);
+
+			lblOroTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
+			lblMatTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
 		}
 		
 		lblVoce.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				popolaNegozio(eta, nome);
 				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
 			}
 		});
 		lblOro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				popolaNegozio(eta, nome);
 				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
 			}
 		});
 		lblMat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				popolaNegozio(eta, nome);
 				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
+			}
+		});
+		lblAtk.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
+			}
+		});
+		lblDef.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
+			}
+		});
+		lblVel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				selezionato = nome;
+				popolaDiTruppe(edificio, nome);
 			}
 		});
 	}

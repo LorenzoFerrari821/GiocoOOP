@@ -2,6 +2,8 @@ package gioco;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.io.*;
+import sun.audio.*;
 
 /**
  * Classe principale che dirige il funzionamento del gioco dall'esterno.
@@ -20,7 +22,7 @@ public class Gioco {
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
 					frame.setVisible(true);
 					File musica= new File("media/MusicaMenu.wav");
-					//Music.playSound(musica);
+					Music.playSound(musica);
 					
 				} catch (Exception e) {
 					e.printStackTrace();

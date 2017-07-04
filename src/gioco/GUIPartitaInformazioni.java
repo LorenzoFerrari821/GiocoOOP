@@ -207,7 +207,7 @@ public class GUIPartitaInformazioni extends JFrame {
 		int truppe = 0;
 		for(GruppoMilitare g: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getGruppiInAttacco())
 		{
-			for(UnitaMilitare u: g.getGruppoMilitare())
+			for(String u: g.getGruppoMilitare())
 			{
 				truppe++;
 			}

@@ -116,6 +116,8 @@ public class GUIPartita extends JFrame{
 	private String proprietario; //INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori
 	private int indiceProprietario; //INDICA L'INDICE DEL PROPRIETARIO
 	
+	private GUIArruolaUnita guiArruolaUnita; //Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare
+	
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
@@ -188,6 +190,7 @@ public class GUIPartita extends JFrame{
 		scenario = new Scenario();
 		proprietario = "utente1";
 		indiceProprietario = civilta;
+		azioneLblsGioco = "";
 		
 		//Posiziono la schermata iniziale a seconda della civiltà scelta dal giocatore
 		switch(civilta)
@@ -681,8 +684,6 @@ public class GUIPartita extends JFrame{
 	
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
-		if(azioneLblsGioco == null)
-			return;
 		if(azioneLblsGioco.equals("compra"))
 		{
 			if(isPiazzamentoPossibile(i, j)) //compra e piazza
@@ -801,6 +802,27 @@ public class GUIPartita extends JFrame{
 				
 				aggiornaSchermata();
 				aggiornaDatiGUI();
+			}
+		}
+		else
+		if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
+		{
+			String edificio = individuaOggetto(i, j);
+			
+			if(edificio != null)
+			{
+				char ultimoChar = edificio.charAt(edificio.length() - 1);
+				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+					edificio = edificio.substring(0, edificio.length() - 1);
+				}
+				
+				if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
+						edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
+						edificio.equals("Ospedale") || edificio.equals("Parlamento"))
+				{
+					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
+					guiArruolaUnita.setVisible(true);
+				}
 			}
 		}
 	}
