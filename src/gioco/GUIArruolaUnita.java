@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
@@ -133,24 +134,50 @@ public class GUIArruolaUnita extends JFrame {
 		
 		txtUDaArruolare = new JTextField("1");
 		txtUDaArruolare.getDocument().addDocumentListener(new DocumentListener() {
-			  public void changedUpdate(DocumentEvent e) {
-			    gestisci();
-			  }
-			  public void removeUpdate(DocumentEvent e) {
-			    gestisci();
-			  }
-			  public void insertUpdate(DocumentEvent e) {
-			    gestisci();
-			  }
+			
+			public void changedUpdate(DocumentEvent e) {
+				gestisci();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				gestisci();
+			}
+			public void insertUpdate(DocumentEvent e) {
+				gestisci();
+			}
 
-			  public void gestisci() {
-			     if(!selezionato.equals(null))
-			     {
-			    	 lblOroTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
-			    	 lblMatTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
-			     }
-			  }
-			});
+			public void gestisci() {
+				boolean valido = true;
+				
+				if(txtUDaArruolare.getText().toString().length() <= 4)
+				{
+					if(isNumber(txtUDaArruolare.getText()))
+				    {
+						if(txtUDaArruolare.getText().toString().length() != 0)
+							if(Integer.parseInt(txtUDaArruolare.getText()) > 0 && 
+								Integer.parseInt(txtUDaArruolare.getText()) < 1001)
+							{
+								if(selezionato != null)
+								{
+									lblOroTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
+									lblMatTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
+								}
+							}
+							else
+								valido = false;
+				    }
+				    else
+				    	valido = false;
+				}
+				else
+					valido = false;
+				
+				if(!valido)
+				{
+		    		JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
+		 				"Informazioni", JOptionPane.DEFAULT_OPTION);
+		    	}
+			 }
+		});
 		pnlBot1.add(txtUDaArruolare);
 		
 		pnlBot.add(pnlBot1, BorderLayout.NORTH);
@@ -224,8 +251,8 @@ public class GUIArruolaUnita extends JFrame {
 					e1.printStackTrace();
 				}
 				audio.start();
-				//arruolaUnitaMilitare();
-				dispose();
+				if(arruolaUnitaMilitare(txtUDaArruolare.getText().toString()))
+					dispose();
 			}
 		});
 		pnlBot3.add(btnArruola);
@@ -237,6 +264,77 @@ public class GUIArruolaUnita extends JFrame {
 		popolaDiTruppe(edificio, null);
 		
 		add(contentPane);
+	}
+	
+	/**
+	 * Metodo che permette di arruolare unità militari. Ritorna true se l'operazione è avvenuta con successo, false altrimenti
+	 * @param numero
+	 * @return
+	 */
+	public boolean arruolaUnitaMilitare(String numero)
+	{
+		boolean valido = true;
+		
+		if(isNumber(numero))
+		{
+			if(numero.length() != 0 && numero.length() <= 4 && Integer.parseInt(numero) > 0 && Integer.parseInt(numero) <= 1000)
+			{
+				//Controlliamo che il giocatore abbia sufficiente oro e materiali
+				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() >= Integer.parseInt(lblOroTot.getText().toString()) && 
+				partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() >= Integer.parseInt(lblMatTot.getText().toString()))
+				{
+					//Scalo l'oro e i materiali dal giocatore
+					partita.getGiocatore().get(guiPartita.getIndiceProprietario()).setOro(
+							partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() - 
+							Integer.parseInt(lblOroTot.getText().toString()));
+					partita.getGiocatore().get(guiPartita.getIndiceProprietario()).setMateriali(
+							partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() - 
+							Integer.parseInt(lblOroTot.getText().toString()));
+					
+					//refresh della gui
+					guiPartita.aggiornaDatiGUI();
+					
+					//Registro le nuove unità militari nelle truppe del giocatore (CHE FINISCONO NEL MUNICIPIO)
+					for(int i = 0; i < Integer.parseInt(txtUDaArruolare.getText().toString()); i++)
+					{
+						partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().add(selezionato);
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Risorse per l'acquisto insufficienti",
+							"Informazioni", JOptionPane.DEFAULT_OPTION);
+					return false;
+				}
+			}
+			else
+				valido = false;
+		}
+		else
+			valido = false;
+		
+		if(!valido)
+		{
+			JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
+					"Informazioni", JOptionPane.DEFAULT_OPTION);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean isNumber(String s)
+	{
+		char[] sArray = s.toCharArray();
+		int n;
+		
+		for(char c: sArray)
+		{
+			n = (int)c;
+			if(n < 48 || n > 57)
+				return false;
+		}
+		return true;
 	}
 	
 	public void daiInformazioni(String nome)
@@ -256,6 +354,7 @@ public class GUIArruolaUnita extends JFrame {
 	public void popolaDiTruppe(String edificio, String evidenzia)
 	{
 		int aggiunte = 0;
+		String nome;
 		pnlMid.removeAll();
 		
 		if(edificio.equals("Caserma"))
@@ -264,7 +363,86 @@ public class GUIArruolaUnita extends JFrame {
 			{
 				if(obj.equals("Caserma"))
 				{
-					aggiungiVoce("Miliziano", iconeGrafiche.getIconeUMilitari().get("Miliziano"), evidenzia);
+					nome = "Miliziano";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Fanteria"))
+				{
+					nome = "Soldato";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					nome = "Spadaccino";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte += 2;
+				}
+				else
+				if(obj.equals("Tiro con l'arco"))
+				{
+					nome = "Arciere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Cavalleria"))
+				{
+					nome = "Cavaliere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Corazze"))
+				{
+					nome = "Soldato in armatura pesante";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Balestre"))
+				{
+					nome = "Balestriere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Tattiche di cavalleria"))
+				{
+					nome = "Cavaliere pesante";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Polvere da sparo"))
+				{
+					nome = "Cannone";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Fucili"))
+				{
+					nome = "Fuciliere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					nome = "Mitragliere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					nome = "Granatiere";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Tattiche in campo aperto"))
+				{
+					nome = "Fuciliere a cavallo";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Balistica"))
+				{
+					nome = "Artiglieria";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 			}
@@ -272,37 +450,116 @@ public class GUIArruolaUnita extends JFrame {
 		else
 		if(edificio.equals("Tempio"))
 		{
-			
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
+			{
+				if(obj.equals("Oracolo"))
+				{
+					nome = "Druido";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+			}
 		}
 		else
 		if(edificio.equals("Palazzo"))
 		{
-			
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
+			{
+				if(obj.equals("Età imperiale"))
+				{
+					nome = "Pretoriano";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+				else
+				if(obj.equals("Società militare"))
+				{
+					nome = "Berserk";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+			}
 		}
 		else
 		if(edificio.equals("Campo mercenari"))
 		{
-			
+			nome = "Spadaccino mercenario";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
+			nome = "Arciere mercenario";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
 		}
 		else
 		if(edificio.equals("Chiesa"))
 		{
-			
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
+			{
+				if(obj.equals("Inquisizione"))
+				{
+					nome = "Cavaliere templare";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+				}
+			}
+			nome = "Cavaliere crociato";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
 		}
 		else
 		if(edificio.equals("Ospedale"))
 		{
-			
+			nome = "Medico";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
 		}
 		else
 		if(edificio.equals("Caserma eroi"))
 		{
-			
+			nome = "Lorenzo";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
+			nome = "Werther";
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+			aggiunte++;
 		}
 		else
 		if(edificio.equals("Parlamento"))
 		{
-			
+			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
+			{
+				if(obj.equals("Carabinieri"))
+				{
+					nome = "Carabinieri";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					break;
+				}
+				else
+				if(obj.equals("Guardie reali"))
+				{
+					nome = "Guardia reale";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					break;
+				}
+				else
+				if(obj.equals("Legione straniera"))
+				{
+					nome = "Legione straniera";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					break;
+				}
+				else
+				if(obj.equals("Gardenkorps"))
+				{
+					nome = "Gardenkorps";
+					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
+					aggiunte++;
+					break;
+				}
+			}
 		}
 		
 		pnlMid.setVisible(true);
@@ -364,50 +621,70 @@ public class GUIArruolaUnita extends JFrame {
 			lblVel.setOpaque(true);
 			lblVel.setBackground(Color.LIGHT_GRAY);
 
-			lblOroTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriOro().get(selezionato)));
-			lblMatTot.setText(Integer.toString(Integer.parseInt(txtUDaArruolare.getText()) * valoriDiGioco.getValoriMat().get(selezionato)));
+			//aggiorno costi in oro e materiali in base all'unità selezionata
+			if(txtUDaArruolare.getText().toString().length() == 0)
+				txtUDaArruolare.setText("1");
+			txtUDaArruolare.setText(txtUDaArruolare.getText());
 		}
 		
 		lblVoce.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 		lblOro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 		lblMat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 		lblAtk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 		lblDef.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 		lblVel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaDiTruppe(edificio, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaDiTruppe(edificio, nome);
+				}
 			}
 		});
 	}

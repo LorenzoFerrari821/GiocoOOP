@@ -634,22 +634,31 @@ public class GUIPartitaCostruisci extends JFrame
 		lblVoce.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaNegozio(eta, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaNegozio(eta, nome);
+				}
 			}
 		});
 		lblOro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaNegozio(eta, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaNegozio(eta, nome);
+				}
 			}
 		});
 		lblMat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				selezionato = nome;
-				popolaNegozio(eta, nome);
+				if(selezionato != nome)
+				{
+					selezionato = nome;
+					popolaNegozio(eta, nome);
+				}
 			}
 		});
 	}

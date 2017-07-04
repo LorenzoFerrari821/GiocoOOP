@@ -117,6 +117,7 @@ public class GUIPartita extends JFrame{
 	private int indiceProprietario; //INDICA L'INDICE DEL PROPRIETARIO
 	
 	private GUIArruolaUnita guiArruolaUnita; //Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare
+	private GUIMunicipio guiMunicipio; //Schermata del muncipio
 	
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
@@ -822,6 +823,11 @@ public class GUIPartita extends JFrame{
 				{
 					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
 					guiArruolaUnita.setVisible(true);
+				}
+				if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
+				{
+					guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
+					guiMunicipio.setVisible(true);
 				}
 			}
 		}
