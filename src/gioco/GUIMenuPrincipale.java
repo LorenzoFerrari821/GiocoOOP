@@ -71,6 +71,11 @@ public class GUIMenuPrincipale extends JFrame {
 	private GUIExtra panelExtra;
 	private GUIObiettivi panelObiettivi;
 	private Clip audio;
+	ImageIcon iconTitolo;
+	ImageIcon Immagine;
+	Image scaleTitolo;
+	Image scaleImmagine;
+	private JLabel immagineDx;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -509,8 +514,17 @@ public class GUIMenuPrincipale extends JFrame {
 		contentPane.add(panelsx, BorderLayout.LINE_START);
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
-		ImageIcon iconTitolo = new ImageIcon("media/titolo.png");
-		Image scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
+		
+		
+
+		Immagine = new ImageIcon("media/Immagine.jpg");
+		scaleImmagine = Immagine.getImage().getScaledInstance(1000, 550,Image.SCALE_DEFAULT);
+		immagineDx = new JLabel(new ImageIcon(scaleImmagine));
+		paneldx.add(immagineDx, BorderLayout.CENTER);
+		
+		
+		iconTitolo = new ImageIcon("media/titolo.png");
+		scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
 	}

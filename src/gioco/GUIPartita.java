@@ -20,6 +20,8 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -108,6 +110,15 @@ public class GUIPartita extends JFrame{
 	private GUIPartitaRicerca frmRicerca;
 	
 	private Partita partita;
+	
+	
+	
+	static int su = KeyEvent.VK_W;                                        //Codice dei tasti
+	static int giu = KeyEvent.VK_S;
+	static int dest = KeyEvent.VK_D;
+	static int sinist = KeyEvent.VK_A;
+
+
 	
 	private ValoriDiGioco valoriDiGioco;
 	private GUIPartitaCostruisci frmCostruisci;
@@ -274,6 +285,19 @@ public class GUIPartita extends JFrame{
 		
 		btnGoUp.setIcon(newiconbtnGoUp);
 		
+
+		btnGoUp.addKeyListener(new KeyAdapter(){     //Associo il tasto W
+			ThreadScorrimentoSchermata threadScorrimento;
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==su){
+					threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 1);
+					threadScorrimento.start();
+				}}
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==su)
+					threadScorrimento.setScorri(false);
+			}
+		});
 		
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
