@@ -199,7 +199,7 @@ public class GUIPartita extends JFrame{
 		panelBtnGoLeft = new JPanel();
 		
 		iconeGrafiche = new IconeGrafiche();
-		scenario = new Scenario();
+		scenario = new Scenario(mappa);
 		proprietario = "utente1";
 		indiceProprietario = civilta;
 		azioneLblsGioco = "";
@@ -292,13 +292,14 @@ public class GUIPartita extends JFrame{
 				if(e.getKeyCode()==su){
 					threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 1);
 					threadScorrimento.start();
-				}}
+				}
+			}
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==su)
 					threadScorrimento.setScorri(false);
 			}
 		});
-		
+
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
@@ -378,8 +379,6 @@ public class GUIPartita extends JFrame{
 		panelCenter.add(panelBtnGoLeft);
 		lblsGioco = new JLabel[partitaHeight][partitaWidth];
 		panelGioco = new JPanel(new GridLayout(16, 31, 0, 0));
-		
-		Scenario scenario = new Scenario();
 		
 		for(int i = 0; i < partitaHeight; i++)
 		{
