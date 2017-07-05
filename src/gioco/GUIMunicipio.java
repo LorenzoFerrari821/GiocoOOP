@@ -144,7 +144,7 @@ public class GUIMunicipio extends JDialog
 					e1.printStackTrace();
 				}
 				audio.start();
-				//creaEsercito();
+				guiPartita.piazzaEsercito();
 				dispose();
 			}
 		});

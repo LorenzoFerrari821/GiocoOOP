@@ -46,8 +46,9 @@ public class GUIPartitaOpzioni extends JDialog {
 	private Font fontFuturist;
 	private Clip audio;
 	GUIPartitaOpzioni guiPartitaOpzioni; //Utilizzato per avere anche negli eventi un riferimento a questo JDialog
+	GUIPartita guiPartita; //Per avere un riferimento a partita
 	
-	GUIPartitaOpzioni () {
+	GUIPartitaOpzioni (GUIPartita guiPartita) {
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
 		setIconImage(scaledicona);  
@@ -94,6 +95,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		setLocationRelativeTo(null);
 		guiPartitaOpzioni = this;
 		setModal(true);
+		this.guiPartita = guiPartita;
 		
 		contentPane.add(new JLabel(" "));
 		
@@ -201,8 +203,8 @@ public class GUIPartitaOpzioni extends JDialog {
 				   if(scelta == 0)
 				   {
 					   finestreAttive[0].setVisible(true);
-					   finestreAttive[1].dispose();
-					   dispose();
+					   guiPartita.dispose();
+					   guiPartitaOpzioni.dispose();
 					   File musica= new File("media/MusicaMenu.wav");
 						Music.playSound(musica);
 				   }

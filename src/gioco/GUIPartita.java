@@ -734,7 +734,7 @@ public class GUIPartita extends JFrame{
 				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
-				frmOpzioni = new GUIPartitaOpzioni();
+				frmOpzioni = new GUIPartitaOpzioni(guiPartita);
 				frmOpzioni.setVisible(true);
 			}
 		});
@@ -872,6 +872,11 @@ public class GUIPartita extends JFrame{
 	{
 		azioneLblsGioco = "muovi";
 	}
+	
+	public void piazzaEsercito()
+	{
+		azioneLblsGioco = "piazza esercito";
+	}
 
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
@@ -903,46 +908,89 @@ public class GUIPartita extends JFrame{
 			aggiornaDatiGUI();
 		}
 		else
-			if(azioneLblsGioco.equals("vendi"))
+		if(azioneLblsGioco.equals("vendi"))
+		{
+			//Controllo che sulla lbl ci sia un elemento vendibile
+			String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
+
+			if(nome == null || nome.contains("municipio"))
 			{
-				//Controllo che sulla lbl ci sia un elemento vendibile
-				String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
-
-				if(nome == null || nome.contains("municipio"))
+				JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else //chiedi se vuole vendere
+			{
+				int scelta =0;
+				scelta = JOptionPane.showConfirmDialog(
+						null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
+								+ "materiali richiesti per l'acquisto)", "Conferma",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(scelta == 0) //se si
 				{
-					JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
-				}
-				else //chiedi se vuole vendere
-				{
-					int scelta =0;
-					scelta = JOptionPane.showConfirmDialog(
-							null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
-									+ "materiali richiesti per l'acquisto)", "Conferma",
-									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if(scelta == 0) //se si
-					{
-						char ultimoChar = nome.charAt(nome.length() - 1);
+					char ultimoChar = nome.charAt(nome.length() - 1);
 
-						if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
-							nome = nome.substring(0, nome.length() - 1);
-						}
-						//Rimozione oggetto dai suoi possedimenti
-						for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
-						{
-							if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
-								partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
-							}
-						}
-						//Accredito della metà dell'oro e di materiali dell'oggetto venduto
-						partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
-								partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
-						partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
-								partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
-
-						rimuoviElementoDaScenario(i, j, ultimoChar);
+					if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+						nome = nome.substring(0, nome.length() - 1);
 					}
+					//Rimozione oggetto dai suoi possedimenti
+					for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
+					{
+						if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
+						}
+					}
+					//Accredito della metà dell'oro e di materiali dell'oggetto venduto
+					partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
+					partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
+							partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
+
+					rimuoviElementoDaScenario(i, j, ultimoChar);
 				}
+			}
+
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+
+			aggiornaSchermata();
+			aggiornaDatiGUI();
+		}
+		else
+		if(azioneLblsGioco.equals("muovi"))
+		{
+			String nome = individuaOggetto(i, j);
+
+			if(nome == null)
+			{
+				JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else
+			{
+				azioneLblsGioco = "posizionaElemento";
+				elemLblsGioco = nome;
+				ioldLblsGioco = i;
+				joldLblsGioco = j;
+			}
+		}
+		else
+		if(azioneLblsGioco.equals("posizionaElemento"))
+		{
+			if(!isPiazzamentoPossibile(i, j))
+			{
+				JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
+						"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
+			else //piazzamento possibile
+			{
+				char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
+
+				rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
+
+				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
+					elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
+				posizionaElementoSuScenario(i, j);
 
 				//Resetto i dati di azione e elemento in memoria
 				azioneLblsGioco = "";
@@ -951,76 +999,38 @@ public class GUIPartita extends JFrame{
 				aggiornaSchermata();
 				aggiornaDatiGUI();
 			}
-			else
-				if(azioneLblsGioco.equals("muovi"))
-				{
-					String nome = individuaOggetto(i, j);
+		}
+		else
+		if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
+		{
+			String edificio = individuaOggetto(i, j);
 
-					if(nome == null)
-					{
-						JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
-								"Informazioni", JOptionPane.DEFAULT_OPTION);
-					}
-					else
-					{
-						azioneLblsGioco = "posizionaElemento";
-						elemLblsGioco = nome;
-						ioldLblsGioco = i;
-						joldLblsGioco = j;
-					}
+			if(edificio != null)
+			{
+				char ultimoChar = edificio.charAt(edificio.length() - 1);
+				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+					edificio = edificio.substring(0, edificio.length() - 1);
 				}
-				else
-					if(azioneLblsGioco.equals("posizionaElemento"))
-					{
-						if(!isPiazzamentoPossibile(i, j))
-						{
-							JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
-									"Informazioni", JOptionPane.DEFAULT_OPTION);
-						}
-						else //piazzamento possibile
-						{
-							char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
 
-							rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
-
-							if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
-								elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
-							posizionaElementoSuScenario(i, j);
-
-							//Resetto i dati di azione e elemento in memoria
-							azioneLblsGioco = "";
-							elemLblsGioco = "";
-
-							aggiornaSchermata();
-							aggiornaDatiGUI();
-						}
-					}
-					else
-						if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
-						{
-							String edificio = individuaOggetto(i, j);
-
-							if(edificio != null)
-							{
-								char ultimoChar = edificio.charAt(edificio.length() - 1);
-								if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
-									edificio = edificio.substring(0, edificio.length() - 1);
-								}
-
-								if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
-										edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
-										edificio.equals("Ospedale") || edificio.equals("Parlamento"))
-								{
-									guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
-									guiArruolaUnita.setVisible(true);
-								}
-								if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
-								{
-									guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
-									guiMunicipio.setVisible(true);
-								}
-							}
-						}
+				if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
+						edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
+						edificio.equals("Ospedale") || edificio.equals("Parlamento"))
+				{
+					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
+					guiArruolaUnita.setVisible(true);
+				}
+				if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
+				{
+					guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
+					guiMunicipio.setVisible(true);
+				}
+			}
+		}
+		else
+		if(azioneLblsGioco.equals("piazza esercito"))
+		{
+			
+		}
 	}
 
 	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
