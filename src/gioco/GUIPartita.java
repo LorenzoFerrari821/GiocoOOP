@@ -334,20 +334,32 @@ public class GUIPartita extends JFrame{
 		    	if(KeyEvent.KEY_RELEASED == e.getID())
 		    	{
 		    		if(e.getKeyCode()==su) {
-						threadScorrimentoSu.setScorri(false);
-						threadScorrimentoSu = null;
+		    			if(threadScorrimentoSu != null)
+		    			{
+		    				threadScorrimentoSu.setScorri(false);
+							threadScorrimentoSu = null;
+		    			}
 					}
 		    		if(e.getKeyCode()==giu) {
-						threadScorrimentoGiu.setScorri(false);
-						threadScorrimentoGiu = null;
+		    			if(threadScorrimentoGiu != null)
+		    			{
+		    				threadScorrimentoGiu.setScorri(false);
+							threadScorrimentoGiu = null;
+		    			}
 					}
 		    		if(e.getKeyCode()==sinist) {
-						threadScorrimentoSinist.setScorri(false);
-						threadScorrimentoSinist = null;
+		    			if(threadScorrimentoSinist != null)
+		    			{
+		    				threadScorrimentoSinist.setScorri(false);
+							threadScorrimentoSinist = null;
+		    			}
 					}
 		    		if(e.getKeyCode()==dest) {
-						threadScorrimentoDest.setScorri(false);
-						threadScorrimentoDest = null;
+		    			if(threadScorrimentoDest != null)
+		    			{
+		    				threadScorrimentoDest.setScorri(false);
+							threadScorrimentoDest = null;
+		    			}
 					}
 		    	}
 		    	return false; //Rilascia il key dispatcher
