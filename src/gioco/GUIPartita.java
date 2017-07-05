@@ -122,6 +122,8 @@ public class GUIPartita extends JFrame{
 	static int frecciadest = KeyEvent.VK_RIGHT;
 	static int frecciasinist = KeyEvent.VK_LEFT;
 
+	private int oldLblsGiocoWidth;  //Variabile per ricordare la vecchia dimensione delle lblsGioco
+	private int oldLblsGiocoHeight; //Variabile per ricordare la vecchia dimensione delle lblsGioco
 
 	private ValoriDiGioco valoriDiGioco;
 	private GUIPartitaCostruisci frmCostruisci;
@@ -561,13 +563,20 @@ public class GUIPartita extends JFrame{
 		aggiornaSchermata(); //prende la situazione attuale da Scenario e parsando la matrice di stringhe crea il corrispondente grafico
 
 
-
+		oldLblsGiocoWidth = 0;
+		oldLblsGiocoHeight = 0;
+		
 		panelGioco.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e)
 			{
-				iconeGrafiche.caricaIconeScenario(lblsGioco[0][0].getSize().width, lblsGioco[0][0].getSize().height+1);
-				aggiornaSchermata();
+				if(lblsGioco[0][0].getSize().width != oldLblsGiocoWidth || lblsGioco[0][0].getSize().height != oldLblsGiocoHeight)
+				{
+					oldLblsGiocoWidth = lblsGioco[0][0].getSize().width;
+					oldLblsGiocoHeight = lblsGioco[0][0].getSize().height;
+					iconeGrafiche.caricaIconeScenario(lblsGioco[0][0].getSize().width, lblsGioco[0][0].getSize().height+1);
+					aggiornaSchermata();
+				}
 			}
 		});
 

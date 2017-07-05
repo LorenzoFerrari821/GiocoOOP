@@ -43,12 +43,13 @@ public class GUIExtra extends JPanel {
 	private RoundedCornerButton btnIndietro;
 	private Font fontFuturist;
 	private Clip audio;
+	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
+	private GUIExtra guiExtra;
 	
-
 	/**
 	 * Costruttore della classe extra, contiene gli elementi che compongono l'interfaccia grafica.
 	 */
-	GUIExtra() {
+	GUIExtra(GUIMenuPrincipale guiMenuPrincipale) {
 		try {
 			//Creo un font custom
 			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
@@ -74,7 +75,9 @@ public class GUIExtra extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
 		pnlMenu.setBackground(Color.WHITE);
-
+		this.guiMenuPrincipale = guiMenuPrincipale;
+		guiExtra = this;
+		
 		c = new GridBagConstraints(); 
 	
 		//Prima Colonna
@@ -148,6 +151,7 @@ public class GUIExtra extends JPanel {
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				setVisible(false);
+				guiMenuPrincipale.ripristinaPanelDx(guiExtra.getWidth(), guiExtra.getHeight());
 			}
 		});
 		pnlMenu.add(btnIndietro, c);

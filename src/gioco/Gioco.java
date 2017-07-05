@@ -20,7 +20,6 @@ public class Gioco {
 		
 				try {	
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
-					frame.setVisible(true);
 					File musica= new File("media/MusicaMenu.wav");
 					Music.playSound(musica);
 					

@@ -67,6 +67,7 @@ public class GUIMenuPrincipale extends JFrame {
 	private RoundedCornerButton btnEsciSmall;
 	private JPanel panelTitolo;;
 	private JLabel titolo;
+	private GUIMenuPrincipale guiMenuPrincipale;
 	private GUINuovaPartita panelNuovaPartita;
 	private GUICaricaPartita panelCaricaPartita;
 	private GUIMultiplayer panelMultiplayer;
@@ -75,10 +76,11 @@ public class GUIMenuPrincipale extends JFrame {
 	private GUIObiettivi panelObiettivi;
 	private Clip audio;
 	ImageIcon iconTitolo;
-	ImageIcon Immagine;
+	ImageIcon imgSfondo;
 	Image scaleTitolo;
-	Image scaleImmagine;
+	Image scaleSfondo;
 	private JLabel immagineDx;
+	private int oldWidth, oldHeight; //Riferimento alle dimensioni del JFrame
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
@@ -113,7 +115,10 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx = new JPanel();
 		paneldx = new JPanel();
 		panelTitolo = new JPanel();
-
+		guiMenuPrincipale = this;
+		oldWidth = 0;
+		oldHeight = 0;
+		
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
 		contentPane.setLayout(new BorderLayout(0,0));
 		setContentPane(contentPane);
@@ -121,8 +126,8 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.setLayout(new GridLayout2(16, 2, 5, 5));
 		panelsx.setBackground(Color.DARK_GRAY);
 
-		paneldx.setLayout(new GridLayout(1, 1, 5, 5));
-		paneldx.setBackground(Color.decode("0xFABCD"));
+		paneldx.setLayout(new GridLayout(1, 1, 0, 0));
+		paneldx.setBackground(Color.LIGHT_GRAY);
 
 		panelTitolo.setLayout(new BorderLayout(4, 4));
 		panelTitolo.setBackground(Color.BLACK);
@@ -149,7 +154,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelNuovaPartita.setVisible(true);
 					contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelNuovaPartita=new GUINuovaPartita();
+					panelNuovaPartita=new GUINuovaPartita(guiMenuPrincipale);
 					contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
 				};
 			}
@@ -179,7 +184,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelNuovaPartita.setVisible(true);
 					contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelNuovaPartita=new GUINuovaPartita();
+					panelNuovaPartita=new GUINuovaPartita(guiMenuPrincipale);
 					contentPane.add(panelNuovaPartita,BorderLayout.CENTER);
 				};
 			}
@@ -208,7 +213,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelCaricaPartita.setVisible(true);
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelCaricaPartita=new GUICaricaPartita();
+					panelCaricaPartita=new GUICaricaPartita(guiMenuPrincipale);
 					panelCaricaPartita.creaComboBox(); //Creiamo la combobox interna della GUIcaricapartita
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
 				};
@@ -238,7 +243,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelCaricaPartita.setVisible(true);
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelCaricaPartita=new GUICaricaPartita();
+					panelCaricaPartita=new GUICaricaPartita(guiMenuPrincipale);
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
 					panelCaricaPartita.creaComboBox();   //Creiamo la combobox interna della GUIcaricapartita
 				};
@@ -328,7 +333,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelOpzioni.setVisible(true);
 					contentPane.add(panelOpzioni,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelOpzioni=new GUIOpzioni();
+					panelOpzioni=new GUIOpzioni(guiMenuPrincipale);
 					contentPane.add(panelOpzioni,BorderLayout.CENTER);
 				};
 			}
@@ -357,7 +362,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelOpzioni.setVisible(true);
 					contentPane.add(panelOpzioni,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelOpzioni=new GUIOpzioni();
+					panelOpzioni=new GUIOpzioni(guiMenuPrincipale);
 					contentPane.add(panelOpzioni,BorderLayout.CENTER);
 				};
 			}
@@ -387,7 +392,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelExtra.setVisible(true);
 					contentPane.add(panelExtra, BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelExtra = new GUIExtra();
+					panelExtra = new GUIExtra(guiMenuPrincipale);
 					contentPane.add(panelExtra, BorderLayout.CENTER);
 				};
 			}
@@ -416,7 +421,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelExtra.setVisible(true);
 					contentPane.add(panelExtra, BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelExtra = new GUIExtra();
+					panelExtra = new GUIExtra(guiMenuPrincipale);
 					contentPane.add(panelExtra, BorderLayout.CENTER);
 				};
 			}
@@ -446,7 +451,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelObiettivi.setVisible(true);
 					contentPane.add(panelObiettivi,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelObiettivi = new GUIObiettivi();
+					panelObiettivi = new GUIObiettivi(guiMenuPrincipale);
 					contentPane.add(panelObiettivi,BorderLayout.CENTER);
 				};
 			}
@@ -475,7 +480,7 @@ public class GUIMenuPrincipale extends JFrame {
 					panelObiettivi.setVisible(true);
 					contentPane.add(panelObiettivi,BorderLayout.CENTER);
 				}catch(NullPointerException e){
-					panelObiettivi = new GUIObiettivi();
+					panelObiettivi = new GUIObiettivi(guiMenuPrincipale);
 					contentPane.add(panelObiettivi,BorderLayout.CENTER);
 				};
 			}
@@ -519,11 +524,22 @@ public class GUIMenuPrincipale extends JFrame {
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
 		
 		
-
-		Immagine = new ImageIcon("media/Immagine.jpg");
-		scaleImmagine = Immagine.getImage().getScaledInstance(1000, 550,Image.SCALE_DEFAULT);
-		immagineDx = new JLabel(new ImageIcon(scaleImmagine));
+		immagineDx = new JLabel();
 		paneldx.add(immagineDx, BorderLayout.CENTER);
+		
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e)
+			{
+				if(guiMenuPrincipale.getWidth() != oldWidth || guiMenuPrincipale.getHeight() != oldHeight)
+				{
+					oldWidth = guiMenuPrincipale.getWidth();
+					oldHeight = guiMenuPrincipale.getHeight();
+
+					caricaSfondo(paneldx.getWidth(), paneldx.getHeight());
+				}
+			}
+		});
 		
 		
 		iconTitolo = new ImageIcon("media/titolo.png");
@@ -538,6 +554,15 @@ public class GUIMenuPrincipale extends JFrame {
 				} catch(NullPointerException npexc){};
 			}
 		});
+		setVisible(true);
+	}
+	
+	public void caricaSfondo(int width, int height)
+	{
+		imgSfondo = new ImageIcon("media/sfondo.png");
+		scaleSfondo = imgSfondo.getImage().getScaledInstance(width, height,Image.SCALE_DEFAULT);
+		ImageIcon newiconSfondo = new ImageIcon(scaleSfondo);
+		immagineDx.setIcon(newiconSfondo);
 	}
 
 	/**
@@ -567,4 +592,25 @@ public class GUIMenuPrincipale extends JFrame {
 			panelObiettivi.setVisible(false);
 		}catch(NullPointerException e){};
 	}
+	
+	public void ripristinaPanelDx(int width, int height)
+	{
+		paneldx.setSize(width, height);
+		paneldx.setVisible(true);
+		oldWidth = guiMenuPrincipale.getWidth();
+		oldHeight = guiMenuPrincipale.getHeight();
+
+		caricaSfondo(paneldx.getWidth(), paneldx.getHeight());
+		contentPane.remove(paneldx);
+		contentPane.add(paneldx, BorderLayout.CENTER);
+	}
+
+	public JPanel getPaneldx() {
+		return paneldx;
+	}
+
+	public void setPaneldx(JPanel paneldx) {
+		this.paneldx = paneldx;
+	}
+	
 }

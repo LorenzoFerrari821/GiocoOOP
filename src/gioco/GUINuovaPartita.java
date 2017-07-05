@@ -73,12 +73,14 @@ public class GUINuovaPartita extends JPanel {
 	private Clip audio;
 	private int k;
 	private Window[] finestreAttive;
+	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
+	private GUINuovaPartita guiNuovaPartita;
 	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia.
 	 */
-	GUINuovaPartita() {	
+	GUINuovaPartita(GUIMenuPrincipale guiMenuPrincipale) {	
 		try {
 			//Creo un font custom
 			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
@@ -103,7 +105,9 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu = new JPanel(new GridBagLayout());
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
-
+		this.guiMenuPrincipale = guiMenuPrincipale;
+		guiNuovaPartita = this;
+		
 		pnlMenu.setBackground(Color.WHITE);
 
 		c = new GridBagConstraints();
@@ -216,6 +220,7 @@ public class GUINuovaPartita extends JPanel {
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				setVisible(false);
+				guiMenuPrincipale.ripristinaPanelDx((int)guiNuovaPartita.getSize().getWidth(), (int)guiNuovaPartita.getSize().getHeight());
 			}
 		});
 		pnlMenu.add(btnIndietro, c);

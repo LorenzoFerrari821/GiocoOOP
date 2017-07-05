@@ -38,8 +38,10 @@ public class GUIObiettivi extends JPanel {
 	private RoundedCornerButton btnIndietro;
 	private Font fontFuturist;
 	private Clip audio;
+	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
+	private GUIObiettivi guiObiettivi; //Utilizzato per mandare indietro a GUIMenuPrincipale la dimensione del jframe
 	
-	GUIObiettivi() {
+	GUIObiettivi(GUIMenuPrincipale guiMenuPrincipale) {
 		
 			try {
 				//Creo un font custom
@@ -66,7 +68,9 @@ public class GUIObiettivi extends JPanel {
 			setBackground(Color.LIGHT_GRAY);
 			setLayout(new BorderLayout(0, 0));
 			pnlMenu.setBackground(Color.WHITE);
-
+			this.guiMenuPrincipale = guiMenuPrincipale;
+			guiObiettivi = this;
+			
 			c = new GridBagConstraints(); 
 		
 			//Prima Colonna
@@ -140,6 +144,7 @@ public class GUIObiettivi extends JPanel {
 					gainControl.setValue(Global.getLivVolume()); 
 					audio.start();
 					setVisible(false);
+					guiMenuPrincipale.ripristinaPanelDx(guiObiettivi.getWidth(), guiObiettivi.getHeight());
 				}
 			});
 			pnlMenu.add(btnIndietro, c);

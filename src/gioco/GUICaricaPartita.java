@@ -72,11 +72,13 @@ public class GUICaricaPartita extends JPanel {
 	private int val;
 	private int i=0;
 	private int k=0;
-
+	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
+	private GUICaricaPartita guiCaricaPartita;
+	
 	/**
 	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
 	 */
-	GUICaricaPartita() {	
+	GUICaricaPartita(GUIMenuPrincipale guiMenuPrincipale) {	
 		try {
 			//Creo un font custom
 			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
@@ -102,7 +104,9 @@ public class GUICaricaPartita extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
 		pnlMenu.setBackground(Color.WHITE);
-
+		this.guiMenuPrincipale = guiMenuPrincipale;
+		guiCaricaPartita = this;
+		
 		lblNumSalvataggio=new JLabel("Salvataggio numero:");
 		lblNumSalvataggio.setFont(lblNumSalvataggio.getFont().deriveFont(20f));
 		lblData=new JLabel("Data: ");
@@ -252,6 +256,7 @@ public class GUICaricaPartita extends JPanel {
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				setVisible(false);
+				guiMenuPrincipale.ripristinaPanelDx((int)guiCaricaPartita.getSize().getWidth(), (int)guiCaricaPartita.getSize().getHeight());
 			}
 		});
 		pnlMenu.add(btnIndietro, d);

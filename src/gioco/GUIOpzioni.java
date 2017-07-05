@@ -38,8 +38,8 @@ public class GUIOpzioni extends JPanel {
 	private JComboBox<String> cmbAudio;
 	private RoundedCornerButton btnIndietro;
 	private Font fontFuturist;
-
-
+	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
+	private GUIOpzioni guiOpzioni;
 	private Clip audio;
 
 
@@ -47,7 +47,7 @@ public class GUIOpzioni extends JPanel {
 	/**
 	 * Costruttore della classe con gli elementi che compongono l'interfaccia grafica.
 	 */	
-	GUIOpzioni() {
+	GUIOpzioni(GUIMenuPrincipale guiMenuPrincipale) {
 
 		try {
 			//Creo un font custom
@@ -74,7 +74,9 @@ public class GUIOpzioni extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new BorderLayout(0, 0));
 		pnlMenu.setBackground(Color.WHITE);
-
+		this.guiMenuPrincipale = guiMenuPrincipale;
+		guiOpzioni = this;
+		
 		c = new GridBagConstraints(); 
 		//Prima Colonna
 		c.gridx = 1;
@@ -195,6 +197,7 @@ public class GUIOpzioni extends JPanel {
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				setVisible(false);
+				guiMenuPrincipale.ripristinaPanelDx((int)guiOpzioni.getSize().getWidth(), (int)guiOpzioni.getSize().getHeight());
 			}
 		});
 		pnlMenu.add(btnIndietro, c);
