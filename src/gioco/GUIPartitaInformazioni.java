@@ -23,13 +23,14 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class GUIPartitaInformazioni extends JFrame {
+public class GUIPartitaInformazioni extends JDialog {
 
 	private JPanel contentPane;
 	private JLabel lblBonusEco;
@@ -92,12 +93,12 @@ public class GUIPartitaInformazioni extends JFrame {
 		}
 		
 		setTitle("Informazioni");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 650, 450);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new GridBagLayout());
+		setModal(true);
 		
 		c = new GridBagConstraints();
 		c.anchor = new GridBagConstraints().LINE_END;

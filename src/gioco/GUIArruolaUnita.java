@@ -25,6 +25,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,7 +39,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class GUIArruolaUnita extends JFrame {
+public class GUIArruolaUnita extends JDialog {
 	
 	private Font fontFuturist;
 	private JPanel contentPane;
@@ -103,12 +104,12 @@ public class GUIArruolaUnita extends JFrame {
 		}
 		
 		setTitle("Arruola unità militari");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 700, 470);
 		setMinimumSize(new Dimension(700, 470));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new BorderLayout(0,0));
+		setModal(true);
 		
 		this.partita = partita;
 		this.valoriDiGioco = valoriDiGioco;

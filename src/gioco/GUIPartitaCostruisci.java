@@ -29,6 +29,7 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,7 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class GUIPartitaCostruisci extends JFrame 
+public class GUIPartitaCostruisci extends JDialog
 {
 	private Font fontFuturist;
 	private JPanel contentPane;
@@ -100,12 +101,12 @@ public class GUIPartitaCostruisci extends JFrame
 		}
 		
 		setTitle("Costruisci");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 650, 450);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new BorderLayout(0,0));
+		setModal(true);
 		
 		this.partita = partita;
 		this.valoriDiGioco = valoriDiGioco;

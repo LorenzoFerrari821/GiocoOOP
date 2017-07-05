@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Window;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
@@ -71,7 +73,7 @@ public class GUINuovaPartita extends JPanel {
 	private Clip audio;
 	private int k;
 	private Window[] finestreAttive;
-
+	
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia.
@@ -229,34 +231,39 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0){
-				k=creaNuovaPartita();
-				if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
+				
+				if(btnAvvia.isEnabled())
 				{
-					String nomeGiocatore;
-					int tutorial, difficolta, mappa, civilta;
-					nomeGiocatore = txtNomeGiocatore.getText();
-					if(chkTut.isSelected())
-						tutorial = 1;
-					else
-						tutorial = 0;
-					difficolta = listDifficolta.getSelectedIndex();
-					mappa = listMappa.getSelectedIndex();
-					civilta = listCivilta.getSelectedIndex();
-
-					finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
-					finestreAttive[0].setVisible(false);    
-					framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
-					try {
-						audio = AudioSystem.getClip();
-						audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
-					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-						e1.printStackTrace();
+					btnAvvia.setEnabled(false);
+					k=creaNuovaPartita();
+					if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
+					{
+						String nomeGiocatore;
+						int tutorial, difficolta, mappa, civilta;
+						nomeGiocatore = txtNomeGiocatore.getText();
+						if(chkTut.isSelected())
+							tutorial = 1;
+						else
+							tutorial = 0;
+						difficolta = listDifficolta.getSelectedIndex();
+						mappa = listMappa.getSelectedIndex();
+						civilta = listCivilta.getSelectedIndex();
+	
+						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
+						finestreAttive[0].setVisible(false);    
+						framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+						try {
+							audio = AudioSystem.getClip();
+							audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
+						} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+							e1.printStackTrace();
+						}
+						FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+						gainControl.setValue(Global.getLivVolume()); 
+						Music.stopSound();
+						audio.start();
+						framePartita.setVisible(true);
 					}
-					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-					gainControl.setValue(Global.getLivVolume()); 
-					Music.stopSound();
-					audio.start();
-					framePartita.setVisible(true);
 				}
 			}
 		});
@@ -302,4 +309,13 @@ public class GUINuovaPartita extends JPanel {
 		}			
 		return k;
 	}
+
+	public RoundedCornerButton getBtnAvvia() {
+		return btnAvvia;
+	}
+
+	public void setBtnAvvia(RoundedCornerButton btnAvvia) {
+		this.btnAvvia = btnAvvia;
+	}
+	
 }

@@ -32,6 +32,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
@@ -527,6 +530,14 @@ public class GUIMenuPrincipale extends JFrame {
 		scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
+		
+		this.addComponentListener(new ComponentAdapter() {
+			public void componentShown(ComponentEvent e) {
+				try {
+				panelNuovaPartita.getBtnAvvia().setEnabled(true);
+				} catch(NullPointerException npexc){};
+			}
+		});
 	}
 
 	/**

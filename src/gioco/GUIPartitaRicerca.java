@@ -27,6 +27,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,7 +37,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-public class GUIPartitaRicerca extends JFrame {
+public class GUIPartitaRicerca extends JDialog {
 	
 	private Font fontFuturist;
 	private GridBagConstraints c;
@@ -91,13 +92,13 @@ public class GUIPartitaRicerca extends JFrame {
 		}
 		
 		setTitle("Ricerca");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1000, 550);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new GridBagLayout());
 		pnlFooter = new JPanel(new BorderLayout(0,0));
+		setModal(true);
 		
 		this.valoriDiGioco = valoriDiGioco;
 		this.partita = partita;

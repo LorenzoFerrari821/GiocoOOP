@@ -25,7 +25,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,7 +33,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-public class GUIPartitaOpzioni extends JFrame{
+public class GUIPartitaOpzioni extends JDialog {
+	
 	private RoundedCornerButton btnContinua;
 	private RoundedCornerButton btnSalva;
 	private RoundedCornerButton btnCarica;
@@ -44,6 +45,8 @@ public class GUIPartitaOpzioni extends JFrame{
 	private JPanel contentPane;
 	private Font fontFuturist;
 	private Clip audio;
+	GUIPartitaOpzioni guiPartitaOpzioni; //Utilizzato per avere anche negli eventi un riferimento a questo JDialog
+	
 	GUIPartitaOpzioni () {
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
@@ -87,9 +90,10 @@ public class GUIPartitaOpzioni extends JFrame{
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0));
 		btnTornaMenu = new RoundedCornerButton();
 		setTitle("Opzioni");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setMinimumSize(new Dimension(300, 500));   
 		setLocationRelativeTo(null);
+		guiPartitaOpzioni = this;
+		setModal(true);
 		
 		contentPane.add(new JLabel(" "));
 		
@@ -191,7 +195,8 @@ public class GUIPartitaOpzioni extends JFrame{
 				finestreAttive = Frame.getWindows();
 				 int scelta =0;
 				 scelta = JOptionPane.showConfirmDialog(
-						    null, "Stai per tornare al menù principale, perderai i progressi non salvati.\nUscire dalla partita?", "Conferma",
+						    guiPartitaOpzioni, "Stai per tornare al menù principale, perderai i progressi non salvati."
+						    		+ "\nUscire dalla partita?", "Conferma",
 						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				   if(scelta == 0)
 				   {
@@ -223,14 +228,13 @@ public class GUIPartitaOpzioni extends JFrame{
 				audio.start();
 				int scelta =0;
 				scelta = JOptionPane.showConfirmDialog(
-						    null, "Stai per uscire dal gioco, perderai i progressi non salvati.\nUscire?", "Conferma",
+						    guiPartitaOpzioni, "Stai per uscire dal gioco, perderai i progressi non salvati.\nUscire?", "Conferma",
 						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(scelta == 0)
 					System.exit(0);
 			}
 		});
 		contentPane.add(btnEsci);
-		
 		
 		add(contentPane, BorderLayout.CENTER);
 	}
