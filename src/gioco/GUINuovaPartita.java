@@ -236,10 +236,12 @@ public class GUINuovaPartita extends JPanel {
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0){
-				
+
 				if(btnAvvia.isEnabled())
 				{
 					btnAvvia.setEnabled(false);
+					if(txtNomeGiocatore.getText().equals(""))
+							btnAvvia.setEnabled(true);
 					k=creaNuovaPartita();
 					if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 					{
