@@ -14,6 +14,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -285,20 +287,73 @@ public class GUIPartita extends JFrame{
 		
 		btnGoUp.setIcon(newiconbtnGoUp);
 		
-
-		btnGoUp.addKeyListener(new KeyAdapter(){     //Associo il tasto W
-			ThreadScorrimentoSchermata threadScorrimento;
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==su){
-					threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 1);
-					threadScorrimento.start();
-				}
-			}
-			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==su)
-					threadScorrimento.setScorri(false);
-			}
+		
+		
+		//MOVIMENTO SCHERMATA DA TASTIERA CON WASD
+		KeyboardFocusManager.getCurrentKeyboardFocusManager() //Associo il tasto W
+		  .addKeyEventDispatcher(new KeyEventDispatcher() {
+			  
+			  ThreadScorrimentoSchermata threadScorrimentoSu = null;
+			  ThreadScorrimentoSchermata threadScorrimentoGiu = null;
+			  ThreadScorrimentoSchermata threadScorrimentoSinist = null;
+			  ThreadScorrimentoSchermata threadScorrimentoDest = null;
+			  
+		      @Override
+		      public boolean dispatchKeyEvent(KeyEvent e) {
+		    	if(KeyEvent.KEY_PRESSED == e.getID())
+		    	{
+		    		if(e.getKeyCode()==su){
+						if(threadScorrimentoSu == null)
+						{
+							threadScorrimentoSu = new ThreadScorrimentoSchermata(guiPartita, 1);
+							threadScorrimentoSu.start();
+						}
+					}
+		    		if(e.getKeyCode()==giu){
+						if(threadScorrimentoGiu == null)
+						{
+							threadScorrimentoGiu = new ThreadScorrimentoSchermata(guiPartita, 3);
+							threadScorrimentoGiu.start();
+						}
+					}
+		    		if(e.getKeyCode()==sinist){
+						if(threadScorrimentoSinist == null)
+						{
+							threadScorrimentoSinist = new ThreadScorrimentoSchermata(guiPartita, 4);
+							threadScorrimentoSinist.start();
+						}
+					}
+		    		if(e.getKeyCode()==dest){
+						if(threadScorrimentoDest == null)
+						{
+							threadScorrimentoDest = new ThreadScorrimentoSchermata(guiPartita, 2);
+							threadScorrimentoDest.start();
+						}
+					}
+		    	}
+		    	if(KeyEvent.KEY_RELEASED == e.getID())
+		    	{
+		    		if(e.getKeyCode()==su) {
+						threadScorrimentoSu.setScorri(false);
+						threadScorrimentoSu = null;
+					}
+		    		if(e.getKeyCode()==giu) {
+						threadScorrimentoGiu.setScorri(false);
+						threadScorrimentoGiu = null;
+					}
+		    		if(e.getKeyCode()==sinist) {
+						threadScorrimentoSinist.setScorri(false);
+						threadScorrimentoSinist = null;
+					}
+		    		if(e.getKeyCode()==dest) {
+						threadScorrimentoDest.setScorri(false);
+						threadScorrimentoDest = null;
+					}
+		    	}
+		    	return false; //Rilascia il key dispatcher
+		      }
 		});
+		//FINE MOVIMENTO SCHERMATA CON WASD
 
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;

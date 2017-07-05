@@ -28,29 +28,38 @@ public class ThreadScorrimentoSchermata extends Thread {
 						guiPartita.setPosSchermataY(guiPartita.getPosSchermataY()-1);
 						guiPartita.aggiornaSchermata();
 					}
+					else
+						scorri = false;
 					break;
 				case 2: //scorriamo la schermata a dx
 					if(guiPartita.getPosSchermataX() < 62) { //scorriamo la schermata verso destra
 						guiPartita.setPosSchermataX(guiPartita.getPosSchermataX()+1);
 						guiPartita.aggiornaSchermata();
 					}
+					else
+						scorri = false;
 					break;
 				case 3: //scorriamo la schermata in giu
 					if(guiPartita.getPosSchermataY() < 32) {  //se vero allora possiamo scorrere la schermata verso il basso
 						guiPartita.setPosSchermataY(guiPartita.getPosSchermataY()+1);
 						guiPartita.aggiornaSchermata();
 					}
+					else
+						scorri = false;
 					break;
 				case 4: //scorriamo la schermata a sx
 					if(guiPartita.getPosSchermataX() > 0) { //scorriamo la schermata verso sinistra
 						guiPartita.setPosSchermataX(guiPartita.getPosSchermataX()-1);
 						guiPartita.aggiornaSchermata();
 					}
+					else
+						scorri = false;
 					break;
 			}
-			try {
-				Thread.sleep(33);
-			} catch (InterruptedException e) {}
+			if(scorri)
+				try {
+					Thread.sleep(33);
+				} catch (InterruptedException e) {}
 		}
 	}
 }
