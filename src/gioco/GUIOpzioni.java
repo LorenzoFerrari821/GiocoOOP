@@ -145,6 +145,19 @@ public class GUIOpzioni extends JPanel {
 		cmbComandi.addItem("Mouse");
 		cmbComandi.addItem("Frecce Direzionali");
 		cmbComandi.addItem("WASD");
+		cmbComandi.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent event) {
+				if(event.getStateChange() == ItemEvent.SELECTED){
+					if(cmbComandi.getSelectedIndex()==0)  //Mouse
+						Global.setTastiSchermata(0);   
+					if(cmbComandi.getSelectedIndex()==1)   //Frecce direzionali
+						Global.setTastiSchermata(1); 
+					if(cmbComandi.getSelectedIndex()==2)   //WASD
+						Global.setTastiSchermata(2);
+				}
+
+			}
+		});
 		pnlMenu.add(cmbComandi, c);
 
 		c.gridy ++;

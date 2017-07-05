@@ -106,81 +106,82 @@ public class GUIPartita extends JFrame{
 	private int posSchermataX = 31, posSchermataY = 16;
 	private String[][] scenarioCorrente;
 	private Clip audio;
-	
+
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
 	private GUIPartitaInformazioni frmInfo;
 	private GUIPartitaRicerca frmRicerca;
-	
+
 	private Partita partita;
-	
-	
-	
+
 	static int su = KeyEvent.VK_W;                                        //Codice dei tasti
 	static int giu = KeyEvent.VK_S;
 	static int dest = KeyEvent.VK_D;
 	static int sinist = KeyEvent.VK_A;
+	static int frecciasu = KeyEvent.VK_UP;                                       
+	static int frecciagiu = KeyEvent.VK_DOWN;
+	static int frecciadest = KeyEvent.VK_RIGHT;
+	static int frecciasinist = KeyEvent.VK_LEFT;
 
 
-	
 	private ValoriDiGioco valoriDiGioco;
 	private GUIPartitaCostruisci frmCostruisci;
 	private IconeGrafiche iconeGrafiche;
-	
+
 	private String proprietario; //INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori
 	private int indiceProprietario; //INDICA L'INDICE DEL PROPRIETARIO
-	
+
 	private GUIArruolaUnita guiArruolaUnita; //Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare
 	private GUIMunicipio guiMunicipio; //Schermata del muncipio
-	
+
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
-	
+
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
 		setIconImage(scaledicona);  
-		
+
 		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
 		Image img = t1.getImage("media/cursore.png");
 		Point point = new Point(0,0);
 		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
 		setCursor(cursor);  
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //blocco di codice per evitare la chiusura immediata alla chiusura del programma
 		addWindowListener(new WindowAdapter() {
-			   public void windowClosing(WindowEvent evt) {
-				   int scelta =0;
-				   scelta = JOptionPane.showConfirmDialog(
-						    null, "Stai per tornare al menù principale, perderai i progressi non salvati.\nUscire dalla partita?", "Conferma",
-						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				   finestreAttive = Frame.getWindows();
-				   if(scelta == 0)
-				   {
-					   disattivaThread(); //disattiva tutti i thread prima di chiudere la partita
-					   finestreAttive[0].setVisible(true);
-					   dispose();
-					   File musica= new File("media/MusicaMenu.wav");
-						Music.playSound(musica);
-				   }
-			   }
+			public void windowClosing(WindowEvent evt) {
+				int scelta =0;
+				scelta = JOptionPane.showConfirmDialog(
+						null, "Stai per tornare al menù principale, perderai i progressi non salvati.\nUscire dalla partita?", "Conferma",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				finestreAttive = Frame.getWindows();
+				if(scelta == 0)
+				{
+					disattivaThread(); //disattiva tutti i thread prima di chiudere la partita
+					finestreAttive[0].setVisible(true);
+					dispose();
+					File musica= new File("media/MusicaMenu.wav");
+					Music.playSound(musica);
+				}
+			}
 		});
 		setMinimumSize(new Dimension(1280,720));   
-		
+
 		setBounds(0, 0, 1280, 720);
 		setLocationRelativeTo(null);
-		
+
 		try {
-		    //Creo un font custom
-		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
-		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		    //registro il font
-		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+			//Creo un font custom
+			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			//registro il font
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		} catch(FontFormatException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
@@ -190,7 +191,7 @@ public class GUIPartita extends JFrame{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		contentPane = new JPanel();
 		contentPane.setLayout(new GridLayout2(3, 1, 0, 0));
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
@@ -199,13 +200,13 @@ public class GUIPartita extends JFrame{
 		panelCenter = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
-		
+
 		iconeGrafiche = new IconeGrafiche();
 		scenario = new Scenario(mappa);
 		proprietario = "utente1";
 		indiceProprietario = civilta;
 		azioneLblsGioco = "";
-		
+
 		//Posiziono la schermata iniziale a seconda della civiltà scelta dal giocatore
 		switch(civilta)
 		{
@@ -226,7 +227,7 @@ public class GUIPartita extends JFrame{
 			posSchermataY = 16;
 			break;
 		}
-		
+
 		lblOro = new JLabel();
 		lblOro.setFont(fontFuturist.deriveFont(15f));
 		lblOro.setIcon(iconeGrafiche.newiconOro);
@@ -248,9 +249,9 @@ public class GUIPartita extends JFrame{
 		lblPuntiRicercav = new JLabel("0");
 		lblPuntiRicercav.setFont(fontFuturist.deriveFont(15f));
 		lblPuntiRicercav.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
+
 		panelStats = new JPanel(new GridBagLayout());
-		
+
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -272,119 +273,200 @@ public class GUIPartita extends JFrame{
 		panelStats.add(lblPuntiRicerca, c);
 		c.gridx ++;
 		panelStats.add(lblPuntiRicercav, c);
-		
+
 		panelTop.add(panelStats);
-		
+
 		btnGoUp = new RoundedCornerButton();
 		btnGoRight = new RoundedCornerButton();
 		btnGoDown = new RoundedCornerButton();
 		btnGoLeft = new RoundedCornerButton();
 		guiPartita = this;
-		
-		ImageIcon iconbtnGoUp = new ImageIcon("media/btnGoUp.png");
-		Image scalebtnGoUp = iconbtnGoUp.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
-		ImageIcon newiconbtnGoUp = new ImageIcon(scalebtnGoUp);
-		
-		btnGoUp.setIcon(newiconbtnGoUp);
-		
+
 		
 		
 		//MOVIMENTO SCHERMATA DA TASTIERA CON WASD
-		KeyboardFocusManager.getCurrentKeyboardFocusManager() //Associo il tasto W
-		  .addKeyEventDispatcher(new KeyEventDispatcher() {
-			  
-			  ThreadScorrimentoSchermata threadScorrimentoSu = null;
-			  ThreadScorrimentoSchermata threadScorrimentoGiu = null;
-			  ThreadScorrimentoSchermata threadScorrimentoSinist = null;
-			  ThreadScorrimentoSchermata threadScorrimentoDest = null;
-			  
-		      @Override
-		      public boolean dispatchKeyEvent(KeyEvent e) {
-		    	if(KeyEvent.KEY_PRESSED == e.getID())
-		    	{
-		    		if(e.getKeyCode()==su){
+		                                               
+		KeyboardFocusManager.getCurrentKeyboardFocusManager() 
+		.addKeyEventDispatcher(new KeyEventDispatcher() {
+
+			ThreadScorrimentoSchermata threadScorrimentoSu = null;
+			ThreadScorrimentoSchermata threadScorrimentoGiu = null;
+			ThreadScorrimentoSchermata threadScorrimentoSinist = null;
+			ThreadScorrimentoSchermata threadScorrimentoDest = null;
+
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if(KeyEvent.KEY_PRESSED == e.getID()&&(Global.getTastiSchermata()==2))
+				{
+					if(e.getKeyCode()==su){
 						if(threadScorrimentoSu == null)
 						{
 							threadScorrimentoSu = new ThreadScorrimentoSchermata(guiPartita, 1);
 							threadScorrimentoSu.start();
 						}
 					}
-		    		if(e.getKeyCode()==giu){
+					if(e.getKeyCode()==giu){
 						if(threadScorrimentoGiu == null)
 						{
 							threadScorrimentoGiu = new ThreadScorrimentoSchermata(guiPartita, 3);
 							threadScorrimentoGiu.start();
 						}
 					}
-		    		if(e.getKeyCode()==sinist){
+					if(e.getKeyCode()==sinist){
 						if(threadScorrimentoSinist == null)
 						{
 							threadScorrimentoSinist = new ThreadScorrimentoSchermata(guiPartita, 4);
 							threadScorrimentoSinist.start();
 						}
 					}
-		    		if(e.getKeyCode()==dest){
+					if(e.getKeyCode()==dest){
 						if(threadScorrimentoDest == null)
 						{
 							threadScorrimentoDest = new ThreadScorrimentoSchermata(guiPartita, 2);
 							threadScorrimentoDest.start();
 						}
 					}
-		    	}
-		    	if(KeyEvent.KEY_RELEASED == e.getID())
-		    	{
-		    		if(e.getKeyCode()==su) {
-		    			if(threadScorrimentoSu != null)
-		    			{
-		    				threadScorrimentoSu.setScorri(false);
+				}
+				if(KeyEvent.KEY_RELEASED == e.getID()&&(Global.getTastiSchermata()==2))
+				{
+					if(e.getKeyCode()==su) {
+						if(threadScorrimentoSu != null)
+						{
+							threadScorrimentoSu.setScorri(false);
 							threadScorrimentoSu = null;
-		    			}
+						}
 					}
-		    		if(e.getKeyCode()==giu) {
-		    			if(threadScorrimentoGiu != null)
-		    			{
-		    				threadScorrimentoGiu.setScorri(false);
+					if(e.getKeyCode()==giu) {
+						if(threadScorrimentoGiu != null)
+						{
+							threadScorrimentoGiu.setScorri(false);
 							threadScorrimentoGiu = null;
-		    			}
+						}
 					}
-		    		if(e.getKeyCode()==sinist) {
-		    			if(threadScorrimentoSinist != null)
-		    			{
-		    				threadScorrimentoSinist.setScorri(false);
+					if(e.getKeyCode()==sinist) {
+						if(threadScorrimentoSinist != null)
+						{
+							threadScorrimentoSinist.setScorri(false);
 							threadScorrimentoSinist = null;
-		    			}
+						}
 					}
-		    		if(e.getKeyCode()==dest) {
-		    			if(threadScorrimentoDest != null)
-		    			{
-		    				threadScorrimentoDest.setScorri(false);
+					if(e.getKeyCode()==dest) {
+						if(threadScorrimentoDest != null)
+						{
+							threadScorrimentoDest.setScorri(false);
 							threadScorrimentoDest = null;
-		    			}
+						}
 					}
-		    	}
-		    	return false; //Rilascia il key dispatcher
-		      }
+				}
+				return false; //Rilascia il key dispatcher
+			}
 		});
 		//FINE MOVIMENTO SCHERMATA CON WASD
+
+		//MOVIMENTO SCHERMATA DA TASTIERA CON FRECCE DIREZIONALI
+		KeyboardFocusManager.getCurrentKeyboardFocusManager() 
+		.addKeyEventDispatcher(new KeyEventDispatcher() {
+
+			ThreadScorrimentoSchermata threadScorrimentoSu = null;
+			ThreadScorrimentoSchermata threadScorrimentoGiu = null;
+			ThreadScorrimentoSchermata threadScorrimentoSinist = null;
+			ThreadScorrimentoSchermata threadScorrimentoDest = null;
+
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if(KeyEvent.KEY_PRESSED == e.getID()&&(Global.getTastiSchermata()==1))
+				{
+					if(e.getKeyCode()==frecciasu){
+						if(threadScorrimentoSu == null)
+						{
+							threadScorrimentoSu = new ThreadScorrimentoSchermata(guiPartita, 1);
+							threadScorrimentoSu.start();
+						}
+					}
+					if(e.getKeyCode()==frecciagiu){
+						if(threadScorrimentoGiu == null)
+						{
+							threadScorrimentoGiu = new ThreadScorrimentoSchermata(guiPartita, 3);
+							threadScorrimentoGiu.start();
+						}
+					}
+					if(e.getKeyCode()==frecciasinist){
+						if(threadScorrimentoSinist == null)
+						{
+							threadScorrimentoSinist = new ThreadScorrimentoSchermata(guiPartita, 4);
+							threadScorrimentoSinist.start();
+						}
+					}
+					if(e.getKeyCode()==frecciadest){
+						if(threadScorrimentoDest == null)
+						{
+							threadScorrimentoDest = new ThreadScorrimentoSchermata(guiPartita, 2);
+							threadScorrimentoDest.start();
+						}
+					}
+				}
+				if(KeyEvent.KEY_RELEASED == e.getID()&&(Global.getTastiSchermata()==1))
+				{
+					if(e.getKeyCode()==frecciasu) {
+						if(threadScorrimentoSu != null)
+						{
+							threadScorrimentoSu.setScorri(false);
+							threadScorrimentoSu = null;
+						}
+					}
+					if(e.getKeyCode()==frecciagiu) {
+						if(threadScorrimentoGiu != null)
+						{
+							threadScorrimentoGiu.setScorri(false);
+							threadScorrimentoGiu = null;
+						}
+					}
+					if(e.getKeyCode()==frecciasinist) {
+						if(threadScorrimentoSinist != null)
+						{
+							threadScorrimentoSinist.setScorri(false);
+							threadScorrimentoSinist = null;
+						}
+					}
+					if(e.getKeyCode()==frecciadest) {
+						if(threadScorrimentoDest != null)
+						{
+							threadScorrimentoDest.setScorri(false);
+							threadScorrimentoDest = null;
+						}
+					}
+				}
+				return false; //Rilascia il key dispatcher
+			}
+		});
+		//FINE MOVIMENTO SCHERMATA CON FRECCE DIREZIONALI
+
+		ImageIcon iconbtnGoUp = new ImageIcon("media/btnGoUp.png");
+		Image scalebtnGoUp = iconbtnGoUp.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+		ImageIcon newiconbtnGoUp = new ImageIcon(scalebtnGoUp);
+
+		btnGoUp.setIcon(newiconbtnGoUp);
 
 		btnGoUp.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0){
 				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 1);
 				threadScorrimento.start();
+				}
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0)
 				threadScorrimento.setScorri(false);
-				
 			}
 		});
 		panelBtnGoUp = new JPanel();
 		panelBtnGoUp.add(btnGoUp);
-		
+
 		panelTop.add(panelBtnGoUp);
-		
+
 		panelTurno = new JPanel(new GridLayout2(1, 1, 0, 0));
 		lblTurno = new JLabel();
 		ImageIcon iconlblTurno = new ImageIcon("media/mappa.png");
@@ -394,22 +476,25 @@ public class GUIPartita extends JFrame{
 		lblTurno.setHorizontalAlignment(SwingConstants.RIGHT);
 		panelTop.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panelTop.add(lblTurno);
-		
+
 		btnGoRight = new RoundedCornerButton();
 		ImageIcon iconbtnGoRight = new ImageIcon("media/btnGoRight.png");
 		Image scalebtnGoRight = iconbtnGoRight.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnGoRight = new ImageIcon(scalebtnGoRight);
-		
+
 		btnGoRight.setIcon(newiconbtnGoRight);
 		btnGoRight.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0){
 				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 2);
 				threadScorrimento.start();
+				}
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0)
 				threadScorrimento.setScorri(false);
 			}
 		});
@@ -418,22 +503,25 @@ public class GUIPartita extends JFrame{
 		panelBtnGoRight.add(Box.createVerticalGlue());
 		panelBtnGoRight.add(btnGoRight);
 		panelBtnGoRight.add(Box.createVerticalGlue());
-		
+
 		btnGoLeft = new RoundedCornerButton();
 		ImageIcon iconbtnGoLeft = new ImageIcon("media/btnGoLeft.png");
 		Image scalebtnGoLeft = iconbtnGoLeft.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnGoLeft = new ImageIcon(scalebtnGoLeft);
-		
+
 		btnGoLeft.setIcon(newiconbtnGoLeft);
 		btnGoLeft.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0){
 				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 4);
 				threadScorrimento.start();
+				}
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0)
 				threadScorrimento.setScorri(false);
 			}
 		});
@@ -442,11 +530,11 @@ public class GUIPartita extends JFrame{
 		panelBtnGoLeft.add(Box.createVerticalGlue());
 		panelBtnGoLeft.add(btnGoLeft);
 		panelBtnGoLeft.add(Box.createVerticalGlue());
-		
+
 		panelCenter.add(panelBtnGoLeft);
 		lblsGioco = new JLabel[partitaHeight][partitaWidth];
 		panelGioco = new JPanel(new GridLayout(16, 31, 0, 0));
-		
+
 		for(int i = 0; i < partitaHeight; i++)
 		{
 			for(int j = 0; j < partitaWidth; j++)
@@ -469,11 +557,11 @@ public class GUIPartita extends JFrame{
 				panelGioco.add(lblsGioco[i][j]);
 			}	
 		}
-		
+
 		aggiornaSchermata(); //prende la situazione attuale da Scenario e parsando la matrice di stringhe crea il corrispondente grafico
-		
-		
-		
+
+
+
 		panelGioco.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e)
@@ -482,11 +570,11 @@ public class GUIPartita extends JFrame{
 				aggiornaSchermata();
 			}
 		});
-		
+
 		panelCenter.add(panelGioco);
-		
+
 		panelCenter.add(panelBtnGoRight);
-		
+
 		panelMsg = new JPanel(new GridBagLayout());
 		btnApriMsg = new JButton(">");
 		txtMsg = new JTextField(20);
@@ -517,39 +605,42 @@ public class GUIPartita extends JFrame{
 			}
 		});
 		panelMsg.add(btnPassaTurno, d);
-		
+
 		panelBottom.add(panelMsg);
-		
+
 		btnGoDown = new RoundedCornerButton();
 		ImageIcon iconbtnGoDown = new ImageIcon("media/btnGoDown.png");
 		Image scalebtnGoDown = iconbtnGoDown.getImage().getScaledInstance(24, 24, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnGoDown = new ImageIcon(scalebtnGoDown);
-		
+
 		btnGoDown.setIcon(newiconbtnGoDown);
 		btnGoDown.addMouseListener(new MouseAdapter() {
 			ThreadScorrimentoSchermata threadScorrimento;
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0){
 				threadScorrimento = new ThreadScorrimentoSchermata(guiPartita, 3);
 				threadScorrimento.start();
+				}
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				if(Global.getTastiSchermata()==0)
 				threadScorrimento.setScorri(false);
 			}
 		});
-		
+
 		panelBtnGoDown = new JPanel();
 		panelBtnGoDown.add(btnGoDown);
-		
+
 		panelBottom.add(panelBtnGoDown);
-		
+
 		panelPulsanti = new JPanel(new GridBagLayout());
 		btnCostruisci = new JButton();
 		ImageIcon iconbtnCostruisci = new ImageIcon("media/btnCostruisci.png");
 		Image scalebtnCostruisci = iconbtnCostruisci.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnCostruisci = new ImageIcon(scalebtnCostruisci);
-		
+
 		btnCostruisci.setIcon(newiconbtnCostruisci);
 		btnCostruisci.addMouseListener(new MouseAdapter() {
 			@Override
@@ -568,14 +659,14 @@ public class GUIPartita extends JFrame{
 			}
 		});
 		btnCostruisci.setSize(30, 33);
-		
+
 		btnRicerca = new JButton();
 		ImageIcon iconbtnRicerca = new ImageIcon("media/btnRicerca.png");
 		Image scalebtnRicerca = iconbtnRicerca.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnRicerca = new ImageIcon(scalebtnRicerca);
-		
+
 		btnRicerca.setIcon(newiconbtnRicerca);
-		
+
 		btnRicerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -592,12 +683,12 @@ public class GUIPartita extends JFrame{
 				frmRicerca.setVisible(true);
 			}
 		});
-		
+
 		btnInfoPartita = new JButton();
 		ImageIcon iconbtnInfoPartita = new ImageIcon("media/btnInfoPartita.png");
 		Image scalebtnInfoPartita = iconbtnInfoPartita.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnInfoPartita = new ImageIcon(scalebtnInfoPartita);
-		
+
 		btnInfoPartita.setIcon(newiconbtnInfoPartita);
 		btnInfoPartita.addMouseListener(new MouseAdapter() {
 			@Override
@@ -615,12 +706,12 @@ public class GUIPartita extends JFrame{
 				frmInfo.setVisible(true);
 			}
 		});
-		
+
 		btnImpostazioni = new JButton();
 		ImageIcon iconbtnImpostazioni = new ImageIcon("media/btnImpostazioni.png");
 		Image scalebtnImpostazioni = iconbtnImpostazioni.getImage().getScaledInstance(30, 33, Image.SCALE_DEFAULT);
 		ImageIcon newiconbtnImpostazioni = new ImageIcon(scalebtnImpostazioni);
-		
+
 		btnImpostazioni.setIcon(newiconbtnImpostazioni);
 		btnImpostazioni.addMouseListener(new MouseAdapter() {
 			@Override
@@ -638,7 +729,7 @@ public class GUIPartita extends JFrame{
 				frmOpzioni.setVisible(true);
 			}
 		});
-		
+
 		GridBagConstraints f = new GridBagConstraints();
 		f.gridx = 0;
 		f.gridy = 0;
@@ -649,26 +740,26 @@ public class GUIPartita extends JFrame{
 		panelPulsanti.add(btnInfoPartita, f);
 		f.gridx ++;
 		panelPulsanti.add(btnImpostazioni, f);
-		
+
 		panelBottom.add(panelPulsanti);
-		
+
 		contentPane.add(panelTop);
 		contentPane.add(panelCenter);
 		contentPane.add(panelBottom);
 		this.add(contentPane);
-		
+
 		pack();
-		
+
 		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
-	
+
 	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
 	public void aggiornaSchermata() {
 		scenarioCorrente = scenario.getScenario();
 		StringTokenizer st;
 		List<ImageIcon> daAggiungere = new ArrayList<ImageIcon>();
 		CompoundIcon cmpIcon;
-		
+
 		panelGioco.setVisible(false);
 		for(int y = posSchermataY; y < posSchermataY + 16; y++)
 		{
@@ -681,7 +772,7 @@ public class GUIPartita extends JFrame{
 					daAggiungere.add(iconeGrafiche.getIconeScenario().get(str));
 				}
 				cmpIcon = new CompoundIcon(CompoundIcon.Axis.Z_AXIS, daAggiungere.toArray(new ImageIcon[daAggiungere.size()]));
-				
+
 				lblsGioco[y-posSchermataY][x-posSchermataX].setIcon(cmpIcon);
 			}
 		}
@@ -711,15 +802,15 @@ public class GUIPartita extends JFrame{
 	public void setPosSchermataY(int posSchermataY) {
 		this.posSchermataY = posSchermataY;
 	}
-	
+
 	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
 	public void setupPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta) {
 		valoriDiGioco = new ValoriDiGioco();
-		
+
 		partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta, this);
 		aggiornaDatiGUI();
 	}
-	
+
 	public void aggiornaDatiGUI()
 	{
 		lblOrov.setText(Integer.toString(partita.getGiocatore().get(indiceProprietario).getOro()));
@@ -741,12 +832,12 @@ public class GUIPartita extends JFrame{
 			break;
 		}
 	}
-	
+
 	public void disattivaThread()
 	{
 		partita.getThreadCicloPartita().stop();
 	}
-	
+
 	/**
 	 * Metodo che permette di comprare un elemento dal negozio
 	 */
@@ -755,7 +846,7 @@ public class GUIPartita extends JFrame{
 		azioneLblsGioco = "compra"; //Indica che la prossima azione di click su una lblGioco è per comprare
 		elemLblsGioco = elemento; //Indica l'elemento da comprare
 	}
-	
+
 	/**
 	 * Metodo che permette di vendere una costruzione
 	 */
@@ -763,8 +854,8 @@ public class GUIPartita extends JFrame{
 	{
 		azioneLblsGioco = "vendi"; //Indica che la prossima azione di click è per vendere
 	}
-	
-	
+
+
 	/**
 	 * Metodo che permette di muovere una costruzione
 	 */
@@ -772,7 +863,7 @@ public class GUIPartita extends JFrame{
 	{
 		azioneLblsGioco = "muovi";
 	}
-	
+
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
 		if(azioneLblsGioco.equals("compra"))
@@ -785,7 +876,7 @@ public class GUIPartita extends JFrame{
 				/*Scalo costo in materiali*/
 				partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
 						partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()-valoriDiGioco.getValoriMat().get(elemLblsGioco));
-				
+
 				partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
 				posizionaElementoSuScenario(i, j);
 			}
@@ -794,135 +885,135 @@ public class GUIPartita extends JFrame{
 				JOptionPane.showMessageDialog(null, "Non è possibile piazzare "+ elemLblsGioco + " in questa posizione.",
 						"Informazioni", JOptionPane.DEFAULT_OPTION);
 			}
-			
+
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
 			elemLblsGioco = "";
-			
+
 			aggiornaSchermata();
 			aggiornaDatiGUI();
 		}
 		else
-		if(azioneLblsGioco.equals("vendi"))
-		{
-			//Controllo che sulla lbl ci sia un elemento vendibile
-			String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
-			
-			if(nome == null || nome.contains("municipio"))
+			if(azioneLblsGioco.equals("vendi"))
 			{
-				JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
-			}
-			else //chiedi se vuole vendere
-			{
-				int scelta =0;
-				scelta = JOptionPane.showConfirmDialog(
-						    null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
-						    		+ "materiali richiesti per l'acquisto)", "Conferma",
-						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if(scelta == 0) //se si
+				//Controllo che sulla lbl ci sia un elemento vendibile
+				String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
+
+				if(nome == null || nome.contains("municipio"))
 				{
-					char ultimoChar = nome.charAt(nome.length() - 1);
-					
-					if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
-						nome = nome.substring(0, nome.length() - 1);
-					}
-					//Rimozione oggetto dai suoi possedimenti
-					for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
-					{
-						if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
-						}
-					}
-					//Accredito della metà dell'oro e di materiali dell'oggetto venduto
-					partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
-					partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
-					
-					rimuoviElementoDaScenario(i, j, ultimoChar);
+					JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
+							"Informazioni", JOptionPane.DEFAULT_OPTION);
 				}
-			}
-			
-			//Resetto i dati di azione e elemento in memoria
-			azioneLblsGioco = "";
-			elemLblsGioco = "";
-			
-			aggiornaSchermata();
-			aggiornaDatiGUI();
-		}
-		else
-		if(azioneLblsGioco.equals("muovi"))
-		{
-			String nome = individuaOggetto(i, j);
-			
-			if(nome == null)
-			{
-				JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
-			}
-			else
-			{
-				azioneLblsGioco = "posizionaElemento";
-				elemLblsGioco = nome;
-				ioldLblsGioco = i;
-				joldLblsGioco = j;
-			}
-		}
-		else
-		if(azioneLblsGioco.equals("posizionaElemento"))
-		{
-			if(!isPiazzamentoPossibile(i, j))
-			{
-				JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
-			}
-			else //piazzamento possibile
-			{
-				char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
-				
-				rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
-				
-				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
-					elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
-				posizionaElementoSuScenario(i, j);
-				
+				else //chiedi se vuole vendere
+				{
+					int scelta =0;
+					scelta = JOptionPane.showConfirmDialog(
+							null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
+									+ "materiali richiesti per l'acquisto)", "Conferma",
+									JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if(scelta == 0) //se si
+					{
+						char ultimoChar = nome.charAt(nome.length() - 1);
+
+						if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+							nome = nome.substring(0, nome.length() - 1);
+						}
+						//Rimozione oggetto dai suoi possedimenti
+						for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
+						{
+							if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
+								partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
+							}
+						}
+						//Accredito della metà dell'oro e di materiali dell'oggetto venduto
+						partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
+								partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
+						partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
+								partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
+
+						rimuoviElementoDaScenario(i, j, ultimoChar);
+					}
+				}
+
 				//Resetto i dati di azione e elemento in memoria
 				azioneLblsGioco = "";
 				elemLblsGioco = "";
-				
+
 				aggiornaSchermata();
 				aggiornaDatiGUI();
 			}
-		}
-		else
-		if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
-		{
-			String edificio = individuaOggetto(i, j);
-			
-			if(edificio != null)
-			{
-				char ultimoChar = edificio.charAt(edificio.length() - 1);
-				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
-					edificio = edificio.substring(0, edificio.length() - 1);
-				}
-				
-				if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
-						edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
-						edificio.equals("Ospedale") || edificio.equals("Parlamento"))
+			else
+				if(azioneLblsGioco.equals("muovi"))
 				{
-					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
-					guiArruolaUnita.setVisible(true);
+					String nome = individuaOggetto(i, j);
+
+					if(nome == null)
+					{
+						JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
+								"Informazioni", JOptionPane.DEFAULT_OPTION);
+					}
+					else
+					{
+						azioneLblsGioco = "posizionaElemento";
+						elemLblsGioco = nome;
+						ioldLblsGioco = i;
+						joldLblsGioco = j;
+					}
 				}
-				if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
-				{
-					guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
-					guiMunicipio.setVisible(true);
-				}
-			}
-		}
+				else
+					if(azioneLblsGioco.equals("posizionaElemento"))
+					{
+						if(!isPiazzamentoPossibile(i, j))
+						{
+							JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
+									"Informazioni", JOptionPane.DEFAULT_OPTION);
+						}
+						else //piazzamento possibile
+						{
+							char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
+
+							rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
+
+							if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
+								elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
+							posizionaElementoSuScenario(i, j);
+
+							//Resetto i dati di azione e elemento in memoria
+							azioneLblsGioco = "";
+							elemLblsGioco = "";
+
+							aggiornaSchermata();
+							aggiornaDatiGUI();
+						}
+					}
+					else
+						if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
+						{
+							String edificio = individuaOggetto(i, j);
+
+							if(edificio != null)
+							{
+								char ultimoChar = edificio.charAt(edificio.length() - 1);
+								if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+									edificio = edificio.substring(0, edificio.length() - 1);
+								}
+
+								if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
+										edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
+										edificio.equals("Ospedale") || edificio.equals("Parlamento"))
+								{
+									guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
+									guiArruolaUnita.setVisible(true);
+								}
+								if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
+								{
+									guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
+									guiMunicipio.setVisible(true);
+								}
+							}
+						}
 	}
-	
+
 	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
 	{
 		//Rimozione dell'oggetto dallo scenario
@@ -938,48 +1029,48 @@ public class GUIPartita extends JFrame{
 					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1].lastIndexOf(" "));
 		}
 		else
-		if(ultimoChar == '2')
-		{
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1]
-					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
-		}
-		else
-		if(ultimoChar == '3')
-		{
-			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1]
-					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
-		}
-		else
-		if(ultimoChar == '4')
-		{
-			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1]
-					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-		}
-		else
-		{
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-		}
+			if(ultimoChar == '2')
+			{
+				scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+						.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+				scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
+						.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+				scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
+						.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
+				scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1]
+						.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
+			}
+			else
+				if(ultimoChar == '3')
+				{
+					scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
+							.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+					scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1]
+							.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
+							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
+				}
+				else
+					if(ultimoChar == '4')
+					{
+						scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1]
+								.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
+						scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
+								.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+						scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
+								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+						scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+					}
+					else
+					{
+						scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+					}
 	}
-	
+
 	public void posizionaElementoSuScenario(int i, int j)
 	{
 		/*Posizionamento oggetto sulla plancia di gioco*/
@@ -998,29 +1089,29 @@ public class GUIPartita extends JFrame{
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += "1";
-			
+
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
-			
+
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
-			
+
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
 			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
 		}
 	}
-	
+
 	public String individuaOggetto(int i, int j) //i è la x, j è la y
 	{
 		scenarioCorrente = scenario.getScenario();
 		String strCercata = null;
-		
+
 		StringTokenizer st;
 		int stItera = 0;
-		
+
 		st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
 		while(st.hasMoreTokens()) {
 			if(stItera == 0) //controllo che il pavimento sia ghiaia
@@ -1034,16 +1125,16 @@ public class GUIPartita extends JFrame{
 		}
 		if(strCercata == null)
 			return null;
-		
+
 		strCercata = strCercata.replaceAll("_", " ");
-		
+
 		return strCercata;
 	}
-	
+
 	public boolean isPiazzamentoPossibile(int i, int j) //i è la x, j è la y
 	{
 		int stItera;
-		
+
 		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") || 
 				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
 				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
@@ -1052,7 +1143,7 @@ public class GUIPartita extends JFrame{
 			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
 			StringTokenizer st;
 			stItera = 0;
-			
+
 			scenarioCorrente = scenario.getScenario();
 			st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
 			while(st.hasMoreTokens()) {
@@ -1067,7 +1158,7 @@ public class GUIPartita extends JFrame{
 					return false;
 				}
 			}
-					
+
 		}
 		else
 		{
@@ -1079,7 +1170,7 @@ public class GUIPartita extends JFrame{
 					//controlliamo che la lbl di posizione i+k, j+k sia disponibile (2x2)
 					StringTokenizer st;
 					stItera = 0;
-					
+
 					scenarioCorrente = scenario.getScenario();
 					st = new StringTokenizer(scenarioCorrente[j+posSchermataY+u][i+posSchermataX+k]);
 					while(st.hasMoreTokens()) {
