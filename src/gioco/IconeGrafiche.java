@@ -137,6 +137,9 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pg.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("pg", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pp.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("pp", new ImageIcon(scalelblPartita));
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/ap.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("ap", new ImageIcon(scalelblPartita));
