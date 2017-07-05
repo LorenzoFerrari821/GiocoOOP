@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 public class IconeGrafiche {
 
+
 	ImageIcon newiconTick;
 	ImageIcon newiconCross;
 	ImageIcon newiconCosto;
@@ -66,7 +67,7 @@ public class IconeGrafiche {
 	ImageIcon newiconGuaRea;
 	ImageIcon newiconLegione;
 	ImageIcon newiconGK;
-	
+
 	ImageIcon newiconOriz;
 	ImageIcon newicon3su;
 	ImageIcon newiconVert;
@@ -76,25 +77,27 @@ public class IconeGrafiche {
 	ImageIcon newicon2giusx;
 	ImageIcon newicon3giu;
 	ImageIcon newicon2sxsu;
-	
+
 	ImageIcon newiconRomani;
 	ImageIcon newiconFrancesi;
 	ImageIcon newiconInglesi;
 	ImageIcon newiconSassoni;
-	
+
 	private Map<String, ImageIcon> iconeScenario;
-	private Map<String, ImageIcon> iconeUMilitari; //Icone delle unità militari
+	private Map<String,ImageIcon>  iconeScenarioNum;
 	
+	private Map<String, ImageIcon> iconeUMilitari; //Icone delle unità militari
+
 	IconeGrafiche()
 	{
 		caricaIconeScenario(36, 37); //Questo metodo carica tutte le icone grafiche scenario all'interno del gioco con dimensione di default (36 e 37)
 		caricaAltreIcone();
 	}
-	
+
 	public void caricaIconeScenario(int width, int height) {
 		iconeScenario = new HashMap<>();
 		iconeUMilitari = new HashMap<>();
-		
+
 		//Caricamento pavimentazioni
 		ImageIcon iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t.png");
 		Image scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -114,7 +117,25 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/gh.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("gh", new ImageIcon(scalelblPartita));
-		
+
+		//Caricamento pavimentazioni num
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("0", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/v.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/d.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/n.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("3", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/gh.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("4", new ImageIcon(scalelblPartita));
+
+
 		//Caricamento icone scenario
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/x.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -152,7 +173,49 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/f.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("f", new ImageIcon(scalelblPartita));
-		
+
+
+
+		//Caricamento icone scenario num
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/x.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("5", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/y.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("6", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/z.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("7", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("8", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/am.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("9", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pm.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("10", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pg.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("11", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/pp.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("12", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/ap.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("13", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/tr.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("14", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/c.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("15", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/f.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("16", new ImageIcon(scalelblPartita));
+
+
+
 		//caricamento icone alberi tondi
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at1.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -166,7 +229,22 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at4.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("at4", new ImageIcon(scalelblPartita));
-		
+
+
+		//caricamento icone alberi tondi num
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("17", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("18", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("19", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/at4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("20", new ImageIcon(scalelblPartita));
+
 		//caricamento icone alberi
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a1.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -180,7 +258,21 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a4.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("a4", new ImageIcon(scalelblPartita));
-		
+
+		//caricamento icone alberi num
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("21", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("22", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("23", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/a4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("24", new ImageIcon(scalelblPartita));
+
 		//caricamento icone tronchetti
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t1.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -194,7 +286,23 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t4.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("t4", new ImageIcon(scalelblPartita));
-		
+
+
+		//caricamento icone tronchetti num
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t1.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("25", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t2.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("26", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t3.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("27", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/scenario/t4.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("28", new ImageIcon(scalelblPartita));
+
+
 		//caricamento municipio età classica
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio1.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -208,7 +316,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/municipio4.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("ecmunicipio4", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento elementi negozio ETA CLASSICA
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/sentieri/Sentiero.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -303,7 +411,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/villa.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("Villa", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento elementi negozio MEDIOEVO
 		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/lastricato/lastricato.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -422,7 +530,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/roghi4.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("Roghi4", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento elementi negozio ETA VITTORIANA
 		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/asfalto/asfalto.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -529,7 +637,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/villetta.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put("Villetta", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento icone unità militari età classica
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/arciere.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -555,7 +663,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/1eta_classica/unitamilitari/spadaccino.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeUMilitari.put("Spadaccino", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento icone unità militari medioevo
 		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/arcieremercenario.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -581,7 +689,7 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/2medioevo/unitamilitari/soldatoarmaturapesante.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeUMilitari.put("Soldato in armatura pesante", new ImageIcon(scalelblPartita));
-		
+
 		//Caricamento icone unità militari età vittoriana
 		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/artiglieria.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -617,23 +725,23 @@ public class IconeGrafiche {
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeUMilitari.put("Werther", new ImageIcon(scalelblPartita));
 	}
-	
+
 	public void caricaAltreIcone()
 	{
 		ImageIcon iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");
 		Image scaleTick = iconTick.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTick = new ImageIcon(scaleTick);
-		
+
 		ImageIcon iconCross = new ImageIcon("media/asset_grafici/icone/cross.png");
 		Image scaleCross = iconCross.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCross = new ImageIcon(scaleCross);
-		
+
 		//Setting icona costo
 		ImageIcon iconCosto = new ImageIcon("media/asset_grafici/icone/ricerca.png");
 		Image scaleCosto = iconCosto.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconCosto = new ImageIcon(scaleCosto);
-		
-		
+
+
 		ImageIcon iconOro = new ImageIcon("media/asset_grafici/icone/oro.png");
 		Image scaleOro = iconOro.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconOro = new ImageIcon(scaleOro);
@@ -649,7 +757,7 @@ public class IconeGrafiche {
 		ImageIcon iconVel = new ImageIcon("media/asset_grafici/icone/velocita.png");
 		Image scaleVel = iconVel.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		newiconVel = new ImageIcon(scaleVel);
-		
+
 		ImageIcon iconRomani = new ImageIcon("media/asset_grafici/icone/roma.png");
 		Image scaleRomani = iconRomani.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconRomani = new ImageIcon(scaleRomani);
@@ -662,11 +770,11 @@ public class IconeGrafiche {
 		ImageIcon iconSassoni = new ImageIcon("media/asset_grafici/icone/germania.png");
 		Image scaleSassoni = iconSassoni.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSassoni = new ImageIcon(scaleSassoni);
-		
+
 		ImageIcon iconSentieri = new ImageIcon("media/asset_grafici/icone/1etaclassica/sentieri.png");
 		Image scaleSentieri = iconSentieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSentieri = new ImageIcon(scaleSentieri);
-		
+
 		ImageIcon iconAbitazioni = new ImageIcon("media/asset_grafici/icone/1etaclassica/casa.png");
 		Image scaleAbitazioni = iconAbitazioni.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconAbitazioni = new ImageIcon(scaleAbitazioni);
@@ -676,18 +784,18 @@ public class IconeGrafiche {
 		ImageIcon iconFucina = new ImageIcon("media/asset_grafici/icone/1etaclassica/fucina.png");
 		Image scaleFucina = iconFucina.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconFucina = new ImageIcon(scaleFucina);
-		
+
 		ImageIcon iconCommercio = new ImageIcon("media/asset_grafici/icone/1etaclassica/mercato.png");
 		Image scaleCommercio = iconCommercio.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCommercio = new ImageIcon(scaleCommercio);
 		ImageIcon iconFanteria = new ImageIcon("media/asset_grafici/icone/1etaclassica/fanteria.png");
 		Image scaleFanteria = iconFanteria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconFanteria = new ImageIcon(scaleFanteria);
-		
+
 		ImageIcon iconOreficeria = new ImageIcon("media/asset_grafici/icone/1etaclassica/oreficeria.png");
 		Image scaleOreficeria = iconOreficeria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconOreficeria = new ImageIcon(scaleOreficeria);
-		
+
 		ImageIcon iconReligione = new ImageIcon("media/asset_grafici/icone/1etaclassica/religione.png");
 		Image scaleReligione = iconReligione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconReligione = new ImageIcon(scaleReligione);
@@ -697,7 +805,7 @@ public class IconeGrafiche {
 		ImageIcon iconTiroConArco = new ImageIcon("media/asset_grafici/icone/1etaclassica/tiroconarco.png");
 		Image scaleTiroConArco = iconTiroConArco.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTiroConArco = new ImageIcon(scaleTiroConArco);
-		
+
 		ImageIcon iconOracolo = new ImageIcon("media/asset_grafici/icone/1etaclassica/oracolo.png");
 		Image scaleOracolo = iconOracolo.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconOracolo = new ImageIcon(scaleOracolo);
@@ -707,19 +815,19 @@ public class IconeGrafiche {
 		ImageIcon iconCavalleria = new ImageIcon("media/asset_grafici/icone/1etaclassica/cavalleria.png");
 		Image scaleCavalleria = iconCavalleria.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCavalleria = new ImageIcon(scaleCavalleria);
-		
+
 		ImageIcon iconSocMil = new ImageIcon("media/asset_grafici/icone/1etaclassica/societamilitare.png");
 		Image scaleSocMil = iconSocMil.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSocMil = new ImageIcon(scaleSocMil);
-		
+
 		ImageIcon iconEtaImp = new ImageIcon("media/asset_grafici/icone/1etaclassica/etaimperiale.png");
 		Image scaleEtaImp = iconEtaImp.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconEtaImp = new ImageIcon(scaleEtaImp);
-		
+
 		ImageIcon iconLastr = new ImageIcon("media/asset_grafici/icone/2medioevo/lastricato.png");
 		Image scaleLastr = iconLastr.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconLastr = new ImageIcon(scaleLastr);
-		
+
 		ImageIcon iconCasaPP = new ImageIcon("media/asset_grafici/icone/2medioevo/casapiupiani.png");
 		Image scaleCasaPP = iconCasaPP.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCasaPP = new ImageIcon(scaleCasaPP);
@@ -729,7 +837,7 @@ public class IconeGrafiche {
 		ImageIcon iconBalestre = new ImageIcon("media/asset_grafici/icone/2medioevo/balestre.png");
 		Image scaleBalestre = iconBalestre.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconBalestre = new ImageIcon(scaleBalestre);
-		
+
 		ImageIcon iconBiblioteca = new ImageIcon("media/asset_grafici/icone/2medioevo/biblioteca.png");
 		Image scaleBiblioteca = iconBiblioteca.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconBiblioteca = new ImageIcon(scaleBiblioteca);
@@ -739,7 +847,7 @@ public class IconeGrafiche {
 		ImageIcon iconClero = new ImageIcon("media/asset_grafici/icone/2medioevo/chiesa.png");
 		Image scaleClero = iconClero.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconClero = new ImageIcon(scaleClero);
-		
+
 		ImageIcon iconOspedale = new ImageIcon("media/asset_grafici/icone/2medioevo/ospedale.png");
 		Image scaleOspedale = iconOspedale.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconOspedale = new ImageIcon(scaleOspedale);
@@ -749,36 +857,36 @@ public class IconeGrafiche {
 		ImageIcon iconTatCal = new ImageIcon("media/asset_grafici/icone/2medioevo/tattichedicavalleria.png");
 		Image scaleTatCal = iconTatCal.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTatCal = new ImageIcon(scaleTatCal);
-		
+
 		ImageIcon iconInquisizione = new ImageIcon("media/asset_grafici/icone/2medioevo/inquisizione.png");
 		Image scaleInquisizione = iconInquisizione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconInquisizione = new ImageIcon(scaleInquisizione);
 		ImageIcon iconGranai = new ImageIcon("media/asset_grafici/icone/2medioevo/granai.png");
 		Image scaleGranai = iconGranai.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconGranai = new ImageIcon(scaleGranai);
-		
+
 		ImageIcon iconFermentazione = new ImageIcon("media/asset_grafici/icone/2medioevo/fermentazione.png");
 		Image scaleFermentazione = iconFermentazione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconFermentazione = new ImageIcon(scaleFermentazione);
 		ImageIcon iconPolvereDaSparo = new ImageIcon("media/asset_grafici/icone/2medioevo/polveredasparo.png");
 		Image scalePolvereDaSparo = iconPolvereDaSparo.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconPolvereDaSparo = new ImageIcon(scalePolvereDaSparo);
-		
+
 		ImageIcon iconBanca = new ImageIcon("media/asset_grafici/icone/2medioevo/banca.png");
 		Image scaleBanca = iconBanca.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconBanca = new ImageIcon(scaleBanca);
-		
+
 		ImageIcon iconStrAsf = new ImageIcon("media/asset_grafici/icone/3etavittoriana/asfalto.png");
 		Image scaleStrAsf = iconStrAsf.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconStrAsf = new ImageIcon(scaleStrAsf);
-		
+
 		ImageIcon iconSisInd = new ImageIcon("media/asset_grafici/icone/3etavittoriana/sistemaindustriale.png");
 		Image scaleSisInd = iconSisInd.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSisInd = new ImageIcon(scaleSisInd);
 		ImageIcon iconScienza = new ImageIcon("media/asset_grafici/icone/3etavittoriana/scienza.png");
 		Image scaleScienza = iconScienza.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconScienza = new ImageIcon(scaleScienza);
-		
+
 		ImageIcon iconCasaMan = new ImageIcon("media/asset_grafici/icone/3etavittoriana/casamansarda.png");
 		Image scaleCasaMan = iconCasaMan.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCasaMan = new ImageIcon(scaleCasaMan);
@@ -788,7 +896,7 @@ public class IconeGrafiche {
 		ImageIcon iconGerMil = new ImageIcon("media/asset_grafici/icone/3etavittoriana/gerarchiamilitare.png");
 		Image scaleGerMil = iconGerMil.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconGerMil = new ImageIcon(scaleGerMil);
-		
+
 		ImageIcon iconSocBor = new ImageIcon("media/asset_grafici/icone/3etavittoriana/centrocittadino.png");
 		Image scaleSocBor = iconSocBor.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconSocBor = new ImageIcon(scaleSocBor);
@@ -798,7 +906,7 @@ public class IconeGrafiche {
 		ImageIcon iconTatCap = new ImageIcon("media/asset_grafici/icone/3etavittoriana/fuciliacavallo.png");
 		Image scaleTatCap = iconTatCap.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTatCap = new ImageIcon(scaleTatCap);
-		
+
 		ImageIcon iconMusLir = new ImageIcon("media/asset_grafici/icone/3etavittoriana/opera.png");
 		Image scaleMusLir = iconMusLir.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconMusLir = new ImageIcon(scaleMusLir);
@@ -808,31 +916,31 @@ public class IconeGrafiche {
 		ImageIcon iconBalistica = new ImageIcon("media/asset_grafici/icone/3etavittoriana/artiglieria.png");
 		Image scaleBalistica = iconBalistica.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconBalistica = new ImageIcon(scaleBalistica);
-		
+
 		ImageIcon iconTeatri = new ImageIcon("media/asset_grafici/icone/3etavittoriana/teatro.png");
 		Image scaleTeatri = iconTeatri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTeatri = new ImageIcon(scaleTeatri);
-		
+
 		ImageIcon iconCarabinieri = new ImageIcon("media/asset_grafici/icone/3etavittoriana/carabinieri.png");
 		Image scaleCarabinieri = iconCarabinieri.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconCarabinieri = new ImageIcon(scaleCarabinieri);
-		
+
 		ImageIcon iconGuaRea = new ImageIcon("media/asset_grafici/icone/3etavittoriana/guardiareale.png");
 		Image scaleGuaRea = iconGuaRea.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconGuaRea = new ImageIcon(scaleGuaRea);
-		
+
 		ImageIcon iconLegione = new ImageIcon("media/asset_grafici/icone/3etavittoriana/legionestraniera.png");
 		Image scaleLegione = iconLegione.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconLegione = new ImageIcon(scaleLegione);
-		
+
 		ImageIcon iconGK = new ImageIcon("media/asset_grafici/icone/3etavittoriana/gardenkorps.png");
 		Image scaleGK = iconGK.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconGK = new ImageIcon(scaleGK);
-		
+
 		ImageIcon iconOriz = new ImageIcon("media/asset_grafici/icone/frameRicerca/orizzontale.png");
 		Image scaleOriz = iconOriz.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconOriz = new ImageIcon(scaleOriz);
-		
+
 		ImageIcon icon3su = new ImageIcon("media/asset_grafici/icone/frameRicerca/3su.png");
 		Image scale3su = icon3su.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newicon3su = new ImageIcon(scale3su);
@@ -874,5 +982,6 @@ public class IconeGrafiche {
 	public void setIconeUMilitari(Map<String, ImageIcon> iconeUMilitari) {
 		this.iconeUMilitari = iconeUMilitari;
 	}
-	
+
+
 }

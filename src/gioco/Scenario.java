@@ -1,4 +1,5 @@
 package gioco;
+import java.util.Random;
 
 public class Scenario {
 
@@ -642,6 +643,450 @@ public class Scenario {
 				}
 			}
 		}
+		
+		
+		if(n==1){ //Mappa casuale
+			String stringa0=casuale(0,4,false);
+			String stringa1=casuale(0,4,false);
+			String stringa2=casuale(0,4,false);                      //Creiamo randomicamente il terreno che useremo nei vari riquadri
+			String stringa3=casuale(0,4,false);
+			String stringa4=casuale(0,4,false);
+			String stringa5=casuale(0,4,false);
+			String stringa6=casuale(0,4,false);
+			String stringa7=casuale(0,4,false);
+			String stringa8=casuale(0,4,false);
+			String stringa9=casuale(0,4,false);
+			int numero1;
+			int numero2;
+			int numero3;
+			int numero4;
+			for(int i = 0; i < 48; i++)
+			{
+				for(int j = 0; j < 93; j++)
+				{
+					//aggiungo terreni di base
+					if(j < 31 && i < 16)                         //primo quadrato alto sx
+						scenario[i][j] = stringa0; 
+					if(j >= 31 && j < 62 && i < 16) 			 //secondo riquadro
+						scenario[i][j] = stringa1; 
+					if(j >= 62 && i < 16)						 // terzo riquadro
+						scenario[i][j] = stringa2;
+					if(j < 31 && i >= 16 && i < 32) 			 // quarto riquadro
+						scenario[i][j] = stringa3;  
+					if(j >= 31 && j < 62 && i >= 16 && i < 32)   //quinto riquadro
+						scenario[i][j] = stringa4;
+					if(j >= 62 && i >= 16 && i < 32) 			 //sesto riquadro
+						scenario[i][j] = stringa5; 
+					if(j < 31 && i >= 32) 						 //settimo riquadro
+						scenario[i][j] = stringa6; 
+					if(j >= 31 && j < 62 && i >= 32) 			 //ottavo riquadro
+						scenario[i][j] = stringa7;
+					if(j >= 62 && i >= 32)                       //nono riquadro
+						scenario[i][j] = stringa8; 
+					
+					//aggiungo pavimentazione villaggi
+					if(i > 2 && i < 13 && j > 37 && j < 55) //villaggio top
+						scenario[i][j] = "g";
+					if(i > 18 && i < 29 && j > 6 && j < 24) //villaggio sx
+						scenario[i][j] = "g";
+					if(i > 18 && i < 29 && j > 68 && j < 86) //villaggio dx
+						scenario[i][j] = "g";
+					if(i > 34 && i < 45 && j > 37 && j < 55) //villaggio giu
+						scenario[i][j] = "g";
+
+					//aggiungo elementi scenario
+					switch(i) {
+					case 0:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == 39)
+							scenario[i][j] += " x";
+						if(j == 53)
+							scenario[i][j] += " y";
+						break;
+					case 1:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 2:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 3:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 4:
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 5:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 7:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 8:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 10:
+						numero1=casualeNum(0,30);
+						if(j ==numero1 )
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 11:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] +=casuale(5,28,true);
+						break;
+					case 12:
+						numero3=casualeNum(63,92);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 13:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 14:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 15:
+						numero4=casualeNum(63,92);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 17:
+						numero1=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 18:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 19:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 20:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == 0)
+							scenario[i][j] += " x";
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == 92)
+							scenario[i][j] += " x";
+						break;
+					case 21:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 22:
+						numero1=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 23:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						numero3=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 24:
+						numero1=casualeNum(32,61);;
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 25:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 26:
+						numero1=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 27:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						numero3=casualeNum(32,61);
+						if(j == 0)
+							scenario[i][j] += " y";
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == 92)
+							scenario[i][j] += " y";
+						break;
+					case 28:
+						numero1=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 29:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 30:
+						numero1=casualeNum(32,61);
+						numero2=casualeNum(32,61);
+						numero3=casualeNum(32,61);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] +=casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 32:
+						numero3=casualeNum(63,92);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 33:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 34:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 35:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 36:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 37:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 38:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 39:
+						numero1=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 40:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 41:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 42:
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 43:
+						numero1=casualeNum(0,30);
+						numero2=casualeNum(0,30);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero2)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 44:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 45:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 46:
+						numero1=casualeNum(0,30);
+						numero3=casualeNum(63,92);
+						numero4=casualeNum(63,92);
+						if(j == numero1)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero3)
+							scenario[i][j] += casuale(5,28,true);
+						if(j == numero4)
+							scenario[i][j] += casuale(5,28,true);
+						break;
+					case 47:
+						if(j == 39)
+							scenario[i][j] += " x";
+						if(j == 53)
+							scenario[i][j] += " y";
+						break;
+					}
+
+
+
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		if(n==2){  //Mappa desertica
 			for(int i = 0; i < 48; i++){
@@ -987,5 +1432,23 @@ public class Scenario {
 
 	public void setScenario(String[][] scenario) {
 		this.scenario = scenario;
+	}
+
+	private String casuale(int min,int max,boolean spazio){
+		Random rand=new Random();
+
+
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+		if(spazio==true)
+			return " "+(Integer.toString(randomNum));
+		else
+			return (Integer.toString(randomNum));
+	}
+	
+	private int casualeNum(int min,int max){
+		Random rand=new Random();
+		return rand.nextInt((max - min) + 1) + min;
+		
+			
 	}
 }
