@@ -269,6 +269,8 @@ public class GUINuovaPartita extends JPanel {
 						audio.start();
 						framePartita.setVisible(true);
 					}
+					else
+						btnAvvia.setEnabled(true);
 				}
 			}
 		});
