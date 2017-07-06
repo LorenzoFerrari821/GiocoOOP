@@ -875,11 +875,23 @@ public class GUIPartita extends JFrame{
 		azioneLblsGioco = "muovi";
 	}
 	
+	/**
+	 * Metodo che permette di piazzare un esercito sul campo di battaglia
+	 * @param gruppoMilitare
+	 */
 	public void piazzaEsercito(GruppoMilitare gruppoMilitare)
 	{
 		this.gruppoMilitare = gruppoMilitare;
 		azioneLblsGioco = "piazza esercito";
 		elemLblsGioco = "Esercito";
+	}
+	
+	/**
+	 * Metodo che permette di richiamare un esercito all'interno del municipio
+	 */
+	public void richiamaEsercito()
+	{
+		azioneLblsGioco = "richiama esercito";
 	}
 
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
@@ -901,7 +913,7 @@ public class GUIPartita extends JFrame{
 			else //il posto dove vuole piazzarlo è già occupato
 			{
 				JOptionPane.showMessageDialog(null, "Non è possibile piazzare "+ elemLblsGioco + " in questa posizione.",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 
 			//Resetto i dati di azione e elemento in memoria
@@ -920,7 +932,7 @@ public class GUIPartita extends JFrame{
 			if(nome == null || nome.contains("municipio"))
 			{
 				JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 			else //chiedi se vuole vendere
 			{
@@ -968,7 +980,7 @@ public class GUIPartita extends JFrame{
 			if(nome == null)
 			{
 				JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 			else
 			{
@@ -984,7 +996,7 @@ public class GUIPartita extends JFrame{
 			if(!isPiazzamentoPossibile(i, j))
 			{
 				JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
-						"Informazioni", JOptionPane.DEFAULT_OPTION);
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 			else //piazzamento possibile
 			{
@@ -1053,7 +1065,7 @@ public class GUIPartita extends JFrame{
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Puoi piazzare un esercito solo in una zona adiacente la tua città",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 			
 			//Resetto i dati di azione e elemento in memoria
@@ -1062,6 +1074,74 @@ public class GUIPartita extends JFrame{
 
 			aggiornaSchermata();
 		}
+		else
+		if(azioneLblsGioco.equals("richiama esercito"))
+		{
+			int vicinanza = isVicinoACitta(i + posSchermataX, j + posSchermataY);
+			
+			int civilta = partita.getGiocatore().get(indiceProprietario).getCiviltà();
+			
+			if(vicinanza == civilta) //l'esercito è adiacente alla città
+			{
+				int nazionEsercito = esercitoPresente(i + posSchermataX, j + posSchermataY);
+				
+				if(nazionEsercito == civilta) //possiamo prelevare l'esercito e inserirlo nel municipio
+				{
+					int conta = 0, indice = -1;
+					
+					//prelevo il gruppo giusto
+					for(GruppoMilitare g: partita.getGruppiMilitariSchierati())
+					{
+						if(g.getPosX() == i+posSchermataX && g.getPosY() == j+posSchermataY)
+						{
+							indice = conta;
+							break;
+						}
+						conta++;
+					}
+					//Le truppe tornano nel municipio
+					for(String s: partita.getGruppiMilitariSchierati().get(indice).getGruppoMilitare())
+					{
+						partita.getGiocatore().get(indiceProprietario).getUnitaMunicipio().add(s);
+					}
+					//Il gruppo militare viene sciolto
+					partita.getGruppiMilitariSchierati().remove(indice);
+					
+					//tolgo il gruppo militare dallo scenario
+					scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
+							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].length() - 10);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "È possibile richiamare nel municipio solo eserciti della propria nazione",
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
+			}
+			else
+				JOptionPane.showMessageDialog(null, "È possibile richiamare nel municipio solo eserciti adiacenti la propria città",
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
+			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+
+			aggiornaSchermata();
+		}
+	}
+	
+	/**
+	 * Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
+	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun esercito
+	 * @param i X
+	 * @param j Y
+	 * @return nazionalità esercito, -1 se non presente
+	 */
+	public int esercitoPresente(int i, int j)
+	{
+		String str = scenario.getScenario()[j][i];
+		
+		if(str.contains("esercito"))
+			return Integer.parseInt(str.substring(str.length()-1, str.length()));
+		
+		return -1;
 	}
 	
 	/**

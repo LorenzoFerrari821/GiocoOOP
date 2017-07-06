@@ -175,7 +175,7 @@ public class GUIArruolaUnita extends JDialog {
 				if(!valido)
 				{
 		    		JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
-		 				"Informazioni", JOptionPane.DEFAULT_OPTION);
+		 				"Attenzione", JOptionPane.DEFAULT_OPTION);
 		    	}
 			 }
 		});
@@ -252,8 +252,14 @@ public class GUIArruolaUnita extends JDialog {
 					e1.printStackTrace();
 				}
 				audio.start();
-				if(arruolaUnitaMilitare(txtUDaArruolare.getText().toString()))
-					dispose();
+				if(selezionato != null)
+				{
+					if(arruolaUnitaMilitare(txtUDaArruolare.getText().toString()))
+						dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Seleziona un'unità militare dall'elenco",
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 		});
 		pnlBot3.add(btnArruola);
@@ -304,7 +310,7 @@ public class GUIArruolaUnita extends JDialog {
 				else
 				{
 					JOptionPane.showMessageDialog(null, "Risorse per l'acquisto insufficienti",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 					return false;
 				}
 			}
@@ -317,7 +323,7 @@ public class GUIArruolaUnita extends JDialog {
 		if(!valido)
 		{
 			JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+					"Attenzione", JOptionPane.DEFAULT_OPTION);
 			return false;
 		}
 		
@@ -342,7 +348,7 @@ public class GUIArruolaUnita extends JDialog {
 	{
 		if(nome == null)
 			JOptionPane.showMessageDialog(null, "Nessuna unità militare selezionata.\nPremi su un'unità per selezionarla",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+					"Attenzione", JOptionPane.DEFAULT_OPTION);
 		else
 			JOptionPane.showMessageDialog(null, "Le unità militari sono la punta di diamante di ogni impero potente.\n"
 					+ "Ti permettono di formare armate da schierare in difesa del municipio o per conquistare nuove terre",

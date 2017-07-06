@@ -41,6 +41,7 @@ public class GUIMunicipio extends JDialog
 	private JPanel contentPane;
 	private JPanel pnlMid;
 	private JPanel pnlBot;
+	private int nRighe; //Numero di righe nel municipio
 	
 	private RoundedCornerButton btnIndietro;
 	private RoundedCornerButton btnCreaEsercito;
@@ -109,7 +110,10 @@ public class GUIMunicipio extends JDialog
 		
 		nUnitaMunicipio = partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().size();
 		
-		pnlMid = new JPanel(new GridLayout(nUnitaMunicipio, 4));
+		nRighe = 10;
+		if(nUnitaMunicipio > nRighe)
+			nRighe = nUnitaMunicipio;
+		pnlMid = new JPanel(new GridLayout(nRighe, 4));
 		
 		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
@@ -147,7 +151,8 @@ public class GUIMunicipio extends JDialog
 					e1.printStackTrace();
 				}
 				audio.start();
-				
+				guiPartita.richiamaEsercito();
+				dispose();
 			}
 		});
 		pnlBot.add(btnRichiamaEsercito);
@@ -174,7 +179,7 @@ public class GUIMunicipio extends JDialog
 				else
 					JOptionPane.showMessageDialog(null, "Per creare un esercito seleziona almeno un'unità nell'elenco.\n"
 							+ "Se nessuna unità è presente arruolane una in un edificio apposito (es. Caserma)",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 		});
 		pnlBot.add(btnCreaEsercito);
@@ -217,6 +222,13 @@ public class GUIMunicipio extends JDialog
 		{
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), indice);
 			indice++;
+		}
+		
+		for(int k = indice; k < nRighe; k++)
+		{
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
 		}
 		
 		pnlMid.setVisible(false);

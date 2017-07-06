@@ -50,6 +50,7 @@ public class Giocatore {
 		
 		this.proprietario = proprietario;
 		this.nomeGiocatore = nomeGiocatore;
+		this.civiltà = civiltà;
 	}
 	
 	public List<String> getStoricoPossedimenti() {
