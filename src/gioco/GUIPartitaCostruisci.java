@@ -243,21 +243,21 @@ public class GUIPartitaCostruisci extends JDialog
 				if(selezionato == null || !valoriDiGioco.getValoriOro().containsKey(selezionato))
 				{
 					JOptionPane.showMessageDialog(null, "Seleziona un elemento da acquistare",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
 						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
 				{
 					JOptionPane.showMessageDialog(null, "Non possiedi sufficiente oro.",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() < 
 						valoriDiGioco.getValoriMat().get(selezionato)) //il giocatore non possiede abbastanza materiali
 				{
 					JOptionPane.showMessageDialog(null, "Non possiedi sufficienti materiali.",
-							"Informazioni", JOptionPane.DEFAULT_OPTION);
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				{
@@ -297,7 +297,7 @@ public class GUIPartitaCostruisci extends JDialog
 	{
 		if(nome == null)
 			JOptionPane.showMessageDialog(null, "Nessuna costruzione selezionata.\nPremi su una voce del negozio per selezionarla",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+					"Attenzione", JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals("Sentiero") || nome.equals("Strada lastricata") || nome.equals("Strada asfaltata"))
 			JOptionPane.showMessageDialog(null, nome+" viene utilizzata per collegare tutti gli edifici cittadini al municipio.\n"

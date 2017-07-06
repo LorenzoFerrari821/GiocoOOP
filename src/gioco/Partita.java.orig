@@ -226,6 +226,7 @@ public class Partita {
 	public void setTurnoCorrente(int turnoCorrente) {
 		this.turnoCorrente = turnoCorrente;
 	}
+<<<<<<< HEAD
 	public String getSituazioneDiGioco() {
 		return situazioneDiGioco;
 	}
@@ -233,6 +234,10 @@ public class Partita {
 		this.situazioneDiGioco = situazioneDiGioco;
 	}
 	
+
+||||||| merged common ancestors
+=======
+
 	public List<GruppoMilitare> getGruppiMilitariSchierati() {
 		return gruppiMilitariSchierati;
 	}
@@ -241,4 +246,5 @@ public class Partita {
 		this.gruppiMilitariSchierati = gruppiMilitariSchierati;
 	}
 	
+>>>>>>> 69a70a74c868bbaf4896b63e26befd3fade9a388
 }

@@ -7,6 +7,7 @@ public class GruppoMilitare {
 	private List<String> gruppoMilitare = new ArrayList<String>();
 	private int posX;
 	private int posY;
+	private int civilta;
 	
 	public List<String> getGruppoMilitare() {
 		return gruppoMilitare;
@@ -26,7 +27,11 @@ public class GruppoMilitare {
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-	
-	
+	public int getCivilta() {
+		return civilta;
+	}
+	public void setCivilta(int civilta) {
+		this.civilta = civilta;
+	}
 }
 

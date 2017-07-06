@@ -41,10 +41,12 @@ public class GUIMunicipio extends JDialog
 	private JPanel contentPane;
 	private JPanel pnlMid;
 	private JPanel pnlBot;
+	private int nRighe; //Numero di righe nel municipio
 	
 	private RoundedCornerButton btnIndietro;
 	private RoundedCornerButton btnCreaEsercito;
-
+	private RoundedCornerButton btnRichiamaEsercito;
+	
 	private Partita partita;
 	private GUIPartita guiPartita;
 	private IconeGrafiche iconeGrafiche;
@@ -54,6 +56,8 @@ public class GUIMunicipio extends JDialog
 	private Clip audio;
 	
 	private int nUnitaMunicipio;
+	
+	private GruppoMilitare gruppoMilitare;
 	
 	GUIMunicipio(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche)
 	{
@@ -90,8 +94,8 @@ public class GUIMunicipio extends JDialog
 		}
 		
 		setTitle("Unità nel municipio");
-		setBounds(0, 0, 700, 470);
-		setMinimumSize(new Dimension(700, 470));   
+		setBounds(0, 0, 775, 510);
+		setMinimumSize(new Dimension(775, 510));   
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel(new BorderLayout(0,0));
@@ -106,12 +110,15 @@ public class GUIMunicipio extends JDialog
 		
 		nUnitaMunicipio = partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().size();
 		
-		pnlMid = new JPanel(new GridLayout(nUnitaMunicipio, 4));
+		nRighe = 10;
+		if(nUnitaMunicipio > nRighe)
+			nRighe = nUnitaMunicipio;
+		pnlMid = new JPanel(new GridLayout(nRighe, 4));
 		
 		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 		
-		pnlBot = new JPanel(new GridLayout(1, 2, 0, 0));
+		pnlBot = new JPanel(new GridLayout(1, 3, 0, 0));
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
@@ -131,6 +138,25 @@ public class GUIMunicipio extends JDialog
 		});
 		pnlBot.add(btnIndietro);
 		
+		btnRichiamaEsercito = new RoundedCornerButton();
+		btnRichiamaEsercito.setFont(fontFuturist.deriveFont(13f));
+		btnRichiamaEsercito.setText("RICHIAMA ESERCITO");
+		btnRichiamaEsercito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				guiPartita.richiamaEsercito();
+				dispose();
+			}
+		});
+		pnlBot.add(btnRichiamaEsercito);
+		
 		btnCreaEsercito = new RoundedCornerButton();
 		btnCreaEsercito.setFont(fontFuturist.deriveFont(13f));
 		btnCreaEsercito.setText("CREA ESERCITO");
@@ -144,8 +170,16 @@ public class GUIMunicipio extends JDialog
 					e1.printStackTrace();
 				}
 				audio.start();
-				guiPartita.piazzaEsercito();
-				dispose();
+				creaGruppoMilitare();
+				if(gruppoMilitare != null)
+				{
+					guiPartita.piazzaEsercito(gruppoMilitare);
+					dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Per creare un esercito seleziona almeno un'unità nell'elenco.\n"
+							+ "Se nessuna unità è presente arruolane una in un edificio apposito (es. Caserma)",
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
 			}
 		});
 		pnlBot.add(btnCreaEsercito);
@@ -155,6 +189,25 @@ public class GUIMunicipio extends JDialog
 		popolaDiTruppe();
 		
 		add(contentPane);
+	}
+	
+	public void creaGruppoMilitare()
+	{
+		int conta = 0, i = 0;
+		gruppoMilitare = new GruppoMilitare();
+		
+		for(String nome: selezionati)
+		{
+			if(nome.contains("EVIDENZIA"))
+			{
+				gruppoMilitare.getGruppoMilitare().add(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().get(i));
+				conta++;
+			}
+			i++;
+		}
+		
+		if(conta == 0)
+			gruppoMilitare = null;
 	}
 	
 	/*
@@ -169,6 +222,13 @@ public class GUIMunicipio extends JDialog
 		{
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), indice);
 			indice++;
+		}
+		
+		for(int k = indice; k < nRighe; k++)
+		{
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
 		}
 		
 		pnlMid.setVisible(false);
