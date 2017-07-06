@@ -298,7 +298,13 @@ public class GUICaricaPartita extends JPanel {
 							JOptionPane.showMessageDialog(pnlerror, "Errore nel caricamento del salvataggio",
 									"Errore", JOptionPane.ERROR_MESSAGE);
 						}
-						framePartita=new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+						
+						
+						framePartita=new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);      //Creiamo una partita nuova basandoci sui dati raccolti dal salvataggio
+						framePartita.setSitua(stringa);                                                        //Impostiamo la stringa nella partita
+						 
+						//framePartita=new GUIPartita(stringa);                                                //Oppure creiamo una partita partendo solo dalla stringa
+						
 						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 						finestreAttive[0].setVisible(false);
 						framePartita.setVisible(true);

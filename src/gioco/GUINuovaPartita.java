@@ -259,7 +259,8 @@ public class GUINuovaPartita extends JPanel {
 
 						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 						finestreAttive[0].setVisible(false);    
-						framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+						framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);   //Avvia utilizzando le info decise dall'utente
+						//framePartita=new GUIPartita(stringa)                         //Avvia utilizzando solo una stringa che comunque dovrà già contenere le scelte iniziali dell'utente
 						creaSalvataggioStringa();						
 						try {
 							audio = AudioSystem.getClip();

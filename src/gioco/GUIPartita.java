@@ -763,6 +763,10 @@ public class GUIPartita extends JFrame{
 		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 
+	public GUIPartita(String stringa) {					//Crea la partita partendo soltando dalla stringa
+						
+	}
+
 	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
 	public void aggiornaSchermata() {
 		scenarioCorrente = scenario.getScenario();
