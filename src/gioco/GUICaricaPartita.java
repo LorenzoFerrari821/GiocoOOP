@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Window;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -64,17 +66,22 @@ public class GUICaricaPartita extends JPanel {
 	private ConnectionDB connessione1 = null;
 	private ConnectionDB connessione2 = null;
 	private ConnectionDB connessione3 = null;
+	private String stringa;
+	private String nomeGiocatore;
 	private ResultSet rs;
 	private Clip audio;
 	private int dialogResult;
 	private int index;
 	private String linea;
+	private GUIPartita framePartita;
+	private Window[] finestreAttive;
 	private int val;
 	private int i=0;
 	private int k=0;
+	private int tutorial,mappa,civilta,difficolta;
 	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
 	private GUICaricaPartita guiCaricaPartita;
-	
+
 	/**
 	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
 	 */
@@ -106,7 +113,7 @@ public class GUICaricaPartita extends JPanel {
 		pnlMenu.setBackground(Color.WHITE);
 		this.guiMenuPrincipale = guiMenuPrincipale;
 		guiCaricaPartita = this;
-		
+
 		lblNumSalvataggio=new JLabel("Salvataggio numero:");
 		lblNumSalvataggio.setFont(lblNumSalvataggio.getFont().deriveFont(20f));
 		lblData=new JLabel("Data: ");
@@ -273,12 +280,51 @@ public class GUICaricaPartita extends JPanel {
 				try {
 					audio = AudioSystem.getClip();
 					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+				}catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
 				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
+				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler caricare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
+				if(dialogResult== JOptionPane.YES_OPTION){
+					try{                                      //Otteniamo il codice del salvataggio e carichiamo la partita parsando la stringa associata al codice
+						connessione3=new ConnectionDB();
+						index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));  
+						stringa=connessione3.caricaStringa(index);
+						if(stringa==null){	
+							pnlerror = new JPanel();
+							pnlerror.setBackground(Color.WHITE);
+							JOptionPane.showMessageDialog(pnlerror, "Errore nel caricamento del salvataggio",
+									"Errore", JOptionPane.ERROR_MESSAGE);
+						}
+						framePartita=new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
+						finestreAttive[0].setVisible(false);
+						framePartita.setVisible(true);
+						framePartita.setSitua(stringa);
+						
+					} catch (ClassNotFoundException | SQLException e) {
+						e.printStackTrace();
+						pnlerror = new JPanel();
+						pnlerror.setBackground(Color.WHITE);
+						JOptionPane.showMessageDialog(pnlerror, "Errore nel caricamento del salvataggio",
+								"Errore", JOptionPane.ERROR_MESSAGE);
+						if(connessione3!=null)
+							connessione3.closeConnection();
+					} catch(NullPointerException e){
+						e.printStackTrace();
+						pnlerror = new JPanel();
+						pnlerror.setBackground(Color.WHITE);
+						JOptionPane.showMessageDialog(pnlerror, "Nessun salvataggio da caricare",
+								"Errore", JOptionPane.ERROR_MESSAGE);
+						if(connessione3!=null)
+							connessione3.closeConnection();
+					} finally{
+						if(connessione3!=null)
+							connessione3.closeConnection();
+					}
+				}
 			}
 		});
 		pnlMenu.add(btnCarica, d);
@@ -332,8 +378,11 @@ public class GUICaricaPartita extends JPanel {
 	 */
 	public void creaComboBox(){
 		cmbSalvataggi.removeAllItems();	
+
 		try {	
 			connessione2 = new ConnectionDB();           //Connessione al database
+			connessione2.crea();                         //Creiamo la tabella salvataggi se non esiste
+			connessione2.creaTabellaPartita();           //Creiamo la tabella per le stringhe partita se non esiste
 			rs=connessione2.executeQuery();              //Lettura di tutti i salvataggi
 			for(i=0;rs.next();++i){                      //Conteggio delle righe 
 			}
@@ -405,6 +454,39 @@ public class GUICaricaPartita extends JPanel {
 			lblMaterialiv.setText(Integer.toString(val));
 			val=rs.getInt("Punti_ricerca");						
 			lblPuntiRicercav.setText(Integer.toString(val));
+			
+			
+			if(rs.getString("Tutorial").equals("Si"))
+				tutorial=1;
+			else
+				tutorial=0;
+			if(rs.getString("Difficoltà").equals("Facile"))
+				difficolta=0;
+			else if(rs.getString("Difficoltà").equals("Medio"))
+				difficolta=1;
+			else if(rs.getString("Difficoltà").equals("Difficile"))
+				difficolta=2;
+			else if(rs.getString("Difficoltà").equals("Maestro"))
+				difficolta=3;
+			if(rs.getString("Mappa").equals("Predefinita"))
+				mappa=0;
+			else if(rs.getString("Mappa").equals("Generata casualmente"))
+				mappa=1;
+			else if(rs.getString("Mappa").equals("Estiva"))
+				mappa=2;
+			else if(rs.getString("Mappa").equals("Invernale"));
+				mappa=3;
+			if(rs.getString("Civiltà").equals("Romani"))
+				civilta=0;
+			else if(rs.getString("Civiltà").equals("Britanni"))
+				civilta=1;
+			else if(rs.getString("Civiltà").equals("Galli"))
+				civilta=2;
+			else if(rs.getString("Civiltà").equals("Sassoni"))
+				civilta=3;
+			rs.getString("NomeGiocatore");
+			
+			
 		} catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			if(connessione1!=null)

@@ -12,10 +12,11 @@ public class Partita {
 
 	List<Giocatore> giocatore;
 	private String situazioneDiGioco;
+
 	List<Integer> ordineGioco;
 	private int turnoCorrente; //0, 1, 2, 3
 
-	private int tutorial;
+	private int tutorial; 
 	private int difficolta; //da 0 a 3
 	private int mappa; //0 predefinita, 1 casuale, 2 estiva, 3 invernale
 	
@@ -35,13 +36,14 @@ public class Partita {
 		}
 		else //E' una nuova partita, bisogna crearla
 		{
-			situazioneDiGioco = "setup " + nomeGiocatore + " " + Integer.toString(tutorial) + " " + Integer.toString(difficolta) + " "
+			this.situazioneDiGioco = "setup " + nomeGiocatore + " " + Integer.toString(tutorial) + " " + Integer.toString(difficolta) + " "
 					+ Integer.toString(mappa) + " " + Integer.toString(civilta);
-
+		
 			this.tutorial = tutorial;
 			this.difficolta = difficolta;
 			this.mappa = mappa;
 			creaPartita(nomeGiocatore, civilta);
+		
 		}
 		
 	}
@@ -70,7 +72,6 @@ public class Partita {
 		ordineGioco.add(3);
 		
 		Collections.shuffle(ordineGioco);
-
 		avviaPartita();
 	}
 
@@ -223,4 +224,12 @@ public class Partita {
 	public void setTurnoCorrente(int turnoCorrente) {
 		this.turnoCorrente = turnoCorrente;
 	}
+	public String getSituazioneDiGioco() {
+		return situazioneDiGioco;
+	}
+	public void setSituazioneDiGioco(String situazioneDiGioco) {
+		this.situazioneDiGioco = situazioneDiGioco;
+	}
+	
+
 }

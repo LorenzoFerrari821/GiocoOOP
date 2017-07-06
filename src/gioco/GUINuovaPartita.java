@@ -22,7 +22,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -72,10 +71,12 @@ public class GUINuovaPartita extends JPanel {
 	private String Tutorial;
 	private Clip audio;
 	private int k;
+	private int codice;
+	private ResultSet rs;
 	private Window[] finestreAttive;
 	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
 	private GUINuovaPartita guiNuovaPartita;
-	
+
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia.
@@ -107,7 +108,7 @@ public class GUINuovaPartita extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		this.guiMenuPrincipale = guiMenuPrincipale;
 		guiNuovaPartita = this;
-		
+
 		pnlMenu.setBackground(Color.WHITE);
 
 		c = new GridBagConstraints();
@@ -241,7 +242,7 @@ public class GUINuovaPartita extends JPanel {
 				{
 					btnAvvia.setEnabled(false);
 					if(txtNomeGiocatore.getText().equals(""))
-							btnAvvia.setEnabled(true);
+						btnAvvia.setEnabled(true);
 					k=creaNuovaPartita();
 					if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
 					{
@@ -255,10 +256,11 @@ public class GUINuovaPartita extends JPanel {
 						difficolta = listDifficolta.getSelectedIndex();
 						mappa = listMappa.getSelectedIndex();
 						civilta = listCivilta.getSelectedIndex();
-	
+
 						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 						finestreAttive[0].setVisible(false);    
 						framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
+						creaSalvataggioStringa();						
 						try {
 							audio = AudioSystem.getClip();
 							audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
@@ -275,7 +277,7 @@ public class GUINuovaPartita extends JPanel {
 			}
 		});
 		pnlMenu.add(btnAvvia, c);
-		
+
 		add(pnlMenu, BorderLayout.CENTER);
 	}
 
@@ -298,10 +300,13 @@ public class GUINuovaPartita extends JPanel {
 				Tutorial="Si";
 			else
 				Tutorial="No";		
+
+			s.crea();           //Creiamo la tabella salvataggi se già non esiste
+			rs=s.getCodiceMax();    //Otteniamo il codice più alto usato fino ad ora
+			codice=rs.getInt(1);
 			//Adesso creiamo il salvataggio iniziale con i dati che abbiamo raccolto (e alcuni di default)
 			k=s.init(txtNomeGiocatore.getText(),Tutorial,listDifficolta.getItemAt(listDifficolta.getSelectedIndex()),listMappa.getItemAt(listMappa.getSelectedIndex()),
-					listCivilta.getItemAt(listCivilta.getSelectedIndex()));
-
+					listCivilta.getItemAt(listCivilta.getSelectedIndex()),(codice+1));
 		} catch(SQLException  | ClassNotFoundException e ){
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
@@ -316,6 +321,20 @@ public class GUINuovaPartita extends JPanel {
 		}			
 		return k;
 	}
+	private void creaSalvataggioStringa(){
+		try {	
+			s = new ConnectionDB();           //Connessione al database
+			s.creaTabellaPartita();  //Creiamo la tabella per il salvataggio stringhe se non esiste già
+			s.creaSalvataggioStringa(framePartita.getSitua(),(codice+1));   //Salviamo una stringa rappresentante la partita appena creata in relazione al codice del salvataggio appena creato		
+		} catch(SQLException  | ClassNotFoundException e ){
+			e.printStackTrace();
+			if(s!=null)
+				s.closeConnection();
+		}    finally {
+			if(s!=null)
+				s.closeConnection();
+		}				
+	}
 
 	public RoundedCornerButton getBtnAvvia() {
 		return btnAvvia;
@@ -324,5 +343,5 @@ public class GUINuovaPartita extends JPanel {
 	public void setBtnAvvia(RoundedCornerButton btnAvvia) {
 		this.btnAvvia = btnAvvia;
 	}
-	
+
 }

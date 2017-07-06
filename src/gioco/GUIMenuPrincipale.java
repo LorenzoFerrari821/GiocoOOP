@@ -211,6 +211,7 @@ public class GUIMenuPrincipale extends JFrame {
 				allPanelsdxNotVisibles();
 				try {
 					panelCaricaPartita.setVisible(true);
+					panelCaricaPartita.creaComboBox();
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita(guiMenuPrincipale);
@@ -242,6 +243,7 @@ public class GUIMenuPrincipale extends JFrame {
 				try {
 					panelCaricaPartita.setVisible(true);
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
+					panelCaricaPartita.creaComboBox();
 				}catch(NullPointerException e){
 					panelCaricaPartita=new GUICaricaPartita(guiMenuPrincipale);
 					contentPane.add(panelCaricaPartita,BorderLayout.CENTER);
