@@ -1065,28 +1065,6 @@ public class Scenario {
 				}
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		if(n==2){  //Mappa desertica
 			for(int i = 0; i < 48; i++){
@@ -1434,7 +1412,7 @@ public class Scenario {
 		this.scenario = scenario;
 	}
 
-	private String casuale(int min,int max,boolean spazio){
+	public String casuale(int min,int max,boolean spazio){
 		Random rand=new Random();
 
 
@@ -1445,10 +1423,13 @@ public class Scenario {
 			return (Integer.toString(randomNum));
 	}
 	
-	private int casualeNum(int min,int max){
+	public int casualeNum(int min,int max){
 		Random rand=new Random();
-		return rand.nextInt((max - min) + 1) + min;
-		
-			
+		return rand.nextInt((max - min) + 1) + min;	
+	}
+	
+	public void aggiungiEsercito(int i, int j, int civilta)
+	{
+		this.scenario[j][i] += (" esercito" + Integer.toString(civilta));
 	}
 }

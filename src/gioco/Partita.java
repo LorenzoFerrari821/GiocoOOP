@@ -21,10 +21,12 @@ public class Partita {
 	
 	private ThreadCicloPartita threadCicloPartita;
 	private GUIPartita guiPartita;
+	private List<GruppoMilitare> gruppiMilitariSchierati;
 	
 	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta, GUIPartita guiPartita)
 	{
 		this.guiPartita = guiPartita;
+		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
 		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
@@ -223,4 +225,13 @@ public class Partita {
 	public void setTurnoCorrente(int turnoCorrente) {
 		this.turnoCorrente = turnoCorrente;
 	}
+
+	public List<GruppoMilitare> getGruppiMilitariSchierati() {
+		return gruppiMilitariSchierati;
+	}
+
+	public void setGruppiMilitariSchierati(List<GruppoMilitare> gruppiMilitariSchierati) {
+		this.gruppiMilitariSchierati = gruppiMilitariSchierati;
+	}
+	
 }

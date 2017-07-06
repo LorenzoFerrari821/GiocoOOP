@@ -724,6 +724,20 @@ public class IconeGrafiche {
 		iconlblPartita = new ImageIcon("media/asset_grafici/3eta_vittoriana/unitamilitari/werther.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeUMilitari.put("Werther", new ImageIcon(scalelblPartita));
+		
+		//aggiungo icone fazioni militari
+		iconlblPartita = new ImageIcon("media/asset_grafici/icone/roma.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("esercito0", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/icone/inghilterra.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("esercito1", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/icone/francia.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("esercito2", new ImageIcon(scalelblPartita));
+		iconlblPartita = new ImageIcon("media/asset_grafici/icone/germania.png");
+		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		iconeScenario.put("esercito3", new ImageIcon(scalelblPartita));
 	}
 
 	public void caricaAltreIcone()

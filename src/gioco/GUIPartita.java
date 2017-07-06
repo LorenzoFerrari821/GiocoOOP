@@ -135,6 +135,8 @@ public class GUIPartita extends JFrame{
 	private GUIArruolaUnita guiArruolaUnita; //Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare
 	private GUIMunicipio guiMunicipio; //Schermata del muncipio
 
+	private GruppoMilitare gruppoMilitare; //Individua il gruppo militare corrente
+	
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
@@ -873,9 +875,11 @@ public class GUIPartita extends JFrame{
 		azioneLblsGioco = "muovi";
 	}
 	
-	public void piazzaEsercito()
+	public void piazzaEsercito(GruppoMilitare gruppoMilitare)
 	{
+		this.gruppoMilitare = gruppoMilitare;
 		azioneLblsGioco = "piazza esercito";
+		elemLblsGioco = "Esercito";
 	}
 
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
@@ -1029,8 +1033,91 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals("piazza esercito"))
 		{
+			if(isPiazzamentoPossibile(i, j))
+			{
+				int vicinanza = isVicinoACitta(i + posSchermataX, j + posSchermataY);
+				
+				int civilta = partita.getGiocatore().get(indiceProprietario).getCiviltà();
+				
+				if(vicinanza == civilta) //ok, può piazzare qui
+				{
+					gruppoMilitare.setCivilta(civilta);
+					gruppoMilitare.setPosX(i+posSchermataX);
+					gruppoMilitare.setPosY(j+posSchermataY);
+					for(String s: gruppoMilitare.getGruppoMilitare())
+					{
+						partita.getGiocatore().get(indiceProprietario).getUnitaMunicipio().remove(s);
+					}
+					partita.getGruppiMilitariSchierati().add(gruppoMilitare);
+					scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Puoi piazzare un esercito solo in una zona adiacente la tua città",
+							"Informazioni", JOptionPane.DEFAULT_OPTION);
+			}
 			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+
+			aggiornaSchermata();
 		}
+	}
+	
+	/**
+	 * Metodo che controlla se la casella di indice i e j è adiacente a una città e ritorna 0 se vicino a romani, 1 se vicino a britanni,
+	 * 2 se vicino a galli, 3 se vicino a sassoni, -1 se non adiacente a nessuna città
+	 * @param i X
+	 * @param j Y
+	 * @return civiltà
+	 */
+	public int isVicinoACitta(int i, int j)
+	{
+		int SxX = -1;
+		int SuY = -1;
+		int DxX = -1;
+		int GiuY = -1;
+		
+		for(int k = 0; k < 4; k++)
+		{
+			switch(k)
+			{
+			case 0:
+				SxX = 38;
+				SuY = 35;
+				DxX = 54;
+				GiuY = 44;
+				break;
+			case 1:
+				SxX = 38;
+				SuY = 3;
+				DxX = 54;
+				GiuY = 12;
+				break;
+			case 2:
+				SxX = 7;
+				SuY = 19;
+				DxX = 23;
+				GiuY = 28;
+				break;
+			case 3:
+				SxX = 69;
+				SuY = 19;
+				DxX = 85;
+				GiuY = 28;
+				break;
+			}
+			if(i == SxX - 1 && j >= SuY - 1 && j <= GiuY + 1) //lato sx citta
+				return k;
+			if(j == SuY - 1 && i >= SxX && i <= DxX) //lato superiore citta
+				return k;
+			if(i == DxX + 1 && j >= SuY - 1 && j <= GiuY + 1) //lato dx citta
+				return k;
+			if(j == GiuY + 1 && i >= SxX && i <= DxX) //lato inferiore citta
+				return k;
+		}
+		
+		return -1;
 	}
 
 	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
@@ -1157,7 +1244,7 @@ public class GUIPartita extends JFrame{
 		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") || 
 				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
 				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
-				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
+				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta") || elemLblsGioco.equals("Esercito"))
 		{
 			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
 			StringTokenizer st;
@@ -1167,7 +1254,7 @@ public class GUIPartita extends JFrame{
 			st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
 			while(st.hasMoreTokens()) {
 				if(stItera == 0) //controllo che il pavimento sia ghiaia
-					if(!st.nextToken().equals("g"))
+					if(!st.nextToken().equals("g") && !elemLblsGioco.equals("Esercito"))
 					{
 						return false;
 					}
