@@ -29,12 +29,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUIObiettivi extends JPanel {
-	private JLabel lblComandi;
-	private JLabel lblAudio;
 	private JPanel pnlMenu;
 	private GridBagConstraints c;
-	private JComboBox<String> cmbComandi;
-	private JComboBox<String> cmbAudio;
 	private RoundedCornerButton btnIndietro;
 	private Font fontFuturist;
 	private Clip audio;
@@ -129,7 +125,7 @@ public class GUIObiettivi extends JPanel {
 			pnlMenu.add(new JLabel(" "), c);
 			c.gridy ++;
 
-			btnIndietro = new RoundedCornerButton("INDIETRO");
+			btnIndietro = new RoundedCornerButton(Global.getLabels("a0"));
 			btnIndietro.setFont(fontFuturist.deriveFont(16f));
 			btnIndietro.addMouseListener(new MouseAdapter() {
 				@Override

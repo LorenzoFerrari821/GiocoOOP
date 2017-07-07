@@ -100,7 +100,7 @@ public class GUIPartitaCostruisci extends JDialog
 			e.printStackTrace();
 		}
 		
-		setTitle("Costruisci");
+		setTitle(Global.getLabels("s75"));
 		setBounds(0, 0, 650, 450);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
@@ -116,9 +116,9 @@ public class GUIPartitaCostruisci extends JDialog
 		selezionato = null;
 		
 		//costruzione pannello top
-		rdoClassica = new JRadioButton("Classica");
-		rdoMedioevo = new JRadioButton("Medioevo");
-		rdoVittoriana = new JRadioButton("Vittoriana");
+		rdoClassica = new JRadioButton(Global.getLabels("s76"));
+		rdoMedioevo = new JRadioButton(Global.getLabels("s77"));
+		rdoVittoriana = new JRadioButton(Global.getLabels("s78"));
 		
 		groupRdoEta = new ButtonGroup();
 		groupRdoEta.add(rdoClassica);
@@ -126,7 +126,7 @@ public class GUIPartitaCostruisci extends JDialog
 		groupRdoEta.add(rdoVittoriana);
 		
 		pnlTop = new JPanel(new GridLayout2(1, 4, 0, 0));
-		lblEta = new JLabel("ETÀ:");
+		lblEta = new JLabel(Global.getLabels("s79"));
 		lblEta.setFont(fontFuturist.deriveFont(13f));
 		pnlTop.add(lblEta);
 		
@@ -165,7 +165,7 @@ public class GUIPartitaCostruisci extends JDialog
 		
 		btnMuovi = new RoundedCornerButton();
 		btnMuovi.setFont(fontFuturist.deriveFont(13f));
-		btnMuovi.setText("MUOVI");
+		btnMuovi.setText(Global.getLabels("s48"));
 		btnMuovi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -186,7 +186,7 @@ public class GUIPartitaCostruisci extends JDialog
 		
 		btnVendi = new RoundedCornerButton();
 		btnVendi.setFont(fontFuturist.deriveFont(13f));
-		btnVendi.setText("VENDI");
+		btnVendi.setText(Global.getLabels("s80"));
 		btnVendi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -207,7 +207,7 @@ public class GUIPartitaCostruisci extends JDialog
 		
 		btnInfo = new RoundedCornerButton();
 		btnInfo.setFont(fontFuturist.deriveFont(13f));
-		btnInfo.setText("INFORMAZIONI");
+		btnInfo.setText(Global.getLabels("a5"));
 		btnInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -227,7 +227,7 @@ public class GUIPartitaCostruisci extends JDialog
 		
 		btnCompra = new RoundedCornerButton();
 		btnCompra.setFont(fontFuturist.deriveFont(13f));
-		btnCompra.setText("COMPRA");
+		btnCompra.setText(Global.getLabels("s81"));
 		btnCompra.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -242,22 +242,19 @@ public class GUIPartitaCostruisci extends JDialog
 				audio.start();
 				if(selezionato == null || !valoriDiGioco.getValoriOro().containsKey(selezionato))
 				{
-					JOptionPane.showMessageDialog(null, "Seleziona un elemento da acquistare",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s82"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getOro() < 
 						valoriDiGioco.getValoriOro().get(selezionato)) //il giocatore non possiede abbastanza oro
 				{
-					JOptionPane.showMessageDialog(null, "Non possiedi sufficiente oro.",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("e13"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				if(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getMateriali() < 
 						valoriDiGioco.getValoriMat().get(selezionato)) //il giocatore non possiede abbastanza materiali
 				{
-					JOptionPane.showMessageDialog(null, "Non possiedi sufficienti materiali.",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("e14"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				{
@@ -270,7 +267,7 @@ public class GUIPartitaCostruisci extends JDialog
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -296,69 +293,45 @@ public class GUIPartitaCostruisci extends JDialog
 	public void daiInformazioni(String nome)
 	{
 		if(nome == null)
-			JOptionPane.showMessageDialog(null, "Nessuna costruzione selezionata.\nPremi su una voce del negozio per selezionarla",
-					"Attenzione", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, Global.getLabels("s83"), Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Sentiero") || nome.equals("Strada lastricata") || nome.equals("Strada asfaltata"))
-			JOptionPane.showMessageDialog(null, nome+" viene utilizzata per collegare tutti gli edifici cittadini al municipio.\n"
-					+ "Un edificio non collegato al municipio non fornisce bonus risorse e non può funzionare",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals( Global.getLabels("i53")) || nome.equals( Global.getLabels("i62")) || nome.equals( Global.getLabels("i63")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s84"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Casa") || nome.equals("Villa") || nome.equals("Casa a più piani") || nome.equals("Casa a schiera")
-				|| nome.equals("Casa con mansarda") || nome.equals("Villetta"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce oro all'inizio di ogni turno.\nUn buon numero "
-					+ "di abitazioni è necessario per un impero di successo",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i56")) || nome.equals(Global.getLabels("i57")) || nome.equals(Global.getLabels("i58")) || nome.equals(Global.getLabels("i59"))
+				|| nome.equals(Global.getLabels("i60")) || nome.equals(Global.getLabels("i61")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s85"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Caserma") || nome.equals("Campo mercenari") || nome.equals("Caserma eroi"))
-			JOptionPane.showMessageDialog(null, nome+" è un edificio utilizzato per reclutare potenti unità da "
-					+ "schierare in battaglia.\nUn esercito potente è il segreto di ogni grande conquistatore",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i0")) || nome.equals(Global.getLabels("i32")) || nome.equals(Global.getLabels("i41")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s86"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Fucina") || nome.equals("Granaio") || nome.equals("Fabbrica") || nome.equals("Parlamento"))
-			JOptionPane.showMessageDialog(null, nome+" è un edificio che fornisce Materiali all'inizio di ogni turno.\n"
-					+ "Essenziali per non rischiare mai di esaurire le scorte",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i64")) || nome.equals(Global.getLabels("i65")) || nome.equals(Global.getLabels("i66")) || nome.equals(Global.getLabels("i42")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s87"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Mercato") || nome.equals("Orefice") || nome.equals("Mastro birraio") || nome.equals("Banca")
-				|| nome.equals("Centro cittadino") || nome.equals("Teatro"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce un bonus all'economia.\nOgni moneta "
-					+ "guadagnata verrà moltiplicata per il bonus totale",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i67")) || nome.equals(Global.getLabels("i68")) || nome.equals(Global.getLabels("i69")) || nome.equals(Global.getLabels("i70"))
+				|| nome.equals(Global.getLabels("i71")) || nome.equals(Global.getLabels("i72")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s88"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Tempio"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce punti ricerca aggiuntivi ad ogni turno.\n"
-					+ "Francesi e inglesi inoltre possono reclutare i Druidi attraverso il tempio",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i24")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s89"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Palazzo"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce più oro per turno.\nAttraverso il Palazzo i romani possono "
-					+ "reclutare i Pretoriani, i sassoni i Berserk",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i27")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s90"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Biblioteca") || nome.equals("Rogo") || nome.equals("Laboratorio"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce punti ricerca aggiuntivi ad ogni turno.\n"
-					+ "Il progresso è il fulcro di ogni impero solido",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i73")) || nome.equals(Global.getLabels("i75")) || nome.equals(Global.getLabels("i76")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s91"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Campo mercenari"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce un bonus alla forza militare.\n"
-					+ "Permette inoltre di reclutare Spadaccini mercenari e Arcieri mercenari",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("32")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s92"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Chiesa"))
-			JOptionPane.showMessageDialog(null, nome+" permette di reclutare Cavalieri templari per i romani e Cavalieri crociati"
-					+ "per francesi, inglesi e sassoni",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i35")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s93"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Ospedale"))
-			JOptionPane.showMessageDialog(null, nome+" permette di reclutare Medico",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i39")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s94"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
-		if(nome.equals("Opera"))
-			JOptionPane.showMessageDialog(null, nome+" fornisce oro aggiuntivo ad ogni turno.\nIl popolo nei giorni di "
-					+ "festa adora ascoltare buona musica",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+		if(nome.equals(Global.getLabels("i74")))
+			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s95"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 	}
 	
 	/*
@@ -368,64 +341,64 @@ public class GUIPartitaCostruisci extends JDialog
 	{
 		int aggiunte = 0;
 		
-		if(eta == "Classica")
+		if(eta == Global.getLabels("s76"))
 		{
 			pnlMid.removeAll();
 			
 			
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Sentieri"))
+				if(obj.equals(Global.getLabels("i77")))
 				{
-					aggiungiVoce("Sentiero", iconeGrafiche.newiconSentieri, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i53"), iconeGrafiche.newiconSentieri, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Abitazioni"))
+				if(obj.equals(Global.getLabels("i78")))
 				{
-					aggiungiVoce("Casa", iconeGrafiche.newiconAbitazioni, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i56"), iconeGrafiche.newiconAbitazioni, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Caserma"))
+				if(obj.equals(Global.getLabels("i0")))
 				{
-					aggiungiVoce("Caserma", iconeGrafiche.newiconCaserma, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i0"), iconeGrafiche.newiconCaserma, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Fucina"))
+				if(obj.equals(Global.getLabels("i64")))
 				{
-					aggiungiVoce("Fucina", iconeGrafiche.newiconFucina, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i64"), iconeGrafiche.newiconFucina, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Commercio"))
+				if(obj.equals(Global.getLabels("i79")))
 				{
-					aggiungiVoce("Mercato", iconeGrafiche.newiconCommercio, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i67"), iconeGrafiche.newiconCommercio, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Oreficeria"))
+				if(obj.equals(Global.getLabels("i80")))
 				{
-					aggiungiVoce("Orefice", iconeGrafiche.newiconOreficeria, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i68"), iconeGrafiche.newiconOreficeria, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Religione"))
+				if(obj.equals(Global.getLabels("i81")))
 				{
-					aggiungiVoce("Tempio", iconeGrafiche.newiconReligione, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i24"), iconeGrafiche.newiconReligione, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Ville"))
+				if(obj.equals(Global.getLabels("i82")))
 				{
-					aggiungiVoce("Villa", iconeGrafiche.newiconVille, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i57"), iconeGrafiche.newiconVille, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Città"))
+				if(obj.equals(Global.getLabels("i83")))
 				{
-					aggiungiVoce("Palazzo", iconeGrafiche.newiconCitta, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i27"), iconeGrafiche.newiconCitta, eta, evidenzia);
 					aggiunte++;
 				}
 			}
@@ -441,76 +414,76 @@ public class GUIPartitaCostruisci extends JDialog
 			pnlMid.setVisible(true);
 		}
 		
-		if(eta == "Medioevo")
+		if(eta == Global.getLabels("s77"))
 		{
 			pnlMid.removeAll();
 			
 			
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Strade lastricate"))
+				if(obj.equals(Global.getLabels("i84")))
 				{
-					aggiungiVoce("Strada lastricata", iconeGrafiche.newiconLastr, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i62"), iconeGrafiche.newiconLastr, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Case a più piani"))
+				if(obj.equals(Global.getLabels("i85")))
 				{
-					aggiungiVoce("Casa a più piani", iconeGrafiche.newiconCasaPP, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i58"), iconeGrafiche.newiconCasaPP, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Biblioteca"))
+				if(obj.equals(Global.getLabels("i73")))
 				{
-					aggiungiVoce("Biblioteca", iconeGrafiche.newiconBiblioteca, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i73"), iconeGrafiche.newiconBiblioteca, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Mercenari"))
+				if(obj.equals(Global.getLabels("i86")))
 				{
-					aggiungiVoce("Campo mercenari", iconeGrafiche.newiconMercenari, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i32"), iconeGrafiche.newiconMercenari, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Clero"))
+				if(obj.equals(Global.getLabels("i87")))
 				{
-					aggiungiVoce("Chiesa", iconeGrafiche.newiconClero, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i35"), iconeGrafiche.newiconClero, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Ospedale"))
+				if(obj.equals(Global.getLabels("i39")))
 				{
-					aggiungiVoce("Ospedale", iconeGrafiche.newiconOspedale, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i39"), iconeGrafiche.newiconOspedale, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Case a schiera"))
+				if(obj.equals(Global.getLabels("i88")))
 				{
-					aggiungiVoce("Casa a schiera", iconeGrafiche.newiconCaseASchiera, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i59"), iconeGrafiche.newiconCaseASchiera, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Inquisizione"))
+				if(obj.equals(Global.getLabels("i89")))
 				{
-					aggiungiVoce("Rogo", iconeGrafiche.newiconInquisizione, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i75"), iconeGrafiche.newiconInquisizione, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Granai"))
+				if(obj.equals(Global.getLabels("i90")))
 				{
-					aggiungiVoce("Granaio", iconeGrafiche.newiconGranai, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i65"), iconeGrafiche.newiconGranai, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Fermentazione"))
+				if(obj.equals(Global.getLabels("i91")))
 				{
-					aggiungiVoce("Mastro birraio", iconeGrafiche.newiconFermentazione, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i69"), iconeGrafiche.newiconFermentazione, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Banca"))
+				if(obj.equals(Global.getLabels("i70")))
 				{
-					aggiungiVoce("Banca", iconeGrafiche.newiconBanca, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i70"), iconeGrafiche.newiconBanca, eta, evidenzia);
 					aggiunte++;
 				}
 			}
@@ -526,70 +499,70 @@ public class GUIPartitaCostruisci extends JDialog
 			pnlMid.setVisible(true);
 		}
 		
-		if(eta == "Vittoriana")
+		if(eta == Global.getLabels("s78"))
 		{
 			pnlMid.removeAll();
 			
 			
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Strade asfaltate"))
+				if(obj.equals(Global.getLabels("i92")))
 				{
-					aggiungiVoce("Strada asfaltata", iconeGrafiche.newiconStrAsf, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i63"), iconeGrafiche.newiconStrAsf, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Sistema industriale"))
+				if(obj.equals(Global.getLabels("i93")))
 				{
-					aggiungiVoce("Fabbrica", iconeGrafiche.newiconSisInd, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i66"), iconeGrafiche.newiconSisInd, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Scienza"))
+				if(obj.equals(Global.getLabels("i94")))
 				{
-					aggiungiVoce("Laboratorio", iconeGrafiche.newiconScienza, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i76"), iconeGrafiche.newiconScienza, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Case con mansarda"))
+				if(obj.equals(Global.getLabels("i95")))
 				{
-					aggiungiVoce("Casa con mansarda", iconeGrafiche.newiconCasaMan, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i60"), iconeGrafiche.newiconCasaMan, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Gerarchia militare"))
+				if(obj.equals(Global.getLabels("i96")))
 				{
-					aggiungiVoce("Caserma eroi", iconeGrafiche.newiconGerMil, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i41"), iconeGrafiche.newiconGerMil, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Musica lirica"))
+				if(obj.equals(Global.getLabels("i97")))
 				{
-					aggiungiVoce("Opera", iconeGrafiche.newiconMusLir, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i74"), iconeGrafiche.newiconMusLir, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Società borghese"))
+				if(obj.equals(Global.getLabels("i98")))
 				{
-					aggiungiVoce("Centro cittadino", iconeGrafiche.newiconSocBor, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i71"), iconeGrafiche.newiconSocBor, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Politica"))
+				if(obj.equals(Global.getLabels("i99")))
 				{
-					aggiungiVoce("Parlamento", iconeGrafiche.newiconPolitica, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i42"), iconeGrafiche.newiconPolitica, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Teatri"))
+				if(obj.equals(Global.getLabels("i100")))
 				{
-					aggiungiVoce("Teatro", iconeGrafiche.newiconTeatri, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i72"), iconeGrafiche.newiconTeatri, eta, evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Villette"))
+				if(obj.equals(Global.getLabels("i101")))
 				{
-					aggiungiVoce("Villetta", iconeGrafiche.newiconVillette, eta, evidenzia);
+					aggiungiVoce(Global.getLabels("i61"), iconeGrafiche.newiconVillette, eta, evidenzia);
 					aggiunte++;
 				}
 			}

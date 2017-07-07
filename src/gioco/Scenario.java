@@ -1382,25 +1382,25 @@ public class Scenario {
 		}
 		//aggiungo municipi iniziali
 		//su
-		scenario[6][38] += " ecmunicipio1"; //età classica municipio 1
-		scenario[6][39] += " ecmunicipio2";
-		scenario[7][38] += " ecmunicipio3";
-		scenario[7][39] += " ecmunicipio4";
+		scenario[6][38] += " "+Global.getLabels("i50")+"1"; //età classica municipio 1
+		scenario[6][39] += " "+Global.getLabels("i50")+"2";
+		scenario[7][38] += " "+Global.getLabels("i50")+"3";
+		scenario[7][39] += " "+Global.getLabels("i50")+"4";
 		//sx
-		scenario[19][9] += " ecmunicipio1";
-		scenario[19][10] += " ecmunicipio2";
-		scenario[20][9] += " ecmunicipio3";
-		scenario[20][10] += " ecmunicipio4";
+		scenario[19][9] += " "+Global.getLabels("i50")+"1";
+		scenario[19][10] += " "+Global.getLabels("i50")+"2";
+		scenario[20][9] += " "+Global.getLabels("i50")+"3";
+		scenario[20][10] += " "+Global.getLabels("i50")+"4";
 		//dx
-		scenario[27][82] += " ecmunicipio1";
-		scenario[27][83] += " ecmunicipio2";
-		scenario[28][82] += " ecmunicipio3";
-		scenario[28][83] += " ecmunicipio4";
+		scenario[27][82] += " "+Global.getLabels("i50")+"1";
+		scenario[27][83] += " "+Global.getLabels("i50")+"2";
+		scenario[28][82] += " "+Global.getLabels("i50")+"3";
+		scenario[28][83] += " "+Global.getLabels("i50")+"4";
 		//giu
-		scenario[40][53] += " ecmunicipio1";
-		scenario[40][54] += " ecmunicipio2";
-		scenario[41][53] += " ecmunicipio3";
-		scenario[41][54] += " ecmunicipio4";
+		scenario[40][53] += " "+Global.getLabels("i50")+"1";
+		scenario[40][54] += " "+Global.getLabels("i50")+"2";
+		scenario[41][53] += " "+Global.getLabels("i50")+"3";
+		scenario[41][54] += " "+Global.getLabels("i50")+"4";
 
 	}
 

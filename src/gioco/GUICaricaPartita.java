@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -41,7 +42,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  */
 public class GUICaricaPartita extends JPanel {
-
+	
 	private JPanel pnlMenu;
 	private JPanel pnlerror;
 	private GridBagConstraints c, d;
@@ -85,7 +86,7 @@ public class GUICaricaPartita extends JPanel {
 	/**
 	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
 	 */
-	GUICaricaPartita(GUIMenuPrincipale guiMenuPrincipale) {	
+	GUICaricaPartita(GUIMenuPrincipale guiMenuPrincipale) {
 		try {
 			//Creo un font custom
 			fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
@@ -114,29 +115,29 @@ public class GUICaricaPartita extends JPanel {
 		this.guiMenuPrincipale = guiMenuPrincipale;
 		guiCaricaPartita = this;
 
-		lblNumSalvataggio=new JLabel("Salvataggio numero:");
+		lblNumSalvataggio=new JLabel(Global.getLabels("s18"));
 		lblNumSalvataggio.setFont(lblNumSalvataggio.getFont().deriveFont(20f));
-		lblData=new JLabel("Data: ");
+		lblData=new JLabel(Global.getLabels("s19"));
 		lblData.setFont(lblData.getFont().deriveFont(20f));
-		lblNomeGiocatore = new JLabel("Giocatore: ");
+		lblNomeGiocatore = new JLabel(Global.getLabels("s20"));
 		lblNomeGiocatore.setFont(lblNomeGiocatore.getFont().deriveFont(20f));
-		lblTutorial = new JLabel("Tutorial: ");
+		lblTutorial = new JLabel(Global.getLabels("s21"));
 		lblTutorial.setFont(lblTutorial.getFont().deriveFont(20f));
-		lblDifficolta = new JLabel("Difficoltà: ");
+		lblDifficolta = new JLabel(Global.getLabels("s22"));
 		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(20f));
-		lblMappa = new JLabel("Mappa: ");
+		lblMappa = new JLabel(Global.getLabels("s23"));
 		lblMappa.setFont(lblMappa.getFont().deriveFont(20f));
-		lblCivilta = new JLabel("Civiltà: ");
+		lblCivilta = new JLabel(Global.getLabels("s24"));
 		lblCivilta.setFont(lblCivilta.getFont().deriveFont(20f));
-		lblTurno = new JLabel("Turno: ");
+		lblTurno = new JLabel(Global.getLabels("s25"));
 		lblTurno.setFont(lblTurno.getFont().deriveFont(20f));
-		lblEpoca = new JLabel("Epoca: ");
+		lblEpoca = new JLabel(Global.getLabels("s26"));
 		lblEpoca.setFont(lblEpoca.getFont().deriveFont(20f));
-		lblOro = new JLabel("Oro: ");
+		lblOro = new JLabel(Global.getLabels("s27"));
 		lblOro.setFont(lblOro.getFont().deriveFont(20f));
-		lblMateriali = new JLabel("Materiali: ");
+		lblMateriali = new JLabel(Global.getLabels("s28"));
 		lblMateriali.setFont(lblMateriali.getFont().deriveFont(20f));
-		lblPuntiRicerca = new JLabel("Punti ricerca: ");
+		lblPuntiRicerca = new JLabel(Global.getLabels("s29"));
 		lblPuntiRicerca.setFont(lblPuntiRicerca.getFont().deriveFont(20f));
 
 		pnlInfoPartita = new JPanel(new GridBagLayout());
@@ -248,7 +249,7 @@ public class GUICaricaPartita extends JPanel {
 		d.gridy ++;
 
 		d.gridx = 0;
-		btnIndietro = new RoundedCornerButton("INDIETRO");
+		btnIndietro = new RoundedCornerButton(Global.getLabels("a0"));
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
@@ -272,7 +273,7 @@ public class GUICaricaPartita extends JPanel {
 		pnlMenu.add(new JLabel("     "), d);
 		d.gridx ++;
 
-		btnCarica = new RoundedCornerButton("CARICA PARTITA");
+		btnCarica = new RoundedCornerButton(Global.getLabels("a2"));
 		btnCarica.setFont(fontFuturist.deriveFont(16f));
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
@@ -286,7 +287,7 @@ public class GUICaricaPartita extends JPanel {
 				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
-				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler caricare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
+				dialogResult = JOptionPane.showConfirmDialog (pnlerror, Global.getLabels("a3"),"Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
 					try{                                      //Otteniamo il codice del salvataggio e carichiamo la partita parsando la stringa associata al codice
 						connessione3=new ConnectionDB();
@@ -295,8 +296,7 @@ public class GUICaricaPartita extends JPanel {
 						if(stringa==null){	
 							pnlerror = new JPanel();
 							pnlerror.setBackground(Color.WHITE);
-							JOptionPane.showMessageDialog(pnlerror, "Errore nel caricamento del salvataggio",
-									"Errore", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(pnlerror, Global.getLabels("e3"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 						}
 						
 						
@@ -314,16 +314,14 @@ public class GUICaricaPartita extends JPanel {
 						e.printStackTrace();
 						pnlerror = new JPanel();
 						pnlerror.setBackground(Color.WHITE);
-						JOptionPane.showMessageDialog(pnlerror, "Errore nel caricamento del salvataggio",
-								"Errore", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(pnlerror, Global.getLabels("e3"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 						if(connessione3!=null)
 							connessione3.closeConnection();
 					} catch(NullPointerException e){
 						e.printStackTrace();
 						pnlerror = new JPanel();
 						pnlerror.setBackground(Color.WHITE);
-						JOptionPane.showMessageDialog(pnlerror, "Nessun salvataggio da caricare",
-								"Errore", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(pnlerror,Global.getLabels("e4"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 						if(connessione3!=null)
 							connessione3.closeConnection();
 					} finally{
@@ -339,7 +337,7 @@ public class GUICaricaPartita extends JPanel {
 		pnlMenu.add(new JLabel("     "), d);
 		d.gridx ++;
 
-		btnElimina = new RoundedCornerButton("ELIMINA PARTITA");
+		btnElimina = new RoundedCornerButton(Global.getLabels("a4"));
 		btnElimina.setFont(fontFuturist.deriveFont(16f));
 		btnElimina.addMouseListener(new MouseAdapter() {
 			@Override
@@ -353,7 +351,7 @@ public class GUICaricaPartita extends JPanel {
 				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
-				dialogResult = JOptionPane.showConfirmDialog (pnlerror, "Sei sicuro di voler eliminare questo salvataggio?","Warning",JOptionPane.YES_NO_OPTION);
+				dialogResult = JOptionPane.showConfirmDialog (pnlerror, Global.getLabels("s0"),"Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
 					try {    //Otteniamo l'indice del salvataggio da cancellare e chiamiamo la funzione apposita
 						connessione3=new ConnectionDB();
@@ -364,8 +362,7 @@ public class GUICaricaPartita extends JPanel {
 						e.printStackTrace();
 						pnlerror = new JPanel();
 						pnlerror.setBackground(Color.WHITE);
-						JOptionPane.showMessageDialog(pnlerror, "Nessun salvataggio da eliminare",
-								"Errore", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(pnlerror,Global.getLabels("e5"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 						if(connessione3!=null)
 							connessione3.closeConnection();
 					} finally{
@@ -408,8 +405,7 @@ public class GUICaricaPartita extends JPanel {
 				lblPuntiRicercav.setText("");
 				pnlerror = new JPanel();
 				pnlerror.setBackground(Color.WHITE);
-				JOptionPane.showMessageDialog(pnlerror, "Non sono stati trovati salvataggi.",
-						"Attenzione", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(pnlerror, Global.getLabels("e6"),Global.getLabels("e7"), JOptionPane.WARNING_MESSAGE);
 			}
 		} catch(SQLException |ClassNotFoundException e) {
 			e.printStackTrace();
@@ -462,33 +458,33 @@ public class GUICaricaPartita extends JPanel {
 			lblPuntiRicercav.setText(Integer.toString(val));
 			
 			
-			if(rs.getString("Tutorial").equals("Si"))
+			if(rs.getString("Tutorial").equals(Global.getLabels("s30")))
 				tutorial=1;
 			else
 				tutorial=0;
-			if(rs.getString("Difficoltà").equals("Facile"))
+			if(rs.getString("Difficoltà").equals(Global.getLabels("s6")))
 				difficolta=0;
-			else if(rs.getString("Difficoltà").equals("Medio"))
+			else if(rs.getString("Difficoltà").equals(Global.getLabels("s7")))
 				difficolta=1;
-			else if(rs.getString("Difficoltà").equals("Difficile"))
+			else if(rs.getString("Difficoltà").equals(Global.getLabels("s8")))
 				difficolta=2;
-			else if(rs.getString("Difficoltà").equals("Maestro"))
+			else if(rs.getString("Difficoltà").equals(Global.getLabels("s9")))
 				difficolta=3;
-			if(rs.getString("Mappa").equals("Predefinita"))
+			if(rs.getString("Mappa").equals(Global.getLabels("s10")))
 				mappa=0;
-			else if(rs.getString("Mappa").equals("Generata casualmente"))
+			else if(rs.getString("Mappa").equals(Global.getLabels("11")))
 				mappa=1;
-			else if(rs.getString("Mappa").equals("Estiva"))
+			else if(rs.getString("Mappa").equals(Global.getLabels("s12")))
 				mappa=2;
-			else if(rs.getString("Mappa").equals("Invernale"));
+			else if(rs.getString("Mappa").equals(Global.getLabels("s13")));
 				mappa=3;
-			if(rs.getString("Civiltà").equals("Romani"))
+			if(rs.getString("Civiltà").equals(Global.getLabels("s14")))
 				civilta=0;
-			else if(rs.getString("Civiltà").equals("Britanni"))
+			else if(rs.getString("Civiltà").equals(Global.getLabels("s15")))
 				civilta=1;
-			else if(rs.getString("Civiltà").equals("Galli"))
+			else if(rs.getString("Civiltà").equals(Global.getLabels("s16")))
 				civilta=2;
-			else if(rs.getString("Civiltà").equals("Sassoni"))
+			else if(rs.getString("Civiltà").equals(Global.getLabels("s17")))
 				civilta=3;
 			rs.getString("NomeGiocatore");
 			

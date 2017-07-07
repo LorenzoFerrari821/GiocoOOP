@@ -36,9 +36,7 @@ public class ConnectionDB {
 			e.printStackTrace();
 			pnlerror = new JPanel();
 			pnlerror.setBackground(Color.WHITE);
-			JOptionPane.showMessageDialog(pnlerror, "Si è verificato un errore inaspettato "
-					+ "nella creazione della partita.",
-					"Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(pnlerror,Global.getLabels("e1"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	public void creaTabellaPartita() throws SQLException{
@@ -66,9 +64,7 @@ public class ConnectionDB {
 			e.printStackTrace();
 			pnlerror = new JPanel();
 			pnlerror.setBackground(Color.WHITE);
-			JOptionPane.showMessageDialog(pnlerror, "Si è verificato un errore inaspettato "
-					+ "nella creazione della partita.",
-					"Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(pnlerror,Global.getLabels("e1"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 			return -1;
 		}
 		return 1;
@@ -106,8 +102,7 @@ public class ConnectionDB {
 			e.printStackTrace();
 			pnlerror = new JPanel();
 			pnlerror.setBackground(Color.WHITE);
-			JOptionPane.showMessageDialog(pnlerror, "Errore durante la cancellazione del salvataggio",
-					"Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(pnlerror, Global.getLabels("e8"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	public String caricaStringa(int index){  //Cerchiamo il salvataggio alla linea specificata,leggiamo il codice, andiamo nella tabella delle stringhe e preleviamo la stringa associata

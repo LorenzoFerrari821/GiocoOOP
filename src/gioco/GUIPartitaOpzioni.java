@@ -90,7 +90,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		contentPane.setLayout(new GridLayout2(13, 1, 0, 0));
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0));
 		btnTornaMenu = new RoundedCornerButton();
-		setTitle("Opzioni");
+		setTitle(Global.getLabels("s105"));
 		setMinimumSize(new Dimension(300, 500));   
 		setLocationRelativeTo(null);
 		guiPartitaOpzioni = this;
@@ -99,7 +99,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnContinua = new RoundedCornerButton("CONTINUA PARTITA");
+		btnContinua = new RoundedCornerButton(Global.getLabels("s106"));
 		btnContinua.setFont(fontFuturist.deriveFont(12f));
 		btnContinua.addMouseListener(new MouseAdapter() {
 			@Override
@@ -120,7 +120,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnSalva = new RoundedCornerButton("SALVA PARTITA");
+		btnSalva = new RoundedCornerButton(Global.getLabels("s107"));
 		btnSalva.setFont(fontFuturist.deriveFont(12f));
 		btnSalva.addMouseListener(new MouseAdapter() {
 			@Override
@@ -140,7 +140,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnCarica = new RoundedCornerButton("CARICA PARTITA");
+		btnCarica = new RoundedCornerButton(Global.getLabels("s108"));
 		btnCarica.setFont(fontFuturist.deriveFont(12f));
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
@@ -160,7 +160,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnImpostazioni = new RoundedCornerButton("IMPOSTAZIONI");
+		btnImpostazioni = new RoundedCornerButton(Global.getLabels("s109"));
 		btnImpostazioni.setFont(fontFuturist.deriveFont(12f));
 		btnImpostazioni.addMouseListener(new MouseAdapter() {
 			@Override
@@ -180,7 +180,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnTornaMenu = new RoundedCornerButton("TORNA AL MENÙ");
+		btnTornaMenu = new RoundedCornerButton(Global.getLabels("s110"));
 		btnTornaMenu.setFont(fontFuturist.deriveFont(12f));
 		btnTornaMenu.addMouseListener(new MouseAdapter() {
 			@Override
@@ -196,10 +196,7 @@ public class GUIPartitaOpzioni extends JDialog {
 				audio.start();
 				finestreAttive = Frame.getWindows();
 				 int scelta =0;
-				 scelta = JOptionPane.showConfirmDialog(
-						    guiPartitaOpzioni, "Stai per tornare al menù principale, perderai i progressi non salvati."
-						    		+ "\nUscire dalla partita?", "Conferma",
-						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				 scelta = JOptionPane.showConfirmDialog(guiPartitaOpzioni, Global.getLabels("s112"), Global.getLabels("a6"),JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				   if(scelta == 0)
 				   {
 					   finestreAttive[0].setVisible(true);
@@ -214,7 +211,7 @@ public class GUIPartitaOpzioni extends JDialog {
 		
 		contentPane.add(new JLabel(" "));
 		
-		btnEsci = new RoundedCornerButton("ESCI");
+		btnEsci = new RoundedCornerButton(Global.getLabels("s111"));
 		btnEsci.setFont(fontFuturist.deriveFont(12f));
 		btnEsci.addMouseListener(new MouseAdapter() {
 			@Override
@@ -230,8 +227,7 @@ public class GUIPartitaOpzioni extends JDialog {
 				audio.start();
 				int scelta =0;
 				scelta = JOptionPane.showConfirmDialog(
-						    guiPartitaOpzioni, "Stai per uscire dal gioco, perderai i progressi non salvati.\nUscire?", "Conferma",
-						    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						    guiPartitaOpzioni,Global.getLabels("s113"), Global.getLabels("a6"),JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(scelta == 0)
 					System.exit(0);
 			}

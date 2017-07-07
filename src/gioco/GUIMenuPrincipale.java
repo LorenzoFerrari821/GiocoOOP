@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,6 +68,13 @@ public class GUIMenuPrincipale extends JFrame {
 	private RoundedCornerButton btnEsciSmall;
 	private JPanel panelTitolo;;
 	private JLabel titolo;
+	private ImageIcon iconbtnNuovaPartita;
+	private ImageIcon iconbtnCaricaPartita ;
+	private ImageIcon iconbtnMultiplayer;
+	private ImageIcon iconbtnObiettivi;
+	private ImageIcon iconbtnOpzioni;
+	private ImageIcon iconbtnExtra;
+	private ImageIcon iconbtnEsci;
 	private GUIMenuPrincipale guiMenuPrincipale;
 	private GUINuovaPartita panelNuovaPartita;
 	private GUICaricaPartita panelCaricaPartita;
@@ -81,7 +89,7 @@ public class GUIMenuPrincipale extends JFrame {
 	Image scaleSfondo;
 	private JLabel immagineDx;
 	private int oldWidth, oldHeight; //Riferimento alle dimensioni del JFrame
-	
+
 	/**
 	 * Costruttore della classe; molto corposo poichè si occupa di posizionare ogni elemento
 	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
@@ -118,7 +126,7 @@ public class GUIMenuPrincipale extends JFrame {
 		guiMenuPrincipale = this;
 		oldWidth = 0;
 		oldHeight = 0;
-		
+
 		contentPane.setBorder(new EmptyBorder(0 , 0 , 0 , 0 ));
 		contentPane.setLayout(new BorderLayout(0,0));
 		setContentPane(contentPane);
@@ -162,7 +170,14 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnNuovaSmall);
 
 		btnNuovaPartita = new RoundedCornerButton();
-		ImageIcon iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
+
+
+
+
+		if(Locale.getDefault()==Locale.ITALY)
+			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
+		else
+			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartitaEN.png");
 		Image scalebtnNuovaPartita = iconbtnNuovaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnNuovaPartita.setIcon(iconbtnNuovaPartita);
 
@@ -223,7 +238,10 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnCaricaSmall);
 
 		btnCaricaPartita = new RoundedCornerButton();
-		ImageIcon iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
+		if(Locale.getDefault()==Locale.ITALY)
+			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
+		else
+			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartitaEN.png");
 		Image scalebtnCaricaPartita = iconbtnCaricaPartita.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnCaricaPartita.setIcon(iconbtnCaricaPartita);
 		btnCaricaPartita.addMouseListener(new MouseAdapter() {
@@ -283,7 +301,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnMultiplayerSmall);
 
 		btnMultiplayer = new RoundedCornerButton();
-		ImageIcon iconbtnMultiplayer = new ImageIcon("media/btnMultiplayer.png");
+		iconbtnMultiplayer = new ImageIcon("media/btnMultiplayer.png");
 		Image scalebtnMultiplayer = iconbtnMultiplayer.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnMultiplayer.setIcon(iconbtnMultiplayer);
 
@@ -343,7 +361,10 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnOpzioniSmall);
 
 		btnOpzioni = new RoundedCornerButton();
-		ImageIcon iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
+		if(Locale.getDefault()==Locale.ITALY)
+			iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
+		else
+			iconbtnOpzioni = new ImageIcon("media/btnOpzioniEN.png");
 		Image scalebtnOpzioni = iconbtnOpzioni.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnOpzioni.setIcon(iconbtnOpzioni);
 		btnOpzioni.addMouseListener(new MouseAdapter() {
@@ -402,7 +423,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnExtraSmall);
 
 		btnExtra = new RoundedCornerButton();
-		ImageIcon iconbtnExtra = new ImageIcon("media/btnExtra.png");
+		iconbtnExtra = new ImageIcon("media/btnExtra.png");
 		Image scalebtnExtra = iconbtnExtra.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnExtra.setIcon(iconbtnExtra);
 		btnExtra.addMouseListener(new MouseAdapter() {
@@ -461,7 +482,10 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnObiettiviSmall);
 
 		btnObiettivi = new RoundedCornerButton();
-		ImageIcon iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
+		if(Locale.getDefault()==Locale.ITALY)
+			iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
+		else
+			iconbtnObiettivi = new ImageIcon("media/btnObiettiviEN.png");
 		Image scalebtnObiettivi = iconbtnObiettivi.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnObiettivi.setIcon(iconbtnObiettivi);
 		btnObiettivi.addMouseListener(new MouseAdapter() {
@@ -497,13 +521,17 @@ public class GUIMenuPrincipale extends JFrame {
 		btnEsciSmall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				Music.stopSound();
 				dispose();
 			}
 		});
 		panelsx.add(btnEsciSmall);
 
 		btnEsci = new RoundedCornerButton();
-		ImageIcon iconbtnEsci = new ImageIcon("media/btnEsci.png");
+		if(Locale.getDefault()==Locale.ITALY)
+			iconbtnEsci = new ImageIcon("media/btnEsci.png");
+		else
+			iconbtnEsci = new ImageIcon("media/btnEsciEN.png");
 		Image scalebtnEsci = iconbtnEsci.getImage().getScaledInstance(200, 30,Image.SCALE_DEFAULT);
 		btnEsci.setIcon(iconbtnEsci);
 
@@ -524,11 +552,11 @@ public class GUIMenuPrincipale extends JFrame {
 		contentPane.add(panelsx, BorderLayout.LINE_START);
 		contentPane.add(paneldx, BorderLayout.CENTER);
 		contentPane.add(panelTitolo, BorderLayout.NORTH);
-		
-		
+
+
 		immagineDx = new JLabel();
 		paneldx.add(immagineDx, BorderLayout.CENTER);
-		
+
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e)
@@ -542,23 +570,23 @@ public class GUIMenuPrincipale extends JFrame {
 				}
 			}
 		});
-		
-		
+
+
 		iconTitolo = new ImageIcon("media/titolo.png");
 		scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);
-		
+
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentShown(ComponentEvent e) {
 				try {
-				panelNuovaPartita.getBtnAvvia().setEnabled(true);
+					panelNuovaPartita.getBtnAvvia().setEnabled(true);
 				} catch(NullPointerException npexc){};
 			}
 		});
 		setVisible(true);
 	}
-	
+
 	public void caricaSfondo(int width, int height)
 	{
 		imgSfondo = new ImageIcon("media/sfondo.png");
@@ -594,7 +622,7 @@ public class GUIMenuPrincipale extends JFrame {
 			panelObiettivi.setVisible(false);
 		}catch(NullPointerException e){};
 	}
-	
+
 	public void ripristinaPanelDx(int width, int height)
 	{
 		paneldx.setSize(width, height);
@@ -614,5 +642,5 @@ public class GUIMenuPrincipale extends JFrame {
 	public void setPaneldx(JPanel paneldx) {
 		this.paneldx = paneldx;
 	}
-	
+
 }

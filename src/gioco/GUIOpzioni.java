@@ -36,6 +36,8 @@ public class GUIOpzioni extends JPanel {
 	private GridBagConstraints c;
 	private JComboBox<String> cmbComandi;
 	private JComboBox<String> cmbAudio;
+
+
 	private RoundedCornerButton btnIndietro;
 	private Font fontFuturist;
 	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
@@ -76,14 +78,14 @@ public class GUIOpzioni extends JPanel {
 		pnlMenu.setBackground(Color.WHITE);
 		this.guiMenuPrincipale = guiMenuPrincipale;
 		guiOpzioni = this;
-		
+
 		c = new GridBagConstraints(); 
 		//Prima Colonna
 		c.gridx = 1;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.LINE_END;
 
-		lblAudio = new JLabel("Audio: ");
+		lblAudio = new JLabel(Global.getLabels("s31"));
 		lblAudio.setFont(lblAudio.getFont().deriveFont(22f));
 		pnlMenu.add(lblAudio, c);
 
@@ -91,11 +93,13 @@ public class GUIOpzioni extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		lblComandi=new JLabel("Scorrimento Mappa: ");
+		lblComandi=new JLabel(Global.getLabels("s32"));
 		lblComandi.setFont(lblComandi.getFont().deriveFont(22f));
 		pnlMenu.add(lblComandi,c);
+		
+		c.gridy++;
+		pnlMenu.add(new JLabel(" "), c);
 
-		pnlMenu.add(new JLabel("         "), c);
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
@@ -108,6 +112,7 @@ public class GUIOpzioni extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 		pnlMenu.add(new JLabel("           "), c);
+
 		//Seconda colonna
 		c.gridy = 0;
 		c.gridx = 2;
@@ -115,13 +120,13 @@ public class GUIOpzioni extends JPanel {
 
 
 		cmbAudio = new  JComboBox<String>();
-		cmbAudio.addItem("Si");
-		cmbAudio.addItem("No");
+		cmbAudio.addItem(Global.getLabels("s30"));
+		cmbAudio.addItem(Global.getLabels("s33"));
 		cmbAudio.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
 				if(event.getStateChange() == ItemEvent.SELECTED){
 					if(cmbAudio.getSelectedIndex()==0)  //Volume si
-						Global.setLivVolume(0f);   //Volume standard
+						Global.setLivVolume(0f);   //Volume standard (float)
 					if(cmbAudio.getSelectedIndex()==1){   //Volume no
 						try {
 							audio = AudioSystem.getClip();
@@ -144,8 +149,8 @@ public class GUIOpzioni extends JPanel {
 		c.gridy ++;
 
 		cmbComandi = new  JComboBox<String>();
-		cmbComandi.addItem("Mouse");
-		cmbComandi.addItem("Frecce Direzionali");
+		cmbComandi.addItem(Global.getLabels("s34"));
+		cmbComandi.addItem(Global.getLabels("s35"));
 		cmbComandi.addItem("WASD");
 		cmbComandi.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
@@ -164,7 +169,8 @@ public class GUIOpzioni extends JPanel {
 
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
-		c.gridy ++;
+
+		c.gridy++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
@@ -182,7 +188,7 @@ public class GUIOpzioni extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		btnIndietro = new RoundedCornerButton("INDIETRO");
+		btnIndietro = new RoundedCornerButton(Global.getLabels("a0"));
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override

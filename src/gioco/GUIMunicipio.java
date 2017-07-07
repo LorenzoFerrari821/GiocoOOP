@@ -93,7 +93,7 @@ public class GUIMunicipio extends JDialog
 			e.printStackTrace();
 		}
 		
-		setTitle("Unità nel municipio");
+		setTitle(Global.getLabels("s49"));
 		setBounds(0, 0, 775, 510);
 		setMinimumSize(new Dimension(775, 510));   
 		setLocationRelativeTo(null);
@@ -122,7 +122,7 @@ public class GUIMunicipio extends JDialog
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -140,7 +140,7 @@ public class GUIMunicipio extends JDialog
 		
 		btnRichiamaEsercito = new RoundedCornerButton();
 		btnRichiamaEsercito.setFont(fontFuturist.deriveFont(13f));
-		btnRichiamaEsercito.setText("RICHIAMA ESERCITO");
+		btnRichiamaEsercito.setText(Global.getLabels("s50"));
 		btnRichiamaEsercito.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -159,7 +159,7 @@ public class GUIMunicipio extends JDialog
 		
 		btnCreaEsercito = new RoundedCornerButton();
 		btnCreaEsercito.setFont(fontFuturist.deriveFont(13f));
-		btnCreaEsercito.setText("CREA ESERCITO");
+		btnCreaEsercito.setText(Global.getLabels("s51"));
 		btnCreaEsercito.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -177,9 +177,7 @@ public class GUIMunicipio extends JDialog
 					dispose();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Per creare un esercito seleziona almeno un'unità nell'elenco.\n"
-							+ "Se nessuna unità è presente arruolane una in un edificio apposito (es. Caserma)",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null,Global.getLabels("s52") ,Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 		});
 		pnlBot.add(btnCreaEsercito);
@@ -198,7 +196,7 @@ public class GUIMunicipio extends JDialog
 		
 		for(String nome: selezionati)
 		{
-			if(nome.contains("EVIDENZIA"))
+			if(nome.contains(Global.getLabels("s53")))
 			{
 				gruppoMilitare.getGruppoMilitare().add(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().get(i));
 				conta++;
@@ -256,7 +254,7 @@ public class GUIMunicipio extends JDialog
 		lblVel.setIcon(iconeGrafiche.newiconVel);
 		pnlMid.add(lblVel);
 		
-		if(selezionati.get(indiceLista).contains("EVIDENZIA"))
+		if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
 		{
 			lblVoce.setOpaque(true);
 			lblVoce.setBackground(Color.LIGHT_GRAY);
@@ -271,40 +269,40 @@ public class GUIMunicipio extends JDialog
 		lblVoce.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(selezionati.get(indiceLista).contains("EVIDENZIA"))
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
 					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
 				else
-					selezionati.set(indiceLista, selezionati.get(indiceLista) + "EVIDENZIA");
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
 				popolaDiTruppe();
 			}
 		});
 		lblAtk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(selezionati.get(indiceLista).contains("EVIDENZIA"))
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
 					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
 				else
-					selezionati.set(indiceLista, selezionati.get(indiceLista) + "EVIDENZIA");
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
 				popolaDiTruppe();
 			}
 		});
 		lblDef.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(selezionati.get(indiceLista).contains("EVIDENZIA"))
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
 					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
 				else
-					selezionati.set(indiceLista, selezionati.get(indiceLista) + "EVIDENZIA");
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
 				popolaDiTruppe();
 			}
 		});
 		lblVel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(selezionati.get(indiceLista).contains("EVIDENZIA"))
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
 					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
 				else
-					selezionati.set(indiceLista, selezionati.get(indiceLista) + "EVIDENZIA");
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
 				popolaDiTruppe();
 			}
 		});

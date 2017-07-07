@@ -91,7 +91,7 @@ public class GUIPartitaRicerca extends JDialog {
 			e.printStackTrace();
 		}
 		
-		setTitle("Ricerca");
+		setTitle(Global.getLabels("s121"));
 		setBounds(0, 0, 1000, 550);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
@@ -110,7 +110,7 @@ public class GUIPartitaRicerca extends JDialog {
 		creaGUI();
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -156,13 +156,13 @@ public class GUIPartitaRicerca extends JDialog {
 		
 		//Ricerca sentieri
 		gridXEClassica = valX;
-		inserisci1(valX, 7, "Sentieri", iconeGrafiche.newiconSentieri);
+		inserisci1(valX, 7, Global.getLabels("i77"), iconeGrafiche.newiconSentieri);
 		
 		from1to3();
 		
 		//Ricerca abitazioni, caserma, fucina
 		valX += 4;
-		inserisci3(valX, 4, "Abitazioni", "Caserma", "Fucina", iconeGrafiche.newiconAbitazioni, 
+		inserisci3(valX, 4, Global.getLabels("i78"), Global.getLabels("i0"), Global.getLabels("i64"), iconeGrafiche.newiconAbitazioni, 
 				iconeGrafiche.newiconCaserma, iconeGrafiche.newiconFucina);
 		
 		if(partita.getGuiPartita().getIndiceProprietario() != 0) //se la civiltà è diversa da romani
@@ -171,7 +171,7 @@ public class GUIPartitaRicerca extends JDialog {
 			
 			//Ricerca commercio, fanteria
 			valX += 4;
-			inserisci2(valX, 4, "Commercio", "Fanteria", iconeGrafiche.newiconCommercio, iconeGrafiche.newiconFanteria);
+			inserisci2(valX, 4, Global.getLabels("i79"), Global.getLabels("i48"), iconeGrafiche.newiconCommercio, iconeGrafiche.newiconFanteria);
 			
 			from2to3();
 		}
@@ -181,7 +181,7 @@ public class GUIPartitaRicerca extends JDialog {
 			
 			//Ricerca commercio, fanteria, oreficeria
 			valX += 4;
-			inserisci3(valX, 4, "Commercio", "Fanteria", "Oreficeria", iconeGrafiche.newiconCommercio, 
+			inserisci3(valX, 4, Global.getLabels("i79"),Global.getLabels("i48"), Global.getLabels("i80"), iconeGrafiche.newiconCommercio, 
 					iconeGrafiche.newiconFanteria, iconeGrafiche.newiconOreficeria);
 			
 			from3to3();
@@ -189,7 +189,7 @@ public class GUIPartitaRicerca extends JDialog {
 		
 		//Ricerca religione, ville, tiro con l'arco
 		valX += 4;
-		inserisci3(valX, 4, "Religione", "Ville", "Tiro con l'arco", iconeGrafiche.newiconReligione,
+		inserisci3(valX, 4, Global.getLabels("i81"), Global.getLabels("i82"),Global.getLabels("i4"), iconeGrafiche.newiconReligione,
 				iconeGrafiche.newiconVille, iconeGrafiche.newiconTiroConArco);
 		
 		if(partita.getGuiPartita().getIndiceProprietario() != 0) //se la civiltà del giocatore è diversa da romani
@@ -197,7 +197,7 @@ public class GUIPartitaRicerca extends JDialog {
 			from3to3();
 			//Ricerca oracolo,città, cavalleria
 			valX += 4;
-			inserisci3(valX, 4, "Oracolo", "Città", "Cavalleria", iconeGrafiche.newiconOracolo,
+			inserisci3(valX, 4, Global.getLabels("i25"), Global.getLabels("i83"), Global.getLabels("i6"), iconeGrafiche.newiconOracolo,
 					iconeGrafiche.newiconCitta, iconeGrafiche.newiconCavalleria);
 			
 			from3to1();
@@ -206,7 +206,7 @@ public class GUIPartitaRicerca extends JDialog {
 			{
 				//Ricerca società militare
 				valX += 4;
-				inserisci1(valX, 7, "Società militare", iconeGrafiche.newiconSocMil);
+				inserisci1(valX, 7, Global.getLabels("i30"), iconeGrafiche.newiconSocMil);
 				
 				from1to1();
 			}
@@ -217,13 +217,13 @@ public class GUIPartitaRicerca extends JDialog {
 			
 			//Ricerca città e cavalleria
 			valX += 4;
-			inserisci2(valX, 4, "Città", "Cavalleria", iconeGrafiche.newiconCitta, iconeGrafiche.newiconCavalleria);
+			inserisci2(valX, 4, Global.getLabels("i83"), Global.getLabels("i6"), iconeGrafiche.newiconCitta, iconeGrafiche.newiconCavalleria);
 			
 			from2to1();
 
 			//Ricerca età imperiale
 			valX += 4;
-			inserisci1(valX, 7, "Età imperiale", iconeGrafiche.newiconEtaImp);
+			inserisci1(valX, 7, Global.getLabels("i28"), iconeGrafiche.newiconEtaImp);
 			
 			from1to1();
 		}
@@ -231,27 +231,27 @@ public class GUIPartitaRicerca extends JDialog {
 		//Ricerca strade lastricate
 		valX += 4;
 		gridXMedioevo = valX;
-		inserisci1(valX, 7, "Strade lastricate", iconeGrafiche.newiconLastr);
+		inserisci1(valX, 7, Global.getLabels("i84"), iconeGrafiche.newiconLastr);
 		
 		from1to3();
 		
 		//Ricerca case a più piani, corazze, balestre
 		valX += 4;
-		inserisci3(valX, 4, "Case a più piani", "Corazze", "Balestre", iconeGrafiche.newiconCasaPP,
+		inserisci3(valX, 4, Global.getLabels("i85"), Global.getLabels("i8"), Global.getLabels("i10"), iconeGrafiche.newiconCasaPP,
 				iconeGrafiche.newiconCorazze, iconeGrafiche.newiconBalestre);
 		
 		from3to3();
 		
 		//Ricerca biblioteca, mercenari, clero
 		valX += 4;
-		inserisci3(valX, 4, "Biblioteca", "Mercenari", "Clero", iconeGrafiche.newiconBiblioteca, 
+		inserisci3(valX, 4, Global.getLabels("i73"),Global.getLabels("i86"), Global.getLabels("i87"), iconeGrafiche.newiconBiblioteca, 
 				iconeGrafiche.newiconMercenari, iconeGrafiche.newiconClero);
 		
 		from3to3();
 		
 		//Ricerca Ospedale, case a schiera, tattiche di cavalleria
 		valX += 4;
-		inserisci3(valX, 4, "Ospedale", "Case a schiera", "Tattiche di cavalleria", iconeGrafiche.newiconOspedale, 
+		inserisci3(valX, 4, Global.getLabels("i39"), Global.getLabels("i88"), Global.getLabels("i12"), iconeGrafiche.newiconOspedale, 
 				iconeGrafiche.newiconCaseASchiera, iconeGrafiche.newiconTatCal);
 		
 		if(partita.getGuiPartita().getIndiceProprietario() == 0) //se il giocatore ha civiltà romana
@@ -260,13 +260,13 @@ public class GUIPartitaRicerca extends JDialog {
 			
 			//Ricerca inquisizione, granai
 			valX += 4;
-			inserisci2(valX, 4, "Inquisizione", "Granai", iconeGrafiche.newiconInquisizione, iconeGrafiche.newiconGranai);
+			inserisci2(valX, 4, Global.getLabels("i89"), Global.getLabels("i90"), iconeGrafiche.newiconInquisizione, iconeGrafiche.newiconGranai);
 			
 			from2to2();
 			
 			//Ricerca fermentazione, polvere da sparo
 			valX += 4;
-			inserisci2(valX, 4, "Fermentazione", "Polvere da sparo", iconeGrafiche.newiconFermentazione,
+			inserisci2(valX, 4, Global.getLabels("i91"), Global.getLabels("i14"), iconeGrafiche.newiconFermentazione,
 					iconeGrafiche.newiconPolvereDaSparo);
 			
 			from2to1();
@@ -277,13 +277,13 @@ public class GUIPartitaRicerca extends JDialog {
 			
 			//Ricerca granai
 			valX += 4;
-			inserisci1(valX, 7, "Granai", iconeGrafiche.newiconGranai);
+			inserisci1(valX, 7, Global.getLabels("i90"), iconeGrafiche.newiconGranai);
 			
 			from1to3();
 			
 			//Ricerca fermentazione, banca, polvere da sparo
 			valX += 4;
-			inserisci3(valX, 4, "Fermentazione", "Banca", "Polvere da sparo", iconeGrafiche.newiconFermentazione, 
+			inserisci3(valX, 4, Global.getLabels("i91"), Global.getLabels("i70"),Global.getLabels("i14"), iconeGrafiche.newiconFermentazione, 
 					iconeGrafiche.newiconBanca, iconeGrafiche.newiconPolvereDaSparo);
 			
 			from3to1();
@@ -292,26 +292,26 @@ public class GUIPartitaRicerca extends JDialog {
 		//Ricerca strade asfaltate
 		valX += 4;
 		gridXEVittoriana = valX;
-		inserisci1(valX, 7, "Strade asfaltate", iconeGrafiche.newiconStrAsf);
+		inserisci1(valX, 7, Global.getLabels("i92"), iconeGrafiche.newiconStrAsf);
 		
 		from1to2();
 		
 		//Ricerca sistema industriale, scienza
 		valX += 4;
-		inserisci2(valX, 4, "Sistema industriale", "Scienza", iconeGrafiche.newiconSisInd, iconeGrafiche.newiconScienza);
+		inserisci2(valX, 4, Global.getLabels("i93"), Global.getLabels("i94"), iconeGrafiche.newiconSisInd, iconeGrafiche.newiconScienza);
 		
 		from2to3();
 		
 		//Ricerca case con mansarda, fucili, gerarchia militare
 		valX += 4;
-		inserisci3(valX, 4, "Case con mansarda", "Fucili", "Gerarchia militare", iconeGrafiche.newiconCasaMan,
+		inserisci3(valX, 4,Global.getLabels("i95"), Global.getLabels("i16"), Global.getLabels("i96"), iconeGrafiche.newiconCasaMan,
 				iconeGrafiche.newiconFucili, iconeGrafiche.newiconGerMil);
 		
 		from3to3();
 		
 		//Ricerca Società borghese, politica, tattiche in campo aperto
 		valX += 4;
-		inserisci3(valX, 4, "Società borghese", "Politica", "Tattiche in campo aperto", iconeGrafiche.newiconSocBor,
+		inserisci3(valX, 4, Global.getLabels("i98"), Global.getLabels("i99"), Global.getLabels("i20"), iconeGrafiche.newiconSocBor,
 				iconeGrafiche.newiconPolitica, iconeGrafiche.newiconTatCap);
 		
 		from3to3();
@@ -321,7 +321,7 @@ public class GUIPartitaRicerca extends JDialog {
 		{
 			//Ricerca musica lirica, villette, balistica
 			valX += 4;
-			inserisci3(valX, 4, "Musica lirica", "Villette", "Balistica", iconeGrafiche.newiconMusLir, 
+			inserisci3(valX, 4, Global.getLabels("i97"), Global.getLabels("i101"), Global.getLabels("i22"), iconeGrafiche.newiconMusLir, 
 					iconeGrafiche.newiconVillette, iconeGrafiche.newiconBalistica);
 			
 			from3to1();
@@ -330,7 +330,7 @@ public class GUIPartitaRicerca extends JDialog {
 		{
 			//Ricerca teatri, villette, balistica
 			valX += 4;
-			inserisci3(valX, 4, "Teatri", "Villette", "Balistica", iconeGrafiche.newiconTeatri,
+			inserisci3(valX, 4, Global.getLabels("i100"), Global.getLabels("i101"), Global.getLabels("i22"), iconeGrafiche.newiconTeatri,
 					iconeGrafiche.newiconVillette, iconeGrafiche.newiconBalistica);
 			
 			from3to1();
@@ -341,22 +341,22 @@ public class GUIPartitaRicerca extends JDialog {
 		case 0: //romani
 			//Ricerca Carabinieri
 			valX += 4;
-			inserisci1(valX, 7, "Carabinieri", iconeGrafiche.newiconCarabinieri);
+			inserisci1(valX, 7, Global.getLabels("i43"), iconeGrafiche.newiconCarabinieri);
 			break;
 		case 1: //britanni
 			//Ricerca guardie reali britanniche
 			valX += 4;
-			inserisci1(valX, 7, "Guardie reali", iconeGrafiche.newiconGuaRea);
+			inserisci1(valX, 7, Global.getLabels("i44"), iconeGrafiche.newiconGuaRea);
 			break;
 		case 2: //galli
 			//Ricerca galli
 			valX += 4;
-			inserisci1(valX, 7, "Legione straniera", iconeGrafiche.newiconLegione);
+			inserisci1(valX, 7, Global.getLabels("i46"), iconeGrafiche.newiconLegione);
 			break;
 		case 3: //sassoni
 			//Ricerca gardenkorps
 			valX += 4;
-			inserisci1(valX, 7, "Gardenkorps", iconeGrafiche.newiconGK);
+			inserisci1(valX, 7, Global.getLabels("i47"), iconeGrafiche.newiconGK);
 			break;
 		}
 		
@@ -370,7 +370,7 @@ public class GUIPartitaRicerca extends JDialog {
 	{
 		c.gridy = 1;
 		c.gridx = gridXEClassica;
-		JLabel lblECla = new JLabel("ETÀ CLASSICA");
+		JLabel lblECla = new JLabel(Global.getLabels("s114"));
 		lblECla.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblECla, c);
 		c.gridy++;
@@ -380,7 +380,7 @@ public class GUIPartitaRicerca extends JDialog {
 		
 		c.gridy -= 2;
 		c.gridx = gridXMedioevo;
-		JLabel lblMed = new JLabel("MEDIOEVO");
+		JLabel lblMed = new JLabel(Global.getLabels("s115"));
 		lblMed.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblMed, c);
 		c.gridy++;
@@ -390,7 +390,7 @@ public class GUIPartitaRicerca extends JDialog {
 		
 		c.gridy -= 2;
 		c.gridx = gridXEVittoriana;
-		JLabel lblEVit = new JLabel("ETÀ VITTTORIANA");
+		JLabel lblEVit = new JLabel(Global.getLabels("s116"));
 		lblEVit.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblEVit, c);
 		c.gridy++;
@@ -804,31 +804,29 @@ public class GUIPartitaRicerca extends JDialog {
 					/*controllo che il turno non sia di un altro giocatore, se è di un altro giocatore non è permesso
 					 * ricercare nulla e mostro un avviso che lo comunica.
 					 */
-					JOptionPane.showMessageDialog(null, "Puoi ricercare una nuova tecnologia solamente durante il tuo turno di gioco",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
-					
+					JOptionPane.showMessageDialog(null,Global.getLabels("e15"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 				}
 				else
 				{
 					if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate().contains(nome)) //se già ricercata
 					{
-						JOptionPane.showMessageDialog(null, "La tecnologia selezionata è già stata ricercata",
-								"Attenzione", JOptionPane.DEFAULT_OPTION);
+						JOptionPane.showMessageDialog(null, Global.getLabels("e16"),
+								Global.getLabels("e7"),JOptionPane.DEFAULT_OPTION);
 					}
 					else
 					{
 						if(!isRicercaRicercabile(nome))
 						{
-							JOptionPane.showMessageDialog(null, "E' necessario prima sbloccare le ricerche precedenti",
-									"Attenzione", JOptionPane.DEFAULT_OPTION);
+							JOptionPane.showMessageDialog(null, Global.getLabels("e17"),
+									Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 						}
 						else
 						{
 							if(partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() < 
 									valoriDiGioco.getValoriRicerche().get(nome)) //se i PR del giocatore sono insufficienti
 							{
-								JOptionPane.showMessageDialog(null, "Punti ricerca insufficienti",
-										"Attenzione", JOptionPane.DEFAULT_OPTION);
+								JOptionPane.showMessageDialog(null,Global.getLabels("e18"),
+										Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 							}
 							else
 							{
@@ -836,8 +834,8 @@ public class GUIPartitaRicerca extends JDialog {
 								Integer rimanente = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() - 
 										valoriDiGioco.getValoriRicerche().get(nome);
 								scelta = JOptionPane.showConfirmDialog(
-										    null, "Vuoi ricercare "+nome+" per "+valoriDiGioco.getValoriRicerche().get(nome).toString()+
-										    " punti ricerca?\n(Rimarranno "+rimanente.toString()+" punti ricerca).", "Conferma",
+										    null, Global.getLabels("s117")+nome+Global.getLabels("s118")+valoriDiGioco.getValoriRicerche().get(nome).toString()+
+										    Global.getLabels("s119")+rimanente.toString()+Global.getLabels("s120"), Global.getLabels("a6"),
 										    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 								if(scelta == 0) //se si
 								{
@@ -896,91 +894,91 @@ public class GUIPartitaRicerca extends JDialog {
 		ric = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate();
 		int civ = partita.getGuiPartita().getIndiceProprietario();
 		
-		if(nome.equals("Abitazioni") || nome.equals("Caserma") || nome.equals("Fucina")) {
-			if(!ric.contains("Sentieri"))
+		if(nome.equals(Global.getLabels("i78")) || nome.equals(Global.getLabels("i0")) || nome.equals(Global.getLabels("i64"))) {
+			if(!ric.contains(Global.getLabels("i77")))
 				return false; }
 		else
-		if(nome.equals("Commercio") || nome.equals("Fanteria") || nome.equals("Oreficeria")) {
-			if(!ric.contains("Abitazioni") || !ric.contains("Caserma") || !ric.contains("Fucina"))
+		if(nome.equals(Global.getLabels("i79")) || nome.equals(Global.getLabels("i48")) || nome.equals(Global.getLabels("i80"))) {
+			if(!ric.contains(Global.getLabels("i78")) || !ric.contains(Global.getLabels("i0")) || !ric.contains(Global.getLabels("i64")))
 				return false; }
 		else
-		if(nome.equals("Religione") || nome.equals("Ville") || nome.equals("Tiro con l'arco")) {
-			if(!ric.contains("Commercio") || !ric.contains("Fanteria"))
+		if(nome.equals(Global.getLabels("i81")) || nome.equals(Global.getLabels("i82")) || nome.equals(Global.getLabels("i4"))) {
+			if(!ric.contains(Global.getLabels("i79")) || !ric.contains(Global.getLabels("i48")))
 				return false; 
-			if(civ == 0 && !ric.contains("Oreficeria"))
+			if(civ == 0 && !ric.contains(Global.getLabels("i80")))
 				return false;}
 		else
-		if(nome.equals("Oracolo") || nome.equals("Città") || nome.equals("Cavalleria")) {
-			if(!ric.contains("Religione") || !ric.contains("Ville") || !ric.contains("Tiro con l'arco"))
+		if(nome.equals(Global.getLabels("i25")) || nome.equals(Global.getLabels("i83")) || nome.equals(Global.getLabels("i6"))) {
+			if(!ric.contains(Global.getLabels("i81")) || !ric.contains(Global.getLabels("i82")) || !ric.contains(Global.getLabels("i4")))
 				return false; }
 		else
-		if(nome.equals("Strade lastricate")) {
-			if(!ric.contains("Città") || !ric.contains("Cavalleria"))
+		if(nome.equals(Global.getLabels("i84"))) {
+			if(!ric.contains(Global.getLabels("i83")) || !ric.contains(Global.getLabels("i6")))
 				return false;
-			if(civ != 0 && !ric.contains("Oracolo"))
+			if(civ != 0 && !ric.contains(Global.getLabels("i25")))
 				return false; 
-			if(civ == 0 && !ric.contains("Età imperiale"))
+			if(civ == 0 && !ric.contains(Global.getLabels("i28")))
 				return false; }
 		else
-		if(nome.equals("Case a più piani") || nome.equals("Corazze") || nome.equals("Balestre")) {
-			if(!ric.contains("Strade lastricate"))
+		if(nome.equals(Global.getLabels("i85")) || nome.equals(Global.getLabels("i8")) || nome.equals(Global.getLabels("i10"))) {
+			if(!ric.contains(Global.getLabels("i84")))
 				return false; }
 		else
-		if(nome.equals("Biblioteca") || nome.equals("Mercenari") || nome.equals("Clero")) {
-			if(!ric.contains("Case a più piani") || !ric.contains("Corazze") || !ric.contains("Balestre"))
+		if(nome.equals(Global.getLabels("i73")) || nome.equals(Global.getLabels("i86")) || nome.equals(Global.getLabels("i87"))) {
+			if(!ric.contains(Global.getLabels("i85")) || !ric.contains(Global.getLabels("i8")) || !ric.contains(Global.getLabels("i10")))
 				return false; }
 		else
-		if(nome.equals("Ospedale") || nome.equals("Case a schiera") || nome.equals("Tattiche di cavalleria")) {
-			if(!ric.contains("Biblioteca") || !ric.contains("Mercenari") || !ric.contains("Clero"))
+		if(nome.equals(Global.getLabels("i39")) || nome.equals(Global.getLabels("i88")) || nome.equals(Global.getLabels("i12"))) {
+			if(!ric.contains(Global.getLabels("i73")) || !ric.contains(Global.getLabels("i86")) || !ric.contains(Global.getLabels("i87")))
 				return false; }
 		else
-		if(nome.equals("Granai") || nome.equals("Inquisizione")) {
-			if(!ric.contains("Ospedale") || !ric.contains("Case a schiera") || !ric.contains("Tattiche di cavalleria"))
+		if(nome.equals(Global.getLabels("i90")) || nome.equals(Global.getLabels("i89"))) {
+			if(!ric.contains(Global.getLabels("i39")) || !ric.contains(Global.getLabels("i59")) || !ric.contains(Global.getLabels("i12")))
 				return false; }
 		else
-		if(nome.equals("Fermentazione") || nome.equals("Banca") || nome.equals("Polvere da sparo")) {
-			if(!ric.contains("Granai"))
+		if(nome.equals(Global.getLabels("i91")) || nome.equals(Global.getLabels("i70")) || nome.equals(Global.getLabels("i14"))) {
+			if(!ric.contains(Global.getLabels("i90")))
 				return false; 
-			if(civ == 0 && !ric.contains("Inquisizione"))
+			if(civ == 0 && !ric.contains(Global.getLabels("i89")))
 				return false; }
 		else
-		if(nome.equals("Strade asfaltate")) {
-			if(!ric.contains("Fermentazione") || !ric.contains("Polvere da sparo"))
+		if(nome.equals(Global.getLabels("i92"))) {
+			if(!ric.contains(Global.getLabels("i91")) || !ric.contains(Global.getLabels("i14")))
 				return false; 
-			if(civ != 0 && !ric.contains("Banca"))
+			if(civ != 0 && !ric.contains(Global.getLabels("i70")))
 				return false; }
 		else
-		if(nome.equals("Sistema industriale") || nome.equals("Scienza")) {
-			if(!ric.contains("Strade asfaltate"))
+		if(nome.equals(Global.getLabels("i93")) || nome.equals(Global.getLabels("i94"))) {
+			if(!ric.contains(Global.getLabels("i92")))
 				return false; }
 		else
-		if(nome.equals("Case con mansarda") || nome.equals("Fucili") || nome.equals("Gerarchia militare")) {
-			if(!ric.contains("Sistema industriale") || !ric.contains("Scienza"))
+		if(nome.equals(Global.getLabels("i95")) || nome.equals(Global.getLabels("i16")) || nome.equals(Global.getLabels("i96"))) {
+			if(!ric.contains(Global.getLabels("i93")) || !ric.contains(Global.getLabels("i94")))
 				return false; }
 		else
-		if(nome.equals("Società borghese") || nome.equals("Politica") || nome.equals("Tattiche in campo aperto")) {
-			if(!ric.contains("Case con mansarda") || !ric.contains("Fucili") || !ric.contains("Gerarchia militare"))
+		if(nome.equals(Global.getLabels("i98")) || nome.equals(Global.getLabels("i99")) || nome.equals(Global.getLabels("i20"))) {
+			if(!ric.contains(Global.getLabels("i95")) || !ric.contains(Global.getLabels("i16")) || !ric.contains(Global.getLabels("i96")))
 				return false; }
 		else
-		if(nome.equals("Teatri") || nome.equals("Villette") || nome.equals("Balistica") || nome.equals("Musica lirica")) {
+		if(nome.equals(Global.getLabels("i100")) || nome.equals(Global.getLabels("i101")) || nome.equals(Global.getLabels("i22")) || nome.equals(Global.getLabels("i97"))) {
 			if(!ric.contains("Società borghese") || !ric.contains("Politica") || !ric.contains("Tattiche in campo aperto"))
 				return false;
 		}
 		else
-		if(nome.equals("Carabinieri")) {
-			if(!ric.contains("Musica lirica") || !ric.contains("Villette") || !ric.contains("Balistica"))
+		if(nome.equals(Global.getLabels("i43"))) {
+			if(!ric.contains(Global.getLabels("i97")) || !ric.contains(Global.getLabels("i101")) || !ric.contains(Global.getLabels("i22")))
 				return false;
 		}
-		if(nome.equals("Guardie reali")) {
-			if(!ric.contains("Teatri") || !ric.contains("Villette") || !ric.contains("Balistica"))
+		if(nome.equals(Global.getLabels("i44"))) {
+			if(!ric.contains(Global.getLabels("i100")) || !ric.contains(Global.getLabels("i101")) || !ric.contains(Global.getLabels("i22")))
 				return false; }
 		else
-		if(nome.equals("Legione straniera")) {
-				if(!ric.contains("Teatri") || !ric.contains("Villette") || !ric.contains("Balistica"))
+		if(nome.equals(Global.getLabels("i46"))) {
+				if(!ric.contains(Global.getLabels("i100")) || !ric.contains(Global.getLabels("i101")) || !ric.contains(Global.getLabels("i22")))
 					return false; }
 		else
-		if(nome.equals("Gardenkorps")) {
-			if(!ric.contains("Musica lirica") || !ric.contains("Villette") || !ric.contains("Balistica"))
+		if(nome.equals(Global.getLabels("i47"))) {
+			if(!ric.contains(Global.getLabels("i97")) || !ric.contains(Global.getLabels("i101")) || !ric.contains(Global.getLabels("i22")))
 				return false; }
 		return true;
 	}

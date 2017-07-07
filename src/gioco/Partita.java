@@ -107,40 +107,40 @@ public class Partita {
 		Map<String, Double> ricerca = new HashMap<String, Double>();
 		
 		//Età classica
-		oro.put("Casa", 2);
-		mat.put("Fucina", 4);
-		economia.put("Mercato", 0.2);
-		economia.put("Orefice", 0.2);
-		ricerca.put("Tempio", 0.5);
-		pr.put("Tempio", 5);
-		oro.put("Villa", 4);
-		ricerca.put("Oracolo", 0.3);
-		pr.put("Oracolo", 5);
-		oro.put("Palazzo", 6);
+		oro.put(Global.getLabels("i56"), 2);
+		mat.put(Global.getLabels("i64"), 4);
+		economia.put(Global.getLabels("i67"), 0.2);
+		economia.put(Global.getLabels("i68"), 0.2);
+		ricerca.put(Global.getLabels("i24"), 0.5);
+		pr.put(Global.getLabels("i24"), 5);
+		oro.put(Global.getLabels("i57"), 4);
+		ricerca.put(Global.getLabels("i25"), 0.3);
+		pr.put(Global.getLabels("i25"), 5);
+		oro.put(Global.getLabels("i27"), 6);
 		
 		//Medioevo
-		oro.put("Casa a più piani", 6);
-		ricerca.put("Biblioteca", 0.5);
-		pr.put("Biblioteca", 7);
-		militare.put("Campo mercenari", 0.2);
-		oro.put("Casa a schiera", 8);
-		ricerca.put("Roghi", 0.3);
-		pr.put("Roghi", 7);
-		economia.put("Mastro birraio", 0.3);
-		economia.put("Banca", 0.3);
-		mat.put("Granaio", 8);
+		oro.put(Global.getLabels("i58"), 6);
+		ricerca.put(Global.getLabels("i73"), 0.5);
+		pr.put(Global.getLabels("i73"), 7);
+		militare.put(Global.getLabels("i32"), 0.2);
+		oro.put(Global.getLabels("i59"), 8);
+		ricerca.put(Global.getLabels("i75"), 0.3);
+		pr.put(Global.getLabels("i75"), 7);
+		economia.put(Global.getLabels("i69"), 0.3);
+		economia.put(Global.getLabels("i70"), 0.3);
+		mat.put(Global.getLabels("i65"), 8);
 		
 		
 		//Età vittoriana
-		mat.put("Fabbriche", 10);
-		ricerca.put("Laboratorio", 0.3);
-		pr.put("Laboratorio", 10);
-		oro.put("Casa con mansarda", 10);
-		economia.put("Centro cittadino", 0.5);
-		mat.put("Parlamento", 13);
-		oro.put("Opera", 16);
-		economia.put("Teatro", 0.3);
-		oro.put("Villetta", 12);
+		mat.put(Global.getLabels("i66"), 10);
+		ricerca.put(Global.getLabels("i76"), 0.3);
+		pr.put(Global.getLabels("i76"), 10);
+		oro.put(Global.getLabels("i60"), 10);
+		economia.put(Global.getLabels("i71"), 0.5);
+		mat.put(Global.getLabels("i42"), 13);
+		oro.put(Global.getLabels("i74"), 16);
+		economia.put(Global.getLabels("i72"), 0.3);
+		oro.put(Global.getLabels("i61"), 12);
 		
 		for(String s : giocatore.get(turnoCorrente).getStoricoPossedimenti())
 		{

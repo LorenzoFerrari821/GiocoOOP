@@ -157,8 +157,7 @@ public class GUIPartita extends JFrame{
 			public void windowClosing(WindowEvent evt) {
 				int scelta =0;
 				scelta = JOptionPane.showConfirmDialog(
-						null, "Stai per tornare al menù principale, perderai i progressi non salvati.\nUscire dalla partita?", "Conferma",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						null, Global.getLabels("s54"),Global.getLabels("a6") ,JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				finestreAttive = Frame.getWindows();
 				if(scelta == 0)
 				{
@@ -208,7 +207,7 @@ public class GUIPartita extends JFrame{
 
 		iconeGrafiche = new IconeGrafiche();
 		scenario = new Scenario(mappa);
-		proprietario = "utente1";
+		proprietario = "utente1";  
 		indiceProprietario = civilta;
 		azioneLblsGioco = "";
 
@@ -598,7 +597,7 @@ public class GUIPartita extends JFrame{
 		d.gridx ++;
 		panelMsg.add(txtMsg, d);
 		d.gridx ++;
-		btnPassaTurno = new JButton("Passa");
+		btnPassaTurno = new JButton(Global.getLabels("s55"));
 		btnPassaTurno.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -858,7 +857,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public void posizionaECompra(String elemento)
 	{
-		azioneLblsGioco = "compra"; //Indica che la prossima azione di click su una lblGioco è per comprare
+		azioneLblsGioco = Global.getLabels("s56"); //Indica che la prossima azione di click su una lblGioco è per comprare
 		elemLblsGioco = elemento; //Indica l'elemento da comprare
 	}
 
@@ -867,7 +866,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public void vendiCostruzione()
 	{
-		azioneLblsGioco = "vendi"; //Indica che la prossima azione di click è per vendere
+		azioneLblsGioco = Global.getLabels("s57"); //Indica che la prossima azione di click è per vendere
 	}
 
 
@@ -876,7 +875,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public void muoviCostruzione()
 	{
-		azioneLblsGioco = "muovi";
+		azioneLblsGioco = Global.getLabels("s58");
 	}
 	
 	/**
@@ -886,8 +885,8 @@ public class GUIPartita extends JFrame{
 	public void piazzaEsercito(GruppoMilitare gruppoMilitare)
 	{
 		this.gruppoMilitare = gruppoMilitare;
-		azioneLblsGioco = "piazza esercito";
-		elemLblsGioco = "Esercito";
+		azioneLblsGioco = Global.getLabels("s59");
+		elemLblsGioco = Global.getLabels("s60");
 	}
 	
 	/**
@@ -895,7 +894,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public void richiamaEsercito()
 	{
-		azioneLblsGioco = "richiama esercito";
+		azioneLblsGioco = Global.getLabels("s61");
 	}
 	
 	/**
@@ -903,8 +902,8 @@ public class GUIPartita extends JFrame{
 	 */
 	public void gruppoMilitareAttacca(GruppoMilitare gruppoMilitare)
 	{
-		azioneLblsGioco = "gruppo militare attacca";
-		elemLblsGioco = "Esercito";
+		azioneLblsGioco = Global.getLabels("s62");
+		elemLblsGioco = Global.getLabels("s60");
 		this.gruppoMilitare = gruppoMilitare;
 	}
 	
@@ -913,14 +912,14 @@ public class GUIPartita extends JFrame{
 	 */
 	public void gruppoMilitareMuovi(GruppoMilitare gruppoMilitare)
 	{
-		azioneLblsGioco = "gruppo militare muovi";
-		elemLblsGioco = "Esercito";
+		azioneLblsGioco = Global.getLabels("s63");
+		elemLblsGioco = Global.getLabels("s60");
 		this.gruppoMilitare = gruppoMilitare;
 	}
 
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
-		if(azioneLblsGioco.equals("compra"))
+		if(azioneLblsGioco.equals(Global.getLabels("s56")))
 		{
 			if(isPiazzamentoPossibile(i, j)) //compra e piazza
 			{
@@ -936,8 +935,7 @@ public class GUIPartita extends JFrame{
 			}
 			else //il posto dove vuole piazzarlo è già occupato
 			{
-				JOptionPane.showMessageDialog(null, "Non è possibile piazzare "+ elemLblsGioco + " in questa posizione.",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("e9")+ elemLblsGioco + Global.getLabels("e10"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 
 			//Resetto i dati di azione e elemento in memoria
@@ -948,23 +946,20 @@ public class GUIPartita extends JFrame{
 			aggiornaDatiGUI();
 		}
 		else
-		if(azioneLblsGioco.equals("vendi"))
+		if(azioneLblsGioco.equals(Global.getLabels("s57")))
 		{
 			//Controllo che sulla lbl ci sia un elemento vendibile
 			String nome = individuaOggetto(i, j, true); //ritorna l'oggetto contenuto nella lbl che può essere venduto
 
-			if(nome == null || nome.contains("municipio"))
+			if(nome == null || nome.contains(Global.getLabels("i49")))
 			{
-				JOptionPane.showMessageDialog(null, "Seleziona un elemento valido per la vendita",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("s64"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else //chiedi se vuole vendere
 			{
 				int scelta =0;
 				scelta = JOptionPane.showConfirmDialog(
-						null, "Sei sicuro di voler vendere questo oggetto? (Otterrai la metà di oro e "
-								+ "materiali richiesti per l'acquisto)", "Conferma",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						null,Global.getLabels("s65") , Global.getLabels("a6"),JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(scelta == 0) //se si
 				{
 					char ultimoChar = nome.charAt(nome.length() - 1);
@@ -997,30 +992,28 @@ public class GUIPartita extends JFrame{
 			aggiornaDatiGUI();
 		}
 		else
-		if(azioneLblsGioco.equals("muovi"))
+		if(azioneLblsGioco.equals(Global.getLabels("s58")))
 		{
 			String nome = individuaOggetto(i, j, true);
 
 			if(nome == null)
 			{
-				JOptionPane.showMessageDialog(null, "Non è possibile muovere questo elemento",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null,Global.getLabels("e11"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else
 			{
-				azioneLblsGioco = "posizionaElemento";
+				azioneLblsGioco = Global.getLabels("s66");
 				elemLblsGioco = nome;
 				ioldLblsGioco = i;
 				joldLblsGioco = j;
 			}
 		}
 		else
-		if(azioneLblsGioco.equals("posizionaElemento"))
+		if(azioneLblsGioco.equals(Global.getLabels("s66")))
 		{
 			if(!isPiazzamentoPossibile(i, j))
 			{
-				JOptionPane.showMessageDialog(null, "Non è possibile muovere l'elemento in questa posizione",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null,Global.getLabels("e12"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else //piazzamento possibile
 			{
@@ -1041,9 +1034,9 @@ public class GUIPartita extends JFrame{
 			}
 		}
 		else
-		if(azioneLblsGioco.equals("gruppo militare attacca"))
+		if(azioneLblsGioco.equals(Global.getLabels("s62")))
 		{
-			System.out.println("attacca");
+			System.out.println(Global.getLabels("s67"));
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
@@ -1053,7 +1046,7 @@ public class GUIPartita extends JFrame{
 			aggiornaDatiGUI();
 		}
 		else
-		if(azioneLblsGioco.equals("gruppo militare muovi"))
+		if(azioneLblsGioco.equals(Global.getLabels("s63")))
 		{
 			if(isPiazzamentoPossibile(i, j)) //controlla che la casella sia vuota (solo la base)
 			{
@@ -1097,21 +1090,16 @@ public class GUIPartita extends JFrame{
 							scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Il gruppo militare è già stato mosso durante questo turno",
-									"Attenzione", JOptionPane.DEFAULT_OPTION);
+							JOptionPane.showMessageDialog(null, Global.getLabels("s68"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Il gruppo militare non è abbastanza veloce da compiere questo spostamento.\n"
-								+ "Al massimo può muoversi di " + Integer.toString(unitaPiuLenta),
-								"Attenzione", JOptionPane.DEFAULT_OPTION);
+						JOptionPane.showMessageDialog(null, Global.getLabels("s69") + Integer.toString(unitaPiuLenta),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 				}
 				else
-					JOptionPane.showMessageDialog(null, "I gruppi militari non possono entrare nelle città",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s70"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else
-				JOptionPane.showMessageDialog(null, "Non è possibile muovere il gruppo militare in questa posizione",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("e71"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
@@ -1132,21 +1120,21 @@ public class GUIPartita extends JFrame{
 					edificio = edificio.substring(0, edificio.length() - 1);
 				}
 				
-				if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
-						edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
-						edificio.equals("Ospedale") || edificio.equals("Parlamento"))
+				if(edificio.equals(Global.getLabels("i0")) || edificio.equals(Global.getLabels("i24")) || edificio.equals(Global.getLabels("i27")) || 
+						edificio.equals(Global.getLabels("i32")) || edificio.equals(Global.getLabels("i35")) || edificio.equals(Global.getLabels("i41")) || 
+						edificio.equals(Global.getLabels("i39")) || edificio.equals(Global.getLabels("i42")))
 				{
 					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
 					guiArruolaUnita.setVisible(true);
 				}
 				else
-				if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
+				if(edificio.equals(Global.getLabels("i50")) || edificio.equals(Global.getLabels("i51")) || edificio.equals(Global.getLabels("i52")))
 				{
 					guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
 					guiMunicipio.setVisible(true);
 				}
 				else
-				if(edificio.contains("esercito"))
+				if(edificio.contains(Global.getLabels("s72")))
 				{
 					GruppoMilitare gruppoMilitareCercato = null;
 					
@@ -1165,7 +1153,7 @@ public class GUIPartita extends JFrame{
 			}
 		}
 		else
-		if(azioneLblsGioco.equals("piazza esercito"))
+		if(azioneLblsGioco.equals(Global.getLabels("s59")))
 		{
 			if(isPiazzamentoPossibile(i, j))
 			{
@@ -1186,8 +1174,7 @@ public class GUIPartita extends JFrame{
 					scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Puoi piazzare un esercito solo in una zona adiacente la tua città",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s73"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			
 			//Resetto i dati di azione e elemento in memoria
@@ -1197,7 +1184,7 @@ public class GUIPartita extends JFrame{
 			aggiornaSchermata();
 		}
 		else
-		if(azioneLblsGioco.equals("richiama esercito"))
+			if(azioneLblsGioco.equals(Global.getLabels("s61")))
 		{
 			int vicinanza = isVicinoACitta(i + posSchermataX, j + posSchermataY);
 			
@@ -1234,12 +1221,10 @@ public class GUIPartita extends JFrame{
 							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].length() - 10);
 				}
 				else
-					JOptionPane.showMessageDialog(null, "È possibile richiamare nel municipio solo eserciti della propria nazione",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s74"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else
-				JOptionPane.showMessageDialog(null, "È possibile richiamare nel municipio solo eserciti adiacenti la propria città",
-						"Attenzione", JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("s75"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
@@ -1261,7 +1246,7 @@ public class GUIPartita extends JFrame{
 	{
 		String str = scenario.getScenario()[j][i];
 		
-		if(str.contains("esercito"))
+		if(str.contains(Global.getLabels("s72")))
 			return Integer.parseInt(str.substring(str.length()-1, str.length()));
 		
 		return -1;
@@ -1383,10 +1368,10 @@ public class GUIPartita extends JFrame{
 	public void posizionaElementoSuScenario(int i, int j)
 	{
 		/*Posizionamento oggetto sulla plancia di gioco*/
-		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") ||
-				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
-				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
-				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta"))
+		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
+				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
+				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
+				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")))
 		{ //caso 1x1
 			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
 			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
@@ -1445,10 +1430,10 @@ public class GUIPartita extends JFrame{
 	{
 		int stItera;
 
-		if(elemLblsGioco.equals("Sentiero") || elemLblsGioco.equals("Lastricato") || elemLblsGioco.equals("Asfalto") || 
-				elemLblsGioco.equals("Casa") || elemLblsGioco.equals("Villa") || 
-				elemLblsGioco.equals("Casa a più piani") || elemLblsGioco.equals("Casa a schiera") ||
-				elemLblsGioco.equals("Casa con mansarda") || elemLblsGioco.equals("Villetta") || elemLblsGioco.equals("Esercito"))
+		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
+				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
+				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
+				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")) || elemLblsGioco.equals(Global.getLabels("s60")))
 		{
 			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
 			StringTokenizer st;
@@ -1458,7 +1443,7 @@ public class GUIPartita extends JFrame{
 			st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
 			while(st.hasMoreTokens()) {
 				if(stItera == 0) //controllo che il pavimento sia ghiaia
-					if(!st.nextToken().equals("g") && !elemLblsGioco.equals("Esercito"))
+					if(!st.nextToken().equals("g") && !elemLblsGioco.equals(Global.getLabels("s60")))
 					{
 						return false;
 					}

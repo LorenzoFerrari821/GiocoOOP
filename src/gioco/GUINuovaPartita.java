@@ -117,7 +117,7 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.LINE_END;
 
-		lblNomeGiocatore = new JLabel("Nome Giocatore: ");
+		lblNomeGiocatore = new JLabel(Global.getLabels("s1"));
 		lblNomeGiocatore.setFont(lblNomeGiocatore.getFont().deriveFont(22f));
 		pnlMenu.add(lblNomeGiocatore, c);
 
@@ -125,7 +125,7 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		lblTutorial = new JLabel("Tutorial: ");
+		lblTutorial = new JLabel(Global.getLabels("s2"));
 		lblTutorial.setFont(lblTutorial.getFont().deriveFont(22f));
 		pnlMenu.add(lblTutorial, c);
 
@@ -133,7 +133,7 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		lblDifficolta = new JLabel("Difficoltà: ");
+		lblDifficolta = new JLabel(Global.getLabels("s3"));
 		lblDifficolta.setFont(lblDifficolta.getFont().deriveFont(22f));
 		pnlMenu.add(lblDifficolta, c);
 
@@ -143,7 +143,7 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		lblMappa = new JLabel("Mappa: ");
+		lblMappa = new JLabel(Global.getLabels("s4"));
 		lblMappa.setFont(lblMappa.getFont().deriveFont(22f));
 		pnlMenu.add(lblMappa, c);
 
@@ -151,7 +151,7 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		lblCivilta = new JLabel("Civiltà: ");
+		lblCivilta = new JLabel(Global.getLabels("s5"));
 		lblCivilta.setFont(lblCivilta.getFont().deriveFont(22f));
 		pnlMenu.add(lblCivilta, c);
 
@@ -171,10 +171,10 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 
 		listDifficolta = new  JComboBox<String>();
-		listDifficolta.addItem("Facile");
-		listDifficolta.addItem("Medio");
-		listDifficolta.addItem("Difficile");
-		listDifficolta.addItem("Maestro");
+		listDifficolta.addItem(Global.getLabels("s6"));
+		listDifficolta.addItem(Global.getLabels("s7"));
+		listDifficolta.addItem(Global.getLabels("s8"));
+		listDifficolta.addItem(Global.getLabels("s9"));
 		pnlMenu.add(listDifficolta, c);
 
 		c.gridy ++;
@@ -182,10 +182,10 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 
 		listMappa = new  JComboBox<String>();
-		listMappa.addItem("Predefinita");
-		listMappa.addItem("Generata casualmente");
-		listMappa.addItem("Estiva");
-		listMappa.addItem("Invernale");
+		listMappa.addItem(Global.getLabels("s10"));
+		listMappa.addItem(Global.getLabels("s11"));
+		listMappa.addItem(Global.getLabels("s12"));
+		listMappa.addItem(Global.getLabels("s13"));
 		pnlMenu.add(listMappa, c);
 
 		c.gridy ++;
@@ -193,10 +193,10 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 
 		listCivilta = new  JComboBox<String>();
-		listCivilta.addItem("Romani");
-		listCivilta.addItem("Britanni");
-		listCivilta.addItem("Galli");
-		listCivilta.addItem("Sassoni");
+		listCivilta.addItem(Global.getLabels("s14"));
+		listCivilta.addItem(Global.getLabels("s15"));
+		listCivilta.addItem(Global.getLabels("s16"));
+		listCivilta.addItem(Global.getLabels("s17"));
 		pnlMenu.add(listCivilta, c);
 
 		c.gridx = 0;
@@ -206,7 +206,7 @@ public class GUINuovaPartita extends JPanel {
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
 
-		btnIndietro = new RoundedCornerButton("INDIETRO");
+		btnIndietro = new RoundedCornerButton(Global.getLabels("a0"));
 		btnIndietro.setFont(fontFuturist.deriveFont(16f));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
@@ -232,7 +232,7 @@ public class GUINuovaPartita extends JPanel {
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;
-		btnAvvia = new RoundedCornerButton("AVVIA PARTITA");
+		btnAvvia = new RoundedCornerButton(Global.getLabels("a1"));
 		btnAvvia.setFont(fontFuturist.deriveFont(16f));
 		btnAvvia.addMouseListener(new MouseAdapter() {
 			@Override
@@ -293,7 +293,7 @@ public class GUINuovaPartita extends JPanel {
 
 			if(txtNomeGiocatore.getText().equals(""))
 			{
-				JOptionPane.showMessageDialog(pnlMenu, "Il campo Nome Giocatore non può essere vuoto.");
+				JOptionPane.showMessageDialog(pnlMenu,Global.getLabels("e0"));
 				return -1;
 			}
 
@@ -310,9 +310,7 @@ public class GUINuovaPartita extends JPanel {
 					listCivilta.getItemAt(listCivilta.getSelectedIndex()),(codice+1));
 		} catch(SQLException  | ClassNotFoundException e ){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(pnlMenu, "Si è verificato un errore inaspettato "
-					+ "nella creazione della partita.",
-					"Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(pnlMenu, Global.getLabels("e1"),Global.getLabels("e2"), JOptionPane.ERROR_MESSAGE);
 			if(s!=null)
 				s.closeConnection();
 			return -1;

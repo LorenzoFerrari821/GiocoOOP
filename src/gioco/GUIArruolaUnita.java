@@ -103,7 +103,7 @@ public class GUIArruolaUnita extends JDialog {
 			e.printStackTrace();
 		}
 		
-		setTitle("Arruola unità militari");
+		setTitle(Global.getLabels("s36"));
 		setBounds(0, 0, 700, 470);
 		setMinimumSize(new Dimension(700, 470));   
 		setLocationRelativeTo(null);
@@ -129,7 +129,7 @@ public class GUIArruolaUnita extends JDialog {
 		//PANNELLO BOT 1
 		pnlBot1 = new JPanel(new GridLayout(1, 2, 0, 0));
 		
-		lblUDaArruolare = new JLabel("Unità da arruolare: ");
+		lblUDaArruolare = new JLabel(Global.getLabels("s37"));
 		lblUDaArruolare.setFont(fontFuturist.deriveFont(13f));
 		pnlBot1.add(lblUDaArruolare);
 		
@@ -174,8 +174,7 @@ public class GUIArruolaUnita extends JDialog {
 				
 				if(!valido)
 				{
-		    		JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
-		 				"Attenzione", JOptionPane.DEFAULT_OPTION);
+		    		JOptionPane.showMessageDialog(null,Global.getLabels("s38"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 		    	}
 			 }
 		});
@@ -186,7 +185,7 @@ public class GUIArruolaUnita extends JDialog {
 		//PANNELLO BOT 2
 		pnlBot2 = new JPanel(new GridLayout(1, 3, 0, 0));
 		
-		lblCostoTotale = new JLabel("Costo totale: ");
+		lblCostoTotale = new JLabel(Global.getLabels("s39"));
 		lblCostoTotale.setFont(fontFuturist.deriveFont(13f));
 		pnlBot2.add(lblCostoTotale);
 		
@@ -205,7 +204,7 @@ public class GUIArruolaUnita extends JDialog {
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -223,7 +222,7 @@ public class GUIArruolaUnita extends JDialog {
 		
 		btnInfo = new RoundedCornerButton();
 		btnInfo.setFont(fontFuturist.deriveFont(13f));
-		btnInfo.setText("INFORMAZIONI");
+		btnInfo.setText(Global.getLabels("a5"));
 		btnInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -241,7 +240,7 @@ public class GUIArruolaUnita extends JDialog {
 		
 		btnArruola = new RoundedCornerButton();
 		btnArruola.setFont(fontFuturist.deriveFont(13f));
-		btnArruola.setText("ARRUOLA");
+		btnArruola.setText(Global.getLabels("s40"));
 		btnArruola.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -258,8 +257,7 @@ public class GUIArruolaUnita extends JDialog {
 						dispose();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Seleziona un'unità militare dall'elenco",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s41"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 		});
 		pnlBot3.add(btnArruola);
@@ -309,8 +307,7 @@ public class GUIArruolaUnita extends JDialog {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Risorse per l'acquisto insufficienti",
-							"Attenzione", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showMessageDialog(null, Global.getLabels("s42"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 					return false;
 				}
 			}
@@ -322,8 +319,7 @@ public class GUIArruolaUnita extends JDialog {
 		
 		if(!valido)
 		{
-			JOptionPane.showMessageDialog(null, "Inserisci un numero valido di unità da arruolare (min 1, max 1000)",
-					"Attenzione", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, Global.getLabels("s38"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			return false;
 		}
 		
@@ -347,12 +343,9 @@ public class GUIArruolaUnita extends JDialog {
 	public void daiInformazioni(String nome)
 	{
 		if(nome == null)
-			JOptionPane.showMessageDialog(null, "Nessuna unità militare selezionata.\nPremi su un'unità per selezionarla",
-					"Attenzione", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null,Global.getLabels("s43") ,Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 		else
-			JOptionPane.showMessageDialog(null, "Le unità militari sono la punta di diamante di ogni impero potente.\n"
-					+ "Ti permettono di formare armate da schierare in difesa del municipio o per conquistare nuove terre",
-					"Informazioni", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, Global.getLabels("s44"),Global.getLabels("a5"), JOptionPane.DEFAULT_OPTION);
 	}
 	
 	/*
@@ -364,164 +357,164 @@ public class GUIArruolaUnita extends JDialog {
 		String nome;
 		pnlMid.removeAll();
 		
-		if(edificio.equals("Caserma"))
+		if(edificio.equals(Global.getLabels("i0")))
 		{
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Caserma"))
+				if(obj.equals(Global.getLabels("i0")))
 				{
-					nome = "Miliziano";
+					nome = Global.getLabels("i1");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Fanteria"))
+				if(obj.equals(Global.getLabels("i48")))
 				{
-					nome = "Soldato";
+					nome = Global.getLabels("i2");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
-					nome = "Spadaccino";
+					nome = Global.getLabels("i3");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte += 2;
 				}
 				else
-				if(obj.equals("Tiro con l'arco"))
+				if(obj.equals(Global.getLabels("i4")))
 				{
-					nome = "Arciere";
+					nome = Global.getLabels("i5");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Cavalleria"))
+				if(obj.equals(Global.getLabels("i6")))
 				{
-					nome = "Cavaliere";
+					nome = Global.getLabels("i7");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Corazze"))
+				if(obj.equals(Global.getLabels("i8")))
 				{
-					nome = "Soldato in armatura pesante";
+					nome = Global.getLabels("i9");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Balestre"))
+				if(obj.equals(Global.getLabels("i10")))
 				{
-					nome = "Balestriere";
+					nome = Global.getLabels("i11");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Tattiche di cavalleria"))
+				if(obj.equals(Global.getLabels("i12")))
 				{
-					nome = "Cavaliere pesante";
+					nome = Global.getLabels("i13");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Polvere da sparo"))
+				if(obj.equals(Global.getLabels("i14")))
 				{
-					nome = "Cannone";
+					nome = Global.getLabels("i15");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Fucili"))
+				if(obj.equals(Global.getLabels("i16")))
 				{
-					nome = "Fuciliere";
+					nome = Global.getLabels("i17");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
-					nome = "Mitragliere";
+					nome = Global.getLabels("i18");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
-					nome = "Granatiere";
+					nome = Global.getLabels("i19");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Tattiche in campo aperto"))
+				if(obj.equals(Global.getLabels("i20")))
 				{
-					nome = "Fuciliere a cavallo";
+					nome = Global.getLabels("i21");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Balistica"))
+				if(obj.equals(Global.getLabels("i22")))
 				{
-					nome = "Artiglieria";
+					nome = Global.getLabels("i23");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 			}
 		}
 		else
-		if(edificio.equals("Tempio"))
+		if(edificio.equals(Global.getLabels("i24")))
 		{
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Oracolo"))
+				if(obj.equals(Global.getLabels("i25")))
 				{
-					nome = "Druido";
+					nome = Global.getLabels("i26");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 			}
 		}
 		else
-		if(edificio.equals("Palazzo"))
+		if(edificio.equals(Global.getLabels("i27")))
 		{
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Età imperiale"))
+				if(obj.equals(Global.getLabels("i28")))
 				{
-					nome = "Pretoriano";
+					nome = Global.getLabels("i29");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 				else
-				if(obj.equals("Società militare"))
+				if(obj.equals(Global.getLabels("i30")))
 				{
-					nome = "Berserk";
+					nome = Global.getLabels("i31");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 			}
 		}
 		else
-		if(edificio.equals("Campo mercenari"))
+		if(edificio.equals(Global.getLabels("i32")))
 		{
-			nome = "Spadaccino mercenario";
+			nome = Global.getLabels("i33");
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 			aggiunte++;
-			nome = "Arciere mercenario";
+			nome = Global.getLabels("i34");
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 			aggiunte++;
 		}
 		else
-		if(edificio.equals("Chiesa"))
+		if(edificio.equals(Global.getLabels("i35")))
 		{
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Inquisizione"))
+				if(obj.equals(Global.getLabels("i36")))
 				{
-					nome = "Cavaliere templare";
+					nome = Global.getLabels("i37");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 				}
 			}
-			nome = "Cavaliere crociato";
+			nome = Global.getLabels("i38");
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 			aggiunte++;
 		}
 		else
-		if(edificio.equals("Ospedale"))
+		if(edificio.equals(Global.getLabels("i39")))
 		{
-			nome = "Medico";
+			nome = Global.getLabels("i40");
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 			aggiunte++;
 		}
 		else
-		if(edificio.equals("Caserma eroi"))
+		if(edificio.equals(Global.getLabels("i41")))
 		{
 			nome = "Lorenzo";
 			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
@@ -531,37 +524,37 @@ public class GUIArruolaUnita extends JDialog {
 			aggiunte++;
 		}
 		else
-		if(edificio.equals("Parlamento"))
+		if(edificio.equals(Global.getLabels("i42")))
 		{
 			for(String obj: partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate()) //per ogni ricerca
 			{
-				if(obj.equals("Carabinieri"))
+				if(obj.equals(Global.getLabels("i43")))
 				{
-					nome = "Carabinieri";
+					nome = Global.getLabels("i43");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 					break;
 				}
 				else
-				if(obj.equals("Guardie reali"))
+				if(obj.equals(Global.getLabels("i44")))
 				{
-					nome = "Guardia reale";
+					nome = Global.getLabels("i45");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 					break;
 				}
 				else
-				if(obj.equals("Legione straniera"))
+				if(obj.equals(Global.getLabels("i46")))
 				{
-					nome = "Legione straniera";
+					nome = Global.getLabels("i46");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 					break;
 				}
 				else
-				if(obj.equals("Gardenkorps"))
+				if(obj.equals(Global.getLabels("i47")))
 				{
-					nome = "Gardenkorps";
+					nome = Global.getLabels("i47");
 					aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), evidenzia);
 					aggiunte++;
 					break;

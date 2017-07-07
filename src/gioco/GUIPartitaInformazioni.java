@@ -92,7 +92,7 @@ public class GUIPartitaInformazioni extends JDialog {
 			e.printStackTrace();
 		}
 		
-		setTitle("Informazioni");
+		setTitle(Global.getLabels("a7"));
 		setBounds(0, 0, 650, 450);
 		setMinimumSize(new Dimension(650, 450));   
 		setLocationRelativeTo(null);
@@ -105,63 +105,63 @@ public class GUIPartitaInformazioni extends JDialog {
 		
 		c.gridx = 0;
 		c.gridy = 0;
-		lblBonusEco = new JLabel("BONUS ECONOMIA: ");
+		lblBonusEco = new JLabel(Global.getLabels("s96"));
 		lblBonusEco.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBonusEco, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblBonusMil = new JLabel("BONUS MILITARE: ");
+		lblBonusMil = new JLabel(Global.getLabels("s97"));
 		lblBonusMil.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBonusMil, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblBonusRic = new JLabel("BONUS RICERCA: ");
+		lblBonusRic = new JLabel(Global.getLabels("s98"));
 		lblBonusRic.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblBonusRic, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblTruppeDef = new JLabel("TRUPPE IN DIFESA: ");
+		lblTruppeDef = new JLabel(Global.getLabels("s99"));
 		lblTruppeDef.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeDef, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblTruppeAtk = new JLabel("TRUPPE IN ATTACCO: ");
+		lblTruppeAtk = new JLabel(Global.getLabels("s100"));
 		lblTruppeAtk.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblTruppeAtk, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblGruppiAtk = new JLabel("GRUPPI MILITARI IN ATTACCO: ");
+		lblGruppiAtk = new JLabel(Global.getLabels("s101"));
 		lblGruppiAtk.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblGruppiAtk, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblOroXTurno = new JLabel("ORO PER TURNO: ");
+		lblOroXTurno = new JLabel(Global.getLabels("s102"));
 		lblOroXTurno.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblOroXTurno, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblMatXTurno = new JLabel("MATERIALI PER TURNO: ");
+		lblMatXTurno = new JLabel(Global.getLabels("s103"));
 		lblMatXTurno.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblMatXTurno, c);
 		c.gridy++;
 		contentPane.add(new JLabel(" "), c);
 		
 		c.gridy++;
-		lblPRXTurno = new JLabel("PUNTI RICERCA PER TURNO: ");
+		lblPRXTurno = new JLabel(Global.getLabels("s104"));
 		lblPRXTurno.setFont(fontFuturist.deriveFont(13f));
 		contentPane.add(lblPRXTurno, c);
 		c.gridy++;
@@ -259,7 +259,7 @@ public class GUIPartitaInformazioni extends JDialog {
 		c.gridy++;
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {

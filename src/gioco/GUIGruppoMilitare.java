@@ -89,9 +89,9 @@ public class GUIGruppoMilitare extends JDialog {
 		}
 		
 		if(gruppoMilitare.getCivilta() == partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getCiviltà()) // alleato
-			setTitle("Gruppo militare alleato");
+			setTitle(Global.getLabels("s45"));
 		else
-			setTitle("Gruppo militare nemico");
+			setTitle(Global.getLabels("s46"));
 		setBounds(0, 0, 775, 510);
 		setMinimumSize(new Dimension(775, 510));   
 		setLocationRelativeTo(null);
@@ -119,7 +119,7 @@ public class GUIGruppoMilitare extends JDialog {
 		
 		btnIndietro = new RoundedCornerButton();
 		btnIndietro.setFont(fontFuturist.deriveFont(13f));
-		btnIndietro.setText("INDIETRO");
+		btnIndietro.setText(Global.getLabels("a0"));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -139,7 +139,7 @@ public class GUIGruppoMilitare extends JDialog {
 		{
 			btnAttacca = new RoundedCornerButton();
 			btnAttacca.setFont(fontFuturist.deriveFont(13f));
-			btnAttacca.setText("ATTACCA");
+			btnAttacca.setText(Global.getLabels("s47"));
 			btnAttacca.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent arg0) {
@@ -158,7 +158,7 @@ public class GUIGruppoMilitare extends JDialog {
 			
 			btnMuovi = new RoundedCornerButton();
 			btnMuovi.setFont(fontFuturist.deriveFont(13f));
-			btnMuovi.setText("MUOVI");
+			btnMuovi.setText(Global.getLabels("s48"));
 			btnMuovi.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent arg0) {

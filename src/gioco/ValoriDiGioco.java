@@ -22,131 +22,131 @@ public class ValoriDiGioco {
 		velUnita = new HashMap<String, Integer>();
 		
 		//Inserimento valori ricerche età classica
-		valoriRicerche.put("Sentieri", 1);
-		valoriRicerche.put("Abitazioni", 2);
-		valoriRicerche.put("Caserma", 2);
-		valoriRicerche.put("Fucina", 2);
-		valoriRicerche.put("Commercio", 3);
-		valoriRicerche.put("Fanteria", 3);
-		valoriRicerche.put("Oreficeria", 3);
-		valoriRicerche.put("Religione", 4);
-		valoriRicerche.put("Ville", 4);
-		valoriRicerche.put("Tiro con l'arco", 4);
-		valoriRicerche.put("Oracolo", 5);
-		valoriRicerche.put("Città", 5);
-		valoriRicerche.put("Cavalleria", 5);
-		valoriRicerche.put("Età imperiale", 6);
-		valoriRicerche.put("Società militare", 6);
+		valoriRicerche.put(Global.getLabels("i77"), 1);
+		valoriRicerche.put(Global.getLabels("i78"), 2);
+		valoriRicerche.put(Global.getLabels("i0"), 2);
+		valoriRicerche.put(Global.getLabels("i64"), 2);
+		valoriRicerche.put(Global.getLabels("i79"), 3);
+		valoriRicerche.put(Global.getLabels("i48"), 3);
+		valoriRicerche.put(Global.getLabels("i80"), 3);
+		valoriRicerche.put(Global.getLabels("i81"), 4);
+		valoriRicerche.put(Global.getLabels("i82"), 4);
+		valoriRicerche.put(Global.getLabels("i4"), 4);
+		valoriRicerche.put(Global.getLabels("i25"), 5);
+		valoriRicerche.put(Global.getLabels("i83"), 5);
+		valoriRicerche.put(Global.getLabels("i6"), 5);
+		valoriRicerche.put(Global.getLabels("i28"), 6);
+		valoriRicerche.put(Global.getLabels("i30"), 6);
 		
 		//Inserimento valori ricerche Medioevo
-		valoriRicerche.put("Strade lastricate", 7);
-		valoriRicerche.put("Case a più piani", 8);
-		valoriRicerche.put("Corazze", 8);
-		valoriRicerche.put("Balestre", 8);
-		valoriRicerche.put("Biblioteca", 9);
-		valoriRicerche.put("Mercenari", 9);
-		valoriRicerche.put("Clero", 9);
-		valoriRicerche.put("Ospedale", 10);
-		valoriRicerche.put("Case a schiera", 10);
-		valoriRicerche.put("Tattiche di cavalleria", 10);
-		valoriRicerche.put("Inquisizione", 11);
-		valoriRicerche.put("Granai", 11);
-		valoriRicerche.put("Fermentazione", 12);
-		valoriRicerche.put("Banca", 12);
-		valoriRicerche.put("Polvere da sparo", 12);
+		valoriRicerche.put(Global.getLabels("i84"), 7);
+		valoriRicerche.put(Global.getLabels("i85"), 8);
+		valoriRicerche.put(Global.getLabels("i8"), 8);
+		valoriRicerche.put(Global.getLabels("i10"), 8);
+		valoriRicerche.put(Global.getLabels("i73"), 9);
+		valoriRicerche.put(Global.getLabels("i86"), 9);
+		valoriRicerche.put(Global.getLabels("i87"), 9);
+		valoriRicerche.put(Global.getLabels("i39"), 10);
+		valoriRicerche.put(Global.getLabels("i88"), 10);
+		valoriRicerche.put(Global.getLabels("i12"), 10);
+		valoriRicerche.put(Global.getLabels("i89"), 11);
+		valoriRicerche.put(Global.getLabels("i90"), 11);
+		valoriRicerche.put(Global.getLabels("i91"), 12);
+		valoriRicerche.put(Global.getLabels("i70"), 12);
+		valoriRicerche.put(Global.getLabels("i14"), 12);
 		
 		//Inserimento valori ricerche età vittoriana
-		valoriRicerche.put("Strade asfaltate", 13);
-		valoriRicerche.put("Sistema industriale", 14);
-		valoriRicerche.put("Scienza", 14);
-		valoriRicerche.put("Case con mansarda", 15);
-		valoriRicerche.put("Fucili", 15);
-		valoriRicerche.put("Gerarchia militare", 15);
-		valoriRicerche.put("Società borghese", 16);
-		valoriRicerche.put("Politica", 16);
-		valoriRicerche.put("Tattiche in campo aperto", 16);
-		valoriRicerche.put("Teatri", 17);
-		valoriRicerche.put("Musica lirica", 17);
-		valoriRicerche.put("Villette", 17);
-		valoriRicerche.put("Balistica", 17);
-		valoriRicerche.put("Legione straniera", 18);
-		valoriRicerche.put("Guardie reali", 18);
-		valoriRicerche.put("Carabinieri", 18);
-		valoriRicerche.put("Gardenkorps", 18);
+		valoriRicerche.put(Global.getLabels("i92"), 13);
+		valoriRicerche.put(Global.getLabels("i93"), 14);
+		valoriRicerche.put(Global.getLabels("i94"), 14);
+		valoriRicerche.put(Global.getLabels("i95"), 15);
+		valoriRicerche.put(Global.getLabels("i16"), 15);
+		valoriRicerche.put(Global.getLabels("i96"), 15);
+		valoriRicerche.put(Global.getLabels("i98"), 16);
+		valoriRicerche.put(Global.getLabels("i99"), 16);
+		valoriRicerche.put(Global.getLabels("i20"), 16);
+		valoriRicerche.put(Global.getLabels("i100"), 17);
+		valoriRicerche.put(Global.getLabels("i97"), 17);
+		valoriRicerche.put(Global.getLabels("i101"), 17);
+		valoriRicerche.put(Global.getLabels("i22"), 17);
+		valoriRicerche.put(Global.getLabels("i46"), 18);
+		valoriRicerche.put(Global.getLabels("i44"), 18);
+		valoriRicerche.put(Global.getLabels("i43"), 18);
+		valoriRicerche.put(Global.getLabels("i47"), 18);
 		
 		//Inserimento costi età classica
-		inserisciCosti("Sentiero", 1, 1);
-		inserisciCosti("Casa", 5, 2);
-		inserisciCosti("Caserma", 3, 10);
-		inserisciCosti("Fucina", 2, 5);
-		inserisciCosti("Mercato", 3, 6);
-		inserisciCosti("Orefice", 2, 6);
-		inserisciCosti("Tempio", 3, 7);
-		inserisciCosti("Villa", 8, 4);
-		inserisciCosti("Palazzo", 10, 10);
+		inserisciCosti(Global.getLabels("i53"), 1, 1);
+		inserisciCosti(Global.getLabels("i56"), 5, 2);
+		inserisciCosti(Global.getLabels("i0"), 3, 10);
+		inserisciCosti(Global.getLabels("i64"), 2, 5);
+		inserisciCosti(Global.getLabels("i67"), 3, 6);
+		inserisciCosti(Global.getLabels("i68"), 2, 6);
+		inserisciCosti(Global.getLabels("i24"), 3, 7);
+		inserisciCosti(Global.getLabels("i57"), 8, 4);
+		inserisciCosti(Global.getLabels("i27"), 10, 10);
 		
 		//Inserimento costi medioevo
-		inserisciCosti("Strada lastricata", 5, 5);
-		inserisciCosti("Casa a più piani", 12, 6);
-		inserisciCosti("Biblioteca", 10, 14);
-		inserisciCosti("Campo mercenari", 8, 16);
-		inserisciCosti("Chiesa", 10, 13);
-		inserisciCosti("Ospedale", 12, 14);
-		inserisciCosti("Casa a schiera", 14, 6);
-		inserisciCosti("Rogo", 18, 18);
-		inserisciCosti("Mastro birraio", 12, 19);
-		inserisciCosti("Banca", 15, 18);
-		inserisciCosti("Granaio", 11, 14);
+		inserisciCosti(Global.getLabels("i62"), 5, 5);
+		inserisciCosti(Global.getLabels("i58"), 12, 6);
+		inserisciCosti(Global.getLabels("i73"), 10, 14);
+		inserisciCosti(Global.getLabels("i32"), 8, 16);
+		inserisciCosti(Global.getLabels("i35"), 10, 13);
+		inserisciCosti(Global.getLabels("i39"), 12, 14);
+		inserisciCosti(Global.getLabels("i59"), 14, 6);
+		inserisciCosti(Global.getLabels("i75"), 18, 18);
+		inserisciCosti(Global.getLabels("i69"), 12, 19);
+		inserisciCosti(Global.getLabels("i70"), 15, 18);
+		inserisciCosti(Global.getLabels("i65"), 11, 14);
 		
 		//Inserimento costi età vittoriana
-		inserisciCosti("Strada asfaltata", 10, 10);
-		inserisciCosti("Fabbrica", 17, 23);
-		inserisciCosti("Laboratorio", 13, 27);
-		inserisciCosti("Casa con mansarda", 26, 12);
-		inserisciCosti("Caserma eroi", 30, 30);
-		inserisciCosti("Centro cittadino", 19, 28);
-		inserisciCosti("Parlamento", 18, 30);
-		inserisciCosti("Opera", 20, 31);
-		inserisciCosti("Teatro", 31, 20);
-		inserisciCosti("Villetta", 33, 15);
+		inserisciCosti(Global.getLabels("i63"), 10, 10);
+		inserisciCosti(Global.getLabels("i66"), 17, 23);
+		inserisciCosti(Global.getLabels("i76"), 13, 27);
+		inserisciCosti(Global.getLabels("i60"), 26, 12);
+		inserisciCosti(Global.getLabels("i41"), 30, 30);
+		inserisciCosti(Global.getLabels("i71"), 19, 28);
+		inserisciCosti(Global.getLabels("i42"), 18, 30);
+		inserisciCosti(Global.getLabels("i74"), 20, 31);
+		inserisciCosti(Global.getLabels("i72"), 31, 20);
+		inserisciCosti(Global.getLabels("i61"), 33, 15);
 		
 		//Inserimento Unità militari
-		inserisciUMilitare("Miliziano", 1, 1, 1, 1, 4);
-		inserisciUMilitare("Soldato", 3, 1, 5, 5, 4);
-		inserisciUMilitare("Spadaccino", 4, 1, 6, 4, 5);
-		inserisciUMilitare("Arciere", 6, 2, 8, 3, 4);
-		inserisciUMilitare("Cavaliere", 8, 3, 10, 10, 8);
-		inserisciUMilitare("Soldato in armatura pesante", 12, 3, 8, 18, 3);
-		inserisciUMilitare("Balestriere", 12, 4, 17, 7, 4);
-		inserisciUMilitare("Cavaliere pesante", 16, 6, 21, 21, 7);
-		inserisciUMilitare("Cannone", 15, 8, 23, 12, 4);
-		inserisciUMilitare("Fuciliere", 16, 5, 25, 25, 4);
-		inserisciUMilitare("Mitragliere", 19, 4, 27, 21, 3);
-		inserisciUMilitare("Granatiere", 17, 5, 30, 13, 7);
-		inserisciUMilitare("Fuciliere a cavallo", 25, 10, 28, 31, 8);
-		inserisciUMilitare("Artiglieria", 30, 15, 38, 26, 3);
+		inserisciUMilitare(Global.getLabels("i1"), 1, 1, 1, 1, 4);
+		inserisciUMilitare(Global.getLabels("i2"), 3, 1, 5, 5, 4);
+		inserisciUMilitare(Global.getLabels("i3"), 4, 1, 6, 4, 5);
+		inserisciUMilitare(Global.getLabels("i5"), 6, 2, 8, 3, 4);
+		inserisciUMilitare(Global.getLabels("i7"), 8, 3, 10, 10, 8);
+		inserisciUMilitare(Global.getLabels("i9"), 12, 3, 8, 18, 3);
+		inserisciUMilitare(Global.getLabels("i11"), 12, 4, 17, 7, 4);
+		inserisciUMilitare(Global.getLabels("i13"), 16, 6, 21, 21, 7);
+		inserisciUMilitare(Global.getLabels("i15"), 15, 8, 23, 12, 4);
+		inserisciUMilitare(Global.getLabels("i17"), 16, 5, 25, 25, 4);
+		inserisciUMilitare(Global.getLabels("i18"), 19, 4, 27, 21, 3);
+		inserisciUMilitare(Global.getLabels("i19"), 17, 5, 30, 13, 7);
+		inserisciUMilitare(Global.getLabels("i21"), 25, 10, 28, 31, 8);
+		inserisciUMilitare(Global.getLabels("i23"), 30, 15, 38, 26, 3);
 		
-		inserisciUMilitare("Druido", 5, 3, 2, 13, 3);
+		inserisciUMilitare(Global.getLabels("i26"), 5, 3, 2, 13, 3);
 		
-		inserisciUMilitare("Pretoriano", 15, 5, 15, 15, 4);
+		inserisciUMilitare(Global.getLabels("i29"), 15, 5, 15, 15, 4);
 		
-		inserisciUMilitare("Berserk", 15, 5, 19, 6, 5);
+		inserisciUMilitare(Global.getLabels("i31"), 15, 5, 19, 6, 5);
 		
-		inserisciUMilitare("Spadaccino mercenario", 10, 2, 16, 13, 6);
-		inserisciUMilitare("Arciere mercenario", 12, 1, 19, 7, 5);
+		inserisciUMilitare(Global.getLabels("i33"), 10, 2, 16, 13, 6);
+		inserisciUMilitare(Global.getLabels("i34"), 12, 1, 19, 7, 5);
 		
-		inserisciUMilitare("Cavaliere templare", 20, 5, 25, 23, 8);
-		inserisciUMilitare("Cavaliere crociato", 20, 5, 23, 25, 8);
+		inserisciUMilitare(Global.getLabels("i37"), 20, 5, 25, 23, 8);
+		inserisciUMilitare(Global.getLabels("i38"), 20, 5, 23, 25, 8);
 		
-		inserisciUMilitare("Medico", 10, 1, 0, 20, 7);
+		inserisciUMilitare(Global.getLabels("i40"), 10, 1, 0, 20, 7);
 		
 		inserisciUMilitare("Lorenzo", 200, 100, 100, 300, 4);
 		inserisciUMilitare("Werther", 200, 100, 300, 100, 4);
 		
-		inserisciUMilitare("Carabinieri", 40, 20, 40, 30, 5);
-		inserisciUMilitare("Legione straniera", 40, 20, 40, 30, 5);
-		inserisciUMilitare("Guardia reale", 40, 20, 40, 30, 5);
-		inserisciUMilitare("Gardenkorps", 40, 20, 40, 30, 5);
+		inserisciUMilitare(Global.getLabels("i43"), 40, 20, 40, 30, 5);
+		inserisciUMilitare(Global.getLabels("i46"), 40, 20, 40, 30, 5);
+		inserisciUMilitare(Global.getLabels("i45"), 40, 20, 40, 30, 5);
+		inserisciUMilitare(Global.getLabels("i47"), 40, 20, 40, 30, 5);
 	}
 	
 	public Map<String, Integer> getValoriOro() {
