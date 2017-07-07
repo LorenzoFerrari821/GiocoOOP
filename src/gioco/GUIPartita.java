@@ -134,7 +134,8 @@ public class GUIPartita extends JFrame{
 
 	private GUIArruolaUnita guiArruolaUnita; //Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare
 	private GUIMunicipio guiMunicipio; //Schermata del muncipio
-
+	private GUIGruppoMilitare guiGruppoMilitare; //Schermata del gruppo militare
+	
 	private GruppoMilitare gruppoMilitare; //Individua il gruppo militare corrente
 	
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
@@ -763,8 +764,8 @@ public class GUIPartita extends JFrame{
 		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 
-	public GUIPartita(String stringa) {					//Crea la partita partendo soltando dalla stringa
-						
+	public GUIPartita(String stringa) {	//Crea la partita partendo soltando dalla stringa
+		
 	}
 
 	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
@@ -896,6 +897,26 @@ public class GUIPartita extends JFrame{
 	{
 		azioneLblsGioco = "richiama esercito";
 	}
+	
+	/**
+	 * Metodo che permette di attaccare con un gruppo militare
+	 */
+	public void gruppoMilitareAttacca(GruppoMilitare gruppoMilitare)
+	{
+		azioneLblsGioco = "gruppo militare attacca";
+		elemLblsGioco = "Esercito";
+		this.gruppoMilitare = gruppoMilitare;
+	}
+	
+	/**
+	 * Metodo che permette di muovere un gruppo militare
+	 */
+	public void gruppoMilitareMuovi(GruppoMilitare gruppoMilitare)
+	{
+		azioneLblsGioco = "gruppo militare muovi";
+		elemLblsGioco = "Esercito";
+		this.gruppoMilitare = gruppoMilitare;
+	}
 
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
@@ -930,7 +951,7 @@ public class GUIPartita extends JFrame{
 		if(azioneLblsGioco.equals("vendi"))
 		{
 			//Controllo che sulla lbl ci sia un elemento vendibile
-			String nome = individuaOggetto(i, j); //ritorna l'oggetto contenuto nella lbl che può essere venduto
+			String nome = individuaOggetto(i, j, true); //ritorna l'oggetto contenuto nella lbl che può essere venduto
 
 			if(nome == null || nome.contains("municipio"))
 			{
@@ -978,7 +999,7 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals("muovi"))
 		{
-			String nome = individuaOggetto(i, j);
+			String nome = individuaOggetto(i, j, true);
 
 			if(nome == null)
 			{
@@ -1020,9 +1041,89 @@ public class GUIPartita extends JFrame{
 			}
 		}
 		else
+		if(azioneLblsGioco.equals("gruppo militare attacca"))
+		{
+			System.out.println("attacca");
+			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+
+			aggiornaSchermata();
+			aggiornaDatiGUI();
+		}
+		else
+		if(azioneLblsGioco.equals("gruppo militare muovi"))
+		{
+			if(isPiazzamentoPossibile(i, j)) //controlla che la casella sia vuota (solo la base)
+			{
+				if(!scenario.getScenario()[j+posSchermataY][i+posSchermataX].substring(0, 1).equals("g")) //se la base di questa casella NON è ghiaia
+				{
+					int unitaPiuLenta = 100;
+					int tmp, distanza = 0;
+					
+					//Calcolo la velocità a cui può muoversi il gruppo militare
+					for(String unita: gruppoMilitare.getGruppoMilitare())
+					{
+						if(valoriDiGioco.getVelUnita().get(unita) < unitaPiuLenta)
+							unitaPiuLenta = valoriDiGioco.getVelUnita().get(unita);
+					}
+					
+					tmp = gruppoMilitare.getPosX() - (i+posSchermataX);
+					if(tmp < 0)
+						tmp *= -1;
+					distanza += tmp;
+					
+					tmp = gruppoMilitare.getPosY() - (j+posSchermataY);
+					if(tmp < 0)
+						tmp *= -1;
+					distanza += tmp;
+					
+					if(distanza <= unitaPiuLenta) 
+					{
+						if(gruppoMilitare.isMovimentoPossibile())//si puo muovere
+						{
+							//tolgo il gruppo militare dallo scenario di posizione vecchia
+							scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
+									scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
+									.substring(0, scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() - 10);
+							
+							//aggiorno la posizione in gruppo militare
+							gruppoMilitare.setPosX(i+posSchermataX);
+							gruppoMilitare.setPosY(j+posSchermataY);
+							gruppoMilitare.setMovimentoPossibile(false);
+							
+							//aggiorno la posizione nello scenario
+							scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Il gruppo militare è già stato mosso durante questo turno",
+									"Attenzione", JOptionPane.DEFAULT_OPTION);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Il gruppo militare non è abbastanza veloce da compiere questo spostamento.\n"
+								+ "Al massimo può muoversi di " + Integer.toString(unitaPiuLenta),
+								"Attenzione", JOptionPane.DEFAULT_OPTION);
+				}
+				else
+					JOptionPane.showMessageDialog(null, "I gruppi militari non possono entrare nelle città",
+							"Attenzione", JOptionPane.DEFAULT_OPTION);
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Non è possibile muovere il gruppo militare in questa posizione",
+						"Attenzione", JOptionPane.DEFAULT_OPTION);
+			
+			//Resetto i dati di azione e elemento in memoria
+			azioneLblsGioco = "";
+			elemLblsGioco = "";
+
+			aggiornaSchermata();
+			aggiornaDatiGUI();
+		}
+		else
 		if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
 		{
-			String edificio = individuaOggetto(i, j);
+			String edificio = individuaOggetto(i, j, false);
 
 			if(edificio != null)
 			{
@@ -1030,7 +1131,7 @@ public class GUIPartita extends JFrame{
 				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
 					edificio = edificio.substring(0, edificio.length() - 1);
 				}
-
+				
 				if(edificio.equals("Caserma") || edificio.equals("Tempio") || edificio.equals("Palazzo") || 
 						edificio.equals("Campo mercenari") || edificio.equals("Chiesa") || edificio.equals("Caserma eroi") || 
 						edificio.equals("Ospedale") || edificio.equals("Parlamento"))
@@ -1038,10 +1139,28 @@ public class GUIPartita extends JFrame{
 					guiArruolaUnita = new GUIArruolaUnita(partita, this, valoriDiGioco, iconeGrafiche, edificio);
 					guiArruolaUnita.setVisible(true);
 				}
+				else
 				if(edificio.equals("ecmunicipio") || edificio.equals("mmunicipio") || edificio.equals("evmunicipio"))
 				{
 					guiMunicipio = new GUIMunicipio(partita, guiPartita, valoriDiGioco, iconeGrafiche);
 					guiMunicipio.setVisible(true);
+				}
+				else
+				if(edificio.contains("esercito"))
+				{
+					GruppoMilitare gruppoMilitareCercato = null;
+					
+					//individuo il gruppo militare associato alla posizione i, j
+					for(GruppoMilitare g: partita.getGruppiMilitariSchierati())
+					{
+						if(g.getPosX() == i + posSchermataX && g.getPosY() == j + posSchermataY)
+						{
+							gruppoMilitareCercato = g;
+						}
+					}
+					
+					guiGruppoMilitare = new GUIGruppoMilitare(partita, guiPartita, valoriDiGioco, iconeGrafiche, gruppoMilitareCercato);
+					guiGruppoMilitare.setVisible(true);
 				}
 			}
 		}
@@ -1294,7 +1413,7 @@ public class GUIPartita extends JFrame{
 		}
 	}
 
-	public String individuaOggetto(int i, int j) //i è la x, j è la y
+	public String individuaOggetto(int i, int j, boolean interno) //i è la x, j è la y
 	{
 		scenarioCorrente = scenario.getScenario();
 		String strCercata = null;
@@ -1305,10 +1424,11 @@ public class GUIPartita extends JFrame{
 		st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
 		while(st.hasMoreTokens()) {
 			if(stItera == 0) //controllo che il pavimento sia ghiaia
-				if(!st.nextToken().equals("g"))
-				{
-					return null;
-				}
+				if(interno) //se e solo se l'edificio in questione è interno
+					if(!st.nextToken().equals("g"))
+					{
+						return null;
+					}
 			stItera++;
 			if(stItera > 1)
 				strCercata = st.nextToken();
