@@ -150,7 +150,10 @@ public class GUIGruppoMilitare extends JDialog {
 						e1.printStackTrace();
 					}
 					audio.start();
-					guiPartita.gruppoMilitareAttacca(gruppoMilitare);
+					if(gruppoMilitare.isAttaccoPossibile())
+						guiPartita.gruppoMilitareAttacca(gruppoMilitare);
+					else
+						JOptionPane.showMessageDialog(null,Global.getLabels("s130"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 					dispose();
 				}
 			});

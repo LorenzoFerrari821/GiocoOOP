@@ -24,10 +24,14 @@ public class Partita {
 	private GUIPartita guiPartita;
 	private List<GruppoMilitare> gruppiMilitariSchierati;
 	
-	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta, GUIPartita guiPartita)
+	private ValoriDiGioco valoriDiGioco;
+	
+	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, 
+			int mappa, int civilta, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco)
 	{
 		this.guiPartita = guiPartita;
 		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
+		this.valoriDiGioco = valoriDiGioco;
 		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
@@ -181,6 +185,180 @@ public class Partita {
 			giocatore.get(turnoCorrente).setMateriali(giocatore.get(turnoCorrente).getMateriali() + iMat);
 			giocatore.get(turnoCorrente).setPuntiRicerca(giocatore.get(turnoCorrente).getPuntiRicerca() + iPr);
 		}
+	}
+	/**
+	 * Funzione con cui un esercito attacca un altro esercito nemico
+	 * @param gruppoAttacco
+	 * @param iDef
+	 * @param jDef
+	 * @return 1 se l'attacco è riuscito (vittoria attaccanti), 0 altrimenti
+	 */
+	public int esercitoAttaccaEsercito(GruppoMilitare gruppoAttacco, int iDef, int jDef)
+	{
+		int atkTotale = 0;
+		int defTotale = 0;
+		GruppoMilitare gruppoDifesa = null;
+		
+		//trovo il gruppo in difesa
+		for(GruppoMilitare g: gruppiMilitariSchierati)
+		{
+			if(g.getPosX() == iDef && g.getPosY() == jDef)
+				gruppoDifesa = g;
+		}
+		
+		//Calcolo attacco totale gruppo in attacco
+		for(String s: gruppoAttacco.getGruppoMilitare())
+		{
+			atkTotale += valoriDiGioco.getAtkUnita().get(s);
+		}
+		
+		//Calcolo difesa totale gruppo in difesa
+		for(String s: gruppoDifesa.getGruppoMilitare())
+		{
+			defTotale += valoriDiGioco.getDefUnita().get(s);
+		}
+		
+		if(atkTotale > defTotale) //vince l'attacco
+		{
+			int conta = 0;
+			
+			//rimuovo gruppo militare difesa da giocatore
+			for(GruppoMilitare g: giocatore.get(gruppoDifesa.getCivilta()).getGruppiInAttacco())
+			{
+				if(g.getPosX() == gruppoDifesa.getPosX() && g.getPosY() == gruppoDifesa.getPosY())
+					break;
+				conta++;
+			}
+			giocatore.get(gruppoDifesa.getCivilta()).getGruppiInAttacco().remove(conta);
+			
+			conta = 0;
+			///rimuovo gruppo militare difesa dai gruppi militari in partita
+			for(GruppoMilitare g: gruppiMilitariSchierati)
+			{
+				if(g.getPosX() == gruppoDifesa.getPosX() && g.getPosY() == gruppoDifesa.getPosY())
+					break;
+				conta++;
+			}
+			gruppiMilitariSchierati.remove(conta);
+			
+			//rimuovo gruppo militare difesa dallo scenario
+			guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
+					guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
+					.substring(0, guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
+			return 1;
+			
+		}
+		else //vince la difesa
+		{
+			int conta = 0;
+			
+			//rimuovo gruppo militare attacco da giocatore
+			for(GruppoMilitare g: giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco())
+			{
+				if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+					break;
+				conta++;
+			}
+			giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco().remove(conta);
+			
+			conta = 0;
+			///rimuovo gruppo militare attacco dai gruppi militari in partita
+			for(GruppoMilitare g: gruppiMilitariSchierati)
+			{
+				if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+					break;
+				conta++;
+			}
+			gruppiMilitariSchierati.remove(conta);
+			
+			//rimuovo gruppo militare attacco dallo scenario
+			guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+					guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+					.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+			return 0;
+		}
+	}
+	
+	/**
+	 * Funzione con cui un esercito attacca un municipio nemico
+	 * @param gruppoAttacco
+	 * @param civiltaDifesa
+	 * @return 1 se l'attacco è riuscito (vittoria attaccanti), 0 altrimenti, -1 se la città era gia eliminata
+	 */
+	public int esercitoAttaccaMunicipio(GruppoMilitare gruppoAttacco, int civiltaDifesa)
+	{
+		int atkTotale = 0;
+		int defTotale = 0;
+		if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() < 5)
+		{
+			
+			//Calcolo attacco totale gruppo in attacco
+			for(String s: gruppoAttacco.getGruppoMilitare())
+			{
+				atkTotale += valoriDiGioco.getAtkUnita().get(s);
+			}
+			
+			//Calcolo difesa totale gruppo in difesa
+			for(String s: giocatore.get(civiltaDifesa).getUnitaMunicipio())
+			{
+				defTotale += valoriDiGioco.getDefUnita().get(s);
+			}
+			
+			if(atkTotale > defTotale) //vince l'attacco
+			{
+				int conta = 0;
+				
+					int oroPreso, matPresi;
+					
+					//incrementa sconfitte difensore
+					giocatore.get(civiltaDifesa).setSconfitteMunicipioSubite(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() + 1);
+					
+					//ruba dal difensore il 20% di oro e materiali
+					oroPreso = giocatore.get(civiltaDifesa).getOro() / 5;
+					matPresi = giocatore.get(civiltaDifesa).getMateriali() / 5;
+					giocatore.get(civiltaDifesa).setOro(giocatore.get(civiltaDifesa).getOro() / 5);
+					giocatore.get(civiltaDifesa).setMateriali(giocatore.get(civiltaDifesa).getMateriali() / 5);
+					
+					giocatore.get(gruppoAttacco.getCivilta()).setOro(giocatore.get(gruppoAttacco.getCivilta()).getOro() + oroPreso);
+					giocatore.get(gruppoAttacco.getCivilta()).setMateriali(giocatore.get(gruppoAttacco.getCivilta()).getMateriali() + matPresi);
+					
+					//Se le sconfitte del municipio in difesa ammontano a 5, il giocatore in difesa ha perso
+					if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() == 5)
+						giocatore.get(civiltaDifesa).setInPartita(false);
+					return 1;
+			}
+			else //vince la difesa
+			{
+				int conta = 0;
+				
+				//rimuovo gruppo militare attacco da giocatore
+				for(GruppoMilitare g: giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco())
+				{
+					if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+						break;
+					conta++;
+				}
+				giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco().remove(conta);
+				
+				conta = 0;
+				///rimuovo gruppo militare attacco dai gruppi militari in partita
+				for(GruppoMilitare g: gruppiMilitariSchierati)
+				{
+					if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+						break;
+					conta++;
+				}
+				gruppiMilitariSchierati.remove(conta);
+				
+				//rimuovo gruppo militare attacco dallo scenario
+				guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+						guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+						.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+				return 0;
+			}
+		}
+		
+		return -1;
 	}
 	
 	public void aggiornaDatiGUI()

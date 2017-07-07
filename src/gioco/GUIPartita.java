@@ -821,7 +821,7 @@ public class GUIPartita extends JFrame{
 	public void setupPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta) {
 		valoriDiGioco = new ValoriDiGioco();
 
-		partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta, this);
+		partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta, this, valoriDiGioco);
 		aggiornaDatiGUI();
 	}
 
@@ -1036,7 +1036,70 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals(Global.getLabels("s62")))
 		{
-			System.out.println(Global.getLabels("s67"));
+			int civiltaDaAttaccare;
+			
+			//2 casi possibili: o attacca un municipio oppure un gruppo mil. nemico
+			civiltaDaAttaccare = esercitoPresente(i+posSchermataX, j+posSchermataY);
+			
+			if(civiltaDaAttaccare != -1) //presente un esercito
+			{
+				if(civiltaDaAttaccare != partita.getGiocatore().get(indiceProprietario).getCiviltà()) //se esercito è nemico
+				{
+					//controllo che i due gruppi militari siano adiacenti
+					int distanza = 0, tmp;
+					tmp = gruppoMilitare.getPosX() - (i+posSchermataX);
+					if(tmp < 0)
+						tmp *= -1;
+					distanza += tmp;
+					tmp = gruppoMilitare.getPosY() - (j+posSchermataY);
+					if(tmp < 0)
+						tmp *= -1;
+					distanza += tmp;
+					
+					if(distanza == 1) //attacca
+					{
+						gruppoMilitare.setAttaccoPossibile(false);
+						int esito = partita.esercitoAttaccaEsercito(gruppoMilitare, i+posSchermataX, j+posSchermataY);
+						if(esito == 1)
+							JOptionPane.showMessageDialog(null,Global.getLabels("s122"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+						else
+						if(esito == 0)
+							JOptionPane.showMessageDialog(null,Global.getLabels("s123"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+					}
+					else
+						JOptionPane.showMessageDialog(null, Global.getLabels("s124"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+				}
+				else
+					JOptionPane.showMessageDialog(null, Global.getLabels("s125"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+			}
+			else
+			{
+				//controllo se municipio nemico
+				int municipioPresente = municipioPresente(i+posSchermataX, j+posSchermataY);
+				if(municipioPresente != -1)
+				{
+					if(municipioPresente != partita.getGiocatore().get(indiceProprietario).getCiviltà())
+					{
+						if(isVicinoACitta(gruppoMilitare.getPosX(), gruppoMilitare.getPosY()) == municipioPresente) //attacco municipio permesso
+						{
+							gruppoMilitare.setAttaccoPossibile(false);
+							int esito = partita.esercitoAttaccaMunicipio(gruppoMilitare, municipioPresente);
+							if(esito == -1)
+								JOptionPane.showMessageDialog(null, Global.getLabels("s126"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+							else
+							if(esito == 1)
+								JOptionPane.showMessageDialog(null,Global.getLabels("s127"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+							else
+							if(esito == 0)
+								JOptionPane.showMessageDialog(null, Global.getLabels("s123"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+						}
+					}
+					else
+						JOptionPane.showMessageDialog(null, Global.getLabels("s128"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+				}
+				else
+					JOptionPane.showMessageDialog(null,Global.getLabels("s129"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+			}
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
@@ -1171,6 +1234,7 @@ public class GUIPartita extends JFrame{
 						partita.getGiocatore().get(indiceProprietario).getUnitaMunicipio().remove(s);
 					}
 					partita.getGruppiMilitariSchierati().add(gruppoMilitare);
+					partita.getGiocatore().get(indiceProprietario).getGruppiInAttacco().add(gruppoMilitare);
 					scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
 				}
 				else
@@ -1248,6 +1312,32 @@ public class GUIPartita extends JFrame{
 		
 		if(str.contains(Global.getLabels("s72")))
 			return Integer.parseInt(str.substring(str.length()-1, str.length()));
+		
+		return -1;
+	}
+	
+	/**
+	 * Metodo che controlla se nella casella di posizione i, j è presente un municipio. Se è presente ritorna 0 se il municipio è romano,
+	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun municipio
+	 * @param i X
+	 * @param j Y
+	 * @return nazionalità municipio, -1 se non presente
+	 */
+	public int municipioPresente(int i, int j)
+	{
+		String str = scenario.getScenario()[j][i];
+		
+		if(str.contains("municipio"))
+		{
+			if(i > 37 && i < 55 && j > 34 && j < 45) //romani
+				return 0;
+			if(i > 37 && i < 55 && j > 2 && j < 13) //britanni
+				return 1;
+			if(i > 6 && i < 24 && j > 18 && j < 29) //galli
+				return 2;
+			if(i > 68 && i < 86 && j > 18 && j < 29) //sassoni
+				return 3;
+		}
 		
 		return -1;
 	}
@@ -1505,5 +1595,13 @@ public class GUIPartita extends JFrame{
 
 	public void setSitua(String stringa) {
 		partita.setSituazioneDiGioco(stringa);
+	}
+
+	public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
 	}
 }
