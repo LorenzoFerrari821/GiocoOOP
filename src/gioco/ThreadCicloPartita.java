@@ -21,6 +21,8 @@ public class ThreadCicloPartita extends Thread{
 			partita.calcolaRisorse(true);
 			partita.aggiornaDatiGUI();
 			
+			refreshMovimentiEAttacchi();
+			
 			if(partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")) //il giocatore è ia
 			{
 				try {
@@ -44,6 +46,15 @@ public class ThreadCicloPartita extends Thread{
 			
 		}
 		
+	}
+	
+	public void refreshMovimentiEAttacchi()
+	{
+		for(GruppoMilitare g : partita.getGiocatore().get(partita.getTurnoCorrente()).getGruppiInAttacco())
+		{
+			g.setAttaccoPossibile(true);
+			g.setMovimentoPossibile(true);
+		}
 	}
 	
 	public boolean isTurnoPersona() {

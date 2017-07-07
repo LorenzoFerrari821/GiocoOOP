@@ -150,7 +150,12 @@ public class GUIGruppoMilitare extends JDialog {
 						e1.printStackTrace();
 					}
 					audio.start();
-					guiPartita.gruppoMilitareAttacca(gruppoMilitare);
+					if(gruppoMilitare.isAttaccoPossibile())
+						guiPartita.gruppoMilitareAttacca(gruppoMilitare);
+					else
+						JOptionPane.showMessageDialog(null, "Questo esercito ha già sferrato un attacco in questo turno.\n"
+								+ "Attendi il prossimo turno per attaccare di nuovo",
+								"Attenzione", JOptionPane.DEFAULT_OPTION);
 					dispose();
 				}
 			});

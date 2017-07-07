@@ -10,10 +10,12 @@ public class GruppoMilitare {
 	private int civilta;
 	
 	private boolean movimentoPossibile;
+	private boolean attaccoPossibile;
 	
 	GruppoMilitare()
 	{
 		movimentoPossibile = true;
+		attaccoPossibile = true;
 	}
 	
 	public List<String> getGruppoMilitare() {
@@ -48,5 +50,14 @@ public class GruppoMilitare {
 	public void setMovimentoPossibile(boolean movimentoPossibile) {
 		this.movimentoPossibile = movimentoPossibile;
 	}
+
+	public boolean isAttaccoPossibile() {
+		return attaccoPossibile;
+	}
+
+	public void setAttaccoPossibile(boolean attaccoPossibile) {
+		this.attaccoPossibile = attaccoPossibile;
+	}
+	
 }
 

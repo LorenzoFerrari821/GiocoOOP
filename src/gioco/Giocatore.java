@@ -23,6 +23,8 @@ public class Giocatore {
 	private int oroXTurno;
 	private int matXTurno;
 	private int prXTurno;
+	private int sconfitteMunicipioSubite; //con 5 sconfitte il giocatore è eliminato
+	private boolean inPartita; //indica se il giocatore sta ancora giocando o se è stato eliminato
 	
 	private List<String> unitaMunicipio; //unità attualmente nel municipio
 	private List<GruppoMilitare> gruppiInAttacco; //gruppi militari attualmente all'esterno del municipio
@@ -47,6 +49,8 @@ public class Giocatore {
 		oroXTurno = 0;
 		matXTurno = 0;
 		prXTurno = 0;
+		sconfitteMunicipioSubite = 0;
+		inPartita = true;
 		
 		this.proprietario = proprietario;
 		this.nomeGiocatore = nomeGiocatore;
@@ -169,4 +173,21 @@ public class Giocatore {
 	public void setRicercheEffettuate(List<String> ricercheEffettuate) {
 		this.ricercheEffettuate = ricercheEffettuate;
 	}
+
+	public int getSconfitteMunicipioSubite() {
+		return sconfitteMunicipioSubite;
+	}
+
+	public void setSconfitteMunicipioSubite(int sconfitteMunicipioSubite) {
+		this.sconfitteMunicipioSubite = sconfitteMunicipioSubite;
+	}
+
+	public boolean isInPartita() {
+		return inPartita;
+	}
+
+	public void setInPartita(boolean inPartita) {
+		this.inPartita = inPartita;
+	}
+	
 }
