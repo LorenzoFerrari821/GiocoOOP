@@ -472,7 +472,7 @@ public class GUICaricaPartita extends JPanel {
 				difficolta=3;
 			if(rs.getString("Mappa").equals(Global.getLabels("s10")))
 				mappa=0;
-			else if(rs.getString("Mappa").equals(Global.getLabels("11")))
+			else if(rs.getString("Mappa").equals(Global.getLabels("s11")))
 				mappa=1;
 			else if(rs.getString("Mappa").equals(Global.getLabels("s12")))
 				mappa=2;

@@ -95,7 +95,8 @@ public class GUIMenuPrincipale extends JFrame {
 	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
 	 * per la GUI, insieme a tutti gli altri elementi.
 	 */
-	public GUIMenuPrincipale() throws IllegalAccessException {
+	public GUIMenuPrincipale() throws IllegalAccessException {                                
+		
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
@@ -572,7 +573,7 @@ public class GUIMenuPrincipale extends JFrame {
 		});
 
 
-		iconTitolo = new ImageIcon("media/titolo.png");
+		iconTitolo = new ImageIcon("media/Titolo.png");
 		scaleTitolo = iconTitolo.getImage().getScaledInstance(1000, 150,Image.SCALE_DEFAULT);
 		titolo = new JLabel(new ImageIcon(scaleTitolo));
 		panelTitolo.add(titolo, BorderLayout.CENTER);

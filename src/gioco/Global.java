@@ -12,9 +12,10 @@ public class Global {
 			Locale.ENGLISH,
 	};
 	private static ResourceBundle labels=ResourceBundle.getBundle("Linguaggi/LabelsBundle",Locale.getDefault());    //Leggi le stringhe dal file a seconda della lingua dell'utente
+																													//Utilizzare Locale.ENGLISH per testare in inglese
 	
 
-	public static String getLabels(String stringa) {  //Ritorna la stringa associata alla chiave richiesta
+	public static String getLabels(String stringa) {  //Ritorna la stringa associata alla chiave richiesta		                                                         
 		return labels.getString(stringa);
 	}
 
