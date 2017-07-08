@@ -924,6 +924,19 @@ public class GUIPartita extends JFrame{
 		{
 			if(isPiazzamentoPossibile(i, j)) //compra e piazza
 			{
+				
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/costruisci.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(Global.getLivVolume()); 
+				audio.start();
+				
+				
+				
 				/*Scalo costo in oro*/
 				partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
 						partita.getGiocatore().get(partita.getTurnoCorrente()).getOro()-valoriDiGioco.getValoriOro().get(elemLblsGioco));
@@ -963,6 +976,15 @@ public class GUIPartita extends JFrame{
 						null,Global.getLabels("s65") , Global.getLabels("a6"),JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(scelta == 0) //se si
 				{
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/vendi.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+					gainControl.setValue(Global.getLivVolume()); 
+					audio.start();
 					char ultimoChar = nome.charAt(nome.length() - 1);
 
 					if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
@@ -1061,11 +1083,30 @@ public class GUIPartita extends JFrame{
 					{
 						gruppoMilitare.setAttaccoPossibile(false);
 						int esito = partita.esercitoAttaccaEsercito(gruppoMilitare, i+posSchermataX, j+posSchermataY);
-						if(esito == 1)
+						if(esito == 1){
+							try {
+								audio = AudioSystem.getClip();
+								audio.open(AudioSystem.getAudioInputStream(new File("media/suonovittoria.wav")));
+							} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+								e1.printStackTrace();
+							}
+							FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+							gainControl.setValue(Global.getLivVolume()); 
+							audio.start();
 							JOptionPane.showMessageDialog(null,Global.getLabels("s122"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+						}
 						else
-						if(esito == 0)
-							JOptionPane.showMessageDialog(null,Global.getLabels("s123"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+						if(esito == 0){
+							JOptionPane.showMessageDialog(null,Global.getLabels("s123"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);}
+						try {
+							audio = AudioSystem.getClip();
+							audio.open(AudioSystem.getAudioInputStream(new File("media/morte.wav")));
+						} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+							e1.printStackTrace();
+						}
+						FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+						gainControl.setValue(Global.getLivVolume()); 
+						audio.start();
 					}
 					else
 						JOptionPane.showMessageDialog(null, Global.getLabels("s124"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1088,11 +1129,31 @@ public class GUIPartita extends JFrame{
 							if(esito == -1)
 								JOptionPane.showMessageDialog(null, Global.getLabels("s126"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 							else
-							if(esito == 1)
+							if(esito == 1){
+								try {
+									audio = AudioSystem.getClip();
+									audio.open(AudioSystem.getAudioInputStream(new File("media/suonovittoria.wav")));
+								} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+									e1.printStackTrace();
+								}
+								FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+								gainControl.setValue(Global.getLivVolume()); 
+								audio.start();
 								JOptionPane.showMessageDialog(null,Global.getLabels("s127"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+							}
 							else
-							if(esito == 0)
+							if(esito == 0){
 								JOptionPane.showMessageDialog(null, Global.getLabels("s123"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+								try {
+									audio = AudioSystem.getClip();
+									audio.open(AudioSystem.getAudioInputStream(new File("media/morte.wav")));
+								} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+									e1.printStackTrace();
+								}
+								FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+								gainControl.setValue(Global.getLivVolume()); 
+								audio.start();
+							}
 						}
 					}
 					else
@@ -1140,6 +1201,16 @@ public class GUIPartita extends JFrame{
 					{
 						if(gruppoMilitare.isMovimentoPossibile())//si puo muovere
 						{
+							try {
+								audio = AudioSystem.getClip();
+								audio.open(AudioSystem.getAudioInputStream(new File("media/marcia.wav")));
+							} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+								e1.printStackTrace();
+							}
+							FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+							gainControl.setValue(Global.getLivVolume()); 
+							audio.start();
+							
 							//tolgo il gruppo militare dallo scenario di posizione vecchia
 							scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
 									scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
@@ -1163,7 +1234,7 @@ public class GUIPartita extends JFrame{
 					JOptionPane.showMessageDialog(null, Global.getLabels("s70"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else
-				JOptionPane.showMessageDialog(null, Global.getLabels("e71"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("s71"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";
@@ -1227,6 +1298,16 @@ public class GUIPartita extends JFrame{
 				
 				if(vicinanza == civilta) //ok, può piazzare qui
 				{
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/marcia.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+					gainControl.setValue(Global.getLivVolume()); 
+					audio.start();
+					
 					gruppoMilitare.setCivilta(civilta);
 					gruppoMilitare.setPosX(i+posSchermataX);
 					gruppoMilitare.setPosY(j+posSchermataY);
@@ -1262,6 +1343,15 @@ public class GUIPartita extends JFrame{
 				if(nazionEsercito == civilta) //possiamo prelevare l'esercito e inserirlo nel municipio
 				{
 					int conta = 0, indice = -1;
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/marcia.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+					gainControl.setValue(Global.getLivVolume()); 
+					audio.start();
 					
 					//prelevo il gruppo giusto
 					for(GruppoMilitare g: partita.getGruppiMilitariSchierati())
@@ -1289,7 +1379,7 @@ public class GUIPartita extends JFrame{
 					JOptionPane.showMessageDialog(null, Global.getLabels("s74"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else
-				JOptionPane.showMessageDialog(null, Global.getLabels("s75"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("s136"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			
 			//Resetto i dati di azione e elemento in memoria
 			azioneLblsGioco = "";

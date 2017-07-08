@@ -278,17 +278,18 @@ public class GUICaricaPartita extends JPanel {
 		btnCarica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				try {
-					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
-				}catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-					e1.printStackTrace();
-				}
-				FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(Global.getLivVolume()); 
-				audio.start();
 				dialogResult = JOptionPane.showConfirmDialog (pnlerror, Global.getLabels("a3"),"Warning",JOptionPane.YES_NO_OPTION);
 				if(dialogResult== JOptionPane.YES_OPTION){
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/suonoiniziopartita.wav")));
+					}catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+					gainControl.setValue(Global.getLivVolume()); 
+					Music.stopSound();
+					audio.start();
 					try{                                      //Otteniamo il codice del salvataggio e carichiamo la partita parsando la stringa associata al codice
 						connessione3=new ConnectionDB();
 						index=(cmbSalvataggi.getItemAt(cmbSalvataggi.getSelectedIndex()));  
