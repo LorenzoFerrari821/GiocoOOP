@@ -785,6 +785,7 @@ public class GUIPartita extends JFrame{
 					String str = st.nextToken();
 					daAggiungere.add(iconeGrafiche.getIconeScenario().get(str));
 				}
+				
 				cmpIcon = new CompoundIcon(CompoundIcon.Axis.Z_AXIS, daAggiungere.toArray(new ImageIcon[daAggiungere.size()]));
 
 				lblsGioco[y-posSchermataY][x-posSchermataX].setIcon(cmpIcon);
@@ -935,7 +936,7 @@ public class GUIPartita extends JFrame{
 			}
 			else //il posto dove vuole piazzarlo è già occupato
 			{
-				JOptionPane.showMessageDialog(null, Global.getLabels("e9")+ elemLblsGioco + Global.getLabels("e10"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+				JOptionPane.showMessageDialog(null, Global.getLabels("e9")+ elemLblsGioco +" "+Global.getLabels("e10"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 
 			//Resetto i dati di azione e elemento in memoria
@@ -1142,7 +1143,7 @@ public class GUIPartita extends JFrame{
 							//tolgo il gruppo militare dallo scenario di posizione vecchia
 							scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
 									scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
-									.substring(0, scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() - 10);
+									.substring(0, scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() -Integer.parseInt(Global.getLabels("s135")));    //La linghezza è diversa a seconda della lingua
 							
 							//aggiorno la posizione in gruppo militare
 							gruppoMilitare.setPosX(i+posSchermataX);
@@ -1327,7 +1328,7 @@ public class GUIPartita extends JFrame{
 	{
 		String str = scenario.getScenario()[j][i];
 		
-		if(str.contains("municipio"))
+		if(str.contains(Global.getLabels("i49")))
 		{
 			if(i > 37 && i < 55 && j > 34 && j < 45) //romani
 				return 0;

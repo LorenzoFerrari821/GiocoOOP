@@ -99,6 +99,7 @@ public class CompoundIcon implements Icon
 
 		for (int i = 0; i < icons.length; i++)
 		{
+		
 			if (icons[i] == null)
 			{
 				String message = "Icon (" + i + ") cannot be null";

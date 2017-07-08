@@ -1430,6 +1430,6 @@ public class Scenario {
 	
 	public void aggiungiEsercito(int i, int j, int civilta)
 	{
-		this.scenario[j][i] += (" esercito" + Integer.toString(civilta));
+		this.scenario[j][i] += (" "+Global.getLabels("s72") + Integer.toString(civilta));
 	}
 }

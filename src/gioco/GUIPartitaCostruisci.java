@@ -296,42 +296,42 @@ public class GUIPartitaCostruisci extends JDialog
 			JOptionPane.showMessageDialog(null, Global.getLabels("s83"), Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals( Global.getLabels("i53")) || nome.equals( Global.getLabels("i62")) || nome.equals( Global.getLabels("i63")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s84"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s84"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i56")) || nome.equals(Global.getLabels("i57")) || nome.equals(Global.getLabels("i58")) || nome.equals(Global.getLabels("i59"))
 				|| nome.equals(Global.getLabels("i60")) || nome.equals(Global.getLabels("i61")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s85"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s85"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i0")) || nome.equals(Global.getLabels("i32")) || nome.equals(Global.getLabels("i41")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s86"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s86"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i64")) || nome.equals(Global.getLabels("i65")) || nome.equals(Global.getLabels("i66")) || nome.equals(Global.getLabels("i42")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s87"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s87"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i67")) || nome.equals(Global.getLabels("i68")) || nome.equals(Global.getLabels("i69")) || nome.equals(Global.getLabels("i70"))
 				|| nome.equals(Global.getLabels("i71")) || nome.equals(Global.getLabels("i72")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s88"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s88"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i24")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s89"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s89"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i27")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s90"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s90"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i73")) || nome.equals(Global.getLabels("i75")) || nome.equals(Global.getLabels("i76")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s91"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s91"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("32")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s92"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s92"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i35")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s93"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s93"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i39")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s94"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s94"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 		else
 		if(nome.equals(Global.getLabels("i74")))
-			JOptionPane.showMessageDialog(null, nome+Global.getLabels("s95"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s95"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 	}
 	
 	/*

@@ -834,8 +834,8 @@ public class GUIPartitaRicerca extends JDialog {
 								Integer rimanente = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getPuntiRicerca() - 
 										valoriDiGioco.getValoriRicerche().get(nome);
 								scelta = JOptionPane.showConfirmDialog(
-										    null, Global.getLabels("s117")+nome+Global.getLabels("s118")+valoriDiGioco.getValoriRicerche().get(nome).toString()+
-										    Global.getLabels("s119")+rimanente.toString()+Global.getLabels("s120"), Global.getLabels("a6"),
+										    null, Global.getLabels("s117")+nome+" "+Global.getLabels("s118")+valoriDiGioco.getValoriRicerche().get(nome).toString()+" "+
+										    Global.getLabels("s119")+rimanente.toString()+" "+Global.getLabels("s120"), Global.getLabels("a6"),
 										    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 								if(scelta == 0) //se si
 								{
@@ -933,7 +933,7 @@ public class GUIPartitaRicerca extends JDialog {
 				return false; }
 		else
 		if(nome.equals(Global.getLabels("i90")) || nome.equals(Global.getLabels("i89"))) {
-			if(!ric.contains(Global.getLabels("i39")) || !ric.contains(Global.getLabels("i59")) || !ric.contains(Global.getLabels("i12")))
+			if(!ric.contains(Global.getLabels("i39")) || !ric.contains(Global.getLabels("i88")) || !ric.contains(Global.getLabels("i12")))
 				return false; }
 		else
 		if(nome.equals(Global.getLabels("i91")) || nome.equals(Global.getLabels("i70")) || nome.equals(Global.getLabels("i14"))) {
@@ -961,7 +961,7 @@ public class GUIPartitaRicerca extends JDialog {
 				return false; }
 		else
 		if(nome.equals(Global.getLabels("i100")) || nome.equals(Global.getLabels("i101")) || nome.equals(Global.getLabels("i22")) || nome.equals(Global.getLabels("i97"))) {
-			if(!ric.contains("Società borghese") || !ric.contains("Politica") || !ric.contains("Tattiche in campo aperto"))
+			if(!ric.contains(Global.getLabels("i98")) || !ric.contains(Global.getLabels("i99")) || !ric.contains(Global.getLabels("i20")))
 				return false;
 		}
 		else
