@@ -23,6 +23,7 @@ public class Partita {
 	private ThreadCicloPartita threadCicloPartita;
 	private GUIPartita guiPartita;
 	private List<GruppoMilitare> gruppiMilitariSchierati;
+	private List<CavaDiRisorse> caveScenario;
 	
 	private ValoriDiGioco valoriDiGioco;
 	
@@ -32,6 +33,7 @@ public class Partita {
 		this.guiPartita = guiPartita;
 		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
 		this.valoriDiGioco = valoriDiGioco;
+		this.caveScenario = new ArrayList<CavaDiRisorse>();
 		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
@@ -78,6 +80,35 @@ public class Partita {
 		ordineGioco.add(3);
 		
 		Collections.shuffle(ordineGioco);
+		
+		//catalogo tutte le cave in gioco
+		for(int j = 0; j < 48; j++)
+		{
+			for(int i = 0; i < 93; i++)
+			{
+				if(guiPartita.getScenario().getScenario()[j][i].length() >= 3)
+				{
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" x"))
+					{
+						caveScenario.add(new CavaDiRisorse("x", i, j, -1));
+					}
+					else
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" y"))
+					{
+						caveScenario.add(new CavaDiRisorse("y", i, j, -1));
+					}
+					else
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" z"))
+					{
+						caveScenario.add(new CavaDiRisorse("z", i, j, -1));
+					}
+				}
+			}
+		}
+		
 		avviaPartita();
 	}
 
@@ -100,6 +131,7 @@ public class Partita {
 		//Variabili di Incremento risorse
 		int iOro = 3, iMat = 3, iPr = 3;
 		double iEconomia = 1, iMilitare = 1, iRicerca = 1;
+		double caveOro = 1, caveMat = 1, cavePr = 1;
 		
 		/*Utilizzo HashMap per velocizzare la ricerca sui dati*/
 		Map<String, Integer> oro = new HashMap<String, Integer>();
@@ -175,6 +207,26 @@ public class Partita {
 		giocatore.get(turnoCorrente).setBonusMilitare(iMilitare);
 		giocatore.get(turnoCorrente).setBonusRicerca(iRicerca);
 		
+		//calcola incrementi dovuti dalle cave
+		for(CavaDiRisorse c: caveScenario)
+		{
+			if(c.getCiviltaProprietaria() == giocatore.get(turnoCorrente).getCiviltà()) //cava del giocatore
+			{
+				if(c.getTipo().equals("x"))
+					caveOro += 0.2;
+				else
+				if(c.getTipo().equals("y"))
+					caveMat += 0.2;
+				else
+				if(c.getTipo().equals("z"))
+					cavePr += 0.2;
+			}
+		}
+		
+		iOro *= caveOro;
+		iMat *= caveMat;
+		iPr *= cavePr;
+		
 		giocatore.get(turnoCorrente).setOroXTurno(iOro);
 		giocatore.get(turnoCorrente).setMatXTurno(iMat);
 		giocatore.get(turnoCorrente).setPrXTurno(iPr);
@@ -245,6 +297,13 @@ public class Partita {
 			guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
 					guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
 					.substring(0, guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
+			
+			//se presente una cava adiacente a gruppo difesa e di sua proprietà la rendo libera
+			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
+			
+			//se presente una cava adiacente a gruppo attacco libera la rendo di sua proprietà
+			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 0);
+			
 			return 1;
 			
 		}
@@ -275,6 +334,13 @@ public class Partita {
 			guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
 					guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
 					.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+			
+			//se presente una cava adiacente a gruppo attacco e di sua proprietà la rendo libera
+			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
+			
+			//se presente una cava adiacente a gruppo difesa libera la rendo di sua proprietà
+			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 0);
+			
 			return 0;
 		}
 	}
@@ -417,6 +483,14 @@ public class Partita {
 
 	public void setGruppiMilitariSchierati(List<GruppoMilitare> gruppiMilitariSchierati) {
 		this.gruppiMilitariSchierati = gruppiMilitariSchierati;
+	}
+
+	public List<CavaDiRisorse> getCaveScenario() {
+		return caveScenario;
+	}
+
+	public void setCaveScenario(List<CavaDiRisorse> caveScenario) {
+		this.caveScenario = caveScenario;
 	}
 	
 }

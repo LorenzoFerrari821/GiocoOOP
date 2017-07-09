@@ -1211,6 +1211,9 @@ public class GUIPartita extends JFrame{
 							gainControl.setValue(Global.getLivVolume()); 
 							audio.start();
 							
+							//se presente una cava adiacente al gruppo militare e di sua proprietà la rendo libera
+							guiPartita.controllaCava(gruppoMilitare.getPosX(), gruppoMilitare.getPosY(), 1);
+							
 							//tolgo il gruppo militare dallo scenario di posizione vecchia
 							scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
 									scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
@@ -1227,8 +1230,8 @@ public class GUIPartita extends JFrame{
 							//controllo se presente un falò lo raccolgo
 							controllaFalo(i+posSchermataX, j+posSchermataY);
 							
-							//se è presente una cava la gestisco
-							controllaCava(i+posSchermataX, j+posSchermataY);
+							//se è presente una cava libera nelle celle adiacenti la gestisco
+							controllaCava(i+posSchermataX, j+posSchermataY, 0);
 						}
 						else
 							JOptionPane.showMessageDialog(null, Global.getLabels("s68"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1327,6 +1330,9 @@ public class GUIPartita extends JFrame{
 					
 					//controllo la presenza di falo nelle caselle adiacenti
 					controllaFalo(i+posSchermataX, j+posSchermataY);
+					
+					//se è presente una cava libera nelle celle adiacenti la gestisco
+					controllaCava(i+posSchermataX, j+posSchermataY, 0);
 				}
 				else
 					JOptionPane.showMessageDialog(null, Global.getLabels("s73"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1399,14 +1405,168 @@ public class GUIPartita extends JFrame{
 	}
 	
 	/**
-	 * Metodo che controlla se è presente una cava nelle caselle vicine a i e j, se si controlla che non sia già sotto il controllo di qualcuno
-	 * e la controlla
+	 * Metodo che libera la cava in posizione i,j dai possedimenti di cave del giocatore
 	 * @param i X
 	 * @param j Y
 	 */
-	public void controllaCava(int i, int j)
+	public void liberaCava(int i, int j)
 	{
+		for(CavaDiRisorse c: partita.getCaveScenario())
+		{
+			if(c.getX() == i && c.getY() == j)
+			{
+				c.setCiviltaProprietaria(-1);
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che permette al giocatore del turno corrente di conquistare la cava di posizione i, j
+	 * @param i X
+	 * @param j Y
+	 */
+	public void conquistaCava(int i, int j)
+	{
+		for(CavaDiRisorse c: partita.getCaveScenario())
+		{
+			if(c.getX() == i && c.getY() == j)
+			{
+				if(c.getCiviltaProprietaria() == -1)
+					c.setCiviltaProprietaria(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà());
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che controlla se è presente una cava nelle caselle vicine a i e j, ed eventualmente la controlla o la libera (azione)
+	 * @param i X
+	 * @param j Y
+	 * @param azione 0 controlla, 1 libera
+	 */
+	public void controllaCava(int i, int j, int azione)
+	{
+		String cella;
 		
+		if(j > 0) //controlla parte superiore
+		{
+			if(scenario.getScenario()[j-1][i].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
+						scenario.getScenario()[j-1][i].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i, j-1);
+					else
+						liberaCava(i, j-1);
+				}
+			}
+		}
+		if(i > 0) //controlla parte sx
+		{
+			if(scenario.getScenario()[j][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
+						scenario.getScenario()[j][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j);
+					else
+						liberaCava(i-1, j);
+				}
+			}
+		}
+		if(j < 47) //controlla parte bassa
+		{
+			if(scenario.getScenario()[j+1][i].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
+						scenario.getScenario()[j+1][i].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i, j+1);
+					else
+						liberaCava(i, j+1);
+				}
+			}
+		}
+		if(j < 92) //controlla parte dx
+		{
+			if(scenario.getScenario()[j][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
+						scenario.getScenario()[j][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j);
+					else
+						liberaCava(i+1, j);
+				}
+			}
+		}
+		if(j > 0 && j > 0) //controlla parte sx in alto
+		{
+			if(scenario.getScenario()[j-1][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
+						scenario.getScenario()[j-1][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j-1);
+					else
+						liberaCava(i-1, j-1);
+				}
+			}
+		}
+		if(i < 92 && j > 0) //controlla parte dx in alto
+		{
+			if(scenario.getScenario()[j-1][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
+						scenario.getScenario()[j-1][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j-1);
+					else
+						liberaCava(i+1, j-1);
+				}
+			}
+		}
+		if(i > 0 && j < 47) //sx in basso
+		{
+			if(scenario.getScenario()[j+1][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
+						scenario.getScenario()[j+1][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j+1);
+					else
+						liberaCava(i-1, j+1);
+				}
+			}
+		}
+		if(i < 92 && j < 47) //dx in basso
+		{
+			if(scenario.getScenario()[j+1][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
+						scenario.getScenario()[j+1][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j+1);
+					else
+						liberaCava(i+1, j+1);
+				}
+			}
+		}
 	}
 	
 	/**

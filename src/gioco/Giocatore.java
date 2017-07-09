@@ -32,14 +32,11 @@ public class Giocatore {
 	private List<String> ricercheEffettuate; //contiene tutte le ricerche effettuate dal giocatore
 	private List<String> storicoPossedimenti; //contiene tutti i possedimenti (case etc) del giocatore
 	
-	private List<String> caveControllate; //Contiene tutte le cave controllate dal giocatore
-	
 	Giocatore(int civiltà, String proprietario, String nomeGiocatore) {
 		unitaMunicipio = new ArrayList<String>();
 		gruppiInAttacco = new ArrayList<GruppoMilitare>();
 		ricercheEffettuate = new ArrayList<String>();
 		storicoPossedimenti = new ArrayList<String>();
-		caveControllate = new ArrayList<String>();
 		
 		oro = 0;
 		materiali = 0;
