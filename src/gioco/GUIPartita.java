@@ -178,7 +178,7 @@ public class GUIPartita extends JFrame{
 					finestreAttive[0].setVisible(true);
 					dispose();
 					File musica= new File("media/MusicaMenu.wav");
-					Music.playSound(musica);
+					Music.playSound();
 				}
 			}
 		});

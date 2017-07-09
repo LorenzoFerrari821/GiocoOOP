@@ -203,7 +203,7 @@ public class GUIPartitaOpzioni extends JDialog {
 					   guiPartita.dispose();
 					   guiPartitaOpzioni.dispose();
 					   File musica= new File("media/MusicaMenu.wav");
-						Music.playSound(musica);
+						Music.playSound();
 				   }
 			}
 		});

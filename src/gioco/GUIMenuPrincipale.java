@@ -97,6 +97,8 @@ public class GUIMenuPrincipale extends JFrame {
 	 */
 	public GUIMenuPrincipale() {                                
 		
+		//Locale.setDefault(Locale.UK);     //Se si vuole, oltre che impostare la lingua inglese, anche cambiare i bottoni iniziali
+		
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
@@ -136,14 +138,13 @@ public class GUIMenuPrincipale extends JFrame {
 		setContentPane(contentPane);
 
 		panelsx.setLayout(new GridLayout2(16, 2, 5, 5));
-		panelsx.setBackground(Color.DARK_GRAY);
+		panelsx.setBackground(Color.decode("000033"));
 
 		paneldx.setLayout(new GridLayout(1, 1, 0, 0));
 		paneldx.setBackground(Color.LIGHT_GRAY);
 
 		panelTitolo.setLayout(new BorderLayout(4, 4));
-		panelTitolo.setBackground(Color.BLACK);
-
+		panelTitolo.setBackground(Color.decode("000033"));
 		btnNuovaSmall = new RoundedCornerButton();
 		ImageIcon iconbtnNuovaSmall = new ImageIcon("media/btnNuovaSmall.png");
 		Image scalebtnNuovaSmall = iconbtnNuovaSmall.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);

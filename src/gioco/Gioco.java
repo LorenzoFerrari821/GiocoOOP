@@ -17,16 +17,8 @@ public class Gioco {
 	public static void main(String[] args)  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
-		
-				try {	
 					GUIMenuPrincipale frame = new GUIMenuPrincipale();
-					File musica= new File("media/MusicaMenu.wav");
-					Music.playSound(musica);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+					Music.playSound();
 			}
 		});
 

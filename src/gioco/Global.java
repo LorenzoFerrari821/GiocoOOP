@@ -16,6 +16,7 @@ public class Global {
 			Locale.ITALIAN,
 			Locale.ENGLISH,
 	};
+	
 	private static ResourceBundle labels=ResourceBundle.getBundle("Linguaggi/LabelsBundle",Locale.getDefault());    //Leggi le stringhe dal file a seconda della lingua dell'utente
 																													//Utilizzare Locale.ENGLISH per testare in inglese
 	
