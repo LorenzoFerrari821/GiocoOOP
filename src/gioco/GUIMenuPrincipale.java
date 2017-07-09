@@ -44,7 +44,7 @@ import javax.swing.JComboBox;
  * Questa classe rappresenta il JFrame relativo al Menù Principale,
  * al suo interno vengono richiamati tutti i sottomenù e vengono gestite
  * le azioni sui bottoni principali. 
- * @author Werther&Lorenzo
+ * @author Werther e Lorenzo
  *
  */
 public class GUIMenuPrincipale extends JFrame {
@@ -95,7 +95,7 @@ public class GUIMenuPrincipale extends JFrame {
 	 * all'interno dell'interfaccia, costruisce quindi un contentPane di base e altri pannelli
 	 * per la GUI, insieme a tutti gli altri elementi.
 	 */
-	public GUIMenuPrincipale() throws IllegalAccessException {                                
+	public GUIMenuPrincipale() {                                
 		
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,6 +116,9 @@ public class GUIMenuPrincipale extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -588,6 +591,11 @@ public class GUIMenuPrincipale extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Carica lo sfondo facendo in modo che combaci con larghezza e altezza in questo istante del pannello in cui è posizionato 
+	 * @param width Larghezza del pannello paneldx
+	 * @param height Altezza del pannello paneldx
+	 */
 	public void caricaSfondo(int width, int height)
 	{
 		imgSfondo = new ImageIcon("media/sfondo.png");
@@ -624,6 +632,11 @@ public class GUIMenuPrincipale extends JFrame {
 		}catch(NullPointerException e){};
 	}
 
+	/**
+	 * Ripristina pannello paneldx dopo che un sottomenù è stato chiuso
+	 * @param width Larghezza del vecchio pannello chiuso
+	 * @param height Altezza del vecchio pannello chiuso
+	 */
 	public void ripristinaPanelDx(int width, int height)
 	{
 		paneldx.setSize(width, height);

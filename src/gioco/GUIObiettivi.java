@@ -28,6 +28,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * GUI che definisce gli obiettivi raggiungibili in gioco dal giocatore e tiene traccia degli obiettivi già raggiunti
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIObiettivi extends JPanel {
 	private JPanel pnlMenu;
 	private GridBagConstraints c;
@@ -37,6 +42,10 @@ public class GUIObiettivi extends JPanel {
 	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
 	private GUIObiettivi guiObiettivi; //Utilizzato per mandare indietro a GUIMenuPrincipale la dimensione del jframe
 	
+	/**
+	 * Modella la GUI Obiettivi
+	 * @param guiMenuPrincipale riferimento a GUIMenuPrincipale
+	 */
 	GUIObiettivi(GUIMenuPrincipale guiMenuPrincipale) {
 		
 			try {

@@ -2,7 +2,12 @@ package gioco;
 
 import java.awt.*;
 
-//Grid Layout which allows components of differrent sizes
+/**
+ * Classe presa dall'esterno, consente di creare una versione alternativa di GridLayout.
+ * Ha permesso di creare i tasti più piccoli nel menu principale affiancati e allineati ai tasti classici
+ * @author Others
+ *
+ */
 public class GridLayout2 extends GridLayout 
 {
 public GridLayout2() {

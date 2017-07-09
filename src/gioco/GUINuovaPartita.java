@@ -46,7 +46,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Questa classe si occupa di organizzare e definire l'interfaccia grafica
  * del sottomenù 'Nuova Partita', contiene anche i mouseListener dei relativi
  * pulsanti in essa contenuti e le azioni da compiere.
- * @author Werther&Lorenzo
+ * @author Werther e Lorenzo
  *
  */
 public class GUINuovaPartita extends JPanel {
@@ -320,6 +320,10 @@ public class GUINuovaPartita extends JPanel {
 		}			
 		return k;
 	}
+	
+	/**
+	 * Crea il salvataggio della stringa situazione di gioco
+	 */
 	private void creaSalvataggioStringa(){
 		try {	
 			s = new ConnectionDB();           //Connessione al database

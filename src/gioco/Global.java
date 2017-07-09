@@ -4,6 +4,11 @@ package gioco;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Prende valori di sistema come livello del volume, lingua di sistema per impostare la lingua di gioco
+ * @author Werther e Lorenzo
+ *
+ */
 public class Global { 
 	private static float livVolume=0;  //Volume standard
 	private static int tastiSchermata=0;  //Movimento col mouse

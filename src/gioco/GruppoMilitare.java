@@ -3,6 +3,12 @@ package gioco;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Rappresenta un gruppo militare con Lista dei componenti, posizione X e Y sullo scenario, civiltà di appartenenza,
+ * se puo effettuare un attacco o un movimento (attaccoPossibile e movimentoPossibile)
+ * @author Werther e Lorenzo
+ *
+ */
 public class GruppoMilitare {
 	private List<String> gruppoMilitare = new ArrayList<String>();
 	private int posX;
@@ -12,6 +18,9 @@ public class GruppoMilitare {
 	private boolean movimentoPossibile;
 	private boolean attaccoPossibile;
 	
+	/**
+	 * Inizializza movimentoPossibile e attaccoPossibile a true
+	 */
 	GruppoMilitare()
 	{
 		movimentoPossibile = true;

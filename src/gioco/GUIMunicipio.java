@@ -35,6 +35,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * GUI che mostra le unità militari contenute nel municipio,
+ * permette di creare gruppi militari e richiamarli all'interno del municipio
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIMunicipio extends JDialog
 {
 	private Font fontFuturist;
@@ -59,6 +65,13 @@ public class GUIMunicipio extends JDialog
 	
 	private GruppoMilitare gruppoMilitare;
 	
+	/**
+	 * Crea la finestra del municipio e prepara le variabili per essere utilizzate dall'utente
+	 * @param partita riferimento a Partita
+	 * @param guiPartita riferimento a GUIPartita
+	 * @param valoriDiGioco riferimento a ValoriDiGioco
+	 * @param iconeGrafiche riferimento a IconeGrafiche
+	 */
 	GUIMunicipio(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche)
 	{
 		
@@ -189,6 +202,9 @@ public class GUIMunicipio extends JDialog
 		add(contentPane);
 	}
 	
+	/**
+	 * Crea un nuovo gruppo militare
+	 */
 	public void creaGruppoMilitare()
 	{
 		int conta = 0, i = 0;
@@ -208,7 +224,7 @@ public class GUIMunicipio extends JDialog
 			gruppoMilitare = null;
 	}
 	
-	/*
+	/**
 	 * Riempie la pagina in base alle unità militari selezionate
 	 */
 	public void popolaDiTruppe()
@@ -233,6 +249,12 @@ public class GUIMunicipio extends JDialog
 		pnlMid.setVisible(true);
 	}
 	
+	/**
+	 * Aggiunge un'unità militare all'elenco delle unità nel municipio
+	 * @param nome Nome dell'unità militare
+	 * @param icona Icona dell'unità militare
+	 * @param indiceLista Indice dell'unità aggiunta
+	 */
 	public void aggiungiVoce(String nome, ImageIcon icona, int indiceLista)
 	{
 		JLabel lblVoce = new JLabel(nome);

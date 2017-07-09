@@ -40,6 +40,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * GUI che permette di arruolare unità. È presente un accurato sistema di selezione del numero, con controlli per evitare errori di inserimenti
+ * Viene utilizzato non solo nelle caserme ma in tutte le strutture che permettono di arruolare unità
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIArruolaUnita extends JDialog {
 	
 	private Font fontFuturist;
@@ -70,6 +76,14 @@ public class GUIArruolaUnita extends JDialog {
 	
 	private String edificio;
 	
+	/**
+	 * Crea tutta la schermata e la mostra all'utente
+	 * @param partita riferimento a Partita
+	 * @param guiPartita riferimento a GUIPartita
+	 * @param valoriDiGioco riferimento a ValoriDiGioco
+	 * @param iconeGrafiche riferimento a IconeGrafiche
+	 * @param edificio Edificio da cui è stata generata questa finestra, ne determina le truppe che vengono mostrate
+	 */
 	GUIArruolaUnita(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche, String edificio)
 	{
 		
@@ -280,8 +294,8 @@ public class GUIArruolaUnita extends JDialog {
 	
 	/**
 	 * Metodo che permette di arruolare unità militari. Ritorna true se l'operazione è avvenuta con successo, false altrimenti
-	 * @param numero
-	 * @return
+	 * @param numero numero di unità da arruolare
+	 * @return ritorna true se è possibile arruolare il numero specificato di unità, 0 altrimenti
 	 */
 	public boolean arruolaUnitaMilitare(String numero)
 	{
@@ -333,6 +347,11 @@ public class GUIArruolaUnita extends JDialog {
 		return true;
 	}
 	
+	/**
+	 * Controlla che il parametro di stringa sia un numero
+	 * @param s Numero sottoforma di stringa
+	 * @return true se è un numero valido, 0 altrimenti
+	 */
 	public boolean isNumber(String s)
 	{
 		char[] sArray = s.toCharArray();
@@ -341,12 +360,16 @@ public class GUIArruolaUnita extends JDialog {
 		for(char c: sArray)
 		{
 			n = (int)c;
-			if(n < 48 || n > 57)
+			if(n < 48 || n > 57) //48 è 0, 57 è 9
 				return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * Dà informazioni sulla truppa selezionata
+	 * @param nome Nome della truppa selezionata
+	 */
 	public void daiInformazioni(String nome)
 	{
 		if(nome == null)
@@ -355,8 +378,10 @@ public class GUIArruolaUnita extends JDialog {
 			JOptionPane.showMessageDialog(null, Global.getLabels("s44"),Global.getLabels("a5"), JOptionPane.DEFAULT_OPTION);
 	}
 	
-	/*
-	 * Riempie la pagina in base all'unità militare selezionata
+	/**
+	 * Riempie la pagina in base alla truppa selezionata (se qualche truppa è stata selezionata in precedenza)
+	 * @param edificio Edificio corrente
+	 * @param evidenzia Indica la truppa selezionata al momento (quella da evidenziare)
 	 */
 	public void popolaDiTruppe(String edificio, String evidenzia)
 	{
@@ -582,6 +607,12 @@ public class GUIArruolaUnita extends JDialog {
 		}
 	}
 	
+	/**
+	 * Aggiunge l'unità militare per poter essere arruolata
+	 * @param nome Nome dell'unità da aggiungere
+	 * @param icona Icona dell'unità da aggiungere
+	 * @param evidenzia Indica se da evidenziare (già selezionata in precedenza) o no
+	 */
 	public void aggiungiVoce(String nome, ImageIcon icona, String evidenzia)
 	{
 		JLabel lblVoce = new JLabel(nome);

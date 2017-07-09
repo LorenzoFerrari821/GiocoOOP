@@ -31,6 +31,11 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * GUI del gruppo militare (alleato o nemico)
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIGruppoMilitare extends JDialog {
 
 	private Font fontFuturist;
@@ -54,6 +59,14 @@ public class GUIGruppoMilitare extends JDialog {
 	
 	private GruppoMilitare gruppoMilitare;
 	
+	/**
+	 * Crea l'interfaccia grafica e prepara tutte le variabili per essere fruite dal giocatore
+	 * @param partita riferimento a Partita
+	 * @param guiPartita riferimento a GUIPartita
+	 * @param valoriDiGioco riferimento a ValoriDiGioco
+	 * @param iconeGrafiche riferimento a IconeGrafiche
+	 * @param gruppoMilitare Gruppo militare rappresentato
+	 */
 	GUIGruppoMilitare(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, IconeGrafiche iconeGrafiche, GruppoMilitare gruppoMilitare)
 	{
 		
@@ -186,8 +199,8 @@ public class GUIGruppoMilitare extends JDialog {
 		add(contentPane);
 	}
 	
-	/*
-	 * Riempie la pagina con le unità militari
+	/**
+	 * Riempie la pagina con le unità militari 
 	 */
 	public void popolaDiTruppe()
 	{
@@ -210,6 +223,11 @@ public class GUIGruppoMilitare extends JDialog {
 		pnlMid.setVisible(true);
 	}
 	
+	/**
+	 * Aggiunge voce in elenco
+	 * @param nome Nome dell'unità militare
+	 * @param icona Icona dell'unità militare
+	 */
 	public void aggiungiVoce(String nome, ImageIcon icona)
 	{
 		JLabel lblVoce = new JLabel(nome);

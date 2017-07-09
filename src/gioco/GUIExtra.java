@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 /**
  * Questa classe si occupa di mostrare all'utente gli extra riguardo al gioco
  * gestendo anche la parte grafica dell'interfaccia Extra.
- * @author Werther&Lorenzo
+ * @author Werther e Lorenzo
  *
  */
 public class GUIExtra extends JPanel {

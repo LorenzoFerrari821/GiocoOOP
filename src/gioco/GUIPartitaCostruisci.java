@@ -39,6 +39,11 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * GUI che mostra gli elementi attualmente ricercati dal giocatore e costruibili
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIPartitaCostruisci extends JDialog
 {
 	private Font fontFuturist;

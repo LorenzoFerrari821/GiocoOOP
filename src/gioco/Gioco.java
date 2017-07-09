@@ -7,8 +7,8 @@ import java.io.*;
 import sun.audio.*;
 
 /**
- * Classe principale che dirige il funzionamento del gioco dall'esterno.
- * @author Werther&Lorenzo
+ * Contiene solo il main per lanciare la GUI Menu principale
+ * @author Werther e Lorenzo
  * @version 1.0
  */
 public class Gioco {

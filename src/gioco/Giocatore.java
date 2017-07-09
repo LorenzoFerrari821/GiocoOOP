@@ -3,15 +3,15 @@ package gioco;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La classe giocatore rappresenta tutti e 4 i giocatori di una partita
+ *  e ne tiene traccia di tutte le statistiche personali.
+ * @author Werther e Lorenzo
+ *
+ */
 public class Giocatore {
 	private String proprietario; //possibili valori: utente1 (server), utente2 (client), cpu. Se si gioca in singolo utente1 o cpu
-	public String getProprietario() {
-		return proprietario;
-	}
-
-	public void setProprietario(String proprietario) {
-		this.proprietario = proprietario;
-	}
+	
 	private String nomeGiocatore;
 	private int civiltà; //0 romani, 1 britanni, 2 galli, 3 sassoni
 	private int oro;
@@ -32,6 +32,12 @@ public class Giocatore {
 	private List<String> ricercheEffettuate; //contiene tutte le ricerche effettuate dal giocatore
 	private List<String> storicoPossedimenti; //contiene tutti i possedimenti (case etc) del giocatore
 	
+	/**
+	 * Costruttore che inizializza tutti gli ArrayList, tutti i dati del giocatore
+	 * @param civiltà Civiltà del giocatore
+	 * @param proprietario utente1 (server), utente2 (client), cpu. Se si gioca in singolo utente1 o cpu
+	 * @param nomeGiocatore Nome del giocatore
+	 */
 	Giocatore(int civiltà, String proprietario, String nomeGiocatore) {
 		unitaMunicipio = new ArrayList<String>();
 		gruppiInAttacco = new ArrayList<GruppoMilitare>();
@@ -106,7 +112,13 @@ public class Giocatore {
 		this.materiali = materiali;
 	}
 
-	
+	public String getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(String proprietario) {
+		this.proprietario = proprietario;
+	}
 
 	public double getBonusEconomia() {
 		return bonusEconomia;

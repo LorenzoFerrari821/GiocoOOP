@@ -26,7 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Questa classe si occupa di definire l'interfaccia delle Opzioni.
- * @author Werther&Lorenzo
+ * @author Werther e Lorenzo
  *
  */
 public class GUIOpzioni extends JPanel {

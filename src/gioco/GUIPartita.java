@@ -59,6 +59,11 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * GUI principale che rappresenta la partita al giocatore
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIPartita extends JFrame{
 
 	private JPanel contentPane;
@@ -138,6 +143,14 @@ public class GUIPartita extends JFrame{
 	
 	private GruppoMilitare gruppoMilitare; //Individua il gruppo militare corrente
 	
+	/**
+	 * Crea l'interfaccia grafica della partita e inizializza tutte le variabili per poterle presentare al giocatore
+	 * @param nomeGiocatore Nome del giocatore
+	 * @param tutorial Tutorial si/no
+	 * @param difficolta Difficoltà scelta dal giocatore
+	 * @param mappa Mappa scelta dal giocatore
+	 * @param civilta Civiltà scelta dal giocatore
+	 */
 	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
 	{
 		setTitle("Empire Conquerors");
@@ -763,11 +776,18 @@ public class GUIPartita extends JFrame{
 		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 
+	/**
+	 * In base alla stringa situazione di gioco presa da una vecchia partita salvata
+	 * ricrea la partita
+	 * @param stringa
+	 */
 	public GUIPartita(String stringa) {	//Crea la partita partendo soltando dalla stringa
 		
 	}
 
-	//Aggiorna la schermata in base alla posizione di visualizzazione corrente
+	/**
+	 * Aggiorna la schermata in base alla posizione di visualizzazione corrente
+	 */
 	public void aggiornaSchermata() {
 		scenarioCorrente = scenario.getScenario();
 		StringTokenizer st;
@@ -818,7 +838,14 @@ public class GUIPartita extends JFrame{
 		this.posSchermataY = posSchermataY;
 	}
 
-	/*Utilizzato per preparare tutte le variabili e le utility alla partita*/
+	/**
+	 * Prepara tutte le variabili e le utility alla partita
+	 * @param nomeGiocatore Nome del giocatore
+	 * @param tutorial Tutorial si/no
+	 * @param difficolta Difficoltà scelta dal giocatore
+	 * @param mappa Mappa scelta dal giocatore
+	 * @param civilta Civiltà scelta dal giocatore
+	 */
 	public void setupPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta) {
 		valoriDiGioco = new ValoriDiGioco();
 
@@ -826,6 +853,9 @@ public class GUIPartita extends JFrame{
 		aggiornaDatiGUI();
 	}
 
+	/**
+	 * Aggiorna i dati che compongono la GUI
+	 */
 	public void aggiornaDatiGUI()
 	{
 		lblOrov.setText(Integer.toString(partita.getGiocatore().get(indiceProprietario).getOro()));
@@ -848,6 +878,9 @@ public class GUIPartita extends JFrame{
 		}
 	}
 
+	/**
+	 * Disattiva tutti i thread in esecuzione (prima di chiudere solitamente). Metodo stop antico e deprecated ma efficace
+	 */
 	public void disattivaThread()
 	{
 		partita.getThreadCicloPartita().stop();
@@ -918,6 +951,11 @@ public class GUIPartita extends JFrame{
 		this.gruppoMilitare = gruppoMilitare;
 	}
 
+	/**
+	 * Gestisce tutti i click che avvengono sulle labels lblsGioco
+	 * @param i X corrente (senza tenere in conto della pos schermata)
+	 * @param j Y corrente (senza tenere in conto della pos schermata)
+	 */
 	public void gestoreClickLblGioco(int i, int j) //i è la x, j è la y
 	{
 		if(azioneLblsGioco.equals(Global.getLabels("s56")))
@@ -1774,6 +1812,12 @@ public class GUIPartita extends JFrame{
 		return -1;
 	}
 
+	/**
+	 * Rimuove elemento dallo scenario
+	 * @param i X
+	 * @param j Y
+	 * @param ultimoChar Ultimo carattere della stringa dell'elemento da rimuovere
+	 */
 	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
 	{
 		//Rimozione dell'oggetto dallo scenario
@@ -1831,6 +1875,11 @@ public class GUIPartita extends JFrame{
 					}
 	}
 
+	/**
+	 * Posiziona l'elemento contenuto nella variabile elemLblsGioco sullo scenario
+	 * @param i X
+	 * @param j Y
+	 */
 	public void posizionaElementoSuScenario(int i, int j)
 	{
 		/*Posizionamento oggetto sulla plancia di gioco*/
@@ -1864,6 +1913,13 @@ public class GUIPartita extends JFrame{
 		}
 	}
 
+	/**
+	 * Individua l'oggetto su cui è stato cliccato tenendo conto se interno al villaggio o esterno al villaggio
+	 * @param i X
+	 * @param j Y
+	 * @param interno true se interno ad una città, false altrimenti
+	 * @return Ritorna il nome dell'oggetto individuato
+	 */
 	public String individuaOggetto(int i, int j, boolean interno) //i è la x, j è la y
 	{
 		scenarioCorrente = scenario.getScenario();
@@ -1892,6 +1948,12 @@ public class GUIPartita extends JFrame{
 		return strCercata;
 	}
 
+	/**
+	 * Controlla se è possibile piazzare l'elemento in elemLblsGioco nella cella corrente
+	 * @param i X
+	 * @param j Y
+	 * @return true se possibile, false altrimenti
+	 */
 	public boolean isPiazzamentoPossibile(int i, int j) //i è la x, j è la y
 	{
 		int stItera;

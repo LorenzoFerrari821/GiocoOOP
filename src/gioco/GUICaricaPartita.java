@@ -38,7 +38,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Questa classe si occupa di organizzare e definire l'interfaccia grafica
  * del sottomenù 'Carica Partita', contiene anche i mouseListener dei relativi
  * pulsanti in essa contenuti e le azioni da compiere.
- * @author Werther&Lorenzo
+ * @author Werther e Lorenzo
  *
  */
 public class GUICaricaPartita extends JPanel {
@@ -83,8 +83,10 @@ public class GUICaricaPartita extends JPanel {
 	private GUIMenuPrincipale guiMenuPrincipale; //Inserito per avere un riferimento a menu principale
 	private GUICaricaPartita guiCaricaPartita;
 
+
 	/**
-	 * Costruttore, si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
+	 * Si occupa di definire tutti gli elementi dell'interfaccia grafica e azioni dei pulsanti
+	 * @param guiMenuPrincipale riferimento a GUIMenuPrincipale
 	 */
 	GUICaricaPartita(GUIMenuPrincipale guiMenuPrincipale) {
 		try {

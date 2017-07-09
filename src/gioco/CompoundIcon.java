@@ -4,8 +4,9 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- *  The CompoundIcon will paint two, or more, Icons as a single Icon. The
- *  Icons are painted in the order in which they are added.
+ * Classe che dipinge più icone in una singola icona, sovrapponendole.
+ * Le icone vengono dipinte in ordine di arrivo nel costruttore.
+ * Presa da una risposta su StackOverflow.
  *
  *  The Icons are layed out on the specified axis:
  * <ul>
@@ -13,7 +14,7 @@ import javax.swing.*;
  * <li>Y-Axis (vertically)
  * <li>Z-Axis (stacked)
  * </ul>
- *
+ *@author Others
  */
 public class CompoundIcon implements Icon
 {
