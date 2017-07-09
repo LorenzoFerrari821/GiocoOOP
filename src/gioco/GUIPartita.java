@@ -1171,7 +1171,7 @@ public class GUIPartita extends JFrame{
 			aggiornaDatiGUI();
 		}
 		else
-		if(azioneLblsGioco.equals(Global.getLabels("s63")))
+		if(azioneLblsGioco.equals(Global.getLabels("s63"))) //gruppo militare muovi
 		{
 			if(isPiazzamentoPossibile(i, j)) //controlla che la casella sia vuota (solo la base)
 			{
@@ -1223,6 +1223,12 @@ public class GUIPartita extends JFrame{
 							
 							//aggiorno la posizione nello scenario
 							scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
+							
+							//controllo se presente un falò lo raccolgo
+							controllaFalo(i+posSchermataX, j+posSchermataY);
+							
+							//se è presente una cava la gestisco
+							controllaCava(i+posSchermataX, j+PosSchermataY);
 						}
 						else
 							JOptionPane.showMessageDialog(null, Global.getLabels("s68"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1318,6 +1324,9 @@ public class GUIPartita extends JFrame{
 					partita.getGruppiMilitariSchierati().add(gruppoMilitare);
 					partita.getGiocatore().get(indiceProprietario).getGruppiInAttacco().add(gruppoMilitare);
 					scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
+					
+					//controllo la presenza di falo nelle caselle adiacenti
+					controllaFalo(i+posSchermataX, j+posSchermataY);
 				}
 				else
 					JOptionPane.showMessageDialog(null, Global.getLabels("s73"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1389,6 +1398,122 @@ public class GUIPartita extends JFrame{
 		}
 	}
 	
+	/**
+	 * Metodo che controlla se è presente una cava nelle caselle vicine a i e j, se si controlla che non sia già sotto il controllo di qualcuno
+	 * e la controlla
+	 * @param i X
+	 * @param j Y
+	 */
+	public void controllaCava(int i, int j)
+	{
+		
+	}
+	
+	/**
+	 * Controlla se è presente un falo in una delle caselle adiacenti. Se si lo raccoglie
+	 * @param i X
+	 * @param j Y
+	 */
+	public void controllaFalo(int i, int j)
+	{
+		if(j > 0) //controlla parte superiore
+		{
+			if(scenario.getScenario()[j-1][i].length() >= 3 && 
+					scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
+					scenario.getScenario()[j-1][i].length()).equals(" f")) //Se nella casella superiore c'è un falò
+			{
+				ottieniFalo(i, j-1);
+			}
+		}
+		if(i > 0) //controlla parte sx
+		{
+			if(scenario.getScenario()[j][i-1].length() >= 3 && 
+					scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
+					scenario.getScenario()[j][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			{
+				ottieniFalo(i-1, j);
+			}
+		}
+		if(j < 47) //controlla parte bassa
+		{
+			if(scenario.getScenario()[j+1][i].length() >= 3 && 
+					scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
+					scenario.getScenario()[j+1][i].length()).equals(" f")) //Se nella casella giu c'è un falò
+			{
+				ottieniFalo(i, j+1);
+			}
+		}
+		if(i < 92) //controlla parte dx
+		{
+			if(scenario.getScenario()[j][i+1].length() >= 3 && 
+					scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
+					scenario.getScenario()[j][i+1].length()).equals(" f")) //Se nella casella dx c'è un falò
+			{
+				ottieniFalo(i+1, j);
+			}
+		}
+		if(i > 0 && j > 0) //sx in alto
+		{
+			if(scenario.getScenario()[j-1][i-1].length() >= 3 && 
+					scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
+					scenario.getScenario()[j-1][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			{
+				ottieniFalo(i-1, j-1);
+			}
+		}
+		if(i < 92 && j > 0) //dx in alto
+		{
+			if(scenario.getScenario()[j-1][i+1].length() >= 3 && 
+					scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
+					scenario.getScenario()[j-1][i+1].length()).equals(" f")) //Se nella casella dx in alto c'è un falò
+			{
+				ottieniFalo(i+1, j-1);
+			}
+		}
+		if(i > 0 && j < 47) //sx in basso
+		{
+			if(scenario.getScenario()[j+1][i-1].length() >= 3 && 
+					scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
+					scenario.getScenario()[j+1][i-1].length()).equals(" f")) //Se nella casella sx in basso c'è un falò
+			{
+				ottieniFalo(i-1, j+1);
+			}
+		}
+		if(i < 92 && j < 47) //dx in basso
+		{
+			if(scenario.getScenario()[j+1][i+1].length() >= 3 && 
+					scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
+					scenario.getScenario()[j+1][i+1].length()).equals(" f")) //Se nella casella dx in basso c'è un falò
+			{
+				ottieniFalo(i+1, j+1);
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che permette di ottenere un falò sulla mappa
+	 * @param i X
+	 * @param j Y
+	 */
+	public void ottieniFalo(int i, int j)
+	{
+		int bottino;
+		
+		//tolgo il falo dallo scenario
+		scenario.getScenario()[j][i] = scenario.getScenario()[j][i].substring(0, scenario.getScenario()[j][i].length() - 2);
+		
+		//calcolo valore falò: 10% di oro o materiali
+		if(Math.random() < 0.5) {
+			bottino = (int)(partita.getGiocatore().get(indiceProprietario).getOro() * 0.1);
+			partita.getGiocatore().get(indiceProprietario).setOro(partita.getGiocatore().get(indiceProprietario).getOro() + bottino);
+		}
+		else
+		{
+			bottino = (int)(partita.getGiocatore().get(indiceProprietario).getMateriali() * 0.1);
+			partita.getGiocatore().get(indiceProprietario).setMateriali(
+					partita.getGiocatore().get(indiceProprietario).getMateriali() + bottino);
+		}
+	}
 	
 	/**
 	 * Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
