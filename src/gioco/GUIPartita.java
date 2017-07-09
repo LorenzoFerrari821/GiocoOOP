@@ -1228,7 +1228,7 @@ public class GUIPartita extends JFrame{
 							controllaFalo(i+posSchermataX, j+posSchermataY);
 							
 							//se è presente una cava la gestisco
-							controllaCava(i+posSchermataX, j+PosSchermataY);
+							controllaCava(i+posSchermataX, j+posSchermataY);
 						}
 						else
 							JOptionPane.showMessageDialog(null, Global.getLabels("s68"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
