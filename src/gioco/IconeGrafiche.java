@@ -9,6 +9,11 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Classe container per tutte le icone utilizzate nel gioco. Impiegata per comodità e per prevenire il codice duplicato
+ * @author Werther e Lorenzo
+ *
+ */
 public class IconeGrafiche {
 
 
@@ -88,12 +93,21 @@ public class IconeGrafiche {
 	
 	private Map<String, ImageIcon> iconeUMilitari; //Icone delle unità militari
 
+	
+	/**
+	 * Chiama i metodi per caricare le icone nelle ImageIcon
+	 */
 	IconeGrafiche()
 	{
 		caricaIconeScenario(36, 37); //Questo metodo carica tutte le icone grafiche scenario all'interno del gioco con dimensione di default (36 e 37)
 		caricaAltreIcone();
 	}
 
+	/**
+	 * Carica tutte le icone dello scenario
+	 * @param width Larghezza icone da caricare
+	 * @param height Altezza icone da caricare
+	 */
 	public void caricaIconeScenario(int width, int height) {
 		iconeScenario = new HashMap<>();
 		iconeUMilitari = new HashMap<>();
@@ -743,6 +757,9 @@ public class IconeGrafiche {
 		iconeScenario.put(Global.getLabels("s134"), new ImageIcon(scalelblPartita));
 	}
 
+	/**
+	 * Carica tutte le icone di gioco che non appartengono allo scenario
+	 */
 	public void caricaAltreIcone()
 	{
 		ImageIcon iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");

@@ -1,15 +1,27 @@
 package gioco;
 
+/**
+ * Thread che rimane in esecuzione durante la partita e scandisce i turni di tutti i giocatori
+ * @author Werther e Lorenzo
+ *
+ */
 public class ThreadCicloPartita extends Thread{
 
 	private Partita partita;
 	private boolean turnoPersona;
 
-	public ThreadCicloPartita(Partita partita)
+	/**
+	 * inizializza il riferimento a Partita
+	 * @param partita riferimento a Partita
+	 */
+	ThreadCicloPartita(Partita partita)
 	{
 		 this.partita = partita;
 	}
 	
+	/**
+	 * Avvia il thread e comincia a scandire i turni
+	 */
 	public void run() 
 	{
 		  
@@ -48,6 +60,9 @@ public class ThreadCicloPartita extends Thread{
 		
 	}
 	
+	/**
+	 * Riporta a true la possibilità di attacco e movimento del giocatore di turno corrente
+	 */
 	public void refreshMovimentiEAttacchi()
 	{
 		for(GruppoMilitare g : partita.getGiocatore().get(partita.getTurnoCorrente()).getGruppiInAttacco())

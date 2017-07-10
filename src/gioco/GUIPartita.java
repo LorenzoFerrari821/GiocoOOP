@@ -779,9 +779,9 @@ public class GUIPartita extends JFrame{
 	/**
 	 * In base alla stringa situazione di gioco presa da una vecchia partita salvata
 	 * ricrea la partita
-	 * @param stringa
+	 * @param stringa Stringa situazione di gioco
 	 */
-	public GUIPartita(String stringa) {	//Crea la partita partendo soltando dalla stringa
+	public GUIPartita(String stringa) {
 		
 	}
 
@@ -888,6 +888,7 @@ public class GUIPartita extends JFrame{
 
 	/**
 	 * Metodo che permette di comprare un elemento dal negozio
+	 * @param elemento Elemento da posizionare e comprare
 	 */
 	public void posizionaECompra(String elemento)
 	{
@@ -914,7 +915,7 @@ public class GUIPartita extends JFrame{
 	
 	/**
 	 * Metodo che permette di piazzare un esercito sul campo di battaglia
-	 * @param gruppoMilitare
+	 * @param gruppoMilitare gruppo militare da piazzarre
 	 */
 	public void piazzaEsercito(GruppoMilitare gruppoMilitare)
 	{
@@ -933,6 +934,7 @@ public class GUIPartita extends JFrame{
 	
 	/**
 	 * Metodo che permette di attaccare con un gruppo militare
+	 * @param gruppoMilitare gruppo militare in attacco
 	 */
 	public void gruppoMilitareAttacca(GruppoMilitare gruppoMilitare)
 	{
@@ -943,6 +945,7 @@ public class GUIPartita extends JFrame{
 	
 	/**
 	 * Metodo che permette di muovere un gruppo militare
+	 * @param gruppoMilitare gruppo militare da muovere
 	 */
 	public void gruppoMilitareMuovi(GruppoMilitare gruppoMilitare)
 	{

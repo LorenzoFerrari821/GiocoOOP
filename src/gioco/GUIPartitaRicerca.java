@@ -37,6 +37,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * GUI che permette all'utente di ricercare nuove tecnologie e progredire nel gioco
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIPartitaRicerca extends JDialog {
 	
 	private Font fontFuturist;
@@ -58,6 +63,13 @@ public class GUIPartitaRicerca extends JDialog {
 	
 	private String proprietario;
 	
+	/**
+	 * Costruisce la GUI di base e inizializza le variabili da mostrare all'utente
+	 * @param partita riferimento a Partita
+	 * @param guiPartita riferimento a GUIPartita
+	 * @param valoriDiGioco riferimento a ValoriDiGioco
+	 * @param proprietario Proprietario della GUI
+	 */
 	GUIPartitaRicerca(Partita partita, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco, String proprietario) {
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
@@ -132,6 +144,9 @@ public class GUIPartitaRicerca extends JDialog {
 		add(pnlFooter, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Crea l'interfaccia grafica
+	 */
 	public void creaGUI()
 	{
 		int valX = 1; //dichiarato qui perchè serve solo per il corretto posizionamento orizzontale grafico delle ricerche
@@ -366,6 +381,12 @@ public class GUIPartitaRicerca extends JDialog {
 		dipingiBackground(gridXEClassica, gridXMedioevo, gridXEVittoriana);
 	}
 	
+	/**
+	 * Inserisce il background e i nomi dell'età nell'interfaccia grafica
+	 * @param gridXEClassica Delimita l'inizio dell'Età classica
+	 * @param gridXMedioevo Delimita l'inizio del Medioevo
+	 * @param gridXEVittoriana Delimita l'inizio dell'Età vittoriana
+	 */
 	public void dipingiBackground(int gridXEClassica, int gridXMedioevo, int gridXEVittoriana)
 	{
 		c.gridy = 1;
@@ -399,6 +420,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(new JLabel("  "), c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 1 a 1
+	 */
 	public void from1to1()
 	{
 		c.gridx++;
@@ -413,6 +437,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lblOriz2, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 1 a 2
+	 */
 	public void from1to2()
 	{
 		c.gridx++;
@@ -442,6 +469,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl2dxgiu, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 1 a 3
+	 */
 	public void from1to3() 
 	{	
 		c.gridx++;
@@ -486,6 +516,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl2sudx, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 2 a 1
+	 */
 	public void from2to1()
 	{
 		c.gridy -= 4;
@@ -521,6 +554,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl3su, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 2 a 2
+	 */
 	public void from2to2()
 	{
 		c.gridy -= 4;
@@ -556,6 +592,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl3su, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 3 a 1
+	 */
 	public void from3to1()
 	{
 		c.gridy -= 7;
@@ -612,6 +651,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl2sxsu, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 3 a 2
+	 */
 	public void from3to2()
 	{
 		c.gridy -= 7;
@@ -647,6 +689,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl3su, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 2 a 3
+	 */
 	public void from2to3()
 	{
 		c.gridy -= 4;
@@ -697,6 +742,9 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl2sudx, c);
 	}
 	
+	/**
+	 * Costruisce la struttura grafica di collegamento da 3 a 3
+	 */
 	public void from3to3()
 	{
 		c.gridy -= 7;
@@ -753,6 +801,15 @@ public class GUIPartitaRicerca extends JDialog {
 		contentPane.add(lbl3su, c);
 	}
 	
+	/**
+	 * Inserisce 2 tecnologie nell'interfaccia in colonna verticale
+	 * @param posx Posizione x iniziale
+	 * @param posy Posizione y iniziale
+	 * @param nome1 Nome ricerca 1
+	 * @param nome2 Nome ricerca 2
+	 * @param icona1 Icona ricerca 1
+	 * @param icona2 Icona ricerca 2
+	 */
 	public void inserisci2(int posx, int posy, String nome1, String nome2,
 			ImageIcon icona1, ImageIcon icona2) {
 		
@@ -760,6 +817,17 @@ public class GUIPartitaRicerca extends JDialog {
 		inserisci1(posx, posy+3, nome2, icona2);
 	}
 	
+	/**
+	 * Inserisce 3 tecnologie nell'interfaccia in colonna verticale
+	 * @param posx Posizione iniziale X
+	 * @param posy Posizione iniziale Y
+	 * @param nome1 Nome ricerca 1
+	 * @param nome2 Nome ricerca 2
+	 * @param nome3 Nome ricerca 3
+	 * @param icona1 Icona ricerca 1
+	 * @param icona2 Icona ricerca 2
+	 * @param icona3 Icona ricerca 3
+	 */
 	public void inserisci3(int posx, int posy, String nome1, String nome2, String nome3, ImageIcon icona1, ImageIcon icona2,
 			ImageIcon icona3) {
 		inserisci1(posx, posy, nome1, icona1);
@@ -767,6 +835,19 @@ public class GUIPartitaRicerca extends JDialog {
 		inserisci1(posx, posy+6, nome3, icona3);
 	}
 	
+	/**
+	 * Inserisce 4 tecnologie nell'interfaccia in colonna verticale
+	 * @param posx Posizione iniziale x
+	 * @param posy Posizione iniziale y
+	 * @param nome1 Nome ricerca 1
+	 * @param nome2 Nome ricerca 2
+	 * @param nome3 Nome ricerca 3
+	 * @param nome4 Nome ricerca 4
+	 * @param icona1 Icona ricerca 1
+	 * @param icona2 Icona ricerca 2
+	 * @param icona3 Icona ricerca 3
+	 * @param icona4 Icona ricerca 4
+	 */
 	public void inserisci4(int posx, int posy, String nome1, String nome2, String nome3, String nome4, 
 			ImageIcon icona1, ImageIcon icona2, ImageIcon icona3, ImageIcon icona4) {
 		inserisci1(posx, posy, nome1, icona1);
@@ -775,6 +856,13 @@ public class GUIPartitaRicerca extends JDialog {
 		inserisci1(posx, posy+9, nome4, icona4);
 	}
 	
+	/**
+	 * Inserisce 1 tecnologia nell'interfaccia
+	 * @param posx Posizione iniziale x
+	 * @param posy Posizione iniziale y
+	 * @param nome Nome ricerca
+	 * @param icona Icona ricerca
+	 */
 	public void inserisci1(int posx, int posy, String nome, ImageIcon icona) {
 
 		//Aggiungo il nome della ricerca
@@ -888,6 +976,11 @@ public class GUIPartitaRicerca extends JDialog {
 		}
 	}
 	
+	/**
+	 * Controlla se la ricerca selezionabile è ricercabile (cioè solo se tutte le precedenti sono già state ricercate)
+	 * @param nome Nome della ricerca
+	 * @return Ritorna true se è possibile ricercare la tecnologia, false altrimenti
+	 */
 	public boolean isRicercaRicercabile(String nome)
 	{
 		List<String> ric = new ArrayList<String>();

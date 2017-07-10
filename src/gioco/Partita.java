@@ -8,6 +8,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Cuore pulsante della partita. Contiene tutti i parametri e i metodi principali per lo svolgimento della partita.
+ * @author Werther e Lorenzo
+ *
+ */
 public class Partita {
 
 	List<Giocatore> giocatore;
@@ -27,6 +32,17 @@ public class Partita {
 	
 	private ValoriDiGioco valoriDiGioco;
 	
+	/**
+	 * Inizializza tutte le variabili per iniziare una partita
+	 * @param situazioneDiGioco Stringa situazione di gioco
+	 * @param nomeGiocatore Nome del giocatore fisico
+	 * @param tutorial Tutorial si/no
+	 * @param difficolta Difficoltà scelta dal giocatore
+	 * @param mappa Mappa scelta dal giocatore
+	 * @param civilta Civiltà scelta dal giocatore
+	 * @param guiPartita riferimento a GUIPartita
+	 * @param valoriDiGioco riferimento a ValoriDiGioco
+	 */
 	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, 
 			int mappa, int civilta, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco)
 	{
@@ -56,6 +72,11 @@ public class Partita {
 		
 	}
 	
+	/**
+	 * Crea una partita da zero
+	 * @param nomeGiocatore Nome del giocatore
+	 * @param civilta Civiltà scelta dal giocatore
+	 */
 	public void creaPartita(String nomeGiocatore, int civilta)
 	{
 		giocatore = new ArrayList<Giocatore>();
@@ -112,7 +133,7 @@ public class Partita {
 		avviaPartita();
 	}
 
-	/*
+	/**
 	 * Metodo che scandisce i turni e gestisce il turno con l'ia della cpu (se tocca alla cpu)
 	 * altrimenti lascia giocare il giocatore finchè non passa il turno
 	 */
@@ -122,9 +143,10 @@ public class Partita {
 		threadCicloPartita.start();
 	}
 	
-	/*
+	/**
 	 * In base a tutti i possedimenti del giocatore corrente, e in base a tutte le cave di materiali, oro e PR calcola
 	 * ed eventualmente incrementa le risorse in più che spettano al giocatore all'inizio del turno
+	 * @param incrementa Indica se le risorse sono anche da incrementare (true) o solo da mostrare (false)
 	 */
 	public void calcolaRisorse(boolean incrementa)
 	{
@@ -238,11 +260,12 @@ public class Partita {
 			giocatore.get(turnoCorrente).setPuntiRicerca(giocatore.get(turnoCorrente).getPuntiRicerca() + iPr);
 		}
 	}
+	
 	/**
 	 * Funzione con cui un esercito attacca un altro esercito nemico
-	 * @param gruppoAttacco
-	 * @param iDef
-	 * @param jDef
+	 * @param gruppoAttacco Gruppo militare in attacco
+	 * @param iDef X del difensore
+	 * @param jDef Y del difensore
 	 * @return 1 se l'attacco è riuscito (vittoria attaccanti), 0 altrimenti
 	 */
 	public int esercitoAttaccaEsercito(GruppoMilitare gruppoAttacco, int iDef, int jDef)
@@ -347,8 +370,8 @@ public class Partita {
 	
 	/**
 	 * Funzione con cui un esercito attacca un municipio nemico
-	 * @param gruppoAttacco
-	 * @param civiltaDifesa
+	 * @param gruppoAttacco Gruppo militare in attacco
+	 * @param civiltaDifesa Civiltà in difesa
 	 * @return 1 se l'attacco è riuscito (vittoria attaccanti), 0 altrimenti, -1 se la città era gia eliminata
 	 */
 	public int esercitoAttaccaMunicipio(GruppoMilitare gruppoAttacco, int civiltaDifesa)
@@ -427,6 +450,9 @@ public class Partita {
 		return -1;
 	}
 	
+	/**
+	 * Aggiorna i dati mostrati nella GUIPartita
+	 */
 	public void aggiornaDatiGUI()
 	{
 		guiPartita.aggiornaDatiGUI();

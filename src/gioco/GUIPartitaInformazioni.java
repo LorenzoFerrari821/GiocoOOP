@@ -30,6 +30,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * GUI che mostra all'utente lo stato corrente delle sue finanze e unità militari
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIPartitaInformazioni extends JDialog {
 
 	private JPanel contentPane;
@@ -57,6 +62,10 @@ public class GUIPartitaInformazioni extends JDialog {
 	private Partita partita;
 	private Clip audio;
 	
+	/**
+	 * Costruisce l'interfaccia grafica e inizializza tutte le variabili da mostrare all'utente
+	 * @param partita riferimento a Partita
+	 */
 	GUIPartitaInformazioni(Partita partita) {
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);

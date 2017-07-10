@@ -28,22 +28,28 @@ class RoundedCornerButton extends JButton {
     protected Shape shape;
     protected Shape border;
     protected Shape base;
+    
     protected RoundedCornerButton() {
         super();
     }
+    
     protected RoundedCornerButton(Icon icon) {
         super(icon);
     }
+    
     protected RoundedCornerButton(String text) {
         super(text);
     }
+    
     protected RoundedCornerButton(Action a) {
         super(a);
         //setAction(a);
     }
+    
     protected RoundedCornerButton(String text, Icon icon) {
         super(text, icon);
     }
+    
     @Override public void updateUI() {
         super.updateUI();
         setContentAreaFilled(false);
@@ -51,6 +57,7 @@ class RoundedCornerButton extends JButton {
         setBackground(new Color(250, 250, 250));
         initShape();
     }
+    
     protected void initShape() {
         if (!getBounds().equals(base)) {
             base = getBounds();
@@ -61,6 +68,7 @@ class RoundedCornerButton extends JButton {
                                                  ARC_WIDTH, ARC_HEIGHT);
         }
     }
+    
     private void paintFocusAndRollover(Graphics2D g2, Color color) {
         g2.setPaint(new GradientPaint(0, 0, color, getWidth() - 1, getHeight() - 1, color.brighter(), true));
         g2.fill(shape);
@@ -68,7 +76,8 @@ class RoundedCornerButton extends JButton {
         g2.fill(border);
     }
 
-    @Override protected void paintComponent(Graphics g) {
+    @Override 
+    protected void paintComponent(Graphics g) {
         initShape();
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -86,7 +95,9 @@ class RoundedCornerButton extends JButton {
         g2.dispose();
         super.paintComponent(g);
     }
-    @Override protected void paintBorder(Graphics g) {
+    
+    @Override 
+    protected void paintBorder(Graphics g) {
         initShape();
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -94,7 +105,9 @@ class RoundedCornerButton extends JButton {
         g2.draw(shape);
         g2.dispose();
     }
-    @Override public boolean contains(int x, int y) {
+    
+    @Override 
+    public boolean contains(int x, int y) {
         initShape();
         return shape != null && shape.contains(x, y);
     }

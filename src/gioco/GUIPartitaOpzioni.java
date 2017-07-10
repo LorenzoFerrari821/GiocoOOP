@@ -33,6 +33,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * GUI che mostra all'utente il menù delle opzioni durante la partita
+ * @author Werther e Lorenzo
+ *
+ */
 public class GUIPartitaOpzioni extends JDialog {
 	
 	private RoundedCornerButton btnContinua;
@@ -48,6 +53,10 @@ public class GUIPartitaOpzioni extends JDialog {
 	GUIPartitaOpzioni guiPartitaOpzioni; //Utilizzato per avere anche negli eventi un riferimento a questo JDialog
 	GUIPartita guiPartita; //Per avere un riferimento a partita
 	
+	/**
+	 * Costruisce l'interfaccia grafica e prepara le variabili da mostrare all'utente
+	 * @param guiPartita riferimento a GUIPartita
+	 */
 	GUIPartitaOpzioni (GUIPartita guiPartita) {
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);

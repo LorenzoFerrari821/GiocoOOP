@@ -3,6 +3,10 @@ package gioco;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contiene tutti i valori utilizzati dal gioco (valori in oro, materiali, PR di costruzioni e attacco, difesa e velocità truppe)
+ * @author Werther e Lorenzo
+ */
 public class ValoriDiGioco {
 	private Map<String, Integer> valoriRicerche;
 	private Map<String, Integer> valoriOro;
@@ -12,6 +16,9 @@ public class ValoriDiGioco {
 	private Map<String, Integer> defUnita; //difesa unità
 	private Map<String, Integer> velUnita; //velocità unità
 	
+	/**
+	 * Inizializza tutte le variabili da utilizzare con i valori di gioco
+	 */
 	ValoriDiGioco() {
 		valoriRicerche = new HashMap<String, Integer>();
 		valoriOro = new HashMap<String, Integer>();
@@ -148,29 +155,28 @@ public class ValoriDiGioco {
 		inserisciUMilitare(Global.getLabels("i45"), 40, 20, 40, 30, 5);
 		inserisciUMilitare(Global.getLabels("i47"), 40, 20, 40, 30, 5);
 	}
-	
-	public Map<String, Integer> getValoriOro() {
-		return valoriOro;
-	}
 
-	public void setValoriOro(Map<String, Integer> valoriOro) {
-		this.valoriOro = valoriOro;
-	}
-
-	public Map<String, Integer> getValoriMat() {
-		return valoriMat;
-	}
-
-	public void setValoriMat(Map<String, Integer> valoriMat) {
-		this.valoriMat = valoriMat;
-	}
-
+	/**
+	 * Inserisce i costi. Utilizzato per compattare le righe di codice
+	 * @param nome Nome costruzione
+	 * @param oro Valore in oro
+	 * @param mat Valore in materiali
+	 */
 	public void inserisciCosti(String nome, int oro, int mat)
 	{
 		valoriOro.put(nome, oro);
 		valoriMat.put(nome, mat);
 	}
 	
+	/**
+	 * Inserisce costi in oro, materiali, attacco, difesa e velocità di un'unità militare. Utilizzato per compattare le righe di codice
+	 * @param nome Nome dell'unità militare
+	 * @param oro Valore in oro
+	 * @param mat Valore in materiali
+	 * @param atk Valore di attacco
+	 * @param def Valore di difesa
+	 * @param vel Valore di velocità
+	 */
 	public void inserisciUMilitare(String nome, int oro, int mat, int atk, int def, int vel)
 	{
 		valoriOro.put(nome, oro);
@@ -212,4 +218,19 @@ public class ValoriDiGioco {
 		this.velUnita = velUnita;
 	}
 	
+	public Map<String, Integer> getValoriOro() {
+		return valoriOro;
+	}
+
+	public void setValoriOro(Map<String, Integer> valoriOro) {
+		this.valoriOro = valoriOro;
+	}
+
+	public Map<String, Integer> getValoriMat() {
+		return valoriMat;
+	}
+
+	public void setValoriMat(Map<String, Integer> valoriMat) {
+		this.valoriMat = valoriMat;
+	}
 }

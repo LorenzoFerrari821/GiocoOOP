@@ -71,6 +71,13 @@ public class GUIPartitaCostruisci extends JDialog
 	
 	private String selezionato; //Opzione al momento selezionata
 	private Clip audio;
+	
+	/**
+	 * Inizializza tutte le variabili da presentare all'utente e costruisce l'interfaccia grafica
+	 * @param partita riferimento a Partita
+	 * @param valoriDiGioco riferimento a Valori di gioco
+	 * @param guiPartita riferimento a GUIPartita
+	 */
 	GUIPartitaCostruisci(Partita partita, ValoriDiGioco valoriDiGioco, GUIPartita guiPartita)
 	{
 		
@@ -295,6 +302,10 @@ public class GUIPartitaCostruisci extends JDialog
 		add(contentPane);
 	}
 	
+	/**
+	 * Dà informazioni all'utente mediante JDialog in base alla costruzione selezionata
+	 * @param nome Nome della costruzione
+	 */
 	public void daiInformazioni(String nome)
 	{
 		if(nome == null)
@@ -339,8 +350,11 @@ public class GUIPartitaCostruisci extends JDialog
 			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s95"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
 	}
 	
-	/*
+
+	/**
 	 * Riempie la pagina negozio in base all'età selezionata
+	 * @param eta Età selezionata
+	 * @param evidenzia In caso una voce sia stata selezionata in precedenza
 	 */
 	public void popolaNegozio(String eta, String evidenzia)
 	{
@@ -584,6 +598,13 @@ public class GUIPartitaCostruisci extends JDialog
 		}
 	}
 	
+	/**
+	 * Aggiunge voce all'elenco
+	 * @param nome Nome della costruzione
+	 * @param icona Icona della costruzione
+	 * @param eta Età della costruzione
+	 * @param evidenzia Indica se la voce deve essere evidenziata (se selezionata) o no
+	 */
 	public void aggiungiVoce(String nome, ImageIcon icona, String eta, String evidenzia)
 	{
 		JLabel lblVoce = new JLabel(nome);

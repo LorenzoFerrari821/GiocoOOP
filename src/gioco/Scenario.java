@@ -1,10 +1,19 @@
 package gioco;
 import java.util.Random;
 
+/**
+ * Contiene tutti gli elementi che compongono lo scenario sotto forma di stringa
+ * @author Werther e Lorenzo
+ *
+ */
 public class Scenario {
 
 	private String[][] scenario;
 
+	/**
+	 * Modella lo scenario in base alla mappa scelta dall'utente
+	 * @param n Indice di mappa scelta
+	 */
 	Scenario(int n) {
 		scenario = new String[48][93];
 
@@ -322,9 +331,6 @@ public class Scenario {
 							scenario[i][j] += " y";
 						break;
 					}
-
-
-
 				}
 			}
 		}
@@ -643,8 +649,7 @@ public class Scenario {
 				}
 			}
 		}
-		
-		
+
 		if(n==1){ //Mappa casuale
 			String stringa0=casuale(0,4,false);
 			String stringa1=casuale(0,4,false);
@@ -1059,9 +1064,6 @@ public class Scenario {
 							scenario[i][j] += " y";
 						break;
 					}
-
-
-
 				}
 			}
 		}
@@ -1404,14 +1406,13 @@ public class Scenario {
 
 	}
 
-	public String[][] getScenario() {
-		return scenario;
-	}
-
-	public void setScenario(String[][] scenario) {
-		this.scenario = scenario;
-	}
-
+	/**
+	 * Genera una cella di scenario in modo casuale
+	 * @param min Minimo indice da tenere in considerazione
+	 * @param max Massimo indice da tenere in considerazione
+	 * @param spazio Definisce se è necessario inserire lo spazio
+	 * @return Ritorna la stringa che descrive la cella appena creata
+	 */
 	public String casuale(int min,int max,boolean spazio){
 		Random rand=new Random();
 
@@ -1423,13 +1424,33 @@ public class Scenario {
 			return (Integer.toString(randomNum));
 	}
 	
+	/**
+	 * Genera un numero casuale in base ai parametri passati
+	 * @param min Minimo valore da considerare
+	 * @param max Massimo valore da considerare
+	 * @return Ritorna il numero specificato
+	 */
 	public int casualeNum(int min,int max){
 		Random rand=new Random();
 		return rand.nextInt((max - min) + 1) + min;	
 	}
 	
+	/**
+	 * Aggiunge un esercito alla cella i, j della civiltà specificata
+	 * @param i X
+	 * @param j Y
+	 * @param civilta Civiltà dell'esercito da aggiungere
+	 */
 	public void aggiungiEsercito(int i, int j, int civilta)
 	{
 		this.scenario[j][i] += (" "+Global.getLabels("s72") + Integer.toString(civilta));
+	}
+	
+	public String[][] getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(String[][] scenario) {
+		this.scenario = scenario;
 	}
 }
