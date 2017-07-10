@@ -31,7 +31,7 @@ public class ThreadCicloPartita extends Thread{
 		{
 			partita.setTurnoCorrente(partita.getOrdineGioco().get(indice));
 			partita.calcolaRisorse(true);
-			partita.aggiornaDatiGUI();
+			partita.getGuiPartita().aggiornaDatiGUI();
 			
 			refreshMovimentiEAttacchi();
 			

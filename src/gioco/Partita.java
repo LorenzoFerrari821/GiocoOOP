@@ -449,14 +449,6 @@ public class Partita {
 		
 		return -1;
 	}
-	
-	/**
-	 * Aggiorna i dati mostrati nella GUIPartita
-	 */
-	public void aggiornaDatiGUI()
-	{
-		guiPartita.aggiornaDatiGUI();
-	}
 
 	public List<Giocatore> getGiocatore() {
 		return giocatore;
