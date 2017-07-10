@@ -1,0 +1,3 @@
+class GUIMultiplayer
+!!!142722.java!!!	GUIMultiplayer()
+		setBackground(Color.GREEN);

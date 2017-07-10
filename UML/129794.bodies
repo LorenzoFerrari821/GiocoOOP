@@ -1,0 +1,396 @@
+class Partita
+!!!153730.java!!!	Partita(in situazioneDiGioco : String, in nomeGiocatore : String, in tutorial : int, in difficolta : int, in mappa : int, in civilta : int, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco)
+		this.guiPartita = guiPartita;
+		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
+		this.valoriDiGioco = valoriDiGioco;
+		this.caveScenario = new ArrayList<CavaDiRisorse>();
+		
+		if(situazioneDiGioco != null) //non è una nuova partita
+		{
+			this.situazioneDiGioco = situazioneDiGioco;
+			this.tutorial = tutorial;
+			this.difficolta = difficolta;
+			this.mappa = mappa;
+		}
+		else //E' una nuova partita, bisogna crearla
+		{
+			this.situazioneDiGioco = "setup " + nomeGiocatore + " " + Integer.toString(tutorial) + " " + Integer.toString(difficolta) + " "
+					+ Integer.toString(mappa) + " " + Integer.toString(civilta);
+		
+			this.tutorial = tutorial;
+			this.difficolta = difficolta;
+			this.mappa = mappa;
+			creaPartita(nomeGiocatore, civilta);
+		
+		}
+		
+!!!153858.java!!!	creaPartita(in nomeGiocatore : String, in civilta : int) : void
+		giocatore = new ArrayList<Giocatore>();
+		
+		for(int i = 0; i < 4; i++)
+		{
+			if(civilta == i) //giocatore umano
+				giocatore.add(i, new Giocatore(civilta, "utente1", nomeGiocatore));
+			else //cpu
+				giocatore.add(i, new Giocatore(i, "cpu", "CPU"));
+			
+			giocatore.get(i).setOro(2000000);
+			giocatore.get(i).setMateriali(2000000000);
+			giocatore.get(i).setPuntiRicerca(50000);
+		}
+		
+		//Randomizzo ordine di gioco
+		ordineGioco = new ArrayList<Integer>();
+		ordineGioco.add(0);
+		ordineGioco.add(1);
+		ordineGioco.add(2);
+		ordineGioco.add(3);
+		
+		Collections.shuffle(ordineGioco);
+		
+		//catalogo tutte le cave in gioco
+		for(int j = 0; j < 48; j++)
+		{
+			for(int i = 0; i < 93; i++)
+			{
+				if(guiPartita.getScenario().getScenario()[j][i].length() >= 3)
+				{
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" x"))
+					{
+						caveScenario.add(new CavaDiRisorse("x", i, j, -1));
+					}
+					else
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" y"))
+					{
+						caveScenario.add(new CavaDiRisorse("y", i, j, -1));
+					}
+					else
+					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
+							guiPartita.getScenario().getScenario()[j][i].length()).equals(" z"))
+					{
+						caveScenario.add(new CavaDiRisorse("z", i, j, -1));
+					}
+				}
+			}
+		}
+		
+		avviaPartita();
+!!!153986.java!!!	avviaPartita() : void
+		threadCicloPartita = new ThreadCicloPartita(this);
+		threadCicloPartita.start();
+!!!154114.java!!!	calcolaRisorse(inout incrementa : boolean) : void
+		//Variabili di Incremento risorse
+		int iOro = 3, iMat = 3, iPr = 3;
+		double iEconomia = 1, iMilitare = 1, iRicerca = 1;
+		double caveOro = 1, caveMat = 1, cavePr = 1;
+		
+		/*Utilizzo HashMap per velocizzare la ricerca sui dati*/
+		Map<String, Integer> oro = new HashMap<String, Integer>();
+		Map<String, Integer> mat = new HashMap<String, Integer>();
+		Map<String, Integer> pr = new HashMap<String, Integer>();
+		
+		Map<String, Double> economia = new HashMap<String, Double>();
+		Map<String, Double> militare = new HashMap<String, Double>();
+		Map<String, Double> ricerca = new HashMap<String, Double>();
+		
+		//Età classica
+		oro.put(Global.getLabels("i56"), 2);
+		mat.put(Global.getLabels("i64"), 4);
+		economia.put(Global.getLabels("i67"), 0.2);
+		economia.put(Global.getLabels("i68"), 0.2);
+		ricerca.put(Global.getLabels("i24"), 0.5);
+		pr.put(Global.getLabels("i24"), 5);
+		oro.put(Global.getLabels("i57"), 4);
+		ricerca.put(Global.getLabels("i25"), 0.3);
+		pr.put(Global.getLabels("i25"), 5);
+		oro.put(Global.getLabels("i27"), 6);
+		
+		//Medioevo
+		oro.put(Global.getLabels("i58"), 6);
+		ricerca.put(Global.getLabels("i73"), 0.5);
+		pr.put(Global.getLabels("i73"), 7);
+		militare.put(Global.getLabels("i32"), 0.2);
+		oro.put(Global.getLabels("i59"), 8);
+		ricerca.put(Global.getLabels("i75"), 0.3);
+		pr.put(Global.getLabels("i75"), 7);
+		economia.put(Global.getLabels("i69"), 0.3);
+		economia.put(Global.getLabels("i70"), 0.3);
+		mat.put(Global.getLabels("i65"), 8);
+		
+		
+		//Età vittoriana
+		mat.put(Global.getLabels("i66"), 10);
+		ricerca.put(Global.getLabels("i76"), 0.3);
+		pr.put(Global.getLabels("i76"), 10);
+		oro.put(Global.getLabels("i60"), 10);
+		economia.put(Global.getLabels("i71"), 0.5);
+		mat.put(Global.getLabels("i42"), 13);
+		oro.put(Global.getLabels("i74"), 16);
+		economia.put(Global.getLabels("i72"), 0.3);
+		oro.put(Global.getLabels("i61"), 12);
+		
+		for(String s : giocatore.get(turnoCorrente).getStoricoPossedimenti())
+		{
+			if(oro.containsKey(s))
+				iOro += oro.get(s);
+			
+			if(mat.containsKey(s))
+				iMat += mat.get(s);
+			
+			if(pr.containsKey(s))
+				iPr += pr.get(s);
+			
+			if(economia.containsKey(s))
+				iEconomia += economia.get(s);
+			
+			if(militare.containsKey(s))
+				iMilitare += militare.get(s);
+			
+			if(ricerca.containsKey(s))
+				iRicerca += ricerca.get(s);
+		}
+		
+		iOro = (int)((double)iOro * iEconomia);
+		iMat = (int)((double)iMat * iEconomia);
+		iPr = (int)((double)iPr * iRicerca);
+		
+		giocatore.get(turnoCorrente).setBonusEconomia(iEconomia);
+		giocatore.get(turnoCorrente).setBonusMilitare(iMilitare);
+		giocatore.get(turnoCorrente).setBonusRicerca(iRicerca);
+		
+		//calcola incrementi dovuti dalle cave
+		for(CavaDiRisorse c: caveScenario)
+		{
+			if(c.getCiviltaProprietaria() == giocatore.get(turnoCorrente).getCiviltà()) //cava del giocatore
+			{
+				if(c.getTipo().equals("x"))
+					caveOro += 0.2;
+				else
+				if(c.getTipo().equals("y"))
+					caveMat += 0.2;
+				else
+				if(c.getTipo().equals("z"))
+					cavePr += 0.2;
+			}
+		}
+		
+		iOro *= caveOro;
+		iMat *= caveMat;
+		iPr *= cavePr;
+		
+		giocatore.get(turnoCorrente).setOroXTurno(iOro);
+		giocatore.get(turnoCorrente).setMatXTurno(iMat);
+		giocatore.get(turnoCorrente).setPrXTurno(iPr);
+		
+		if(incrementa) //Incrementa le risorse del giocatore
+		{
+			giocatore.get(turnoCorrente).setOro(giocatore.get(turnoCorrente).getOro() + iOro);
+			giocatore.get(turnoCorrente).setMateriali(giocatore.get(turnoCorrente).getMateriali() + iMat);
+			giocatore.get(turnoCorrente).setPuntiRicerca(giocatore.get(turnoCorrente).getPuntiRicerca() + iPr);
+		}
+!!!154242.java!!!	esercitoAttaccaEsercito(inout gruppoAttacco : GruppoMilitare, in iDef : int, in jDef : int) : int
+		int atkTotale = 0;
+		int defTotale = 0;
+		GruppoMilitare gruppoDifesa = null;
+		
+		//trovo il gruppo in difesa
+		for(GruppoMilitare g: gruppiMilitariSchierati)
+		{
+			if(g.getPosX() == iDef && g.getPosY() == jDef)
+				gruppoDifesa = g;
+		}
+		
+		//Calcolo attacco totale gruppo in attacco
+		for(String s: gruppoAttacco.getGruppoMilitare())
+		{
+			atkTotale += valoriDiGioco.getAtkUnita().get(s);
+		}
+		
+		//Calcolo difesa totale gruppo in difesa
+		for(String s: gruppoDifesa.getGruppoMilitare())
+		{
+			defTotale += valoriDiGioco.getDefUnita().get(s);
+		}
+		
+		if(atkTotale > defTotale) //vince l'attacco
+		{
+			int conta = 0;
+			
+			//rimuovo gruppo militare difesa da giocatore
+			for(GruppoMilitare g: giocatore.get(gruppoDifesa.getCivilta()).getGruppiInAttacco())
+			{
+				if(g.getPosX() == gruppoDifesa.getPosX() && g.getPosY() == gruppoDifesa.getPosY())
+					break;
+				conta++;
+			}
+			giocatore.get(gruppoDifesa.getCivilta()).getGruppiInAttacco().remove(conta);
+			
+			conta = 0;
+			///rimuovo gruppo militare difesa dai gruppi militari in partita
+			for(GruppoMilitare g: gruppiMilitariSchierati)
+			{
+				if(g.getPosX() == gruppoDifesa.getPosX() && g.getPosY() == gruppoDifesa.getPosY())
+					break;
+				conta++;
+			}
+			gruppiMilitariSchierati.remove(conta);
+			
+			//rimuovo gruppo militare difesa dallo scenario
+			guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
+					guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
+					.substring(0, guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
+			
+			//se presente una cava adiacente a gruppo difesa e di sua proprietà la rendo libera
+			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
+			
+			//se presente una cava adiacente a gruppo attacco libera la rendo di sua proprietà
+			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 0);
+			
+			return 1;
+			
+		}
+		else //vince la difesa
+		{
+			int conta = 0;
+			
+			//rimuovo gruppo militare attacco da giocatore
+			for(GruppoMilitare g: giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco())
+			{
+				if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+					break;
+				conta++;
+			}
+			giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco().remove(conta);
+			
+			conta = 0;
+			///rimuovo gruppo militare attacco dai gruppi militari in partita
+			for(GruppoMilitare g: gruppiMilitariSchierati)
+			{
+				if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+					break;
+				conta++;
+			}
+			gruppiMilitariSchierati.remove(conta);
+			
+			//rimuovo gruppo militare attacco dallo scenario
+			guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+					guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+					.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+			
+			//se presente una cava adiacente a gruppo attacco e di sua proprietà la rendo libera
+			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
+			
+			//se presente una cava adiacente a gruppo difesa libera la rendo di sua proprietà
+			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 0);
+			
+			return 0;
+		}
+!!!154370.java!!!	esercitoAttaccaMunicipio(inout gruppoAttacco : GruppoMilitare, in civiltaDifesa : int) : int
+		int atkTotale = 0;
+		int defTotale = 0;
+		if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() < 5)
+		{
+			
+			//Calcolo attacco totale gruppo in attacco
+			for(String s: gruppoAttacco.getGruppoMilitare())
+			{
+				atkTotale += valoriDiGioco.getAtkUnita().get(s);
+			}
+			
+			//Calcolo difesa totale gruppo in difesa
+			for(String s: giocatore.get(civiltaDifesa).getUnitaMunicipio())
+			{
+				defTotale += valoriDiGioco.getDefUnita().get(s);
+			}
+			
+			if(atkTotale > defTotale) //vince l'attacco
+			{
+				int conta = 0;
+				
+					int oroPreso, matPresi;
+					
+					//incrementa sconfitte difensore
+					giocatore.get(civiltaDifesa).setSconfitteMunicipioSubite(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() + 1);
+					
+					//ruba dal difensore il 20% di oro e materiali
+					oroPreso = giocatore.get(civiltaDifesa).getOro() / 5;
+					matPresi = giocatore.get(civiltaDifesa).getMateriali() / 5;
+					giocatore.get(civiltaDifesa).setOro(giocatore.get(civiltaDifesa).getOro() / 5);
+					giocatore.get(civiltaDifesa).setMateriali(giocatore.get(civiltaDifesa).getMateriali() / 5);
+					
+					giocatore.get(gruppoAttacco.getCivilta()).setOro(giocatore.get(gruppoAttacco.getCivilta()).getOro() + oroPreso);
+					giocatore.get(gruppoAttacco.getCivilta()).setMateriali(giocatore.get(gruppoAttacco.getCivilta()).getMateriali() + matPresi);
+					
+					//Se le sconfitte del municipio in difesa ammontano a 5, il giocatore in difesa ha perso
+					if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() == 5)
+						giocatore.get(civiltaDifesa).setInPartita(false);
+					return 1;
+			}
+			else //vince la difesa
+			{
+				int conta = 0;
+				
+				//rimuovo gruppo militare attacco da giocatore
+				for(GruppoMilitare g: giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco())
+				{
+					if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+						break;
+					conta++;
+				}
+				giocatore.get(gruppoAttacco.getCivilta()).getGruppiInAttacco().remove(conta);
+				
+				conta = 0;
+				///rimuovo gruppo militare attacco dai gruppi militari in partita
+				for(GruppoMilitare g: gruppiMilitariSchierati)
+				{
+					if(g.getPosX() == gruppoAttacco.getPosX() && g.getPosY() == gruppoAttacco.getPosY())
+						break;
+					conta++;
+				}
+				gruppiMilitariSchierati.remove(conta);
+				
+				//rimuovo gruppo militare attacco dallo scenario
+				guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+						guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+						.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+				return 0;
+			}
+		}
+		
+		return -1;
+!!!154498.java!!!	aggiornaDatiGUI() : void
+		guiPartita.aggiornaDatiGUI();
+!!!154626.java!!!	getGiocatore() : Giocatore
+		return giocatore;
+!!!154754.java!!!	setGiocatore(inout giocatore : List<Giocatore>) : void
+		this.giocatore = giocatore;
+!!!154882.java!!!	getTurnoCorrente() : int
+		return turnoCorrente;
+!!!155010.java!!!	getThreadCicloPartita() : ThreadCicloPartita
+		return threadCicloPartita;
+!!!155138.java!!!	setThreadCicloPartita(inout threadCicloPartita : ThreadCicloPartita) : void
+		this.threadCicloPartita = threadCicloPartita;
+!!!155266.java!!!	getOrdineGioco() : List<Integer>
+		return ordineGioco;
+!!!155394.java!!!	getGuiPartita() : GUIPartita
+		return guiPartita;
+!!!155522.java!!!	setGuiPartita(inout guiPartita : GUIPartita) : void
+		this.guiPartita = guiPartita;
+!!!155650.java!!!	setOrdineGioco(inout ordineGioco : List<Integer>) : void
+		this.ordineGioco = ordineGioco;
+!!!155778.java!!!	setTurnoCorrente(in turnoCorrente : int) : void
+		this.turnoCorrente = turnoCorrente;
+!!!155906.java!!!	getSituazioneDiGioco() : String
+		return situazioneDiGioco;
+!!!156034.java!!!	setSituazioneDiGioco(in situazioneDiGioco : String) : void
+		this.situazioneDiGioco = situazioneDiGioco;
+!!!156162.java!!!	getGruppiMilitariSchierati() : GruppoMilitare
+		return gruppiMilitariSchierati;
+!!!156290.java!!!	setGruppiMilitariSchierati(inout gruppiMilitariSchierati : List<GruppoMilitare>) : void
+		this.gruppiMilitariSchierati = gruppiMilitariSchierati;
+!!!156418.java!!!	getCaveScenario() : CavaDiRisorse
+		return caveScenario;
+!!!156546.java!!!	setCaveScenario(inout caveScenario : List<CavaDiRisorse>) : void
+		this.caveScenario = caveScenario;

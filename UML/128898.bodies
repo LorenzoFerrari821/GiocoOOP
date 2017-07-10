@@ -1,0 +1,9 @@
+class Gioco
+!!!137090.java!!!	main(inout args : String [[]]) : void
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+					GUIMenuPrincipale frame = new GUIMenuPrincipale();
+					Music.playSound();
+			}
+		});
+

@@ -1,0 +1,13 @@
+class Global
+!!!137218.java!!!	getLabels(in stringa : String) : String
+  //Ritorna la stringa associata alla chiave richiesta		                                                         
+		return labels.getString(stringa);
+!!!137346.java!!!	getTastiSchermata() : int
+		return tastiSchermata;
+!!!137474.java!!!	setTastiSchermata(in opzione : int) : void
+		tastiSchermata = opzione;
+!!!137602.java!!!	getLivVolume() : float
+		return livVolume;
+!!!137730.java!!!	setLivVolume(in l : float) : void
+		livVolume = l;
+		Music.controlVolume();

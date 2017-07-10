@@ -1,0 +1,22 @@
+class CavaDiRisorse
+!!!128002.java!!!	CavaDiRisorse(in tipo : String, in x : int, in y : int, in civiltaProprietaria : int)
+		this.tipo = tipo;
+		this.x = x;
+		this.y = y;
+		this.civiltaProprietaria = civiltaProprietaria;
+!!!128130.java!!!	getTipo() : String
+		return tipo;
+!!!128258.java!!!	setTipo(in tipo : String) : void
+		this.tipo = tipo;
+!!!128386.java!!!	getX() : int
+		return x;
+!!!128514.java!!!	setX(in x : int) : void
+		this.x = x;
+!!!128642.java!!!	getY() : int
+		return y;
+!!!128770.java!!!	setY(in y : int) : void
+		this.y = y;
+!!!128898.java!!!	getCiviltaProprietaria() : int
+		return civiltaProprietaria;
+!!!129026.java!!!	setCiviltaProprietaria(in civiltaProprietaria : int) : void
+		this.civiltaProprietaria = civiltaProprietaria;

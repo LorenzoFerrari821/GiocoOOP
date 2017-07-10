@@ -1,0 +1,27 @@
+class Music
+!!!153218.java!!!	playSound() : void
+		canzoni.add(new File("media/menu1.wav"));
+		canzoni.add(new File("media/menu2.wav"));
+		canzoni.add(new File("media/menu3.wav"));
+		try{
+			audio=AudioSystem.getClip();
+			audio.open(AudioSystem.getAudioInputStream(scegliCanzone()));
+			gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(Global.getLivVolume()); 
+			audio.loop(1);
+			audio.start();
+		}
+		catch(Exception e){}
+!!!153346.java!!!	stopSound() : void
+		audio.stop();
+!!!153474.java!!!	controlVolume() : void
+		gainControl.setValue(Global.getLivVolume()); 
+!!!153602.java!!!	scegliCanzone() : File
+		rand=new Random();
+		numero=rand.nextInt((3 - 1) + 1) + 1;
+		if(numero==1)
+			return canzoni.get(0);
+		else if (numero==2)
+			return canzoni.get(1);
+		else
+			return canzoni.get(2);

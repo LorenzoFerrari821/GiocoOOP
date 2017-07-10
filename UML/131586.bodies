@@ -1,0 +1,235 @@
+class GUIMunicipio
+!!!142850.java!!!	GUIMunicipio(inout partita : Partita, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco, inout iconeGrafiche : IconeGrafiche)
+		
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor); 
+		try {
+		    //Creo un font custom
+		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //registro il font
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		setTitle(Global.getLabels("s49"));
+		setBounds(0, 0, 775, 510);
+		setMinimumSize(new Dimension(775, 510));   
+		setLocationRelativeTo(null);
+		setLayout(new BorderLayout(0, 0));
+		contentPane = new JPanel(new BorderLayout(0,0));
+		setModal(true);
+		
+		this.partita = partita;
+		this.valoriDiGioco = valoriDiGioco;
+		this.guiPartita = guiPartita;
+		this.iconeGrafiche = iconeGrafiche;
+		
+		selezionati = new ArrayList<String>(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio());
+		
+		nUnitaMunicipio = partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().size();
+		
+		nRighe = 10;
+		if(nUnitaMunicipio > nRighe)
+			nRighe = nUnitaMunicipio;
+		pnlMid = new JPanel(new GridLayout(nRighe, 4));
+		
+		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+		
+		pnlBot = new JPanel(new GridLayout(1, 3, 0, 0));
+		
+		btnIndietro = new RoundedCornerButton();
+		btnIndietro.setFont(fontFuturist.deriveFont(13f));
+		btnIndietro.setText(Global.getLabels("a0"));
+		btnIndietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				dispose();
+			}
+		});
+		pnlBot.add(btnIndietro);
+		
+		btnRichiamaEsercito = new RoundedCornerButton();
+		btnRichiamaEsercito.setFont(fontFuturist.deriveFont(13f));
+		btnRichiamaEsercito.setText(Global.getLabels("s50"));
+		btnRichiamaEsercito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				guiPartita.richiamaEsercito();
+				dispose();
+			}
+		});
+		pnlBot.add(btnRichiamaEsercito);
+		
+		btnCreaEsercito = new RoundedCornerButton();
+		btnCreaEsercito.setFont(fontFuturist.deriveFont(13f));
+		btnCreaEsercito.setText(Global.getLabels("s51"));
+		btnCreaEsercito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				creaGruppoMilitare();
+				if(gruppoMilitare != null)
+				{
+					guiPartita.piazzaEsercito(gruppoMilitare);
+					dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(null,Global.getLabels("s52") ,Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+			}
+		});
+		pnlBot.add(btnCreaEsercito);
+		
+		contentPane.add(pnlBot, BorderLayout.SOUTH);
+		
+		popolaDiTruppe();
+		
+		add(contentPane);
+!!!142978.java!!!	creaGruppoMilitare() : void
+		int conta = 0, i = 0;
+		gruppoMilitare = new GruppoMilitare();
+		
+		for(String nome: selezionati)
+		{
+			if(nome.contains(Global.getLabels("s53")))
+			{
+				gruppoMilitare.getGruppoMilitare().add(partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio().get(i));
+				conta++;
+			}
+			i++;
+		}
+		
+		if(conta == 0)
+			gruppoMilitare = null;
+!!!143106.java!!!	popolaDiTruppe() : void
+		pnlMid.removeAll();
+		int indice = 0;
+		
+		for(String nome: partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getUnitaMunicipio())
+		{
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome), indice);
+			indice++;
+		}
+		
+		for(int k = indice; k < nRighe; k++)
+		{
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+		}
+		
+		pnlMid.setVisible(false);
+		pnlMid.setVisible(true);
+!!!143234.java!!!	aggiungiVoce(in nome : String, inout icona : ImageIcon, in indiceLista : int) : void
+		JLabel lblVoce = new JLabel(nome);
+		lblVoce.setIcon(icona);
+		pnlMid.add(lblVoce);
+		
+		JLabel lblAtk = new JLabel();
+		lblAtk.setText(valoriDiGioco.getAtkUnita().get(nome).toString());
+		lblAtk.setIcon(iconeGrafiche.newiconAtk);
+		pnlMid.add(lblAtk);
+		
+		JLabel lblDef = new JLabel();
+		lblDef.setText(valoriDiGioco.getDefUnita().get(nome).toString());
+		lblDef.setIcon(iconeGrafiche.newiconDef);
+		pnlMid.add(lblDef);
+		
+		JLabel lblVel = new JLabel();
+		lblVel.setText(valoriDiGioco.getVelUnita().get(nome).toString());
+		lblVel.setIcon(iconeGrafiche.newiconVel);
+		pnlMid.add(lblVel);
+		
+		if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
+		{
+			lblVoce.setOpaque(true);
+			lblVoce.setBackground(Color.LIGHT_GRAY);
+			lblAtk.setOpaque(true);
+			lblAtk.setBackground(Color.LIGHT_GRAY);
+			lblDef.setOpaque(true);
+			lblDef.setBackground(Color.LIGHT_GRAY);
+			lblVel.setOpaque(true);
+			lblVel.setBackground(Color.LIGHT_GRAY);
+		}
+		
+		lblVoce.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
+					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
+				else
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
+				popolaDiTruppe();
+			}
+		});
+		lblAtk.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
+					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
+				else
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
+				popolaDiTruppe();
+			}
+		});
+		lblDef.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
+					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
+				else
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
+				popolaDiTruppe();
+			}
+		});
+		lblVel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(selezionati.get(indiceLista).contains(Global.getLabels("s53")))
+					selezionati.set(indiceLista, selezionati.get(indiceLista).substring(0, selezionati.get(indiceLista).length() - 9));
+				else
+					selezionati.set(indiceLista, selezionati.get(indiceLista) + Global.getLabels("s53"));
+				popolaDiTruppe();
+			}
+		});

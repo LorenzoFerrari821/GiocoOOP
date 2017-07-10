@@ -1,0 +1,96 @@
+class Giocatore
+!!!132354.java!!!	Giocatore(in civiltà : int, in proprietario : String, in nomeGiocatore : String)
+		unitaMunicipio = new ArrayList<String>();
+		gruppiInAttacco = new ArrayList<GruppoMilitare>();
+		ricercheEffettuate = new ArrayList<String>();
+		storicoPossedimenti = new ArrayList<String>();
+		
+		oro = 0;
+		materiali = 0;
+		puntiRicerca = 0;
+		
+		bonusEconomia = 1;
+		bonusMilitare = 1;
+		bonusRicerca = 1;
+		
+		oroXTurno = 0;
+		matXTurno = 0;
+		prXTurno = 0;
+		sconfitteMunicipioSubite = 0;
+		inPartita = true;
+		
+		this.proprietario = proprietario;
+		this.nomeGiocatore = nomeGiocatore;
+		this.civiltà = civiltà;
+!!!132482.java!!!	getStoricoPossedimenti() : List<String>
+		return storicoPossedimenti;
+!!!132610.java!!!	setStoricoPossedimenti(inout storicoPossedimenti : List<String>) : void
+		this.storicoPossedimenti = storicoPossedimenti;
+!!!132738.java!!!	getCiviltà() : int
+		return civiltà;
+!!!132866.java!!!	setCiviltà(in civiltà : int) : void
+		this.civiltà = civiltà;
+!!!132994.java!!!	getPuntiRicerca() : int
+		return puntiRicerca;
+!!!133122.java!!!	getNomeGiocatore() : String
+		return nomeGiocatore;
+!!!133250.java!!!	getUnitaMunicipio() : List<String>
+		return unitaMunicipio;
+!!!133378.java!!!	setUnitaMunicipio(inout unitaMunicipio : List<String>) : void
+		this.unitaMunicipio = unitaMunicipio;
+!!!133506.java!!!	setNomeGiocatore(in nomeGiocatore : String) : void
+		this.nomeGiocatore = nomeGiocatore;
+!!!133634.java!!!	getOro() : int
+		return oro;
+!!!133762.java!!!	setOro(in oro : int) : void
+		this.oro = oro;
+!!!133890.java!!!	getMateriali() : int
+		return materiali;
+!!!134018.java!!!	setMateriali(in materiali : int) : void
+		this.materiali = materiali;
+!!!134146.java!!!	getProprietario() : String
+		return proprietario;
+!!!134274.java!!!	setProprietario(in proprietario : String) : void
+		this.proprietario = proprietario;
+!!!134402.java!!!	getBonusEconomia() : double
+		return bonusEconomia;
+!!!134530.java!!!	setBonusEconomia(in bonusEconomia : double) : void
+		this.bonusEconomia = bonusEconomia;
+!!!134658.java!!!	getBonusMilitare() : double
+		return bonusMilitare;
+!!!134786.java!!!	setBonusMilitare(in bonusMilitare : double) : void
+		this.bonusMilitare = bonusMilitare;
+!!!134914.java!!!	getBonusRicerca() : double
+		return bonusRicerca;
+!!!135042.java!!!	setBonusRicerca(in bonusRicerca : double) : void
+		this.bonusRicerca = bonusRicerca;
+!!!135170.java!!!	getOroXTurno() : int
+		return oroXTurno;
+!!!135298.java!!!	setOroXTurno(in oroXTurno : int) : void
+		this.oroXTurno = oroXTurno;
+!!!135426.java!!!	getMatXTurno() : int
+		return matXTurno;
+!!!135554.java!!!	setMatXTurno(in matXTurno : int) : void
+		this.matXTurno = matXTurno;
+!!!135682.java!!!	getPrXTurno() : int
+		return prXTurno;
+!!!135810.java!!!	setPrXTurno(in prXTurno : int) : void
+		this.prXTurno = prXTurno;
+!!!135938.java!!!	getGruppiInAttacco() : GruppoMilitare
+		return gruppiInAttacco;
+!!!136066.java!!!	setGruppiInAttacco(inout gruppiInAttacco : List<GruppoMilitare>) : void
+		this.gruppiInAttacco = gruppiInAttacco;
+!!!136194.java!!!	setPuntiRicerca(in puntiRicerca : int) : void
+		this.puntiRicerca = puntiRicerca;
+!!!136322.java!!!	getRicercheEffettuate() : List<String>
+		return ricercheEffettuate;
+!!!136450.java!!!	setRicercheEffettuate(inout ricercheEffettuate : List<String>) : void
+		this.ricercheEffettuate = ricercheEffettuate;
+!!!136578.java!!!	getSconfitteMunicipioSubite() : int
+		return sconfitteMunicipioSubite;
+!!!136706.java!!!	setSconfitteMunicipioSubite(in sconfitteMunicipioSubite : int) : void
+		this.sconfitteMunicipioSubite = sconfitteMunicipioSubite;
+!!!136834.java!!!	isInPartita() : boolean
+		return inPartita;
+!!!136962.java!!!	setInPartita(inout inPartita : boolean) : void
+		this.inPartita = inPartita;

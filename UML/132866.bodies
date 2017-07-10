@@ -1,0 +1,51 @@
+class ThreadScorrimentoSchermata
+!!!159490.java!!!	ThreadScorrimentoSchermata(inout guiPartita : GUIPartita, in direzione : int)
+ //1 su, 2 dx, 3 giu, 4 sx
+		this.guiPartita = guiPartita;
+		this.direzione = direzione;
+		scorri = true;
+!!!159618.java!!!	run() : void
+		while(scorri) {
+			switch(direzione) {
+				case 1: //scorriamo la schermata verso l'alto
+					if(guiPartita.getPosSchermataY() > 0) {
+						guiPartita.setPosSchermataY(guiPartita.getPosSchermataY()-1);
+						guiPartita.aggiornaSchermata();
+					}
+					else
+						scorri = false;
+					break;
+				case 2: //scorriamo la schermata a dx
+					if(guiPartita.getPosSchermataX() < 62) { //scorriamo la schermata verso destra
+						guiPartita.setPosSchermataX(guiPartita.getPosSchermataX()+1);
+						guiPartita.aggiornaSchermata();
+					}
+					else
+						scorri = false;
+					break;
+				case 3: //scorriamo la schermata in giu
+					if(guiPartita.getPosSchermataY() < 32) {  //se vero allora possiamo scorrere la schermata verso il basso
+						guiPartita.setPosSchermataY(guiPartita.getPosSchermataY()+1);
+						guiPartita.aggiornaSchermata();
+					}
+					else
+						scorri = false;
+					break;
+				case 4: //scorriamo la schermata a sx
+					if(guiPartita.getPosSchermataX() > 0) { //scorriamo la schermata verso sinistra
+						guiPartita.setPosSchermataX(guiPartita.getPosSchermataX()-1);
+						guiPartita.aggiornaSchermata();
+					}
+					else
+						scorri = false;
+					break;
+			}
+			if(scorri)
+				try {
+					Thread.sleep(33);
+				} catch (InterruptedException e) {}
+		}
+!!!159746.java!!!	isScorri() : boolean
+		return scorri;
+!!!159874.java!!!	setScorri(inout scorri : boolean) : void
+		this.scorri = scorri;

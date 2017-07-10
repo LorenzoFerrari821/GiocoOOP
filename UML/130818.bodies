@@ -1,0 +1,167 @@
+class GUIGruppoMilitare
+!!!141570.java!!!	GUIGruppoMilitare(inout partita : Partita, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco, inout iconeGrafiche : IconeGrafiche, inout gruppoMilitare : GruppoMilitare)
+		
+		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
+		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
+		setIconImage(scaledicona);  
+
+		Toolkit t1 = Toolkit.getDefaultToolkit();                                 //Cursore personalizzato
+		Image img = t1.getImage("media/cursore.png");
+		Point point = new Point(0,0);
+		Cursor cursor = t1.createCustomCursor(img, point, "Cursore Personalizzato");
+		setCursor(cursor); 
+		try {
+		    //Creo un font custom
+		    fontFuturist = Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")).deriveFont(12f);
+		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //registro il font
+		    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("media\\font_futurist_fixed.ttf")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(gruppoMilitare.getCivilta() == partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getCiviltà()) // alleato
+			setTitle(Global.getLabels("s45"));
+		else
+			setTitle(Global.getLabels("s46"));
+		setBounds(0, 0, 775, 510);
+		setMinimumSize(new Dimension(775, 510));   
+		setLocationRelativeTo(null);
+		setLayout(new BorderLayout(0, 0));
+		contentPane = new JPanel(new BorderLayout(0,0));
+		setModal(true);
+		
+		this.partita = partita;
+		this.valoriDiGioco = valoriDiGioco;
+		this.guiPartita = guiPartita;
+		this.iconeGrafiche = iconeGrafiche;
+		this.gruppoMilitare = gruppoMilitare;
+		
+		nUnitaMilitari = gruppoMilitare.getGruppoMilitare().size();
+		
+		nRighe = 10;
+		if(nUnitaMilitari > nRighe)
+			nRighe = nUnitaMilitari;
+		pnlMid = new JPanel(new GridLayout(nRighe, 4));
+		
+		contentPane.add(new JScrollPane(pnlMid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
+		
+		pnlBot = new JPanel(new GridLayout(1, 3, 0, 0));
+		
+		btnIndietro = new RoundedCornerButton();
+		btnIndietro.setFont(fontFuturist.deriveFont(13f));
+		btnIndietro.setText(Global.getLabels("a0"));
+		btnIndietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				try {
+					audio = AudioSystem.getClip();
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+					e1.printStackTrace();
+				}
+				audio.start();
+				dispose();
+			}
+		});
+		pnlBot.add(btnIndietro);
+		
+		if(gruppoMilitare.getCivilta() == partita.getGiocatore().get(guiPartita.getIndiceProprietario()).getCiviltà())
+		{
+			btnAttacca = new RoundedCornerButton();
+			btnAttacca.setFont(fontFuturist.deriveFont(13f));
+			btnAttacca.setText(Global.getLabels("s47"));
+			btnAttacca.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					audio.start();
+					if(gruppoMilitare.isAttaccoPossibile())
+						guiPartita.gruppoMilitareAttacca(gruppoMilitare);
+					else
+						JOptionPane.showMessageDialog(null,Global.getLabels("s130"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
+					dispose();
+				}
+			});
+			pnlBot.add(btnAttacca);
+			
+			btnMuovi = new RoundedCornerButton();
+			btnMuovi.setFont(fontFuturist.deriveFont(13f));
+			btnMuovi.setText(Global.getLabels("s48"));
+			btnMuovi.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					try {
+						audio = AudioSystem.getClip();
+						audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+						e1.printStackTrace();
+					}
+					audio.start();
+					guiPartita.gruppoMilitareMuovi(gruppoMilitare);
+					dispose();
+				}
+			});
+			pnlBot.add(btnMuovi);
+		}
+		
+		contentPane.add(pnlBot, BorderLayout.SOUTH);
+		
+		popolaDiTruppe();
+		
+		add(contentPane);
+!!!141698.java!!!	popolaDiTruppe() : void
+		int indice = 0;
+		
+		for(String nome: gruppoMilitare.getGruppoMilitare())
+		{
+			aggiungiVoce(nome, iconeGrafiche.getIconeUMilitari().get(nome));
+			indice++;
+		}
+		
+		for(int k = indice; k < nRighe; k++)
+		{
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+			pnlMid.add(new JLabel(" "));
+		}
+		
+		pnlMid.setVisible(false);
+		pnlMid.setVisible(true);
+!!!141826.java!!!	aggiungiVoce(in nome : String, inout icona : ImageIcon) : void
+		JLabel lblVoce = new JLabel(nome);
+		lblVoce.setIcon(icona);
+		pnlMid.add(lblVoce);
+		
+		JLabel lblAtk = new JLabel();
+		lblAtk.setText(valoriDiGioco.getAtkUnita().get(nome).toString());
+		lblAtk.setIcon(iconeGrafiche.newiconAtk);
+		pnlMid.add(lblAtk);
+		
+		JLabel lblDef = new JLabel();
+		lblDef.setText(valoriDiGioco.getDefUnita().get(nome).toString());
+		lblDef.setIcon(iconeGrafiche.newiconDef);
+		pnlMid.add(lblDef);
+		
+		JLabel lblVel = new JLabel();
+		lblVel.setText(valoriDiGioco.getVelUnita().get(nome).toString());
+		lblVel.setIcon(iconeGrafiche.newiconVel);
+		pnlMid.add(lblVel);

@@ -1,0 +1,28 @@
+class GruppoMilitare
+!!!138626.java!!!	GruppoMilitare()
+		movimentoPossibile = true;
+		attaccoPossibile = true;
+!!!138754.java!!!	getGruppoMilitare() : List<String>
+		return gruppoMilitare;
+!!!138882.java!!!	setGruppoMilitare(inout gruppoMilitare : List<String>) : void
+		this.gruppoMilitare = gruppoMilitare;
+!!!139010.java!!!	getPosX() : int
+		return posX;
+!!!139138.java!!!	setPosX(in posX : int) : void
+		this.posX = posX;
+!!!139266.java!!!	getPosY() : int
+		return posY;
+!!!139394.java!!!	setPosY(in posY : int) : void
+		this.posY = posY;
+!!!139522.java!!!	getCivilta() : int
+		return civilta;
+!!!139650.java!!!	setCivilta(in civilta : int) : void
+		this.civilta = civilta;
+!!!139778.java!!!	isMovimentoPossibile() : boolean
+		return movimentoPossibile;
+!!!139906.java!!!	setMovimentoPossibile(inout movimentoPossibile : boolean) : void
+		this.movimentoPossibile = movimentoPossibile;
+!!!140034.java!!!	isAttaccoPossibile() : boolean
+		return attaccoPossibile;
+!!!140162.java!!!	setAttaccoPossibile(inout attaccoPossibile : boolean) : void
+		this.attaccoPossibile = attaccoPossibile;

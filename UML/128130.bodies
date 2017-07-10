@@ -1,0 +1,112 @@
+class CompoundIcon
+!!!129154.java!!!	CompoundIcon(inout  : Icon...icons)
+    	this(Axis.X_AXIS, icons);
+!!!129282.java!!!	CompoundIcon(inout axis : CompoundIcon::Axis, inout  : Icon...icons)
+    	this(axis, 0, icons);
+!!!129410.java!!!	CompoundIcon(inout axis : CompoundIcon::Axis, in gap : int, inout  : Icon...icons)
+    	this(axis, gap, CENTER, CENTER, icons);
+!!!129538.java!!!	CompoundIcon(inout axis : CompoundIcon::Axis, in gap : int, in alignmentX : float, in alignmentY : float, inout  : Icon...icons)
+		this.axis = axis;
+		this.gap = gap;
+		this.alignmentX = alignmentX > 1.0f ? 1.0f : alignmentX < 0.0f ? 0.0f : alignmentX;
+		this.alignmentY = alignmentY > 1.0f ? 1.0f : alignmentY < 0.0f ? 0.0f : alignmentY;
+
+		for (int i = 0; i < icons.length; i++)
+		{
+		
+			if (icons[i] == null)
+			{
+				String message = "Icon (" + i + ") cannot be null";
+				throw new IllegalArgumentException( message );
+			}
+		}
+
+		this.icons = icons;
+!!!129666.java!!!	getAxis() : CompoundIcon::Axis
+		return axis;
+!!!129794.java!!!	getGap() : int
+		return gap;
+!!!129922.java!!!	getAlignmentX() : float
+		return alignmentX;
+!!!130050.java!!!	getAlignmentY() : float
+		return alignmentY;
+!!!130178.java!!!	getIconCount() : int
+		return icons.length;
+!!!130306.java!!!	getIcon(in index : int) : Icon
+		return icons[ index ];
+!!!130434.java!!!	getIconWidth() : int
+		int width = 0;
+
+		//  Add the width of all Icons while also including the gap
+
+    	if (axis == Axis.X_AXIS)
+    	{
+    		width += (icons.length - 1) * gap;
+
+			for (Icon icon : icons)
+				width += icon.getIconWidth();
+    	}
+		else  //  Just find the maximum width
+		{
+			for (Icon icon : icons)
+				width = Math.max(width, icon.getIconWidth());
+		}
+
+		return width;
+!!!130562.java!!!	getIconHeight() : int
+		int height = 0;
+
+		//  Add the height of all Icons while also including the gap
+
+    	if (axis == Axis.Y_AXIS)
+    	{
+    		height += (icons.length - 1) * gap;
+
+			for (Icon icon : icons)
+				height += icon.getIconHeight();
+    	}
+		else  //  Just find the maximum height
+		{
+			for (Icon icon : icons)
+				height = Math.max(height, icon.getIconHeight());
+		}
+
+		return height;
+!!!130690.java!!!	paintIcon(inout c : Component, inout g : Graphics, in x : int, in y : int) : void
+    	if (axis == Axis.X_AXIS)
+    	{
+    		int height = getIconHeight();
+
+			for (Icon icon : icons)
+			{
+				int iconY = getOffset(height, icon.getIconHeight(), alignmentY);
+				icon.paintIcon(c, g, x, y + iconY);
+				x += icon.getIconWidth() + gap;
+			}
+    	}
+    	else if (axis == Axis.Y_AXIS)
+    	{
+    		int width = getIconWidth();
+
+			for (Icon icon : icons)
+			{
+				int iconX = getOffset(width, icon.getIconWidth(), alignmentX);
+				icon.paintIcon(c, g, x + iconX, y);
+				y += icon.getIconHeight() + gap;
+			}
+    	}
+    	else // must be Z_AXIS
+    	{
+    		int width = getIconWidth();
+    		int height = getIconHeight();
+
+			for (Icon icon : icons)
+			{
+				int iconX = getOffset(width, icon.getIconWidth(), alignmentX);
+				int iconY = getOffset(height, icon.getIconHeight(), alignmentY);
+				icon.paintIcon(c, g, x + iconX, y + iconY);
+			}
+    	}
+!!!130818.java!!!	getOffset(in maxValue : int, in iconValue : int, in alignment : float) : int
+		float offset = (maxValue - iconValue) * alignment;
+		return Math.round(offset);
