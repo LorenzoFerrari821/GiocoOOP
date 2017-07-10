@@ -1,5 +1,7 @@
 package gioco;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.sound.sampled.AudioSystem;
@@ -9,12 +11,13 @@ import javax.sound.sampled.FloatControl;
 public class Music{
 	private static Clip audio;
 	private static FloatControl gainControl;
-	private static File canzone1= new File("media/menu1.wav");
-	private static File canzone2= new File("media/menu2.wav");
-	private static File canzone3= new File("media/menu3.wav");
+	private static List<File> canzoni= new ArrayList<File>();
 	private static Random rand;
 	private static int numero;
 	static void playSound(){
+		canzoni.add(new File("media/menu1.wav"));
+		canzoni.add(new File("media/menu2.wav"));
+		canzoni.add(new File("media/menu3.wav"));
 		try{
 			audio=AudioSystem.getClip();
 			audio.open(AudioSystem.getAudioInputStream(scegliCanzone()));
@@ -35,10 +38,10 @@ public class Music{
 		rand=new Random();
 		numero=rand.nextInt((3 - 1) + 1) + 1;
 		if(numero==1)
-			return canzone1;
+			return canzoni.get(0);
 		else if (numero==2)
-			return canzone2;
+			return canzoni.get(1);
 		else
-			return canzone3;
+			return canzoni.get(2);
 	}
 }
