@@ -1,0 +1,16 @@
+package gioco;
+
+public class OperazioniDiGioco {
+
+	private Partita partita;
+	
+	
+	
+	public Partita getPartita() {
+		return partita;
+	}
+
+	public void setPartita(Partita partita) {
+		this.partita = partita;
+	}
+}
