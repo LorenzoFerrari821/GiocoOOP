@@ -1,9 +1,14 @@
 class Partita
-!!!153730.java!!!	Partita(in situazioneDiGioco : String, in nomeGiocatore : String, in tutorial : int, in difficolta : int, in mappa : int, in civilta : int, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco)
+!!!153090.java!!!	Partita(in situazioneDiGioco : String, in nomeGiocatore : String, in tutorial : int, in difficolta : int, in mappa : int, in civilta : int)
 		this.guiPartita = guiPartita;
 		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
-		this.valoriDiGioco = valoriDiGioco;
+		valoriDiGioco = new ValoriDiGioco();
 		this.caveScenario = new ArrayList<CavaDiRisorse>();
+		this.nomeGiocatore = nomeGiocatore;
+		this.civiltaGiocatore = civilta;
+		scenario = new Scenario(mappa);
+		
+		setupGUIPartita();
 		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
@@ -21,10 +26,8 @@ class Partita
 			this.difficolta = difficolta;
 			this.mappa = mappa;
 			creaPartita(nomeGiocatore, civilta);
-		
 		}
-		
-!!!153858.java!!!	creaPartita(in nomeGiocatore : String, in civilta : int) : void
+!!!153218.java!!!	creaPartita(in nomeGiocatore : String, in civilta : int) : void
 		giocatore = new ArrayList<Giocatore>();
 		
 		for(int i = 0; i < 4; i++)
@@ -34,9 +37,9 @@ class Partita
 			else //cpu
 				giocatore.add(i, new Giocatore(i, "cpu", "CPU"));
 			
-			giocatore.get(i).setOro(2000000);
-			giocatore.get(i).setMateriali(2000000000);
-			giocatore.get(i).setPuntiRicerca(50000);
+			giocatore.get(i).setOro(2000);
+			giocatore.get(i).setMateriali(2000);
+			giocatore.get(i).setPuntiRicerca(500);
 		}
 		
 		//Randomizzo ordine di gioco
@@ -53,22 +56,22 @@ class Partita
 		{
 			for(int i = 0; i < 93; i++)
 			{
-				if(guiPartita.getScenario().getScenario()[j][i].length() >= 3)
+				if(scenario.getScenario()[j][i].length() >= 3)
 				{
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" x"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" x"))
 					{
 						caveScenario.add(new CavaDiRisorse("x", i, j, -1));
 					}
 					else
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" y"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" y"))
 					{
 						caveScenario.add(new CavaDiRisorse("y", i, j, -1));
 					}
 					else
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" z"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" z"))
 					{
 						caveScenario.add(new CavaDiRisorse("z", i, j, -1));
 					}
@@ -77,10 +80,14 @@ class Partita
 		}
 		
 		avviaPartita();
-!!!153986.java!!!	avviaPartita() : void
+!!!153346.java!!!	setupGUIPartita() : void
+
+		guiPartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civiltaGiocatore, this, valoriDiGioco);
+		guiPartita.setVisible(true);
+!!!153474.java!!!	avviaPartita() : void
 		threadCicloPartita = new ThreadCicloPartita(this);
 		threadCicloPartita.start();
-!!!154114.java!!!	calcolaRisorse(inout incrementa : boolean) : void
+!!!153602.java!!!	calcolaRisorse(inout incrementa : boolean) : void
 		//Variabili di Incremento risorse
 		int iOro = 3, iMat = 3, iPr = 3;
 		double iEconomia = 1, iMilitare = 1, iRicerca = 1;
@@ -190,7 +197,7 @@ class Partita
 			giocatore.get(turnoCorrente).setMateriali(giocatore.get(turnoCorrente).getMateriali() + iMat);
 			giocatore.get(turnoCorrente).setPuntiRicerca(giocatore.get(turnoCorrente).getPuntiRicerca() + iPr);
 		}
-!!!154242.java!!!	esercitoAttaccaEsercito(inout gruppoAttacco : GruppoMilitare, in iDef : int, in jDef : int) : int
+!!!153730.java!!!	esercitoAttaccaEsercito(inout gruppoAttacco : GruppoMilitare, in iDef : int, in jDef : int) : int
 		int atkTotale = 0;
 		int defTotale = 0;
 		GruppoMilitare gruppoDifesa = null;
@@ -238,9 +245,9 @@ class Partita
 			gruppiMilitariSchierati.remove(conta);
 			
 			//rimuovo gruppo militare difesa dallo scenario
-			guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
-					guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
-					.substring(0, guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
+			scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
+					scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
+					.substring(0, scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo difesa e di sua proprietà la rendo libera
 			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
@@ -275,9 +282,9 @@ class Partita
 			gruppiMilitariSchierati.remove(conta);
 			
 			//rimuovo gruppo militare attacco dallo scenario
-			guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
-					guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
-					.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+			scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+					scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+					.substring(0, scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo attacco e di sua proprietà la rendo libera
 			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
@@ -287,7 +294,7 @@ class Partita
 			
 			return 0;
 		}
-!!!154370.java!!!	esercitoAttaccaMunicipio(inout gruppoAttacco : GruppoMilitare, in civiltaDifesa : int) : int
+!!!153858.java!!!	esercitoAttaccaMunicipio(inout gruppoAttacco : GruppoMilitare, in civiltaDifesa : int) : int
 		int atkTotale = 0;
 		int defTotale = 0;
 		if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() < 5)
@@ -352,45 +359,47 @@ class Partita
 				gruppiMilitariSchierati.remove(conta);
 				
 				//rimuovo gruppo militare attacco dallo scenario
-				guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
-						guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
-						.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+				scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+						scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+						.substring(0, scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
 				return 0;
 			}
 		}
 		
 		return -1;
-!!!154498.java!!!	aggiornaDatiGUI() : void
-		guiPartita.aggiornaDatiGUI();
-!!!154626.java!!!	getGiocatore() : Giocatore
+!!!153986.java!!!	getGiocatore() : Giocatore
 		return giocatore;
-!!!154754.java!!!	setGiocatore(inout giocatore : List<Giocatore>) : void
+!!!154114.java!!!	setGiocatore(inout giocatore : List<Giocatore>) : void
 		this.giocatore = giocatore;
-!!!154882.java!!!	getTurnoCorrente() : int
+!!!154242.java!!!	getTurnoCorrente() : int
 		return turnoCorrente;
-!!!155010.java!!!	getThreadCicloPartita() : ThreadCicloPartita
+!!!154370.java!!!	getThreadCicloPartita() : ThreadCicloPartita
 		return threadCicloPartita;
-!!!155138.java!!!	setThreadCicloPartita(inout threadCicloPartita : ThreadCicloPartita) : void
+!!!154498.java!!!	setThreadCicloPartita(inout threadCicloPartita : ThreadCicloPartita) : void
 		this.threadCicloPartita = threadCicloPartita;
-!!!155266.java!!!	getOrdineGioco() : List<Integer>
+!!!154626.java!!!	getOrdineGioco() : List<Integer>
 		return ordineGioco;
-!!!155394.java!!!	getGuiPartita() : GUIPartita
+!!!154754.java!!!	getGuiPartita() : GUIPartita
 		return guiPartita;
-!!!155522.java!!!	setGuiPartita(inout guiPartita : GUIPartita) : void
+!!!154882.java!!!	setGuiPartita(inout guiPartita : GUIPartita) : void
 		this.guiPartita = guiPartita;
-!!!155650.java!!!	setOrdineGioco(inout ordineGioco : List<Integer>) : void
+!!!155010.java!!!	setOrdineGioco(inout ordineGioco : List<Integer>) : void
 		this.ordineGioco = ordineGioco;
-!!!155778.java!!!	setTurnoCorrente(in turnoCorrente : int) : void
+!!!155138.java!!!	setTurnoCorrente(in turnoCorrente : int) : void
 		this.turnoCorrente = turnoCorrente;
-!!!155906.java!!!	getSituazioneDiGioco() : String
+!!!155266.java!!!	getSituazioneDiGioco() : String
 		return situazioneDiGioco;
-!!!156034.java!!!	setSituazioneDiGioco(in situazioneDiGioco : String) : void
+!!!155394.java!!!	setSituazioneDiGioco(in situazioneDiGioco : String) : void
 		this.situazioneDiGioco = situazioneDiGioco;
-!!!156162.java!!!	getGruppiMilitariSchierati() : GruppoMilitare
+!!!155522.java!!!	getGruppiMilitariSchierati() : GruppoMilitare
 		return gruppiMilitariSchierati;
-!!!156290.java!!!	setGruppiMilitariSchierati(inout gruppiMilitariSchierati : List<GruppoMilitare>) : void
+!!!155650.java!!!	setGruppiMilitariSchierati(inout gruppiMilitariSchierati : List<GruppoMilitare>) : void
 		this.gruppiMilitariSchierati = gruppiMilitariSchierati;
-!!!156418.java!!!	getCaveScenario() : CavaDiRisorse
+!!!155778.java!!!	getCaveScenario() : CavaDiRisorse
 		return caveScenario;
-!!!156546.java!!!	setCaveScenario(inout caveScenario : List<CavaDiRisorse>) : void
+!!!155906.java!!!	setCaveScenario(inout caveScenario : List<CavaDiRisorse>) : void
 		this.caveScenario = caveScenario;
+!!!156034.java!!!	getScenario() : Scenario
+		return scenario;
+!!!156162.java!!!	setScenario(inout scenario : Scenario) : void
+		this.scenario = scenario;

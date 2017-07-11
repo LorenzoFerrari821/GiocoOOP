@@ -1,10 +1,10 @@
 class ThreadScorrimentoSchermata
-!!!159490.java!!!	ThreadScorrimentoSchermata(inout guiPartita : GUIPartita, in direzione : int)
+!!!159106.java!!!	ThreadScorrimentoSchermata(inout guiPartita : GUIPartita, in direzione : int)
  //1 su, 2 dx, 3 giu, 4 sx
 		this.guiPartita = guiPartita;
 		this.direzione = direzione;
 		scorri = true;
-!!!159618.java!!!	run() : void
+!!!159234.java!!!	run() : void
 		while(scorri) {
 			switch(direzione) {
 				case 1: //scorriamo la schermata verso l'alto
@@ -45,7 +45,7 @@ class ThreadScorrimentoSchermata
 					Thread.sleep(33);
 				} catch (InterruptedException e) {}
 		}
-!!!159746.java!!!	isScorri() : boolean
+!!!159362.java!!!	isScorri() : boolean
 		return scorri;
-!!!159874.java!!!	setScorri(inout scorri : boolean) : void
+!!!159490.java!!!	setScorri(inout scorri : boolean) : void
 		this.scorri = scorri;

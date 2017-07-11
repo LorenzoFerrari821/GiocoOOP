@@ -1,27 +1,48 @@
-class Music
-!!!153218.java!!!	playSound() : void
-		canzoni.add(new File("media/menu1.wav"));
-		canzoni.add(new File("media/menu2.wav"));
-		canzoni.add(new File("media/menu3.wav"));
-		try{
-			audio=AudioSystem.getClip();
-			audio.open(AudioSystem.getAudioInputStream(scegliCanzone()));
-			gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(Global.getLivVolume()); 
-			audio.loop(1);
-			audio.start();
+class ThreadCicloPartita
+!!!158466.java!!!	ThreadCicloPartita(inout partita : Partita)
+		 this.partita = partita;
+!!!158594.java!!!	run() : void
+		  
+		int indice = 0;
+		
+		while(true)
+		{
+			partita.setTurnoCorrente(partita.getOrdineGioco().get(indice));
+			partita.calcolaRisorse(true);
+			partita.getGuiPartita().aggiornaDatiGUI();
+			
+			refreshMovimentiEAttacchi();
+			
+			if(partita.getGiocatore().get(partita.getTurnoCorrente()).getProprietario().equals("cpu")) //il giocatore è ia
+			{
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {}
+			}
+			else //il giocatore è umano
+			{
+				turnoPersona = true;
+				while(turnoPersona)
+				{
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {}
+				}
+			}
+			if(indice < 3)
+				indice++;
+			else
+				indice = 0;
+			
 		}
-		catch(Exception e){}
-!!!153346.java!!!	stopSound() : void
-		audio.stop();
-!!!153474.java!!!	controlVolume() : void
-		gainControl.setValue(Global.getLivVolume()); 
-!!!153602.java!!!	scegliCanzone() : File
-		rand=new Random();
-		numero=rand.nextInt((3 - 1) + 1) + 1;
-		if(numero==1)
-			return canzoni.get(0);
-		else if (numero==2)
-			return canzoni.get(1);
-		else
-			return canzoni.get(2);
+		
+!!!158722.java!!!	refreshMovimentiEAttacchi() : void
+		for(GruppoMilitare g : partita.getGiocatore().get(partita.getTurnoCorrente()).getGruppiInAttacco())
+		{
+			g.setAttaccoPossibile(true);
+			g.setMovimentoPossibile(true);
+		}
+!!!158850.java!!!	isTurnoPersona() : boolean
+		return turnoPersona;
+!!!158978.java!!!	setTurnoPersona(inout turnoPersona : boolean) : void
+		this.turnoPersona = turnoPersona;

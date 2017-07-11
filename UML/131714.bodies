@@ -1,5 +1,5 @@
 class GUIPartitaOpzioni
-!!!150018.java!!!	GUIPartitaOpzioni(inout guiPartita : GUIPartita)
+!!!149378.java!!!	GUIPartitaOpzioni(inout guiPartita : GUIPartita)
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
 		setIconImage(scaledicona);  

@@ -95,9 +95,9 @@ public class Partita {
 			else //cpu
 				giocatore.add(i, new Giocatore(i, "cpu", "CPU"));
 			
-			giocatore.get(i).setOro(2000000);
-			giocatore.get(i).setMateriali(2000000000);
-			giocatore.get(i).setPuntiRicerca(50000);
+			giocatore.get(i).setOro(2000);
+			giocatore.get(i).setMateriali(2000);
+			giocatore.get(i).setPuntiRicerca(500);
 		}
 		
 		//Randomizzo ordine di gioco
@@ -142,11 +142,6 @@ public class Partita {
 
 	/**
 	 * Crea la GUI Partita
-	 * @param nomeGiocatore Nome del giocatore
-	 * @param tutorial Tutorial si/no
-	 * @param difficolta Difficoltà scelta dal giocatore
-	 * @param mappa Mappa scelta dal giocatore
-	 * @param civilta Civiltà scelta dal giocatore
 	 */
 	public void setupGUIPartita() {
 

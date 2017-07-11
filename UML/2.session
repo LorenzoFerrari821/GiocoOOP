@@ -1,13 +1,12 @@
-window_sizes 1500 752 320 1175 652 54
+window_sizes 1600 837 320 1275 737 54
 
 diagrams
-  active  classdiagram_ref 128002 // giocoDiagram
-    1175 652 100 A4 0 0
+  active  classdiagram_ref 128002 // GiocoOOPDiagram
+    1262 701 100 A4 0 0
 end
 show_stereotypes
-selected class_ref 132866 // ThreadScorrimentoSchermata
+selected class_ref 129922 // GUIPartita
 open
   classview_ref 128002 // gioco
-  deploymentview_ref 128002 // gioco
 end
 end

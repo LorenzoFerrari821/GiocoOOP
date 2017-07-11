@@ -26,6 +26,8 @@ format 213
   activitydiagramsettings
    end
   
+  java_dir "C:\\Users\\Werther\\Documents\\Università\\GiocoOOP\\src\\gioco/"
+  java_package "gioco"
   classview 128002 "gioco"
     
     classdiagramsettings member_max_width 0 end
@@ -2654,7 +2656,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	  b parent class_ref 132610 // JButton
       end
 
-      attribute 174466 "ARC_WIDTH"
+      attribute 174594 "ARC_WIDTH"
 	class_attribute const_attribute private explicit_type "double"
 	init_value " 16d"
 	cpp_decl ""
@@ -2667,7 +2669,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 174594 "ARC_HEIGHT"
+      attribute 174722 "ARC_HEIGHT"
 	class_attribute const_attribute private explicit_type "double"
 	init_value " 16d"
 	cpp_decl ""
@@ -2680,7 +2682,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 174722 "FOCUS_STROKE"
+      attribute 174850 "FOCUS_STROKE"
 	class_attribute const_attribute protected explicit_type "int"
 	init_value " 2"
 	cpp_decl ""
@@ -2693,7 +2695,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 174850 "fc"
+      attribute 174978 "fc"
 	const_attribute protected explicit_type "Color"
 	init_value " new Color(100, 150, 255, 200)"
 	cpp_decl ""
@@ -2706,7 +2708,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 174978 "ac"
+      attribute 175106 "ac"
 	const_attribute protected explicit_type "Color"
 	init_value " new Color(230, 230, 230)"
 	cpp_decl ""
@@ -2719,7 +2721,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 175106 "rc"
+      attribute 175234 "rc"
 	const_attribute protected explicit_type "Color"
 	init_value " Color.DARK_GRAY"
 	cpp_decl ""
@@ -2732,7 +2734,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 175234 "shape"
+      attribute 175362 "shape"
 	protected explicit_type "Shape"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2744,7 +2746,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 175362 "border"
+      attribute 175490 "border"
 	protected explicit_type "Shape"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2756,7 +2758,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      attribute 175490 "base"
+      attribute 175618 "base"
 	protected explicit_type "Shape"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2768,7 +2770,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      operation 156674 "RoundedCornerButton"
+      operation 156290 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 0
 	
@@ -2780,7 +2782,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156802 "RoundedCornerButton"
+      operation 156418 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param inout name "icon" explicit_type "Icon"
@@ -2793,7 +2795,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156930 "RoundedCornerButton"
+      operation 156546 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param in name "text" explicit_type "String"
@@ -2806,7 +2808,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157058 "RoundedCornerButton"
+      operation 156674 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param inout name "a" explicit_type "Action"
@@ -2819,7 +2821,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157186 "RoundedCornerButton"
+      operation 156802 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 2
 	  param in name "text" explicit_type "String"
@@ -2833,7 +2835,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157314 "updateUI"
+      operation 156930 "updateUI"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -2847,7 +2849,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157442 "initShape"
+      operation 157058 "initShape"
 	protected explicit_return_type "void"
 	nparams 0
 	
@@ -2859,7 +2861,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157570 "paintFocusAndRollover"
+      operation 157186 "paintFocusAndRollover"
 	private explicit_return_type "void"
 	nparams 2
 	  param inout name "g2" explicit_type "Graphics2D"
@@ -2873,7 +2875,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157698 "paintComponent"
+      operation 157314 "paintComponent"
 	protected explicit_return_type "void"
 	nparams 1
 	  param inout name "g" explicit_type "Graphics"
@@ -2888,7 +2890,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157826 "paintBorder"
+      operation 157442 "paintBorder"
 	protected explicit_return_type "void"
 	nparams 1
 	  param inout name "g" explicit_type "Graphics"
@@ -2903,7 +2905,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157954 "contains"
+      operation 157570 "contains"
 	public explicit_return_type "boolean"
 	nparams 2
 	  param in name "x" explicit_type "int"
@@ -2936,17 +2938,17 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      classrelation 144386 // giocatore (<unidirectional association>)
-	relation 144386 --->
+      classrelation 144258 // giocatore (<unidirectional association>)
+	relation 144258 --->
 	  stereotype "List"
 	  a role_name "giocatore" package
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
-	    classrelation_ref 144386 // giocatore (<unidirectional association>)
+	    classrelation_ref 144258 // giocatore (<unidirectional association>)
 	  b parent class_ref 128642 // Giocatore
       end
 
-      attribute 173698 "situazioneDiGioco"
+      attribute 173570 "situazioneDiGioco"
 	private explicit_type "String"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2958,7 +2960,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173826 "ordineGioco"
+      attribute 173698 "ordineGioco"
 	package explicit_type "Integer"
 	stereotype "List"
 	cpp_decl ""
@@ -2971,7 +2973,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173954 "turnoCorrente"
+      attribute 173826 "turnoCorrente"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2984,7 +2986,7 @@ ${members}}
 	comment "0, 1, 2, 3"
       end
 
-      attribute 174082 "tutorial"
+      attribute 173954 "tutorial"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -2996,7 +2998,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 174210 "difficolta"
+      attribute 174082 "difficolta"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -3009,7 +3011,7 @@ ${members}}
 	comment "da 0 a 3"
       end
 
-      attribute 174338 "mappa"
+      attribute 174210 "mappa"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -3022,66 +3024,97 @@ ${members}}
 	comment "0 predefinita, 1 casuale, 2 estiva, 3 invernale"
       end
 
-      classrelation 144514 // threadCicloPartita (<unidirectional association>)
-	relation 144514 --->
+      classrelation 144386 // threadCicloPartita (<unidirectional association>)
+	relation 144386 --->
 	  a role_name "threadCicloPartita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 144514 // threadCicloPartita (<unidirectional association>)
-	  b parent class_ref 132482 // ThreadCicloPartita
+	    classrelation_ref 144386 // threadCicloPartita (<unidirectional association>)
+	  b parent class_ref 132354 // ThreadCicloPartita
       end
 
-      classrelation 144642 // guiPartita (<unidirectional association>)
-	relation 144642 --->
+      classrelation 144514 // guiPartita (<unidirectional association>)
+	relation 144514 --->
 	  a role_name "guiPartita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 144642 // guiPartita (<unidirectional association>)
+	    classrelation_ref 144514 // guiPartita (<unidirectional association>)
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      classrelation 144770 // gruppiMilitariSchierati (<unidirectional association>)
-	relation 144770 --->
+      classrelation 144642 // gruppiMilitariSchierati (<unidirectional association>)
+	relation 144642 --->
 	  stereotype "List"
 	  a role_name "gruppiMilitariSchierati" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
-	    classrelation_ref 144770 // gruppiMilitariSchierati (<unidirectional association>)
+	    classrelation_ref 144642 // gruppiMilitariSchierati (<unidirectional association>)
 	  b parent class_ref 128770 // GruppoMilitare
       end
 
-      classrelation 144898 // caveScenario (<unidirectional association>)
-	relation 144898 --->
+      classrelation 144770 // caveScenario (<unidirectional association>)
+	relation 144770 --->
 	  stereotype "List"
 	  a role_name "caveScenario" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
-	    classrelation_ref 144898 // caveScenario (<unidirectional association>)
+	    classrelation_ref 144770 // caveScenario (<unidirectional association>)
 	  b parent class_ref 128002 // CavaDiRisorse
       end
 
-      classrelation 145026 // valoriDiGioco (<unidirectional association>)
-	relation 145026 --->
+      classrelation 144898 // valoriDiGioco (<unidirectional association>)
+	relation 144898 --->
 	  a role_name "valoriDiGioco" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 145026 // valoriDiGioco (<unidirectional association>)
+	    classrelation_ref 144898 // valoriDiGioco (<unidirectional association>)
 	  b parent class_ref 130178 // ValoriDiGioco
       end
 
-      operation 153730 "Partita"
+      attribute 174338 "nomeGiocatore"
+	private explicit_type "String"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 174466 "civiltaGiocatore"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 145026 // scenario (<unidirectional association>)
+	relation 145026 --->
+	  a role_name "scenario" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 145026 // scenario (<unidirectional association>)
+	  b parent class_ref 132482 // Scenario
+      end
+
+      operation 153090 "Partita"
 	package explicit_return_type ""
-	nparams 8
+	nparams 6
 	  param in name "situazioneDiGioco" explicit_type "String"
 	  param in name "nomeGiocatore" explicit_type "String"
 	  param in name "tutorial" explicit_type "int"
 	  param in name "difficolta" explicit_type "int"
 	  param in name "mappa" explicit_type "int"
 	  param in name "civilta" explicit_type "int"
-	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
-	  param inout name "valoriDiGioco" type class_ref 130178 // ValoriDiGioco
 	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}, ${t5} ${p5}, ${t6} ${p6}, ${t7} ${p7}${)}${throws}${staticnl}{
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}, ${t5} ${p5}${)}${throws}${staticnl}{
   ${body}}
 "
 	
@@ -3099,7 +3132,7 @@ ${members}}
 "
       end
 
-      operation 153858 "creaPartita"
+      operation 153218 "creaPartita"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "nomeGiocatore" explicit_type "String"
@@ -3117,7 +3150,21 @@ ${members}}
 "
       end
 
-      operation 153986 "avviaPartita"
+      operation 153346 "setupGUIPartita"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Crea la GUI Partita
+"
+      end
+
+      operation 153474 "avviaPartita"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -3132,7 +3179,7 @@ altrimenti lascia giocare il giocatore finchè non passa il turno
 "
       end
 
-      operation 154114 "calcolaRisorse"
+      operation 153602 "calcolaRisorse"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "incrementa" explicit_type "boolean"
@@ -3149,7 +3196,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 154242 "esercitoAttaccaEsercito"
+      operation 153730 "esercitoAttaccaEsercito"
 	public explicit_return_type "int"
 	nparams 3
 	  param inout name "gruppoAttacco" type class_ref 128770 // GruppoMilitare
@@ -3170,7 +3217,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 154370 "esercitoAttaccaMunicipio"
+      operation 153858 "esercitoAttaccaMunicipio"
 	public explicit_return_type "int"
 	nparams 2
 	  param inout name "gruppoAttacco" type class_ref 128770 // GruppoMilitare
@@ -3189,21 +3236,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 154498 "aggiornaDatiGUI"
-	public explicit_return_type "void"
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Aggiorna i dati mostrati nella GUIPartita
-"
-      end
-
-      operation 154626 "getGiocatore"
+      operation 153986 "getGiocatore"
 	public return_type class_ref 128642 // Giocatore
 	nparams 0
 	
@@ -3215,7 +3248,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154754 "setGiocatore"
+      operation 154114 "setGiocatore"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "giocatore" explicit_type "List<Giocatore>"
@@ -3228,7 +3261,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154882 "getTurnoCorrente"
+      operation 154242 "getTurnoCorrente"
 	public explicit_return_type "int"
 	nparams 0
 	
@@ -3240,8 +3273,8 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155010 "getThreadCicloPartita"
-	public return_type class_ref 132482 // ThreadCicloPartita
+      operation 154370 "getThreadCicloPartita"
+	public return_type class_ref 132354 // ThreadCicloPartita
 	nparams 0
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
@@ -3252,10 +3285,10 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155138 "setThreadCicloPartita"
+      operation 154498 "setThreadCicloPartita"
 	public explicit_return_type "void"
 	nparams 1
-	  param inout name "threadCicloPartita" type class_ref 132482 // ThreadCicloPartita
+	  param inout name "threadCicloPartita" type class_ref 132354 // ThreadCicloPartita
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
@@ -3265,7 +3298,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155266 "getOrdineGioco"
+      operation 154626 "getOrdineGioco"
 	public explicit_return_type "List<Integer>"
 	nparams 0
 	
@@ -3277,7 +3310,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155394 "getGuiPartita"
+      operation 154754 "getGuiPartita"
 	public return_type class_ref 129922 // GUIPartita
 	nparams 0
 	
@@ -3289,7 +3322,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155522 "setGuiPartita"
+      operation 154882 "setGuiPartita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -3302,7 +3335,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155650 "setOrdineGioco"
+      operation 155010 "setOrdineGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "ordineGioco" explicit_type "List<Integer>"
@@ -3315,7 +3348,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155778 "setTurnoCorrente"
+      operation 155138 "setTurnoCorrente"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "turnoCorrente" explicit_type "int"
@@ -3328,7 +3361,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155906 "getSituazioneDiGioco"
+      operation 155266 "getSituazioneDiGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -3340,7 +3373,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156034 "setSituazioneDiGioco"
+      operation 155394 "setSituazioneDiGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "situazioneDiGioco" explicit_type "String"
@@ -3353,7 +3386,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156162 "getGruppiMilitariSchierati"
+      operation 155522 "getGruppiMilitariSchierati"
 	public return_type class_ref 128770 // GruppoMilitare
 	nparams 0
 	
@@ -3365,7 +3398,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156290 "setGruppiMilitariSchierati"
+      operation 155650 "setGruppiMilitariSchierati"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "gruppiMilitariSchierati" explicit_type "List<GruppoMilitare>"
@@ -3378,7 +3411,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156418 "getCaveScenario"
+      operation 155778 "getCaveScenario"
 	public return_type class_ref 128002 // CavaDiRisorse
 	nparams 0
 	
@@ -3390,10 +3423,35 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156546 "setCaveScenario"
+      operation 155906 "setCaveScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "caveScenario" explicit_type "List<CavaDiRisorse>"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156034 "getScenario"
+	public return_type class_ref 132482 // Scenario
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 156162 "setScenario"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "scenario" type class_ref 132482 // Scenario
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
@@ -3934,15 +3992,6 @@ ${members}}
 	  b parent class_ref 131714 // GUIPartitaOpzioni
       end
 
-      classrelation 139266 // scenario (<unidirectional association>)
-	relation 139266 --->
-	  a role_name "scenario" private
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 139266 // scenario (<unidirectional association>)
-	  b parent class_ref 131842 // Scenario
-      end
-
       attribute 155778 "posSchermataX"
 	private explicit_type "int"
 	init_value " 31"
@@ -3969,20 +4018,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 156034 "scenarioCorrente"
-	private explicit_type "String"
-	multiplicity "[][]"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 156162 "audio"
+      attribute 156034 "audio"
 	private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -3994,44 +4030,44 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 139394 // guiPartita (<unidirectional association>)
-	relation 139394 --->
+      classrelation 139266 // guiPartita (<unidirectional association>)
+	relation 139266 --->
 	  a role_name "guiPartita" private
 	    comment "utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 139394 // guiPartita (<unidirectional association>)
+	    classrelation_ref 139266 // guiPartita (<unidirectional association>)
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      classrelation 139522 // frmInfo (<unidirectional association>)
-	relation 139522 --->
+      classrelation 139394 // frmInfo (<unidirectional association>)
+	relation 139394 --->
 	  a role_name "frmInfo" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 139522 // frmInfo (<unidirectional association>)
-	  b parent class_ref 131970 // GUIPartitaInformazioni
+	    classrelation_ref 139394 // frmInfo (<unidirectional association>)
+	  b parent class_ref 131842 // GUIPartitaInformazioni
       end
 
-      classrelation 139650 // frmRicerca (<unidirectional association>)
-	relation 139650 --->
+      classrelation 139522 // frmRicerca (<unidirectional association>)
+	relation 139522 --->
 	  a role_name "frmRicerca" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 139650 // frmRicerca (<unidirectional association>)
-	  b parent class_ref 132098 // GUIPartitaRicerca
+	    classrelation_ref 139522 // frmRicerca (<unidirectional association>)
+	  b parent class_ref 131970 // GUIPartitaRicerca
       end
 
-      classrelation 139778 // partita (<unidirectional association>)
-	relation 139778 --->
+      classrelation 139650 // partita (<unidirectional association>)
+	relation 139650 --->
 	  a role_name "partita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 139778 // partita (<unidirectional association>)
+	    classrelation_ref 139650 // partita (<unidirectional association>)
 	  b parent class_ref 129794 // Partita
       end
 
-      attribute 156290 "su"
+      attribute 156162 "su"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_W"
 	cpp_decl ""
@@ -4045,7 +4081,7 @@ ${members}}
 	comment "Codice dei tasti"
       end
 
-      attribute 156418 "giu"
+      attribute 156290 "giu"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_S"
 	cpp_decl ""
@@ -4058,7 +4094,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 156546 "dest"
+      attribute 156418 "dest"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_D"
 	cpp_decl ""
@@ -4071,7 +4107,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 156674 "sinist"
+      attribute 156546 "sinist"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_A"
 	cpp_decl ""
@@ -4084,7 +4120,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 156802 "frecciasu"
+      attribute 156674 "frecciasu"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_UP"
 	cpp_decl ""
@@ -4097,7 +4133,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 156930 "frecciagiu"
+      attribute 156802 "frecciagiu"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_DOWN"
 	cpp_decl ""
@@ -4110,7 +4146,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 157058 "frecciadest"
+      attribute 156930 "frecciadest"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_RIGHT"
 	cpp_decl ""
@@ -4123,7 +4159,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 157186 "frecciasinist"
+      attribute 157058 "frecciasinist"
 	class_attribute package explicit_type "int"
 	init_value " KeyEvent.VK_LEFT"
 	cpp_decl ""
@@ -4136,7 +4172,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 157314 "oldLblsGiocoWidth"
+      attribute 157186 "oldLblsGiocoWidth"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4149,7 +4185,7 @@ ${members}}
 	comment "Variabile per ricordare la vecchia dimensione delle lblsGioco"
       end
 
-      attribute 157442 "oldLblsGiocoHeight"
+      attribute 157314 "oldLblsGiocoHeight"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4162,34 +4198,34 @@ ${members}}
 	comment "Variabile per ricordare la vecchia dimensione delle lblsGioco"
       end
 
-      classrelation 139906 // valoriDiGioco (<unidirectional association>)
-	relation 139906 --->
+      classrelation 139778 // valoriDiGioco (<unidirectional association>)
+	relation 139778 --->
 	  a role_name "valoriDiGioco" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 139906 // valoriDiGioco (<unidirectional association>)
+	    classrelation_ref 139778 // valoriDiGioco (<unidirectional association>)
 	  b parent class_ref 130178 // ValoriDiGioco
       end
 
-      classrelation 140034 // frmCostruisci (<unidirectional association>)
-	relation 140034 --->
+      classrelation 139906 // frmCostruisci (<unidirectional association>)
+	relation 139906 --->
 	  a role_name "frmCostruisci" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140034 // frmCostruisci (<unidirectional association>)
-	  b parent class_ref 132226 // GUIPartitaCostruisci
+	    classrelation_ref 139906 // frmCostruisci (<unidirectional association>)
+	  b parent class_ref 132098 // GUIPartitaCostruisci
       end
 
-      classrelation 140162 // iconeGrafiche (<unidirectional association>)
-	relation 140162 --->
+      classrelation 140034 // iconeGrafiche (<unidirectional association>)
+	relation 140034 --->
 	  a role_name "iconeGrafiche" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140162 // iconeGrafiche (<unidirectional association>)
+	    classrelation_ref 140034 // iconeGrafiche (<unidirectional association>)
 	  b parent class_ref 130050 // IconeGrafiche
       end
 
-      attribute 157570 "proprietario"
+      attribute 157442 "proprietario"
 	private explicit_type "String"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4202,7 +4238,7 @@ ${members}}
 	comment "INDICA IL PROPRIETARIO DELLA GUIPartita, in multiplayer utilizzato per distinguere i due giocatori"
       end
 
-      attribute 157698 "indiceProprietario"
+      attribute 157570 "indiceProprietario"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4215,56 +4251,58 @@ ${members}}
 	comment "INDICA L'INDICE DEL PROPRIETARIO"
       end
 
-      classrelation 140290 // guiArruolaUnita (<unidirectional association>)
-	relation 140290 --->
+      classrelation 140162 // guiArruolaUnita (<unidirectional association>)
+	relation 140162 --->
 	  a role_name "guiArruolaUnita" private
 	    comment "Schermata per arruolare nuove unità, invocata se clicchiamo su un edificio militare"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140290 // guiArruolaUnita (<unidirectional association>)
+	    classrelation_ref 140162 // guiArruolaUnita (<unidirectional association>)
 	  b parent class_ref 129410 // GUIArruolaUnita
       end
 
-      classrelation 140418 // guiMunicipio (<unidirectional association>)
-	relation 140418 --->
+      classrelation 140290 // guiMunicipio (<unidirectional association>)
+	relation 140290 --->
 	  a role_name "guiMunicipio" private
 	    comment "Schermata del muncipio"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140418 // guiMunicipio (<unidirectional association>)
+	    classrelation_ref 140290 // guiMunicipio (<unidirectional association>)
 	  b parent class_ref 131586 // GUIMunicipio
       end
 
-      classrelation 140546 // guiGruppoMilitare (<unidirectional association>)
-	relation 140546 --->
+      classrelation 140418 // guiGruppoMilitare (<unidirectional association>)
+	relation 140418 --->
 	  a role_name "guiGruppoMilitare" private
 	    comment "Schermata del gruppo militare"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140546 // guiGruppoMilitare (<unidirectional association>)
+	    classrelation_ref 140418 // guiGruppoMilitare (<unidirectional association>)
 	  b parent class_ref 130818 // GUIGruppoMilitare
       end
 
-      classrelation 140674 // gruppoMilitare (<unidirectional association>)
-	relation 140674 --->
+      classrelation 140546 // gruppoMilitare (<unidirectional association>)
+	relation 140546 --->
 	  a role_name "gruppoMilitare" private
 	    comment "Individua il gruppo militare corrente"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140674 // gruppoMilitare (<unidirectional association>)
+	    classrelation_ref 140546 // gruppoMilitare (<unidirectional association>)
 	  b parent class_ref 128770 // GruppoMilitare
       end
 
       operation 144258 "GUIPartita"
 	package explicit_return_type ""
-	nparams 5
+	nparams 7
 	  param in name "nomeGiocatore" explicit_type "String"
 	  param in name "tutorial" explicit_type "int"
 	  param in name "difficolta" explicit_type "int"
 	  param in name "mappa" explicit_type "int"
 	  param in name "civilta" explicit_type "int"
+	  param inout name "partita" type class_ref 129794 // Partita
+	  param inout name "valoriDiGioco" type class_ref 130178 // ValoriDiGioco
 	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}${)}${throws}${staticnl}{
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}, ${t5} ${p5}, ${t6} ${p6}${)}${throws}${staticnl}{
   ${body}}
 "
 	
@@ -4385,31 +4423,7 @@ ricrea la partita
 	
       end
 
-      operation 145410 "setupPartita"
-	public explicit_return_type "void"
-	nparams 5
-	  param in name "nomeGiocatore" explicit_type "String"
-	  param in name "tutorial" explicit_type "int"
-	  param in name "difficolta" explicit_type "int"
-	  param in name "mappa" explicit_type "int"
-	  param in name "civilta" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Prepara tutte le variabili e le utility alla partita
-@param nomeGiocatore Nome del giocatore
-@param tutorial Tutorial si/no
-@param difficolta Difficoltà scelta dal giocatore
-@param mappa Mappa scelta dal giocatore
-@param civilta Civiltà scelta dal giocatore
-"
-      end
-
-      operation 145538 "aggiornaDatiGUI"
+      operation 145410 "aggiornaDatiGUI"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -4423,7 +4437,7 @@ ricrea la partita
 "
       end
 
-      operation 145666 "disattivaThread"
+      operation 145538 "disattivaThread"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -4437,7 +4451,7 @@ ricrea la partita
 "
       end
 
-      operation 145794 "posizionaECompra"
+      operation 145666 "posizionaECompra"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "elemento" explicit_type "String"
@@ -4453,7 +4467,7 @@ ricrea la partita
 "
       end
 
-      operation 145922 "vendiCostruzione"
+      operation 145794 "vendiCostruzione"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -4467,7 +4481,7 @@ ricrea la partita
 "
       end
 
-      operation 146050 "muoviCostruzione"
+      operation 145922 "muoviCostruzione"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -4481,7 +4495,7 @@ ricrea la partita
 "
       end
 
-      operation 146178 "piazzaEsercito"
+      operation 146050 "piazzaEsercito"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "gruppoMilitare" type class_ref 128770 // GruppoMilitare
@@ -4497,7 +4511,7 @@ ricrea la partita
 "
       end
 
-      operation 146306 "richiamaEsercito"
+      operation 146178 "richiamaEsercito"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -4511,7 +4525,7 @@ ricrea la partita
 "
       end
 
-      operation 146434 "gruppoMilitareAttacca"
+      operation 146306 "gruppoMilitareAttacca"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "gruppoMilitare" type class_ref 128770 // GruppoMilitare
@@ -4527,7 +4541,7 @@ ricrea la partita
 "
       end
 
-      operation 146562 "gruppoMilitareMuovi"
+      operation 146434 "gruppoMilitareMuovi"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "gruppoMilitare" type class_ref 128770 // GruppoMilitare
@@ -4543,7 +4557,7 @@ ricrea la partita
 "
       end
 
-      operation 146690 "gestoreClickLblGioco"
+      operation 146562 "gestoreClickLblGioco"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4561,7 +4575,7 @@ ricrea la partita
 "
       end
 
-      operation 146818 "liberaCava"
+      operation 146690 "liberaCava"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4579,7 +4593,7 @@ ricrea la partita
 "
       end
 
-      operation 146946 "conquistaCava"
+      operation 146818 "conquistaCava"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4597,7 +4611,7 @@ ricrea la partita
 "
       end
 
-      operation 147074 "controllaCava"
+      operation 146946 "controllaCava"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "i" explicit_type "int"
@@ -4617,7 +4631,7 @@ ricrea la partita
 "
       end
 
-      operation 147202 "controllaFalo"
+      operation 147074 "controllaFalo"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4635,7 +4649,7 @@ ricrea la partita
 "
       end
 
-      operation 147330 "ottieniFalo"
+      operation 147202 "ottieniFalo"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4653,7 +4667,7 @@ ricrea la partita
 "
       end
 
-      operation 147458 "esercitoPresente"
+      operation 147330 "esercitoPresente"
 	public explicit_return_type "int"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4673,7 +4687,7 @@ ricrea la partita
 "
       end
 
-      operation 147586 "municipioPresente"
+      operation 147458 "municipioPresente"
 	public explicit_return_type "int"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4693,7 +4707,7 @@ ricrea la partita
 "
       end
 
-      operation 147714 "isVicinoACitta"
+      operation 147586 "isVicinoACitta"
 	public explicit_return_type "int"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4713,7 +4727,7 @@ ricrea la partita
 "
       end
 
-      operation 147842 "rimuoviElementoDaScenario"
+      operation 147714 "rimuoviElementoDaScenario"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "i" explicit_type "int"
@@ -4733,7 +4747,7 @@ ricrea la partita
 "
       end
 
-      operation 147970 "posizionaElementoSuScenario"
+      operation 147842 "posizionaElementoSuScenario"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4751,7 +4765,7 @@ ricrea la partita
 "
       end
 
-      operation 148098 "individuaOggetto"
+      operation 147970 "individuaOggetto"
 	public explicit_return_type "String"
 	nparams 3
 	  param in name "i" explicit_type "int"
@@ -4772,7 +4786,7 @@ ricrea la partita
 "
       end
 
-      operation 148226 "isPiazzamentoPossibile"
+      operation 148098 "isPiazzamentoPossibile"
 	public explicit_return_type "boolean"
 	nparams 2
 	  param in name "i" explicit_type "int"
@@ -4791,7 +4805,7 @@ ricrea la partita
 "
       end
 
-      operation 148354 "getAzioneLblsGioco"
+      operation 148226 "getAzioneLblsGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -4803,7 +4817,7 @@ ricrea la partita
 	
       end
 
-      operation 148482 "setAzioneLblsGioco"
+      operation 148354 "setAzioneLblsGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "azioneLblsGioco" explicit_type "String"
@@ -4816,7 +4830,7 @@ ricrea la partita
 	
       end
 
-      operation 148610 "getElemLblsGioco"
+      operation 148482 "getElemLblsGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -4828,60 +4842,10 @@ ricrea la partita
 	
       end
 
-      operation 148738 "setElemLblsGioco"
+      operation 148610 "setElemLblsGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "elemLblsGioco" explicit_type "String"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-
-      operation 148866 "getSitua"
-	public explicit_return_type "String"
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-
-      operation 148994 "setSitua"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "stringa" explicit_type "String"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-
-      operation 149122 "getScenario"
-	public return_type class_ref 131842 // Scenario
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-
-      operation 149250 "setScenario"
-	public explicit_return_type "void"
-	nparams 1
-	  param inout name "scenario" type class_ref 131842 // Scenario
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
@@ -4908,7 +4872,7 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      attribute 164098 "newiconTick"
+      attribute 163970 "newiconTick"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4920,7 +4884,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164226 "newiconCross"
+      attribute 164098 "newiconCross"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4932,7 +4896,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164354 "newiconCosto"
+      attribute 164226 "newiconCosto"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4944,7 +4908,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164482 "newiconOro"
+      attribute 164354 "newiconOro"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4956,7 +4920,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164610 "newiconMat"
+      attribute 164482 "newiconMat"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4968,7 +4932,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164738 "newiconAtk"
+      attribute 164610 "newiconAtk"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4980,7 +4944,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164866 "newiconDef"
+      attribute 164738 "newiconDef"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -4992,7 +4956,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 164994 "newiconVel"
+      attribute 164866 "newiconVel"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5004,7 +4968,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165122 "newiconSentieri"
+      attribute 164994 "newiconSentieri"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5016,7 +4980,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165250 "newiconAbitazioni"
+      attribute 165122 "newiconAbitazioni"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5028,7 +4992,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165378 "newiconCaserma"
+      attribute 165250 "newiconCaserma"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5040,7 +5004,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165506 "newiconFucina"
+      attribute 165378 "newiconFucina"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5052,7 +5016,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165634 "newiconCommercio"
+      attribute 165506 "newiconCommercio"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5064,7 +5028,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165762 "newiconFanteria"
+      attribute 165634 "newiconFanteria"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5076,7 +5040,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 165890 "newiconOreficeria"
+      attribute 165762 "newiconOreficeria"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5088,7 +5052,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166018 "newiconReligione"
+      attribute 165890 "newiconReligione"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5100,7 +5064,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166146 "newiconVille"
+      attribute 166018 "newiconVille"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5112,7 +5076,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166274 "newiconTiroConArco"
+      attribute 166146 "newiconTiroConArco"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5124,7 +5088,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166402 "newiconOracolo"
+      attribute 166274 "newiconOracolo"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5136,7 +5100,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166530 "newiconCitta"
+      attribute 166402 "newiconCitta"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5148,7 +5112,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166658 "newiconCavalleria"
+      attribute 166530 "newiconCavalleria"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5160,7 +5124,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166786 "newiconSocMil"
+      attribute 166658 "newiconSocMil"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5172,7 +5136,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 166914 "newiconEtaImp"
+      attribute 166786 "newiconEtaImp"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5184,7 +5148,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167042 "newiconLastr"
+      attribute 166914 "newiconLastr"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5196,7 +5160,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167170 "newiconCasaPP"
+      attribute 167042 "newiconCasaPP"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5208,7 +5172,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167298 "newiconCorazze"
+      attribute 167170 "newiconCorazze"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5220,7 +5184,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167426 "newiconBalestre"
+      attribute 167298 "newiconBalestre"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5232,7 +5196,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167554 "newiconBiblioteca"
+      attribute 167426 "newiconBiblioteca"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5244,7 +5208,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167682 "newiconMercenari"
+      attribute 167554 "newiconMercenari"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5256,7 +5220,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167810 "newiconClero"
+      attribute 167682 "newiconClero"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5268,7 +5232,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 167938 "newiconOspedale"
+      attribute 167810 "newiconOspedale"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5280,7 +5244,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168066 "newiconCaseASchiera"
+      attribute 167938 "newiconCaseASchiera"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5292,7 +5256,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168194 "newiconTatCal"
+      attribute 168066 "newiconTatCal"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5304,7 +5268,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168322 "newiconInquisizione"
+      attribute 168194 "newiconInquisizione"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5316,7 +5280,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168450 "newiconGranai"
+      attribute 168322 "newiconGranai"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5328,7 +5292,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168578 "newiconFermentazione"
+      attribute 168450 "newiconFermentazione"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5340,7 +5304,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168706 "newiconPolvereDaSparo"
+      attribute 168578 "newiconPolvereDaSparo"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5352,7 +5316,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168834 "newiconBanca"
+      attribute 168706 "newiconBanca"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5364,7 +5328,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 168962 "newiconStrAsf"
+      attribute 168834 "newiconStrAsf"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5376,7 +5340,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169090 "newiconSisInd"
+      attribute 168962 "newiconSisInd"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5388,7 +5352,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169218 "newiconScienza"
+      attribute 169090 "newiconScienza"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5400,7 +5364,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169346 "newiconCasaMan"
+      attribute 169218 "newiconCasaMan"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5412,7 +5376,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169474 "newiconFucili"
+      attribute 169346 "newiconFucili"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5424,7 +5388,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169602 "newiconGerMil"
+      attribute 169474 "newiconGerMil"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5436,7 +5400,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169730 "newiconSocBor"
+      attribute 169602 "newiconSocBor"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5448,7 +5412,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169858 "newiconPolitica"
+      attribute 169730 "newiconPolitica"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5460,7 +5424,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 169986 "newiconTatCap"
+      attribute 169858 "newiconTatCap"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5472,7 +5436,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170114 "newiconMusLir"
+      attribute 169986 "newiconMusLir"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5484,7 +5448,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170242 "newiconVillette"
+      attribute 170114 "newiconVillette"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5496,7 +5460,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170370 "newiconBalistica"
+      attribute 170242 "newiconBalistica"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5508,7 +5472,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170498 "newiconTeatri"
+      attribute 170370 "newiconTeatri"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5520,7 +5484,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170626 "newiconCarabinieri"
+      attribute 170498 "newiconCarabinieri"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5532,7 +5496,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170754 "newiconGuaRea"
+      attribute 170626 "newiconGuaRea"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5544,7 +5508,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 170882 "newiconLegione"
+      attribute 170754 "newiconLegione"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5556,7 +5520,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171010 "newiconGK"
+      attribute 170882 "newiconGK"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5568,7 +5532,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171138 "newiconOriz"
+      attribute 171010 "newiconOriz"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5580,7 +5544,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171266 "newicon3su"
+      attribute 171138 "newicon3su"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5592,7 +5556,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171394 "newiconVert"
+      attribute 171266 "newiconVert"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5604,7 +5568,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171522 "newicon2dxgiu"
+      attribute 171394 "newicon2dxgiu"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5616,7 +5580,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171650 "newicon4"
+      attribute 171522 "newicon4"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5628,7 +5592,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171778 "newicon2sudx"
+      attribute 171650 "newicon2sudx"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5640,7 +5604,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 171906 "newicon2giusx"
+      attribute 171778 "newicon2giusx"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5652,7 +5616,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172034 "newicon3giu"
+      attribute 171906 "newicon3giu"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5664,7 +5628,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172162 "newicon2sxsu"
+      attribute 172034 "newicon2sxsu"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5676,7 +5640,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172290 "newiconRomani"
+      attribute 172162 "newiconRomani"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5688,7 +5652,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172418 "newiconFrancesi"
+      attribute 172290 "newiconFrancesi"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5700,7 +5664,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172546 "newiconInglesi"
+      attribute 172418 "newiconInglesi"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5712,7 +5676,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172674 "newiconSassoni"
+      attribute 172546 "newiconSassoni"
 	package explicit_type "ImageIcon"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -5724,7 +5688,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172802 "iconeScenario"
+      attribute 172674 "iconeScenario"
 	private explicit_type "String, ImageIcon"
 	stereotype "Map"
 	cpp_decl ""
@@ -5737,7 +5701,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 172930 "iconeUMilitari"
+      attribute 172802 "iconeUMilitari"
 	private explicit_type "String, ImageIcon"
 	stereotype "Map"
 	cpp_decl ""
@@ -5751,7 +5715,7 @@ ${members}}
 	comment "Icone delle unità militari"
       end
 
-      operation 152322 "IconeGrafiche"
+      operation 151682 "IconeGrafiche"
 	package explicit_return_type ""
 	nparams 0
 	
@@ -5765,7 +5729,7 @@ ${members}}
 "
       end
 
-      operation 152450 "caricaIconeScenario"
+      operation 151810 "caricaIconeScenario"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "width" explicit_type "int"
@@ -5783,7 +5747,7 @@ ${members}}
 "
       end
 
-      operation 152578 "caricaAltreIcone"
+      operation 151938 "caricaAltreIcone"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -5797,7 +5761,7 @@ ${members}}
 "
       end
 
-      operation 152706 "getIconeScenario"
+      operation 152066 "getIconeScenario"
 	public explicit_return_type "Map<String, ImageIcon>"
 	nparams 0
 	
@@ -5809,7 +5773,7 @@ ${members}}
 	
       end
 
-      operation 152834 "setIconeScenario"
+      operation 152194 "setIconeScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "iconeScenario" explicit_type "Map<String, ImageIcon>"
@@ -5822,7 +5786,7 @@ ${members}}
 	
       end
 
-      operation 152962 "getIconeUMilitari"
+      operation 152322 "getIconeUMilitari"
 	public explicit_return_type "Map<String, ImageIcon>"
 	nparams 0
 	
@@ -5834,7 +5798,7 @@ ${members}}
 	
       end
 
-      operation 153090 "setIconeUMilitari"
+      operation 152450 "setIconeUMilitari"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "iconeUMilitari" explicit_type "Map<String, ImageIcon>"
@@ -5863,7 +5827,7 @@ ${members}}
       comment "Contiene tutti i valori utilizzati dal gioco (valori in oro, materiali, PR di costruzioni e attacco, difesa e velocità truppe)
 @author Werther e Lorenzo
 "
-      attribute 176130 "valoriRicerche"
+      attribute 176258 "valoriRicerche"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5876,7 +5840,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 176258 "valoriOro"
+      attribute 176386 "valoriOro"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5889,7 +5853,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 176386 "valoriMat"
+      attribute 176514 "valoriMat"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5902,7 +5866,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 176514 "atkUnita"
+      attribute 176642 "atkUnita"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5916,7 +5880,7 @@ ${members}}
 	comment "attacco unità"
       end
 
-      attribute 176642 "defUnita"
+      attribute 176770 "defUnita"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5930,7 +5894,7 @@ ${members}}
 	comment "difesa unità"
       end
 
-      attribute 176770 "velUnita"
+      attribute 176898 "velUnita"
 	private explicit_type "String, Integer"
 	stereotype "Map"
 	cpp_decl ""
@@ -5944,7 +5908,7 @@ ${members}}
 	comment "velocità unità"
       end
 
-      operation 160002 "ValoriDiGioco"
+      operation 159618 "ValoriDiGioco"
 	package explicit_return_type ""
 	nparams 0
 	
@@ -5958,7 +5922,7 @@ ${members}}
 "
       end
 
-      operation 160130 "inserisciCosti"
+      operation 159746 "inserisciCosti"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "nome" explicit_type "String"
@@ -5978,7 +5942,7 @@ ${members}}
 "
       end
 
-      operation 160258 "inserisciUMilitare"
+      operation 159874 "inserisciUMilitare"
 	public explicit_return_type "void"
 	nparams 6
 	  param in name "nome" explicit_type "String"
@@ -6004,7 +5968,7 @@ ${members}}
 "
       end
 
-      operation 160386 "getValoriRicerche"
+      operation 160002 "getValoriRicerche"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6016,7 +5980,7 @@ ${members}}
 	
       end
 
-      operation 160514 "setValoriRicerche"
+      operation 160130 "setValoriRicerche"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriRicerche" explicit_type "Map<String, Integer>"
@@ -6029,7 +5993,7 @@ ${members}}
 	
       end
 
-      operation 160642 "getAtkUnita"
+      operation 160258 "getAtkUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6041,7 +6005,7 @@ ${members}}
 	
       end
 
-      operation 160770 "setAtkUnita"
+      operation 160386 "setAtkUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "atkUnita" explicit_type "Map<String, Integer>"
@@ -6054,7 +6018,7 @@ ${members}}
 	
       end
 
-      operation 160898 "getDefUnita"
+      operation 160514 "getDefUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6066,7 +6030,7 @@ ${members}}
 	
       end
 
-      operation 161026 "setDefUnita"
+      operation 160642 "setDefUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "defUnita" explicit_type "Map<String, Integer>"
@@ -6079,7 +6043,7 @@ ${members}}
 	
       end
 
-      operation 161154 "getVelUnita"
+      operation 160770 "getVelUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6091,7 +6055,7 @@ ${members}}
 	
       end
 
-      operation 161282 "setVelUnita"
+      operation 160898 "setVelUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "velUnita" explicit_type "Map<String, Integer>"
@@ -6104,7 +6068,7 @@ ${members}}
 	
       end
 
-      operation 161410 "getValoriOro"
+      operation 161026 "getValoriOro"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6116,7 +6080,7 @@ ${members}}
 	
       end
 
-      operation 161538 "setValoriOro"
+      operation 161154 "setValoriOro"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriOro" explicit_type "Map<String, Integer>"
@@ -6129,7 +6093,7 @@ ${members}}
 	
       end
 
-      operation 161666 "getValoriMat"
+      operation 161282 "getValoriMat"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6141,7 +6105,7 @@ ${members}}
 	
       end
 
-      operation 161794 "setValoriMat"
+      operation 161410 "setValoriMat"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriMat" explicit_type "Map<String, Integer>"
@@ -6680,13 +6644,13 @@ pulsanti in essa contenuti e le azioni da compiere.
 	MysqlColumn
       end
 
-      classrelation 130434 // framePartita (<unidirectional association>)
+      classrelation 130434 // partita (<unidirectional association>)
 	relation 130434 --->
-	  a role_name "framePartita" private
+	  a role_name "partita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 130434 // framePartita (<unidirectional association>)
-	  b parent class_ref 129922 // GUIPartita
+	    classrelation_ref 130434 // partita (<unidirectional association>)
+	  b parent class_ref 129794 // Partita
       end
 
       attribute 140930 "finestreAttive"
@@ -7961,13 +7925,13 @@ pulsanti in essa contenuti e le azioni da compiere.
 	MysqlColumn
       end
 
-      classrelation 136962 // framePartita (<unidirectional association>)
+      classrelation 136962 // partita (<unidirectional association>)
 	relation 136962 --->
-	  a role_name "framePartita" private
+	  a role_name "partita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 136962 // framePartita (<unidirectional association>)
-	  b parent class_ref 129922 // GUIPartita
+	    classrelation_ref 136962 // partita (<unidirectional association>)
+	  b parent class_ref 129794 // Partita
       end
 
       classrelation 137090 // s (<unidirectional association>)
@@ -8750,69 +8714,69 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      classrelation 142466 // <generalisation>
-	relation 142466 ---|>
+      classrelation 142338 // <generalisation>
+	relation 142338 ---|>
 	  a public
 	    java "${type}"
-	    classrelation_ref 142466 // <generalisation>
+	    classrelation_ref 142338 // <generalisation>
 	  b parent class_ref 129538 // JDialog
       end
 
-      classrelation 142594 // btnContinua (<unidirectional association>)
-	relation 142594 --->
+      classrelation 142466 // btnContinua (<unidirectional association>)
+	relation 142466 --->
 	  a role_name "btnContinua" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142594 // btnContinua (<unidirectional association>)
+	    classrelation_ref 142466 // btnContinua (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 142722 // btnSalva (<unidirectional association>)
-	relation 142722 --->
+      classrelation 142594 // btnSalva (<unidirectional association>)
+	relation 142594 --->
 	  a role_name "btnSalva" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142722 // btnSalva (<unidirectional association>)
+	    classrelation_ref 142594 // btnSalva (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 142850 // btnCarica (<unidirectional association>)
-	relation 142850 --->
+      classrelation 142722 // btnCarica (<unidirectional association>)
+	relation 142722 --->
 	  a role_name "btnCarica" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142850 // btnCarica (<unidirectional association>)
+	    classrelation_ref 142722 // btnCarica (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 142978 // btnImpostazioni (<unidirectional association>)
-	relation 142978 --->
+      classrelation 142850 // btnImpostazioni (<unidirectional association>)
+	relation 142850 --->
 	  a role_name "btnImpostazioni" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142978 // btnImpostazioni (<unidirectional association>)
+	    classrelation_ref 142850 // btnImpostazioni (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 143106 // btnTornaMenu (<unidirectional association>)
-	relation 143106 --->
+      classrelation 142978 // btnTornaMenu (<unidirectional association>)
+	relation 142978 --->
 	  a role_name "btnTornaMenu" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143106 // btnTornaMenu (<unidirectional association>)
+	    classrelation_ref 142978 // btnTornaMenu (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 143234 // btnEsci (<unidirectional association>)
-	relation 143234 --->
+      classrelation 143106 // btnEsci (<unidirectional association>)
+	relation 143106 --->
 	  a role_name "btnEsci" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143234 // btnEsci (<unidirectional association>)
+	    classrelation_ref 143106 // btnEsci (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      attribute 162178 "finestreAttive"
+      attribute 162050 "finestreAttive"
 	private explicit_type "Window"
 	multiplicity "[]"
 	cpp_decl ""
@@ -8825,7 +8789,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 162306 "contentPane"
+      attribute 162178 "contentPane"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -8837,7 +8801,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 162434 "fontFuturist"
+      attribute 162306 "fontFuturist"
 	private explicit_type "Font"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -8849,7 +8813,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 162562 "audio"
+      attribute 162434 "audio"
 	private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -8861,27 +8825,27 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 143362 // guiPartitaOpzioni (<unidirectional association>)
-	relation 143362 --->
+      classrelation 143234 // guiPartitaOpzioni (<unidirectional association>)
+	relation 143234 --->
 	  a role_name "guiPartitaOpzioni" package
 	    comment "Utilizzato per avere anche negli eventi un riferimento a questo JDialog"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143362 // guiPartitaOpzioni (<unidirectional association>)
+	    classrelation_ref 143234 // guiPartitaOpzioni (<unidirectional association>)
 	  b parent class_ref 131714 // GUIPartitaOpzioni
       end
 
-      classrelation 143490 // guiPartita (<unidirectional association>)
-	relation 143490 --->
+      classrelation 143362 // guiPartita (<unidirectional association>)
+	relation 143362 --->
 	  a role_name "guiPartita" package
 	    comment "Per avere un riferimento a partita"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143490 // guiPartita (<unidirectional association>)
+	    classrelation_ref 143362 // guiPartita (<unidirectional association>)
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      operation 150018 "GUIPartitaOpzioni"
+      operation 149378 "GUIPartitaOpzioni"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -8898,139 +8862,7 @@ ${members}}
       end
     end
 
-    class 131842 "Scenario"
-      visibility public 
-      cpp_decl ""
-      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment "Contiene tutti gli elementi che compongono lo scenario sotto forma di stringa
-@author Werther e Lorenzo
-
-"
-      attribute 175618 "scenario"
-	private explicit_type "String"
-	multiplicity "[][]"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      operation 158082 "Scenario"
-	package explicit_return_type ""
-	nparams 1
-	  param in name "n" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Modella lo scenario in base alla mappa scelta dall'utente
-@param n Indice di mappa scelta
-"
-      end
-
-      operation 158210 "casuale"
-	public explicit_return_type "String"
-	nparams 3
-	  param in name "min" explicit_type "int"
-	  param in name "max" explicit_type "int"
-	  param inout name "spazio" explicit_type "boolean"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Genera una cella di scenario in modo casuale
-@param min Minimo indice da tenere in considerazione
-@param max Massimo indice da tenere in considerazione
-@param spazio Definisce se è necessario inserire lo spazio
-@return Ritorna la stringa che descrive la cella appena creata
-"
-      end
-
-      operation 158338 "casualeNum"
-	public explicit_return_type "int"
-	nparams 2
-	  param in name "min" explicit_type "int"
-	  param in name "max" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Genera un numero casuale in base ai parametri passati
-@param min Minimo valore da considerare
-@param max Massimo valore da considerare
-@return Ritorna il numero specificato
-"
-      end
-
-      operation 158466 "aggiungiEsercito"
-	public explicit_return_type "void"
-	nparams 3
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	  param in name "civilta" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Aggiunge un esercito alla cella i, j della civiltà specificata
-@param i X
-@param j Y
-@param civilta Civiltà dell'esercito da aggiungere
-"
-      end
-
-      operation 158594 "getScenario"
-	public explicit_return_type "String"
-	nparams 0
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}[][] ${name}${(}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-
-      operation 158722 "setScenario"
-	public explicit_return_type "void"
-	nparams 1
-	  param inout name "scenario" explicit_type "String"
-	multiplicity "[][]"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}[][] ${p0}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-      end
-    end
-
-    class 131970 "GUIPartitaInformazioni"
+    class 131842 "GUIPartitaInformazioni"
       visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -9046,15 +8878,15 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      classrelation 142082 // <generalisation>
-	relation 142082 ---|>
+      classrelation 141954 // <generalisation>
+	relation 141954 ---|>
 	  a public
 	    java "${type}"
-	    classrelation_ref 142082 // <generalisation>
+	    classrelation_ref 141954 // <generalisation>
 	  b parent class_ref 129538 // JDialog
       end
 
-      attribute 159362 "contentPane"
+      attribute 159234 "contentPane"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9066,7 +8898,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 159490 "lblBonusEco"
+      attribute 159362 "lblBonusEco"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9078,7 +8910,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 159618 "lblBonusMil"
+      attribute 159490 "lblBonusMil"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9090,7 +8922,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 159746 "lblBonusRic"
+      attribute 159618 "lblBonusRic"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9102,7 +8934,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 159874 "lblTruppeDef"
+      attribute 159746 "lblTruppeDef"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9114,7 +8946,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160002 "lblTruppeAtk"
+      attribute 159874 "lblTruppeAtk"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9126,7 +8958,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160130 "lblGruppiAtk"
+      attribute 160002 "lblGruppiAtk"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9138,7 +8970,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160258 "lblOroXTurno"
+      attribute 160130 "lblOroXTurno"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9150,7 +8982,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160386 "lblMatXTurno"
+      attribute 160258 "lblMatXTurno"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9162,7 +8994,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160514 "lblPRXTurno"
+      attribute 160386 "lblPRXTurno"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9174,7 +9006,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160642 "lblBEVal"
+      attribute 160514 "lblBEVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9186,7 +9018,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160770 "lblBMVal"
+      attribute 160642 "lblBMVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9198,7 +9030,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 160898 "lblBRVal"
+      attribute 160770 "lblBRVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9210,7 +9042,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161026 "lblTruppeDefVal"
+      attribute 160898 "lblTruppeDefVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9222,7 +9054,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161154 "lblTruppeAtkVal"
+      attribute 161026 "lblTruppeAtkVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9234,7 +9066,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161282 "lblGruppiAtkVal"
+      attribute 161154 "lblGruppiAtkVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9246,7 +9078,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161410 "lblOroXTurnoVal"
+      attribute 161282 "lblOroXTurnoVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9258,7 +9090,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161538 "lblMatXTurnoVal"
+      attribute 161410 "lblMatXTurnoVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9270,7 +9102,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161666 "lblPRXTurnoVal"
+      attribute 161538 "lblPRXTurnoVal"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9282,16 +9114,16 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 142210 // btnIndietro (<unidirectional association>)
-	relation 142210 --->
+      classrelation 142082 // btnIndietro (<unidirectional association>)
+	relation 142082 --->
 	  a role_name "btnIndietro" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142210 // btnIndietro (<unidirectional association>)
+	    classrelation_ref 142082 // btnIndietro (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      attribute 161794 "c"
+      attribute 161666 "c"
 	private explicit_type "GridBagConstraints"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9303,7 +9135,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 161922 "fontFuturist"
+      attribute 161794 "fontFuturist"
 	private explicit_type "Font"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9315,16 +9147,16 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 142338 // partita (<unidirectional association>)
-	relation 142338 --->
+      classrelation 142210 // partita (<unidirectional association>)
+	relation 142210 --->
 	  a role_name "partita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 142338 // partita (<unidirectional association>)
+	    classrelation_ref 142210 // partita (<unidirectional association>)
 	  b parent class_ref 129794 // Partita
       end
 
-      attribute 162050 "audio"
+      attribute 161922 "audio"
 	private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9336,7 +9168,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 149890 "GUIPartitaInformazioni"
+      operation 149250 "GUIPartitaInformazioni"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -9353,7 +9185,7 @@ ${members}}
       end
     end
 
-    class 132098 "GUIPartitaRicerca"
+    class 131970 "GUIPartitaRicerca"
       visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -9369,15 +9201,15 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      classrelation 143618 // <generalisation>
-	relation 143618 ---|>
+      classrelation 143490 // <generalisation>
+	relation 143490 ---|>
 	  a public
 	    java "${type}"
-	    classrelation_ref 143618 // <generalisation>
+	    classrelation_ref 143490 // <generalisation>
 	  b parent class_ref 129538 // JDialog
       end
 
-      attribute 162690 "fontFuturist"
+      attribute 162562 "fontFuturist"
 	private explicit_type "Font"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9389,7 +9221,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 162818 "c"
+      attribute 162690 "c"
 	private explicit_type "GridBagConstraints"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9401,7 +9233,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 162946 "pnlFooter"
+      attribute 162818 "pnlFooter"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9413,7 +9245,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163074 "contentPane"
+      attribute 162946 "contentPane"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9425,7 +9257,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163202 "lblTick"
+      attribute 163074 "lblTick"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9437,7 +9269,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163330 "lblCross"
+      attribute 163202 "lblCross"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9449,7 +9281,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163458 "gridXEClassica"
+      attribute 163330 "gridXEClassica"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9461,7 +9293,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163586 "gridXMedioevo"
+      attribute 163458 "gridXMedioevo"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9473,7 +9305,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 163714 "gridXEVittoriana"
+      attribute 163586 "gridXEVittoriana"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9485,25 +9317,25 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 143746 // btnIndietro (<unidirectional association>)
-	relation 143746 --->
+      classrelation 143618 // btnIndietro (<unidirectional association>)
+	relation 143618 --->
 	  a role_name "btnIndietro" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143746 // btnIndietro (<unidirectional association>)
+	    classrelation_ref 143618 // btnIndietro (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 143874 // iconeGrafiche (<unidirectional association>)
-	relation 143874 --->
+      classrelation 143746 // iconeGrafiche (<unidirectional association>)
+	relation 143746 --->
 	  a role_name "iconeGrafiche" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 143874 // iconeGrafiche (<unidirectional association>)
+	    classrelation_ref 143746 // iconeGrafiche (<unidirectional association>)
 	  b parent class_ref 130050 // IconeGrafiche
       end
 
-      attribute 163842 "audio"
+      attribute 163714 "audio"
 	private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9515,36 +9347,36 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 144002 // valoriDiGioco (<unidirectional association>)
-	relation 144002 --->
+      classrelation 143874 // valoriDiGioco (<unidirectional association>)
+	relation 143874 --->
 	  a role_name "valoriDiGioco" private
 	    comment "Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 144002 // valoriDiGioco (<unidirectional association>)
+	    classrelation_ref 143874 // valoriDiGioco (<unidirectional association>)
 	  b parent class_ref 130178 // ValoriDiGioco
       end
 
-      classrelation 144130 // partita (<unidirectional association>)
-	relation 144130 --->
+      classrelation 144002 // partita (<unidirectional association>)
+	relation 144002 --->
 	  a role_name "partita" private
 	    comment "Salvato qui per facilitarne l'accesso dalle funzioni di questa classe diverse dal costruttore"
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 144130 // partita (<unidirectional association>)
+	    classrelation_ref 144002 // partita (<unidirectional association>)
 	  b parent class_ref 129794 // Partita
       end
 
-      classrelation 144258 // guiPartita (<unidirectional association>)
-	relation 144258 --->
+      classrelation 144130 // guiPartita (<unidirectional association>)
+	relation 144130 --->
 	  a role_name "guiPartita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 144258 // guiPartita (<unidirectional association>)
+	    classrelation_ref 144130 // guiPartita (<unidirectional association>)
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      attribute 163970 "proprietario"
+      attribute 163842 "proprietario"
 	private explicit_type "String"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9556,7 +9388,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 150146 "GUIPartitaRicerca"
+      operation 149506 "GUIPartitaRicerca"
 	package explicit_return_type ""
 	nparams 4
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -9578,7 +9410,7 @@ ${members}}
 "
       end
 
-      operation 150274 "creaGUI"
+      operation 149634 "creaGUI"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9592,7 +9424,7 @@ ${members}}
 "
       end
 
-      operation 150402 "dipingiBackground"
+      operation 149762 "dipingiBackground"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "gridXEClassica" explicit_type "int"
@@ -9612,7 +9444,7 @@ ${members}}
 "
       end
 
-      operation 150530 "from1to1"
+      operation 149890 "from1to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9626,7 +9458,7 @@ ${members}}
 "
       end
 
-      operation 150658 "from1to2"
+      operation 150018 "from1to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9640,7 +9472,7 @@ ${members}}
 "
       end
 
-      operation 150786 "from1to3"
+      operation 150146 "from1to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9654,7 +9486,7 @@ ${members}}
 "
       end
 
-      operation 150914 "from2to1"
+      operation 150274 "from2to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9668,7 +9500,7 @@ ${members}}
 "
       end
 
-      operation 151042 "from2to2"
+      operation 150402 "from2to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9682,7 +9514,7 @@ ${members}}
 "
       end
 
-      operation 151170 "from3to1"
+      operation 150530 "from3to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9696,7 +9528,7 @@ ${members}}
 "
       end
 
-      operation 151298 "from3to2"
+      operation 150658 "from3to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9710,7 +9542,7 @@ ${members}}
 "
       end
 
-      operation 151426 "from2to3"
+      operation 150786 "from2to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9724,7 +9556,7 @@ ${members}}
 "
       end
 
-      operation 151554 "from3to3"
+      operation 150914 "from3to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9738,7 +9570,7 @@ ${members}}
 "
       end
 
-      operation 151682 "inserisci2"
+      operation 151042 "inserisci2"
 	public explicit_return_type "void"
 	nparams 6
 	  param in name "posx" explicit_type "int"
@@ -9764,7 +9596,7 @@ ${members}}
 "
       end
 
-      operation 151810 "inserisci3"
+      operation 151170 "inserisci3"
 	public explicit_return_type "void"
 	nparams 8
 	  param in name "posx" explicit_type "int"
@@ -9794,7 +9626,7 @@ ${members}}
 "
       end
 
-      operation 151938 "inserisci4"
+      operation 151298 "inserisci4"
 	public explicit_return_type "void"
 	nparams 10
 	  param in name "posx" explicit_type "int"
@@ -9828,7 +9660,7 @@ ${members}}
 "
       end
 
-      operation 152066 "inserisci1"
+      operation 151426 "inserisci1"
 	public explicit_return_type "void"
 	nparams 4
 	  param in name "posx" explicit_type "int"
@@ -9850,7 +9682,7 @@ ${members}}
 "
       end
 
-      operation 152194 "isRicercaRicercabile"
+      operation 151554 "isRicercaRicercabile"
 	public explicit_return_type "boolean"
 	nparams 1
 	  param in name "nome" explicit_type "String"
@@ -9868,7 +9700,7 @@ ${members}}
       end
     end
 
-    class 132226 "GUIPartitaCostruisci"
+    class 132098 "GUIPartitaCostruisci"
       visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -9884,15 +9716,15 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      classrelation 140802 // <generalisation>
-	relation 140802 ---|>
+      classrelation 140674 // <generalisation>
+	relation 140674 ---|>
 	  a public
 	    java "${type}"
-	    classrelation_ref 140802 // <generalisation>
+	    classrelation_ref 140674 // <generalisation>
 	  b parent class_ref 129538 // JDialog
       end
 
-      attribute 157826 "fontFuturist"
+      attribute 157698 "fontFuturist"
 	private explicit_type "Font"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9904,7 +9736,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 157954 "contentPane"
+      attribute 157826 "contentPane"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9916,7 +9748,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158082 "pnlTop"
+      attribute 157954 "pnlTop"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9928,7 +9760,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158210 "pnlMid"
+      attribute 158082 "pnlMid"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9940,7 +9772,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158338 "pnlBot"
+      attribute 158210 "pnlBot"
 	private explicit_type "JPanel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9952,7 +9784,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158466 "rdoClassica"
+      attribute 158338 "rdoClassica"
 	private explicit_type "JRadioButton"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9964,7 +9796,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158594 "rdoMedioevo"
+      attribute 158466 "rdoMedioevo"
 	private explicit_type "JRadioButton"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9976,7 +9808,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158722 "rdoVittoriana"
+      attribute 158594 "rdoVittoriana"
 	private explicit_type "JRadioButton"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -9988,7 +9820,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158850 "groupRdoEta"
+      attribute 158722 "groupRdoEta"
 	private explicit_type "ButtonGroup"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10000,7 +9832,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 158978 "lblEta"
+      attribute 158850 "lblEta"
 	private explicit_type "JLabel"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10012,88 +9844,88 @@ ${members}}
 	MysqlColumn
       end
 
-      classrelation 140930 // btnMuovi (<unidirectional association>)
-	relation 140930 --->
+      classrelation 140802 // btnMuovi (<unidirectional association>)
+	relation 140802 --->
 	  a role_name "btnMuovi" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 140930 // btnMuovi (<unidirectional association>)
+	    classrelation_ref 140802 // btnMuovi (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 141058 // btnVendi (<unidirectional association>)
-	relation 141058 --->
+      classrelation 140930 // btnVendi (<unidirectional association>)
+	relation 140930 --->
 	  a role_name "btnVendi" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141058 // btnVendi (<unidirectional association>)
+	    classrelation_ref 140930 // btnVendi (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 141186 // btnInfo (<unidirectional association>)
-	relation 141186 --->
+      classrelation 141058 // btnInfo (<unidirectional association>)
+	relation 141058 --->
 	  a role_name "btnInfo" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141186 // btnInfo (<unidirectional association>)
+	    classrelation_ref 141058 // btnInfo (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 141314 // btnCompra (<unidirectional association>)
-	relation 141314 --->
+      classrelation 141186 // btnCompra (<unidirectional association>)
+	relation 141186 --->
 	  a role_name "btnCompra" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141314 // btnCompra (<unidirectional association>)
+	    classrelation_ref 141186 // btnCompra (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 141442 // btnIndietro (<unidirectional association>)
-	relation 141442 --->
+      classrelation 141314 // btnIndietro (<unidirectional association>)
+	relation 141314 --->
 	  a role_name "btnIndietro" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141442 // btnIndietro (<unidirectional association>)
+	    classrelation_ref 141314 // btnIndietro (<unidirectional association>)
 	  b parent class_ref 129666 // RoundedCornerButton
       end
 
-      classrelation 141570 // partita (<unidirectional association>)
-	relation 141570 --->
+      classrelation 141442 // partita (<unidirectional association>)
+	relation 141442 --->
 	  a role_name "partita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141570 // partita (<unidirectional association>)
+	    classrelation_ref 141442 // partita (<unidirectional association>)
 	  b parent class_ref 129794 // Partita
       end
 
-      classrelation 141698 // guiPartita (<unidirectional association>)
-	relation 141698 --->
+      classrelation 141570 // guiPartita (<unidirectional association>)
+	relation 141570 --->
 	  a role_name "guiPartita" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141698 // guiPartita (<unidirectional association>)
+	    classrelation_ref 141570 // guiPartita (<unidirectional association>)
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      classrelation 141826 // iconeGrafiche (<unidirectional association>)
-	relation 141826 --->
+      classrelation 141698 // iconeGrafiche (<unidirectional association>)
+	relation 141698 --->
 	  a role_name "iconeGrafiche" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141826 // iconeGrafiche (<unidirectional association>)
+	    classrelation_ref 141698 // iconeGrafiche (<unidirectional association>)
 	  b parent class_ref 130050 // IconeGrafiche
       end
 
-      classrelation 141954 // valoriDiGioco (<unidirectional association>)
-	relation 141954 --->
+      classrelation 141826 // valoriDiGioco (<unidirectional association>)
+	relation 141826 --->
 	  a role_name "valoriDiGioco" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
 "
-	    classrelation_ref 141954 // valoriDiGioco (<unidirectional association>)
+	    classrelation_ref 141826 // valoriDiGioco (<unidirectional association>)
 	  b parent class_ref 130178 // ValoriDiGioco
       end
 
-      attribute 159106 "selezionato"
+      attribute 158978 "selezionato"
 	private explicit_type "String"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10106,7 +9938,7 @@ ${members}}
 	comment "Opzione al momento selezionata"
       end
 
-      attribute 159234 "audio"
+      attribute 159106 "audio"
 	private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10118,7 +9950,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 149378 "GUIPartitaCostruisci"
+      operation 148738 "GUIPartitaCostruisci"
 	package explicit_return_type ""
 	nparams 3
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -10138,7 +9970,7 @@ ${members}}
 "
       end
 
-      operation 149506 "daiInformazioni"
+      operation 148866 "daiInformazioni"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "nome" explicit_type "String"
@@ -10154,7 +9986,7 @@ ${members}}
 "
       end
 
-      operation 149634 "popolaNegozio"
+      operation 148994 "popolaNegozio"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "eta" explicit_type "String"
@@ -10172,7 +10004,7 @@ ${members}}
 "
       end
 
-      operation 149762 "aggiungiVoce"
+      operation 149122 "aggiungiVoce"
 	public explicit_return_type "void"
 	nparams 4
 	  param in name "nome" explicit_type "String"
@@ -10195,7 +10027,7 @@ ${members}}
       end
     end
 
-    class 132354 "Music"
+    class 132226 "Music"
       visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -10211,7 +10043,7 @@ ${members}}
 @author Werther e Lorenzo
 
 "
-      attribute 173058 "audio"
+      attribute 172930 "audio"
 	class_attribute private explicit_type "Clip"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10223,7 +10055,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173186 "gainControl"
+      attribute 173058 "gainControl"
 	class_attribute private explicit_type "FloatControl"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10235,7 +10067,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173314 "canzoni"
+      attribute 173186 "canzoni"
 	class_attribute private explicit_type "File"
 	init_value " new ArrayList<File>()"
 	stereotype "List"
@@ -10249,7 +10081,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173442 "rand"
+      attribute 173314 "rand"
 	class_attribute private explicit_type "Random"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10261,7 +10093,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 173570 "numero"
+      attribute 173442 "numero"
 	class_attribute private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10273,7 +10105,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 153218 "playSound"
+      operation 152578 "playSound"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10287,7 +10119,7 @@ ${members}}
 "
       end
 
-      operation 153346 "stopSound"
+      operation 152706 "stopSound"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10301,7 +10133,7 @@ ${members}}
 "
       end
 
-      operation 153474 "controlVolume"
+      operation 152834 "controlVolume"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10315,7 +10147,7 @@ ${members}}
 "
       end
 
-      operation 153602 "scegliCanzone"
+      operation 152962 "scegliCanzone"
 	class_operation package explicit_return_type "File"
 	nparams 0
 	
@@ -10331,7 +10163,7 @@ ${members}}
       end
     end
 
-    class 132482 "ThreadCicloPartita"
+    class 132354 "ThreadCicloPartita"
       visibility public 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -10364,7 +10196,7 @@ ${members}}
 	  b parent class_ref 129794 // Partita
       end
 
-      attribute 175746 "turnoPersona"
+      attribute 175874 "turnoPersona"
 	private explicit_type "boolean"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10376,7 +10208,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 158850 "ThreadCicloPartita"
+      operation 158466 "ThreadCicloPartita"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -10392,7 +10224,7 @@ ${members}}
 "
       end
 
-      operation 158978 "run"
+      operation 158594 "run"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10406,7 +10238,7 @@ ${members}}
 "
       end
 
-      operation 159106 "refreshMovimentiEAttacchi"
+      operation 158722 "refreshMovimentiEAttacchi"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10420,7 +10252,7 @@ ${members}}
 "
       end
 
-      operation 159234 "isTurnoPersona"
+      operation 158850 "isTurnoPersona"
 	public explicit_return_type "boolean"
 	nparams 0
 	
@@ -10432,12 +10264,144 @@ ${members}}
 	
       end
 
-      operation 159362 "setTurnoPersona"
+      operation 158978 "setTurnoPersona"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "turnoPersona" explicit_type "boolean"
 	
 	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 132482 "Scenario"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Contiene tutti gli elementi che compongono lo scenario sotto forma di stringa
+@author Werther e Lorenzo
+
+"
+      attribute 175746 "scenario"
+	private explicit_type "String"
+	multiplicity "[][]"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 157698 "Scenario"
+	package explicit_return_type ""
+	nparams 1
+	  param in name "n" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Modella lo scenario in base alla mappa scelta dall'utente
+@param n Indice di mappa scelta
+"
+      end
+
+      operation 157826 "casuale"
+	public explicit_return_type "String"
+	nparams 3
+	  param in name "min" explicit_type "int"
+	  param in name "max" explicit_type "int"
+	  param inout name "spazio" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Genera una cella di scenario in modo casuale
+@param min Minimo indice da tenere in considerazione
+@param max Massimo indice da tenere in considerazione
+@param spazio Definisce se è necessario inserire lo spazio
+@return Ritorna la stringa che descrive la cella appena creata
+"
+      end
+
+      operation 157954 "casualeNum"
+	public explicit_return_type "int"
+	nparams 2
+	  param in name "min" explicit_type "int"
+	  param in name "max" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Genera un numero casuale in base ai parametri passati
+@param min Minimo valore da considerare
+@param max Massimo valore da considerare
+@return Ritorna il numero specificato
+"
+      end
+
+      operation 158082 "aggiungiEsercito"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	  param in name "civilta" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Aggiunge un esercito alla cella i, j della civiltà specificata
+@param i X
+@param j Y
+@param civilta Civiltà dell'esercito da aggiungere
+"
+      end
+
+      operation 158210 "getScenario"
+	public explicit_return_type "String"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type}[][] ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 158338 "setScenario"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "scenario" explicit_type "String"
+	multiplicity "[][]"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0}[][] ${p0}${)}${throws}${staticnl}{
   ${body}}
 "
 	
@@ -10479,7 +10443,7 @@ ${members}}
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      attribute 175874 "direzione"
+      attribute 176002 "direzione"
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10491,7 +10455,7 @@ ${members}}
 	MysqlColumn
       end
 
-      attribute 176002 "scorri"
+      attribute 176130 "scorri"
 	volatile private explicit_type "boolean"
 	cpp_decl ""
 	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
@@ -10503,7 +10467,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 159490 "ThreadScorrimentoSchermata"
+      operation 159106 "ThreadScorrimentoSchermata"
 	package explicit_return_type ""
 	nparams 2
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -10521,7 +10485,7 @@ ${members}}
 "
       end
 
-      operation 159618 "run"
+      operation 159234 "run"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10535,7 +10499,7 @@ ${members}}
 "
       end
 
-      operation 159746 "isScorri"
+      operation 159362 "isScorri"
 	public explicit_return_type "boolean"
 	nparams 0
 	
@@ -10547,7 +10511,7 @@ ${members}}
 	
       end
 
-      operation 159874 "setScorri"
+      operation 159490 "setScorri"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "scorri" explicit_type "boolean"
@@ -10561,8 +10525,8 @@ ${members}}
       end
     end
 
-    classdiagram 128002 "giocoDiagram"
-      classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
+    classdiagram 128002 "GiocoOOPDiagram"
+      classdiagramsettings member_max_width 0 end
       size A4
     end
   end
@@ -11182,7 +11146,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 ${definition}"
       associated_classes
-	class_ref 132226 // GUIPartitaCostruisci
+	class_ref 132098 // GUIPartitaCostruisci
       end
     end
 
@@ -11221,7 +11185,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 ${definition}"
       associated_classes
-	class_ref 131970 // GUIPartitaInformazioni
+	class_ref 131842 // GUIPartitaInformazioni
       end
     end
 
@@ -11309,7 +11273,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 ${definition}"
       associated_classes
-	class_ref 132098 // GUIPartitaRicerca
+	class_ref 131970 // GUIPartitaRicerca
       end
     end
 
@@ -11345,7 +11309,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 ${definition}"
       associated_classes
-	class_ref 132354 // Music
+	class_ref 132226 // Music
       end
     end
 
@@ -11396,7 +11360,7 @@ ${imports}
 import java.util.Random;
 ${definition}"
       associated_classes
-	class_ref 131842 // Scenario
+	class_ref 132482 // Scenario
       end
     end
 
@@ -11407,7 +11371,7 @@ ${package}
 ${imports}
 ${definition}"
       associated_classes
-	class_ref 132482 // ThreadCicloPartita
+	class_ref 132354 // ThreadCicloPartita
       end
     end
 
