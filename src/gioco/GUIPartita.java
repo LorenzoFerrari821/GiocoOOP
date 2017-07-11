@@ -107,9 +107,7 @@ public class GUIPartita extends JFrame{
 	private JButton btnImpostazioni;
 	private Window[] finestreAttive;
 	private GUIPartitaOpzioni frmOpzioni;
-	private Scenario scenario;
 	private int posSchermataX = 31, posSchermataY = 16;
-	private String[][] scenarioCorrente;
 	private Clip audio;
 
 	private GUIPartita guiPartita; //utilizzato per avere un riferimento a questa classe nelle chiamate a thread esterni
@@ -151,7 +149,7 @@ public class GUIPartita extends JFrame{
 	 * @param mappa Mappa scelta dal giocatore
 	 * @param civilta Civiltà scelta dal giocatore
 	 */
-	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta)
+	GUIPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta, Partita partita, ValoriDiGioco valoriDiGioco)
 	{
 		setTitle("Empire Conquerors");
 
@@ -217,9 +215,11 @@ public class GUIPartita extends JFrame{
 		panelCenter = new JPanel(new GridLayout2(1, 3, 0, 0));
 		panelBtnGoRight = new JPanel();
 		panelBtnGoLeft = new JPanel();
-
+		this.valoriDiGioco = valoriDiGioco;
+		this.partita = partita;
+		
 		iconeGrafiche = new IconeGrafiche();
-		scenario = new Scenario(mappa);
+		
 		proprietario = "utente1";  
 		indiceProprietario = civilta;
 		azioneLblsGioco = "";
@@ -773,7 +773,6 @@ public class GUIPartita extends JFrame{
 		this.add(contentPane);
 
 		pack();
-		setupPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);
 	}
 
 	/**
@@ -789,7 +788,6 @@ public class GUIPartita extends JFrame{
 	 * Aggiorna la schermata in base alla posizione di visualizzazione corrente
 	 */
 	public void aggiornaSchermata() {
-		scenarioCorrente = scenario.getScenario();
 		StringTokenizer st;
 		List<ImageIcon> daAggiungere = new ArrayList<ImageIcon>();
 		CompoundIcon cmpIcon;
@@ -799,7 +797,7 @@ public class GUIPartita extends JFrame{
 		{
 			for(int x = posSchermataX; x < posSchermataX + 31; x++)
 			{
-				st = new StringTokenizer(scenarioCorrente[y][x]);
+				st = new StringTokenizer(partita.getScenario().getScenario()[y][x]);
 				daAggiungere.clear();
 				while(st.hasMoreTokens()) {
 					String str = st.nextToken();
@@ -836,21 +834,6 @@ public class GUIPartita extends JFrame{
 
 	public void setPosSchermataY(int posSchermataY) {
 		this.posSchermataY = posSchermataY;
-	}
-
-	/**
-	 * Prepara tutte le variabili e le utility alla partita
-	 * @param nomeGiocatore Nome del giocatore
-	 * @param tutorial Tutorial si/no
-	 * @param difficolta Difficoltà scelta dal giocatore
-	 * @param mappa Mappa scelta dal giocatore
-	 * @param civilta Civiltà scelta dal giocatore
-	 */
-	public void setupPartita(String nomeGiocatore, int tutorial, int difficolta, int mappa, int civilta) {
-		valoriDiGioco = new ValoriDiGioco();
-
-		partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta, this, valoriDiGioco);
-		aggiornaDatiGUI();
 	}
 
 	/**
@@ -1216,7 +1199,7 @@ public class GUIPartita extends JFrame{
 		{
 			if(isPiazzamentoPossibile(i, j)) //controlla che la casella sia vuota (solo la base)
 			{
-				if(!scenario.getScenario()[j+posSchermataY][i+posSchermataX].substring(0, 1).equals("g")) //se la base di questa casella NON è ghiaia
+				if(!partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].substring(0, 1).equals("g")) //se la base di questa casella NON è ghiaia
 				{
 					int unitaPiuLenta = 100;
 					int tmp, distanza = 0;
@@ -1256,9 +1239,9 @@ public class GUIPartita extends JFrame{
 							guiPartita.controllaCava(gruppoMilitare.getPosX(), gruppoMilitare.getPosY(), 1);
 							
 							//tolgo il gruppo militare dallo scenario di posizione vecchia
-							scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
-									scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
-									.substring(0, scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() -Integer.parseInt(Global.getLabels("s135")));    //La linghezza è diversa a seconda della lingua
+							partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
+									partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
+									.substring(0, partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() -Integer.parseInt(Global.getLabels("s135")));    //La linghezza è diversa a seconda della lingua
 							
 							//aggiorno la posizione in gruppo militare
 							gruppoMilitare.setPosX(i+posSchermataX);
@@ -1266,7 +1249,7 @@ public class GUIPartita extends JFrame{
 							gruppoMilitare.setMovimentoPossibile(false);
 							
 							//aggiorno la posizione nello scenario
-							scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
+							partita.getScenario().aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
 							
 							//controllo se presente un falò lo raccolgo
 							controllaFalo(i+posSchermataX, j+posSchermataY);
@@ -1367,7 +1350,7 @@ public class GUIPartita extends JFrame{
 					}
 					partita.getGruppiMilitariSchierati().add(gruppoMilitare);
 					partita.getGiocatore().get(indiceProprietario).getGruppiInAttacco().add(gruppoMilitare);
-					scenario.aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
+					partita.getScenario().aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
 					
 					//controllo la presenza di falo nelle caselle adiacenti
 					controllaFalo(i+posSchermataX, j+posSchermataY);
@@ -1428,8 +1411,8 @@ public class GUIPartita extends JFrame{
 					partita.getGruppiMilitariSchierati().remove(indice);
 					
 					//tolgo il gruppo militare dallo scenario
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].length() - 10);
+					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].length() - 10);
 				}
 				else
 					JOptionPane.showMessageDialog(null, Global.getLabels("s74"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1490,10 +1473,10 @@ public class GUIPartita extends JFrame{
 		
 		if(j > 0) //controlla parte superiore
 		{
-			if(scenario.getScenario()[j-1][i].length() >= 3)
+			if(partita.getScenario().getScenario()[j-1][i].length() >= 3)
 			{
-				cella = scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
-						scenario.getScenario()[j-1][i].length());
+				cella = partita.getScenario().getScenario()[j-1][i].substring(partita.getScenario().getScenario()[j-1][i].length() - 2, 
+						partita.getScenario().getScenario()[j-1][i].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1505,10 +1488,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(i > 0) //controlla parte sx
 		{
-			if(scenario.getScenario()[j][i-1].length() >= 3)
+			if(partita.getScenario().getScenario()[j][i-1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
-						scenario.getScenario()[j][i-1].length());
+				cella = partita.getScenario().getScenario()[j][i-1].substring(partita.getScenario().getScenario()[j][i-1].length() - 2, 
+						partita.getScenario().getScenario()[j][i-1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1520,10 +1503,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(j < 47) //controlla parte bassa
 		{
-			if(scenario.getScenario()[j+1][i].length() >= 3)
+			if(partita.getScenario().getScenario()[j+1][i].length() >= 3)
 			{
-				cella = scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
-						scenario.getScenario()[j+1][i].length());
+				cella = partita.getScenario().getScenario()[j+1][i].substring(partita.getScenario().getScenario()[j+1][i].length() - 2, 
+						partita.getScenario().getScenario()[j+1][i].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1535,10 +1518,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(j < 92) //controlla parte dx
 		{
-			if(scenario.getScenario()[j][i+1].length() >= 3)
+			if(partita.getScenario().getScenario()[j][i+1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
-						scenario.getScenario()[j][i+1].length());
+				cella = partita.getScenario().getScenario()[j][i+1].substring(partita.getScenario().getScenario()[j][i+1].length() - 2, 
+						partita.getScenario().getScenario()[j][i+1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1550,10 +1533,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(j > 0 && j > 0) //controlla parte sx in alto
 		{
-			if(scenario.getScenario()[j-1][i-1].length() >= 3)
+			if(partita.getScenario().getScenario()[j-1][i-1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
-						scenario.getScenario()[j-1][i-1].length());
+				cella = partita.getScenario().getScenario()[j-1][i-1].substring(partita.getScenario().getScenario()[j-1][i-1].length() - 2, 
+						partita.getScenario().getScenario()[j-1][i-1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1565,10 +1548,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(i < 92 && j > 0) //controlla parte dx in alto
 		{
-			if(scenario.getScenario()[j-1][i+1].length() >= 3)
+			if(partita.getScenario().getScenario()[j-1][i+1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
-						scenario.getScenario()[j-1][i+1].length());
+				cella = partita.getScenario().getScenario()[j-1][i+1].substring(partita.getScenario().getScenario()[j-1][i+1].length() - 2, 
+						partita.getScenario().getScenario()[j-1][i+1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1580,10 +1563,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(i > 0 && j < 47) //sx in basso
 		{
-			if(scenario.getScenario()[j+1][i-1].length() >= 3)
+			if(partita.getScenario().getScenario()[j+1][i-1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
-						scenario.getScenario()[j+1][i-1].length());
+				cella = partita.getScenario().getScenario()[j+1][i-1].substring(partita.getScenario().getScenario()[j+1][i-1].length() - 2, 
+						partita.getScenario().getScenario()[j+1][i-1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1595,10 +1578,10 @@ public class GUIPartita extends JFrame{
 		}
 		if(i < 92 && j < 47) //dx in basso
 		{
-			if(scenario.getScenario()[j+1][i+1].length() >= 3)
+			if(partita.getScenario().getScenario()[j+1][i+1].length() >= 3)
 			{
-				cella = scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
-						scenario.getScenario()[j+1][i+1].length());
+				cella = partita.getScenario().getScenario()[j+1][i+1].substring(partita.getScenario().getScenario()[j+1][i+1].length() - 2, 
+						partita.getScenario().getScenario()[j+1][i+1].length());
 				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
 				{
 					if(azione == 0)
@@ -1619,72 +1602,72 @@ public class GUIPartita extends JFrame{
 	{
 		if(j > 0) //controlla parte superiore
 		{
-			if(scenario.getScenario()[j-1][i].length() >= 3 && 
-					scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
-					scenario.getScenario()[j-1][i].length()).equals(" f")) //Se nella casella superiore c'è un falò
+			if(partita.getScenario().getScenario()[j-1][i].length() >= 3 && 
+					partita.getScenario().getScenario()[j-1][i].substring(partita.getScenario().getScenario()[j-1][i].length() - 2, 
+							partita.getScenario().getScenario()[j-1][i].length()).equals(" f")) //Se nella casella superiore c'è un falò
 			{
 				ottieniFalo(i, j-1);
 			}
 		}
 		if(i > 0) //controlla parte sx
 		{
-			if(scenario.getScenario()[j][i-1].length() >= 3 && 
-					scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
-					scenario.getScenario()[j][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			if(partita.getScenario().getScenario()[j][i-1].length() >= 3 && 
+					partita.getScenario().getScenario()[j][i-1].substring(partita.getScenario().getScenario()[j][i-1].length() - 2, 
+							partita.getScenario().getScenario()[j][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
 			{
 				ottieniFalo(i-1, j);
 			}
 		}
 		if(j < 47) //controlla parte bassa
 		{
-			if(scenario.getScenario()[j+1][i].length() >= 3 && 
-					scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
-					scenario.getScenario()[j+1][i].length()).equals(" f")) //Se nella casella giu c'è un falò
+			if(partita.getScenario().getScenario()[j+1][i].length() >= 3 && 
+					partita.getScenario().getScenario()[j+1][i].substring(partita.getScenario().getScenario()[j+1][i].length() - 2, 
+					partita.getScenario().getScenario()[j+1][i].length()).equals(" f")) //Se nella casella giu c'è un falò
 			{
 				ottieniFalo(i, j+1);
 			}
 		}
 		if(i < 92) //controlla parte dx
 		{
-			if(scenario.getScenario()[j][i+1].length() >= 3 && 
-					scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
-					scenario.getScenario()[j][i+1].length()).equals(" f")) //Se nella casella dx c'è un falò
+			if(partita.getScenario().getScenario()[j][i+1].length() >= 3 && 
+					partita.getScenario().getScenario()[j][i+1].substring(partita.getScenario().getScenario()[j][i+1].length() - 2, 
+					partita.getScenario().getScenario()[j][i+1].length()).equals(" f")) //Se nella casella dx c'è un falò
 			{
 				ottieniFalo(i+1, j);
 			}
 		}
 		if(i > 0 && j > 0) //sx in alto
 		{
-			if(scenario.getScenario()[j-1][i-1].length() >= 3 && 
-					scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
-					scenario.getScenario()[j-1][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			if(partita.getScenario().getScenario()[j-1][i-1].length() >= 3 && 
+					partita.getScenario().getScenario()[j-1][i-1].substring(partita.getScenario().getScenario()[j-1][i-1].length() - 2, 
+					partita.getScenario().getScenario()[j-1][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
 			{
 				ottieniFalo(i-1, j-1);
 			}
 		}
 		if(i < 92 && j > 0) //dx in alto
 		{
-			if(scenario.getScenario()[j-1][i+1].length() >= 3 && 
-					scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
-					scenario.getScenario()[j-1][i+1].length()).equals(" f")) //Se nella casella dx in alto c'è un falò
+			if(partita.getScenario().getScenario()[j-1][i+1].length() >= 3 && 
+					partita.getScenario().getScenario()[j-1][i+1].substring(partita.getScenario().getScenario()[j-1][i+1].length() - 2, 
+					partita.getScenario().getScenario()[j-1][i+1].length()).equals(" f")) //Se nella casella dx in alto c'è un falò
 			{
 				ottieniFalo(i+1, j-1);
 			}
 		}
 		if(i > 0 && j < 47) //sx in basso
 		{
-			if(scenario.getScenario()[j+1][i-1].length() >= 3 && 
-					scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
-					scenario.getScenario()[j+1][i-1].length()).equals(" f")) //Se nella casella sx in basso c'è un falò
+			if(partita.getScenario().getScenario()[j+1][i-1].length() >= 3 && 
+					partita.getScenario().getScenario()[j+1][i-1].substring(partita.getScenario().getScenario()[j+1][i-1].length() - 2, 
+					partita.getScenario().getScenario()[j+1][i-1].length()).equals(" f")) //Se nella casella sx in basso c'è un falò
 			{
 				ottieniFalo(i-1, j+1);
 			}
 		}
 		if(i < 92 && j < 47) //dx in basso
 		{
-			if(scenario.getScenario()[j+1][i+1].length() >= 3 && 
-					scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
-					scenario.getScenario()[j+1][i+1].length()).equals(" f")) //Se nella casella dx in basso c'è un falò
+			if(partita.getScenario().getScenario()[j+1][i+1].length() >= 3 && 
+					partita.getScenario().getScenario()[j+1][i+1].substring(partita.getScenario().getScenario()[j+1][i+1].length() - 2, 
+					partita.getScenario().getScenario()[j+1][i+1].length()).equals(" f")) //Se nella casella dx in basso c'è un falò
 			{
 				ottieniFalo(i+1, j+1);
 			}
@@ -1701,7 +1684,7 @@ public class GUIPartita extends JFrame{
 		int bottino;
 		
 		//tolgo il falo dallo scenario
-		scenario.getScenario()[j][i] = scenario.getScenario()[j][i].substring(0, scenario.getScenario()[j][i].length() - 2);
+		partita.getScenario().getScenario()[j][i] = partita.getScenario().getScenario()[j][i].substring(0, partita.getScenario().getScenario()[j][i].length() - 2);
 		
 		//calcolo valore falò: 10% di oro o materiali
 		if(Math.random() < 0.5) {
@@ -1725,7 +1708,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public int esercitoPresente(int i, int j)
 	{
-		String str = scenario.getScenario()[j][i];
+		String str = partita.getScenario().getScenario()[j][i];
 		
 		if(str.contains(Global.getLabels("s72")))
 			return Integer.parseInt(str.substring(str.length()-1, str.length()));
@@ -1742,7 +1725,7 @@ public class GUIPartita extends JFrame{
 	 */
 	public int municipioPresente(int i, int j)
 	{
-		String str = scenario.getScenario()[j][i];
+		String str = partita.getScenario().getScenario()[j][i];
 		
 		if(str.contains(Global.getLabels("i49")))
 		{
@@ -1826,55 +1809,55 @@ public class GUIPartita extends JFrame{
 		//Rimozione dell'oggetto dallo scenario
 		if(ultimoChar == '1')
 		{
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
-					.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
-					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1]
-					.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1].lastIndexOf(" "));
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+					.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1]
+					.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX]
+					.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1]
+					.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1].lastIndexOf(" "));
 		}
 		else
 			if(ultimoChar == '2')
 			{
-				scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-						.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-				scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
-						.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-				scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX]
-						.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
-				scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1]
-						.substring(0, scenario.getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
+				partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+						.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+				partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1]
+						.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+				partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX]
+						.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
+				partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1]
+						.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
 			}
 			else
 				if(ultimoChar == '3')
 				{
-					scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
-							.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-					scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1]
-							.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-					scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX+1]
-							.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
+					partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX]
+							.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+					partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1]
+							.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
+					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1]
+							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
 				}
 				else
 					if(ultimoChar == '4')
 					{
-						scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1]
-								.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
-						scenario.getScenario()[j+posSchermataY-1][i+posSchermataX] = scenario.getScenario()[j+posSchermataY-1][i+posSchermataX]
-								.substring(0, scenario.getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-						scenario.getScenario()[j+posSchermataY][i+posSchermataX-1] = scenario.getScenario()[j+posSchermataY][i+posSchermataX-1]
-								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-						scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+						partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1]
+								.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
+						partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX]
+								.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
+						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1]
+								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
+						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
 					}
 					else
 					{
-						scenario.getScenario()[j+posSchermataY][i+posSchermataX] = scenario.getScenario()[j+posSchermataY][i+posSchermataX]
-								.substring(0, scenario.getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
+						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
+								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
 					}
 	}
 
@@ -1891,28 +1874,28 @@ public class GUIPartita extends JFrame{
 				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
 				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")))
 		{ //caso 1x1
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += " ";
 			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
 		}
 		else
 		{ //caso 2x2
 			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += " ";
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX] += "1";
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += " ";
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += "1";
 
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
-			scenario.getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
+			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
 
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
 
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
-			scenario.getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
+			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
 		}
 	}
 
@@ -1925,13 +1908,12 @@ public class GUIPartita extends JFrame{
 	 */
 	public String individuaOggetto(int i, int j, boolean interno) //i è la x, j è la y
 	{
-		scenarioCorrente = scenario.getScenario();
 		String strCercata = null;
 
 		StringTokenizer st;
 		int stItera = 0;
 
-		st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
+		st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]);
 		while(st.hasMoreTokens()) {
 			if(stItera == 0) //controllo che il pavimento sia ghiaia
 				if(interno) //se e solo se l'edificio in questione è interno
@@ -1970,8 +1952,7 @@ public class GUIPartita extends JFrame{
 			StringTokenizer st;
 			stItera = 0;
 
-			scenarioCorrente = scenario.getScenario();
-			st = new StringTokenizer(scenarioCorrente[j+posSchermataY][i+posSchermataX]);
+			st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]);
 			while(st.hasMoreTokens()) {
 				if(stItera == 0) //controllo che il pavimento sia ghiaia
 					if(!st.nextToken().equals("g") && !elemLblsGioco.equals(Global.getLabels("s60")))
@@ -1996,9 +1977,8 @@ public class GUIPartita extends JFrame{
 					//controlliamo che la lbl di posizione i+k, j+k sia disponibile (2x2)
 					StringTokenizer st;
 					stItera = 0;
-
-					scenarioCorrente = scenario.getScenario();
-					st = new StringTokenizer(scenarioCorrente[j+posSchermataY+u][i+posSchermataX+k]);
+					
+					st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY+u][i+posSchermataX+k]);
 					while(st.hasMoreTokens()) {
 						if(stItera == 0) //controllo che il pavimento sia ghiaia
 							if(!st.nextToken().equals("g"))
@@ -2029,20 +2009,5 @@ public class GUIPartita extends JFrame{
 
 	public void setElemLblsGioco(String elemLblsGioco) {
 		this.elemLblsGioco = elemLblsGioco;
-	}
-	public String getSitua(){
-			return partita.getSituazioneDiGioco();
-	}
-
-	public void setSitua(String stringa) {
-		partita.setSituazioneDiGioco(stringa);
-	}
-
-	public Scenario getScenario() {
-		return scenario;
-	}
-
-	public void setScenario(Scenario scenario) {
-		this.scenario = scenario;
 	}
 }

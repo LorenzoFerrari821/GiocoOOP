@@ -66,7 +66,7 @@ public class GUINuovaPartita extends JPanel {
 	private JLabel lblCivilta;
 	private JLabel lblDifficolta;
 	private Font fontFuturist;
-	private GUIPartita framePartita;
+	private Partita partita;
 	private ConnectionDB s = null;
 	private String Tutorial;
 	private Clip audio;
@@ -259,7 +259,7 @@ public class GUINuovaPartita extends JPanel {
 
 						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 						finestreAttive[0].setVisible(false);    
-						framePartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);   //Avvia utilizzando le info decise dall'utente
+						partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta);   //Avvia utilizzando le info decise dall'utente
 						//framePartita=new GUIPartita(stringa)                         //Avvia utilizzando solo una stringa che comunque dovrà già contenere le scelte iniziali dell'utente
 						creaSalvataggioStringa();						
 						try {
@@ -272,7 +272,6 @@ public class GUINuovaPartita extends JPanel {
 						gainControl.setValue(Global.getLivVolume()); 
 						Music.stopSound();
 						audio.start();
-						framePartita.setVisible(true);
 					}
 				}
 			}
@@ -328,7 +327,7 @@ public class GUINuovaPartita extends JPanel {
 		try {	
 			s = new ConnectionDB();           //Connessione al database
 			s.creaTabellaPartita();  //Creiamo la tabella per il salvataggio stringhe se non esiste già
-			s.creaSalvataggioStringa(framePartita.getSitua(),(codice+1));   //Salviamo una stringa rappresentante la partita appena creata in relazione al codice del salvataggio appena creato		
+			s.creaSalvataggioStringa(partita.getSituazioneDiGioco(),(codice+1));   //Salviamo una stringa rappresentante la partita appena creata in relazione al codice del salvataggio appena creato		
 		} catch(SQLException  | ClassNotFoundException e ){
 			e.printStackTrace();
 			if(s!=null)

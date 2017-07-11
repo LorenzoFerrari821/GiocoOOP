@@ -31,6 +31,10 @@ public class Partita {
 	private List<CavaDiRisorse> caveScenario;
 	
 	private ValoriDiGioco valoriDiGioco;
+	private String nomeGiocatore;
+	private int civiltaGiocatore;
+	
+	private Scenario scenario;
 	
 	/**
 	 * Inizializza tutte le variabili per iniziare una partita
@@ -44,12 +48,17 @@ public class Partita {
 	 * @param valoriDiGioco riferimento a ValoriDiGioco
 	 */
 	Partita(String situazioneDiGioco, String nomeGiocatore, int tutorial, int difficolta, 
-			int mappa, int civilta, GUIPartita guiPartita, ValoriDiGioco valoriDiGioco)
+			int mappa, int civilta)
 	{
 		this.guiPartita = guiPartita;
 		gruppiMilitariSchierati = new ArrayList<GruppoMilitare>();
-		this.valoriDiGioco = valoriDiGioco;
+		valoriDiGioco = new ValoriDiGioco();
 		this.caveScenario = new ArrayList<CavaDiRisorse>();
+		this.nomeGiocatore = nomeGiocatore;
+		this.civiltaGiocatore = civilta;
+		scenario = new Scenario(mappa);
+		
+		setupGUIPartita();
 		
 		if(situazioneDiGioco != null) //non è una nuova partita
 		{
@@ -67,9 +76,7 @@ public class Partita {
 			this.difficolta = difficolta;
 			this.mappa = mappa;
 			creaPartita(nomeGiocatore, civilta);
-		
 		}
-		
 	}
 	
 	/**
@@ -107,22 +114,22 @@ public class Partita {
 		{
 			for(int i = 0; i < 93; i++)
 			{
-				if(guiPartita.getScenario().getScenario()[j][i].length() >= 3)
+				if(scenario.getScenario()[j][i].length() >= 3)
 				{
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" x"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" x"))
 					{
 						caveScenario.add(new CavaDiRisorse("x", i, j, -1));
 					}
 					else
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" y"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" y"))
 					{
 						caveScenario.add(new CavaDiRisorse("y", i, j, -1));
 					}
 					else
-					if(guiPartita.getScenario().getScenario()[j][i].substring(guiPartita.getScenario().getScenario()[j][i].length() - 2, 
-							guiPartita.getScenario().getScenario()[j][i].length()).equals(" z"))
+					if(scenario.getScenario()[j][i].substring(scenario.getScenario()[j][i].length() - 2, 
+							scenario.getScenario()[j][i].length()).equals(" z"))
 					{
 						caveScenario.add(new CavaDiRisorse("z", i, j, -1));
 					}
@@ -133,6 +140,20 @@ public class Partita {
 		avviaPartita();
 	}
 
+	/**
+	 * Crea la GUI Partita
+	 * @param nomeGiocatore Nome del giocatore
+	 * @param tutorial Tutorial si/no
+	 * @param difficolta Difficoltà scelta dal giocatore
+	 * @param mappa Mappa scelta dal giocatore
+	 * @param civilta Civiltà scelta dal giocatore
+	 */
+	public void setupGUIPartita() {
+
+		guiPartita = new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civiltaGiocatore, this, valoriDiGioco);
+		guiPartita.setVisible(true);
+	}
+	
 	/**
 	 * Metodo che scandisce i turni e gestisce il turno con l'ia della cpu (se tocca alla cpu)
 	 * altrimenti lascia giocare il giocatore finchè non passa il turno
@@ -317,9 +338,9 @@ public class Partita {
 			gruppiMilitariSchierati.remove(conta);
 			
 			//rimuovo gruppo militare difesa dallo scenario
-			guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
-					guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
-					.substring(0, guiPartita.getScenario().getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
+			scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()] =
+					scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()]
+					.substring(0, scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo difesa e di sua proprietà la rendo libera
 			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
@@ -354,9 +375,9 @@ public class Partita {
 			gruppiMilitariSchierati.remove(conta);
 			
 			//rimuovo gruppo militare attacco dallo scenario
-			guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
-					guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
-					.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+			scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+					scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+					.substring(0, scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo attacco e di sua proprietà la rendo libera
 			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
@@ -440,9 +461,9 @@ public class Partita {
 				gruppiMilitariSchierati.remove(conta);
 				
 				//rimuovo gruppo militare attacco dallo scenario
-				guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
-						guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
-						.substring(0, guiPartita.getScenario().getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
+				scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()] =
+						scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()]
+						.substring(0, scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
 				return 0;
 			}
 		}
@@ -509,6 +530,14 @@ public class Partita {
 
 	public void setCaveScenario(List<CavaDiRisorse> caveScenario) {
 		this.caveScenario = caveScenario;
+	}
+
+	public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
 	}
 	
 }

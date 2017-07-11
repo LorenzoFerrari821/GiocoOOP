@@ -74,7 +74,7 @@ public class GUICaricaPartita extends JPanel {
 	private int dialogResult;
 	private int index;
 	private String linea;
-	private GUIPartita framePartita;
+	private Partita partita;
 	private Window[] finestreAttive;
 	private int val;
 	private int i=0;
@@ -303,15 +303,13 @@ public class GUICaricaPartita extends JPanel {
 						}
 						
 						
-						framePartita=new GUIPartita(nomeGiocatore, tutorial, difficolta, mappa, civilta);      //Creiamo una partita nuova basandoci sui dati raccolti dal salvataggio
-						framePartita.setSitua(stringa);                                                        //Impostiamo la stringa nella partita
+						//partita = new Partita(null, nomeGiocatore, tutorial, difficolta, mappa, civilta);      //Creiamo una partita nuova basandoci sui dati raccolti dal salvataggio
+						//partita.setSituazioneDiGioco(stringa);                          //Impostiamo la stringa nella partita
 						 
-						//framePartita=new GUIPartita(stringa);                                                //Oppure creiamo una partita partendo solo dalla stringa
+						partita = new Partita(stringa, nomeGiocatore, tutorial, difficolta, mappa, civilta);                                                //Oppure creiamo una partita partendo solo dalla stringa
 						
 						finestreAttive=Frame.getWindows();      //Ritorna un array con tutte le finestre attive
 						finestreAttive[0].setVisible(false);
-						framePartita.setVisible(true);
-						framePartita.setSitua(stringa);
 						
 					} catch (ClassNotFoundException | SQLException e) {
 						e.printStackTrace();
