@@ -97,8 +97,6 @@ public class GUIMenuPrincipale extends JFrame {
 	 */
 	public GUIMenuPrincipale() {                                
 		
-		//Locale.setDefault(Locale.UK);     //Se si vuole, oltre che impostare la lingua inglese, anche cambiare i bottoni iniziali
-		
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
@@ -179,7 +177,7 @@ public class GUIMenuPrincipale extends JFrame {
 
 
 
-		if(Locale.getDefault()==Locale.ITALY)
+		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
 			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
 		else
 			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartitaEN.png");
@@ -243,7 +241,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnCaricaSmall);
 
 		btnCaricaPartita = new RoundedCornerButton();
-		if(Locale.getDefault()==Locale.ITALY)
+		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
 			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
 		else
 			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartitaEN.png");
@@ -366,7 +364,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnOpzioniSmall);
 
 		btnOpzioni = new RoundedCornerButton();
-		if(Locale.getDefault()==Locale.ITALY)
+		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
 			iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
 		else
 			iconbtnOpzioni = new ImageIcon("media/btnOpzioniEN.png");
@@ -487,7 +485,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnObiettiviSmall);
 
 		btnObiettivi = new RoundedCornerButton();
-		if(Locale.getDefault()==Locale.ITALY)
+		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
 			iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
 		else
 			iconbtnObiettivi = new ImageIcon("media/btnObiettiviEN.png");
@@ -533,7 +531,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnEsciSmall);
 
 		btnEsci = new RoundedCornerButton();
-		if(Locale.getDefault()==Locale.ITALY)
+		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
 			iconbtnEsci = new ImageIcon("media/btnEsci.png");
 		else
 			iconbtnEsci = new ImageIcon("media/btnEsciEN.png");
