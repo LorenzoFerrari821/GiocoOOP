@@ -83,7 +83,7 @@ public class GUIExtra extends JPanel {
 		c.anchor = GridBagConstraints.LINE_END;
 
 
-		pnlMenu.add(new JLabel("         "), c);
+		pnlMenu.add(new JLabel("Creato da Berselli Werther e Ferrari Lorenzo"), c);
 		c.gridy ++;
 		pnlMenu.add(new JLabel(" "), c);
 		c.gridy ++;

@@ -2,6 +2,7 @@ package gioco;
 
 import java.awt.Color;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
  * Questa classe si occupa di definire la GUI per l'accesso a una partita multigiocatore.
@@ -15,7 +16,7 @@ public class GUIMultiplayer extends JPanel {
 	 * relativa all'accesso alla modalità multigiocatore.
 	 */
 	GUIMultiplayer() {
-		setBackground(Color.GREEN);
+		add(new JLabel("Coming soon"));
 	}
 
 }

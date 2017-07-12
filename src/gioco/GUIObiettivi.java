@@ -84,7 +84,7 @@ public class GUIObiettivi extends JPanel {
 			c.anchor = GridBagConstraints.LINE_END;
 
 
-			pnlMenu.add(new JLabel("         "), c);
+			pnlMenu.add(new JLabel("Coming soon"), c);
 			c.gridy ++;
 			pnlMenu.add(new JLabel(" "), c);
 			c.gridy ++;
