@@ -1,5 +1,5 @@
 class Music
-!!!152578.java!!!	playSound() : void
+!!!151042.java!!!	playSound() : void
 		canzoni.add(new File("media/menu1.wav"));
 		canzoni.add(new File("media/menu2.wav"));
 		canzoni.add(new File("media/menu3.wav"));
@@ -12,11 +12,11 @@ class Music
 			audio.start();
 		}
 		catch(Exception e){}
-!!!152706.java!!!	stopSound() : void
+!!!151170.java!!!	stopSound() : void
 		audio.stop();
-!!!152834.java!!!	controlVolume() : void
+!!!151298.java!!!	controlVolume() : void
 		gainControl.setValue(Global.getLivVolume()); 
-!!!152962.java!!!	scegliCanzone() : File
+!!!151426.java!!!	scegliCanzone() : File
 		rand=new Random();
 		numero=rand.nextInt((3 - 1) + 1) + 1;
 		if(numero==1)

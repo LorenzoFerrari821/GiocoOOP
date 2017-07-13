@@ -1,5 +1,5 @@
 class Scenario
-!!!157698.java!!!	Scenario(in n : int)
+!!!158466.java!!!	Scenario(in n : int)
 		scenario = new String[48][93];
 
 		if(n==0){ //Mappa predefinita
@@ -1389,7 +1389,7 @@ class Scenario
 		scenario[41][53] += " "+Global.getLabels("i50")+"3";
 		scenario[41][54] += " "+Global.getLabels("i50")+"4";
 
-!!!157826.java!!!	casuale(in min : int, in max : int, inout spazio : boolean) : String
+!!!158594.java!!!	casuale(in min : int, in max : int, inout spazio : boolean) : String
 		Random rand=new Random();
 
 
@@ -1398,12 +1398,12 @@ class Scenario
 			return " "+(Integer.toString(randomNum));
 		else
 			return (Integer.toString(randomNum));
-!!!157954.java!!!	casualeNum(in min : int, in max : int) : int
+!!!158722.java!!!	casualeNum(in min : int, in max : int) : int
 		Random rand=new Random();
 		return rand.nextInt((max - min) + 1) + min;	
-!!!158082.java!!!	aggiungiEsercito(in i : int, in j : int, in civilta : int) : void
+!!!158850.java!!!	aggiungiEsercito(in i : int, in j : int, in civilta : int) : void
 		this.scenario[j][i] += (" "+Global.getLabels("s72") + Integer.toString(civilta));
-!!!158210.java!!!	getScenario() : String
+!!!158978.java!!!	getScenario() : String
 		return scenario;
-!!!158338.java!!!	setScenario(inout scenario : String [[][]]) : void
+!!!159106.java!!!	setScenario(inout scenario : String [[][]]) : void
 		this.scenario = scenario;

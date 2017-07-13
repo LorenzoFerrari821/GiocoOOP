@@ -1,5 +1,5 @@
 class GUIPartitaCostruisci
-!!!148738.java!!!	GUIPartitaCostruisci(inout partita : Partita, inout valoriDiGioco : ValoriDiGioco, inout guiPartita : GUIPartita)
+!!!147202.java!!!	GUIPartitaCostruisci(inout partita : Partita, inout valoriDiGioco : ValoriDiGioco, inout guiPartita : GUIPartita)
 		
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
@@ -220,7 +220,7 @@ class GUIPartitaCostruisci
 		contentPane.add(pnlBot, BorderLayout.SOUTH);
 		
 		add(contentPane);
-!!!148866.java!!!	daiInformazioni(in nome : String) : void
+!!!147330.java!!!	daiInformazioni(in nome : String) : void
 		if(nome == null)
 			JOptionPane.showMessageDialog(null, Global.getLabels("s83"), Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 		else
@@ -261,7 +261,7 @@ class GUIPartitaCostruisci
 		else
 		if(nome.equals(Global.getLabels("i74")))
 			JOptionPane.showMessageDialog(null, nome+" "+Global.getLabels("s95"),Global.getLabels("a7"), JOptionPane.DEFAULT_OPTION);
-!!!148994.java!!!	popolaNegozio(in eta : String, in evidenzia : String) : void
+!!!147458.java!!!	popolaNegozio(in eta : String, in evidenzia : String) : void
 		int aggiunte = 0;
 		
 		if(eta == Global.getLabels("s76"))
@@ -500,7 +500,7 @@ class GUIPartitaCostruisci
 			pnlMid.setVisible(false);
 			pnlMid.setVisible(true);
 		}
-!!!149122.java!!!	aggiungiVoce(in nome : String, inout icona : ImageIcon, in eta : String, in evidenzia : String) : void
+!!!147586.java!!!	aggiungiVoce(in nome : String, inout icona : ImageIcon, in eta : String, in evidenzia : String) : void
 		JLabel lblVoce = new JLabel(nome);
 		lblVoce.setIcon(icona);
 		pnlMid.add(lblVoce);

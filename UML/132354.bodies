@@ -1,7 +1,7 @@
 class ThreadCicloPartita
-!!!158466.java!!!	ThreadCicloPartita(inout partita : Partita)
+!!!159234.java!!!	ThreadCicloPartita(inout partita : Partita)
 		 this.partita = partita;
-!!!158594.java!!!	run() : void
+!!!159362.java!!!	run() : void
 		  
 		int indice = 0;
 		
@@ -36,13 +36,13 @@ class ThreadCicloPartita
 			
 		}
 		
-!!!158722.java!!!	refreshMovimentiEAttacchi() : void
+!!!159490.java!!!	refreshMovimentiEAttacchi() : void
 		for(GruppoMilitare g : partita.getGiocatore().get(partita.getTurnoCorrente()).getGruppiInAttacco())
 		{
 			g.setAttaccoPossibile(true);
 			g.setMovimentoPossibile(true);
 		}
-!!!158850.java!!!	isTurnoPersona() : boolean
+!!!159618.java!!!	isTurnoPersona() : boolean
 		return turnoPersona;
-!!!158978.java!!!	setTurnoPersona(inout turnoPersona : boolean) : void
+!!!159746.java!!!	setTurnoPersona(inout turnoPersona : boolean) : void
 		this.turnoPersona = turnoPersona;

@@ -946,7 +946,7 @@ public class GUIPartita extends JFrame{
 	{
 		if(azioneLblsGioco.equals(Global.getLabels("s56")))
 		{
-			if(isPiazzamentoPossibile(i, j)) //compra e piazza
+			if(partita.isPiazzamentoPossibile(elemLblsGioco, i+posSchermataX, j+posSchermataY)) //compra e piazza
 			{
 				
 				try {
@@ -959,17 +959,7 @@ public class GUIPartita extends JFrame{
 				gainControl.setValue(Global.getLivVolume()); 
 				audio.start();
 				
-				
-				
-				/*Scalo costo in oro*/
-				partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
-						partita.getGiocatore().get(partita.getTurnoCorrente()).getOro()-valoriDiGioco.getValoriOro().get(elemLblsGioco));
-				/*Scalo costo in materiali*/
-				partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
-						partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali()-valoriDiGioco.getValoriMat().get(elemLblsGioco));
-
-				partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().add(elemLblsGioco);
-				posizionaElementoSuScenario(i, j);
+				partita.compraEPiazza(elemLblsGioco, i+posSchermataX, j+posSchermataY);
 			}
 			else //il posto dove vuole piazzarlo è già occupato
 			{
@@ -987,7 +977,7 @@ public class GUIPartita extends JFrame{
 		if(azioneLblsGioco.equals(Global.getLabels("s57")))
 		{
 			//Controllo che sulla lbl ci sia un elemento vendibile
-			String nome = individuaOggetto(i, j, true); //ritorna l'oggetto contenuto nella lbl che può essere venduto
+			String nome = partita.individuaOggetto(i+posSchermataX, j+posSchermataY, true); //ritorna l'oggetto contenuto nella lbl che può essere venduto
 
 			if(nome == null || nome.contains(Global.getLabels("i49")))
 			{
@@ -1009,25 +999,8 @@ public class GUIPartita extends JFrame{
 					FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
 					gainControl.setValue(Global.getLivVolume()); 
 					audio.start();
-					char ultimoChar = nome.charAt(nome.length() - 1);
-
-					if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
-						nome = nome.substring(0, nome.length() - 1);
-					}
-					//Rimozione oggetto dai suoi possedimenti
-					for(int k = 0; k < partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().size(); k++)
-					{
-						if(partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().get(k).equals(nome)) {
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getStoricoPossedimenti().remove(k);
-						}
-					}
-					//Accredito della metà dell'oro e di materiali dell'oggetto venduto
-					partita.getGiocatore().get(partita.getTurnoCorrente()).setOro(
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
-					partita.getGiocatore().get(partita.getTurnoCorrente()).setMateriali(
-							partita.getGiocatore().get(partita.getTurnoCorrente()).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
-
-					rimuoviElementoDaScenario(i, j, ultimoChar);
+					
+					partita.vendiERimuovi(nome, i+posSchermataX, j+posSchermataY);
 				}
 			}
 
@@ -1041,7 +1014,7 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals(Global.getLabels("s58")))
 		{
-			String nome = individuaOggetto(i, j, true);
+			String nome = partita.individuaOggetto(i+posSchermataX, j+posSchermataY, true);
 
 			if(nome == null)
 			{
@@ -1051,26 +1024,20 @@ public class GUIPartita extends JFrame{
 			{
 				azioneLblsGioco = Global.getLabels("s66");
 				elemLblsGioco = nome;
-				ioldLblsGioco = i;
-				joldLblsGioco = j;
+				ioldLblsGioco = i+posSchermataX;
+				joldLblsGioco = j+posSchermataY;
 			}
 		}
 		else
 		if(azioneLblsGioco.equals(Global.getLabels("s66")))
 		{
-			if(!isPiazzamentoPossibile(i, j))
+			if(!partita.isPiazzamentoPossibile(elemLblsGioco, i+posSchermataX, j+posSchermataY))
 			{
 				JOptionPane.showMessageDialog(null,Global.getLabels("e12"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
 			}
 			else //piazzamento possibile
 			{
-				char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
-
-				rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
-
-				if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
-					elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
-				posizionaElementoSuScenario(i, j);
+				partita.posizionaElemento(elemLblsGioco, i+posSchermataX, j+posSchermataY, ioldLblsGioco, joldLblsGioco);
 
 				//Resetto i dati di azione e elemento in memoria
 				azioneLblsGioco = "";
@@ -1086,7 +1053,7 @@ public class GUIPartita extends JFrame{
 			int civiltaDaAttaccare;
 			
 			//2 casi possibili: o attacca un municipio oppure un gruppo mil. nemico
-			civiltaDaAttaccare = esercitoPresente(i+posSchermataX, j+posSchermataY);
+			civiltaDaAttaccare = partita.esercitoPresente(i+posSchermataX, j+posSchermataY);
 			
 			if(civiltaDaAttaccare != -1) //presente un esercito
 			{
@@ -1105,7 +1072,6 @@ public class GUIPartita extends JFrame{
 					
 					if(distanza == 1) //attacca
 					{
-						gruppoMilitare.setAttaccoPossibile(false);
 						int esito = partita.esercitoAttaccaEsercito(gruppoMilitare, i+posSchermataX, j+posSchermataY);
 						if(esito == 1){
 							try {
@@ -1141,14 +1107,13 @@ public class GUIPartita extends JFrame{
 			else
 			{
 				//controllo se municipio nemico
-				int municipioPresente = municipioPresente(i+posSchermataX, j+posSchermataY);
+				int municipioPresente = partita.municipioPresente(i+posSchermataX, j+posSchermataY);
 				if(municipioPresente != -1)
 				{
 					if(municipioPresente != partita.getGiocatore().get(indiceProprietario).getCiviltà())
 					{
-						if(isVicinoACitta(gruppoMilitare.getPosX(), gruppoMilitare.getPosY()) == municipioPresente) //attacco municipio permesso
+						if(partita.isVicinoACitta(gruppoMilitare.getPosX(), gruppoMilitare.getPosY()) == municipioPresente) //attacco municipio permesso
 						{
-							gruppoMilitare.setAttaccoPossibile(false);
 							int esito = partita.esercitoAttaccaMunicipio(gruppoMilitare, municipioPresente);
 							if(esito == -1)
 								JOptionPane.showMessageDialog(null, Global.getLabels("s126"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1197,7 +1162,7 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals(Global.getLabels("s63"))) //gruppo militare muovi
 		{
-			if(isPiazzamentoPossibile(i, j)) //controlla che la casella sia vuota (solo la base)
+			if(partita.isPiazzamentoPossibile(elemLblsGioco, i+posSchermataX, j+posSchermataY)) //controlla che la casella sia vuota (solo la base)
 			{
 				if(!partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].substring(0, 1).equals("g")) //se la base di questa casella NON è ghiaia
 				{
@@ -1235,27 +1200,7 @@ public class GUIPartita extends JFrame{
 							gainControl.setValue(Global.getLivVolume()); 
 							audio.start();
 							
-							//se presente una cava adiacente al gruppo militare e di sua proprietà la rendo libera
-							guiPartita.controllaCava(gruppoMilitare.getPosX(), gruppoMilitare.getPosY(), 1);
-							
-							//tolgo il gruppo militare dallo scenario di posizione vecchia
-							partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
-									partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
-									.substring(0, partita.getScenario().getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() -Integer.parseInt(Global.getLabels("s135")));    //La linghezza è diversa a seconda della lingua
-							
-							//aggiorno la posizione in gruppo militare
-							gruppoMilitare.setPosX(i+posSchermataX);
-							gruppoMilitare.setPosY(j+posSchermataY);
-							gruppoMilitare.setMovimentoPossibile(false);
-							
-							//aggiorno la posizione nello scenario
-							partita.getScenario().aggiungiEsercito(i+posSchermataX, j+posSchermataY, partita.getGiocatore().get(indiceProprietario).getCiviltà());
-							
-							//controllo se presente un falò lo raccolgo
-							controllaFalo(i+posSchermataX, j+posSchermataY);
-							
-							//se è presente una cava libera nelle celle adiacenti la gestisco
-							controllaCava(i+posSchermataX, j+posSchermataY, 0);
+							partita.gruppoMilitareMuovi(gruppoMilitare, i+posSchermataX, j+posSchermataY);
 						}
 						else
 							JOptionPane.showMessageDialog(null, Global.getLabels("s68"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1279,7 +1224,7 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals("")) //Se è un edificio militare apri schermata arruola truppe
 		{
-			String edificio = individuaOggetto(i, j, false);
+			String edificio = partita.individuaOggetto(i+posSchermataX, j+posSchermataY, false);
 
 			if(edificio != null)
 			{
@@ -1323,9 +1268,9 @@ public class GUIPartita extends JFrame{
 		else
 		if(azioneLblsGioco.equals(Global.getLabels("s59")))
 		{
-			if(isPiazzamentoPossibile(i, j))
+			if(partita.isPiazzamentoPossibile(elemLblsGioco, i+posSchermataX, j+posSchermataY))
 			{
-				int vicinanza = isVicinoACitta(i + posSchermataX, j + posSchermataY);
+				int vicinanza = partita.isVicinoACitta(i + posSchermataX, j + posSchermataY);
 				
 				int civilta = partita.getGiocatore().get(indiceProprietario).getCiviltà();
 				
@@ -1341,22 +1286,7 @@ public class GUIPartita extends JFrame{
 					gainControl.setValue(Global.getLivVolume()); 
 					audio.start();
 					
-					gruppoMilitare.setCivilta(civilta);
-					gruppoMilitare.setPosX(i+posSchermataX);
-					gruppoMilitare.setPosY(j+posSchermataY);
-					for(String s: gruppoMilitare.getGruppoMilitare())
-					{
-						partita.getGiocatore().get(indiceProprietario).getUnitaMunicipio().remove(s);
-					}
-					partita.getGruppiMilitariSchierati().add(gruppoMilitare);
-					partita.getGiocatore().get(indiceProprietario).getGruppiInAttacco().add(gruppoMilitare);
-					partita.getScenario().aggiungiEsercito(i+posSchermataX, j+posSchermataY, civilta);
-					
-					//controllo la presenza di falo nelle caselle adiacenti
-					controllaFalo(i+posSchermataX, j+posSchermataY);
-					
-					//se è presente una cava libera nelle celle adiacenti la gestisco
-					controllaCava(i+posSchermataX, j+posSchermataY, 0);
+					partita.piazzaEsercito(gruppoMilitare, civilta, i+posSchermataX, j+posSchermataY);
 				}
 				else
 					JOptionPane.showMessageDialog(null, Global.getLabels("s73"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1369,19 +1299,18 @@ public class GUIPartita extends JFrame{
 			aggiornaSchermata();
 		}
 		else
-			if(azioneLblsGioco.equals(Global.getLabels("s61")))
+		if(azioneLblsGioco.equals(Global.getLabels("s61")))
 		{
-			int vicinanza = isVicinoACitta(i + posSchermataX, j + posSchermataY);
+			int vicinanza = partita.isVicinoACitta(i + posSchermataX, j + posSchermataY);
 			
 			int civilta = partita.getGiocatore().get(indiceProprietario).getCiviltà();
 			
 			if(vicinanza == civilta) //l'esercito è adiacente alla città
 			{
-				int nazionEsercito = esercitoPresente(i + posSchermataX, j + posSchermataY);
+				int nazionEsercito = partita.esercitoPresente(i + posSchermataX, j + posSchermataY);
 				
 				if(nazionEsercito == civilta) //possiamo prelevare l'esercito e inserirlo nel municipio
 				{
-					int conta = 0, indice = -1;
 					try {
 						audio = AudioSystem.getClip();
 						audio.open(AudioSystem.getAudioInputStream(new File("media/marcia.wav")));
@@ -1392,27 +1321,7 @@ public class GUIPartita extends JFrame{
 					gainControl.setValue(Global.getLivVolume()); 
 					audio.start();
 					
-					//prelevo il gruppo giusto
-					for(GruppoMilitare g: partita.getGruppiMilitariSchierati())
-					{
-						if(g.getPosX() == i+posSchermataX && g.getPosY() == j+posSchermataY)
-						{
-							indice = conta;
-							break;
-						}
-						conta++;
-					}
-					//Le truppe tornano nel municipio
-					for(String s: partita.getGruppiMilitariSchierati().get(indice).getGruppoMilitare())
-					{
-						partita.getGiocatore().get(indiceProprietario).getUnitaMunicipio().add(s);
-					}
-					//Il gruppo militare viene sciolto
-					partita.getGruppiMilitariSchierati().remove(indice);
-					
-					//tolgo il gruppo militare dallo scenario
-					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].length() - 10);
+					partita.prelevaEsercito(i+posSchermataX, j+posSchermataY);
 				}
 				else
 					JOptionPane.showMessageDialog(null, Global.getLabels("s74"),Global.getLabels("e7"), JOptionPane.DEFAULT_OPTION);
@@ -1426,573 +1335,6 @@ public class GUIPartita extends JFrame{
 
 			aggiornaSchermata();
 		}
-	}
-	
-	/**
-	 * Metodo che libera la cava in posizione i,j dai possedimenti di cave del giocatore
-	 * @param i X
-	 * @param j Y
-	 */
-	public void liberaCava(int i, int j)
-	{
-		for(CavaDiRisorse c: partita.getCaveScenario())
-		{
-			if(c.getX() == i && c.getY() == j)
-			{
-				c.setCiviltaProprietaria(-1);
-			}
-		}
-	}
-	
-	/**
-	 * Metodo che permette al giocatore del turno corrente di conquistare la cava di posizione i, j
-	 * @param i X
-	 * @param j Y
-	 */
-	public void conquistaCava(int i, int j)
-	{
-		for(CavaDiRisorse c: partita.getCaveScenario())
-		{
-			if(c.getX() == i && c.getY() == j)
-			{
-				if(c.getCiviltaProprietaria() == -1)
-					c.setCiviltaProprietaria(partita.getGiocatore().get(partita.getTurnoCorrente()).getCiviltà());
-			}
-		}
-	}
-	
-	/**
-	 * Metodo che controlla se è presente una cava nelle caselle vicine a i e j, ed eventualmente la controlla o la libera (azione)
-	 * @param i X
-	 * @param j Y
-	 * @param azione 0 controlla, 1 libera
-	 */
-	public void controllaCava(int i, int j, int azione)
-	{
-		String cella;
-		
-		if(j > 0) //controlla parte superiore
-		{
-			if(partita.getScenario().getScenario()[j-1][i].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j-1][i].substring(partita.getScenario().getScenario()[j-1][i].length() - 2, 
-						partita.getScenario().getScenario()[j-1][i].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i, j-1);
-					else
-						liberaCava(i, j-1);
-				}
-			}
-		}
-		if(i > 0) //controlla parte sx
-		{
-			if(partita.getScenario().getScenario()[j][i-1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j][i-1].substring(partita.getScenario().getScenario()[j][i-1].length() - 2, 
-						partita.getScenario().getScenario()[j][i-1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i-1, j);
-					else
-						liberaCava(i-1, j);
-				}
-			}
-		}
-		if(j < 47) //controlla parte bassa
-		{
-			if(partita.getScenario().getScenario()[j+1][i].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j+1][i].substring(partita.getScenario().getScenario()[j+1][i].length() - 2, 
-						partita.getScenario().getScenario()[j+1][i].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i, j+1);
-					else
-						liberaCava(i, j+1);
-				}
-			}
-		}
-		if(j < 92) //controlla parte dx
-		{
-			if(partita.getScenario().getScenario()[j][i+1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j][i+1].substring(partita.getScenario().getScenario()[j][i+1].length() - 2, 
-						partita.getScenario().getScenario()[j][i+1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i+1, j);
-					else
-						liberaCava(i+1, j);
-				}
-			}
-		}
-		if(j > 0 && j > 0) //controlla parte sx in alto
-		{
-			if(partita.getScenario().getScenario()[j-1][i-1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j-1][i-1].substring(partita.getScenario().getScenario()[j-1][i-1].length() - 2, 
-						partita.getScenario().getScenario()[j-1][i-1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i-1, j-1);
-					else
-						liberaCava(i-1, j-1);
-				}
-			}
-		}
-		if(i < 92 && j > 0) //controlla parte dx in alto
-		{
-			if(partita.getScenario().getScenario()[j-1][i+1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j-1][i+1].substring(partita.getScenario().getScenario()[j-1][i+1].length() - 2, 
-						partita.getScenario().getScenario()[j-1][i+1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i+1, j-1);
-					else
-						liberaCava(i+1, j-1);
-				}
-			}
-		}
-		if(i > 0 && j < 47) //sx in basso
-		{
-			if(partita.getScenario().getScenario()[j+1][i-1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j+1][i-1].substring(partita.getScenario().getScenario()[j+1][i-1].length() - 2, 
-						partita.getScenario().getScenario()[j+1][i-1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i-1, j+1);
-					else
-						liberaCava(i-1, j+1);
-				}
-			}
-		}
-		if(i < 92 && j < 47) //dx in basso
-		{
-			if(partita.getScenario().getScenario()[j+1][i+1].length() >= 3)
-			{
-				cella = partita.getScenario().getScenario()[j+1][i+1].substring(partita.getScenario().getScenario()[j+1][i+1].length() - 2, 
-						partita.getScenario().getScenario()[j+1][i+1].length());
-				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
-				{
-					if(azione == 0)
-						conquistaCava(i+1, j+1);
-					else
-						liberaCava(i+1, j+1);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Controlla se è presente un falo in una delle caselle adiacenti. Se si lo raccoglie
-	 * @param i X
-	 * @param j Y
-	 */
-	public void controllaFalo(int i, int j)
-	{
-		if(j > 0) //controlla parte superiore
-		{
-			if(partita.getScenario().getScenario()[j-1][i].length() >= 3 && 
-					partita.getScenario().getScenario()[j-1][i].substring(partita.getScenario().getScenario()[j-1][i].length() - 2, 
-							partita.getScenario().getScenario()[j-1][i].length()).equals(" f")) //Se nella casella superiore c'è un falò
-			{
-				ottieniFalo(i, j-1);
-			}
-		}
-		if(i > 0) //controlla parte sx
-		{
-			if(partita.getScenario().getScenario()[j][i-1].length() >= 3 && 
-					partita.getScenario().getScenario()[j][i-1].substring(partita.getScenario().getScenario()[j][i-1].length() - 2, 
-							partita.getScenario().getScenario()[j][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
-			{
-				ottieniFalo(i-1, j);
-			}
-		}
-		if(j < 47) //controlla parte bassa
-		{
-			if(partita.getScenario().getScenario()[j+1][i].length() >= 3 && 
-					partita.getScenario().getScenario()[j+1][i].substring(partita.getScenario().getScenario()[j+1][i].length() - 2, 
-					partita.getScenario().getScenario()[j+1][i].length()).equals(" f")) //Se nella casella giu c'è un falò
-			{
-				ottieniFalo(i, j+1);
-			}
-		}
-		if(i < 92) //controlla parte dx
-		{
-			if(partita.getScenario().getScenario()[j][i+1].length() >= 3 && 
-					partita.getScenario().getScenario()[j][i+1].substring(partita.getScenario().getScenario()[j][i+1].length() - 2, 
-					partita.getScenario().getScenario()[j][i+1].length()).equals(" f")) //Se nella casella dx c'è un falò
-			{
-				ottieniFalo(i+1, j);
-			}
-		}
-		if(i > 0 && j > 0) //sx in alto
-		{
-			if(partita.getScenario().getScenario()[j-1][i-1].length() >= 3 && 
-					partita.getScenario().getScenario()[j-1][i-1].substring(partita.getScenario().getScenario()[j-1][i-1].length() - 2, 
-					partita.getScenario().getScenario()[j-1][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
-			{
-				ottieniFalo(i-1, j-1);
-			}
-		}
-		if(i < 92 && j > 0) //dx in alto
-		{
-			if(partita.getScenario().getScenario()[j-1][i+1].length() >= 3 && 
-					partita.getScenario().getScenario()[j-1][i+1].substring(partita.getScenario().getScenario()[j-1][i+1].length() - 2, 
-					partita.getScenario().getScenario()[j-1][i+1].length()).equals(" f")) //Se nella casella dx in alto c'è un falò
-			{
-				ottieniFalo(i+1, j-1);
-			}
-		}
-		if(i > 0 && j < 47) //sx in basso
-		{
-			if(partita.getScenario().getScenario()[j+1][i-1].length() >= 3 && 
-					partita.getScenario().getScenario()[j+1][i-1].substring(partita.getScenario().getScenario()[j+1][i-1].length() - 2, 
-					partita.getScenario().getScenario()[j+1][i-1].length()).equals(" f")) //Se nella casella sx in basso c'è un falò
-			{
-				ottieniFalo(i-1, j+1);
-			}
-		}
-		if(i < 92 && j < 47) //dx in basso
-		{
-			if(partita.getScenario().getScenario()[j+1][i+1].length() >= 3 && 
-					partita.getScenario().getScenario()[j+1][i+1].substring(partita.getScenario().getScenario()[j+1][i+1].length() - 2, 
-					partita.getScenario().getScenario()[j+1][i+1].length()).equals(" f")) //Se nella casella dx in basso c'è un falò
-			{
-				ottieniFalo(i+1, j+1);
-			}
-		}
-	}
-	
-	/**
-	 * Metodo che permette di ottenere un falò sulla mappa
-	 * @param i X
-	 * @param j Y
-	 */
-	public void ottieniFalo(int i, int j)
-	{
-		int bottino;
-		
-		//tolgo il falo dallo scenario
-		partita.getScenario().getScenario()[j][i] = partita.getScenario().getScenario()[j][i].substring(0, partita.getScenario().getScenario()[j][i].length() - 2);
-		
-		//calcolo valore falò: 10% di oro o materiali
-		if(Math.random() < 0.5) {
-			bottino = (int)(partita.getGiocatore().get(indiceProprietario).getOro() * 0.1);
-			partita.getGiocatore().get(indiceProprietario).setOro(partita.getGiocatore().get(indiceProprietario).getOro() + bottino);
-		}
-		else
-		{
-			bottino = (int)(partita.getGiocatore().get(indiceProprietario).getMateriali() * 0.1);
-			partita.getGiocatore().get(indiceProprietario).setMateriali(
-					partita.getGiocatore().get(indiceProprietario).getMateriali() + bottino);
-		}
-	}
-	
-	/**
-	 * Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
-	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun esercito
-	 * @param i X
-	 * @param j Y
-	 * @return nazionalità esercito, -1 se non presente
-	 */
-	public int esercitoPresente(int i, int j)
-	{
-		String str = partita.getScenario().getScenario()[j][i];
-		
-		if(str.contains(Global.getLabels("s72")))
-			return Integer.parseInt(str.substring(str.length()-1, str.length()));
-		
-		return -1;
-	}
-	
-	/**
-	 * Metodo che controlla se nella casella di posizione i, j è presente un municipio. Se è presente ritorna 0 se il municipio è romano,
-	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun municipio
-	 * @param i X
-	 * @param j Y
-	 * @return nazionalità municipio, -1 se non presente
-	 */
-	public int municipioPresente(int i, int j)
-	{
-		String str = partita.getScenario().getScenario()[j][i];
-		
-		if(str.contains(Global.getLabels("i49")))
-		{
-			if(i > 37 && i < 55 && j > 34 && j < 45) //romani
-				return 0;
-			if(i > 37 && i < 55 && j > 2 && j < 13) //britanni
-				return 1;
-			if(i > 6 && i < 24 && j > 18 && j < 29) //galli
-				return 2;
-			if(i > 68 && i < 86 && j > 18 && j < 29) //sassoni
-				return 3;
-		}
-		
-		return -1;
-	}
-	
-	/**
-	 * Metodo che controlla se la casella di indice i e j è adiacente a una città e ritorna 0 se vicino a romani, 1 se vicino a britanni,
-	 * 2 se vicino a galli, 3 se vicino a sassoni, -1 se non adiacente a nessuna città
-	 * @param i X
-	 * @param j Y
-	 * @return civiltà
-	 */
-	public int isVicinoACitta(int i, int j)
-	{
-		int SxX = -1;
-		int SuY = -1;
-		int DxX = -1;
-		int GiuY = -1;
-		
-		for(int k = 0; k < 4; k++)
-		{
-			switch(k)
-			{
-			case 0:
-				SxX = 38;
-				SuY = 35;
-				DxX = 54;
-				GiuY = 44;
-				break;
-			case 1:
-				SxX = 38;
-				SuY = 3;
-				DxX = 54;
-				GiuY = 12;
-				break;
-			case 2:
-				SxX = 7;
-				SuY = 19;
-				DxX = 23;
-				GiuY = 28;
-				break;
-			case 3:
-				SxX = 69;
-				SuY = 19;
-				DxX = 85;
-				GiuY = 28;
-				break;
-			}
-			if(i == SxX - 1 && j >= SuY - 1 && j <= GiuY + 1) //lato sx citta
-				return k;
-			if(j == SuY - 1 && i >= SxX && i <= DxX) //lato superiore citta
-				return k;
-			if(i == DxX + 1 && j >= SuY - 1 && j <= GiuY + 1) //lato dx citta
-				return k;
-			if(j == GiuY + 1 && i >= SxX && i <= DxX) //lato inferiore citta
-				return k;
-		}
-		
-		return -1;
-	}
-
-	/**
-	 * Rimuove elemento dallo scenario
-	 * @param i X
-	 * @param j Y
-	 * @param ultimoChar Ultimo carattere della stringa dell'elemento da rimuovere
-	 */
-	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
-	{
-		//Rimozione dell'oggetto dallo scenario
-		if(ultimoChar == '1')
-		{
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-					.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1]
-					.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX]
-					.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1]
-					.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1].lastIndexOf(" "));
-		}
-		else
-			if(ultimoChar == '2')
-			{
-				partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-						.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-				partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1]
-						.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-				partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX]
-						.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX].lastIndexOf(" "));
-				partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1]
-						.substring(0, partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX-1].lastIndexOf(" "));
-			}
-			else
-				if(ultimoChar == '3')
-				{
-					partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX]
-							.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-					partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1]
-							.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX+1].lastIndexOf(" "));
-					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-					partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1]
-							.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1].lastIndexOf(" "));
-				}
-				else
-					if(ultimoChar == '4')
-					{
-						partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1]
-								.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX-1].lastIndexOf(" "));
-						partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX]
-								.substring(0, partita.getScenario().getScenario()[j+posSchermataY-1][i+posSchermataX].lastIndexOf(" "));
-						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1]
-								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX-1].lastIndexOf(" "));
-						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-					}
-					else
-					{
-						partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] = partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]
-								.substring(0, partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX].lastIndexOf(" "));
-					}
-	}
-
-	/**
-	 * Posiziona l'elemento contenuto nella variabile elemLblsGioco sullo scenario
-	 * @param i X
-	 * @param j Y
-	 */
-	public void posizionaElementoSuScenario(int i, int j)
-	{
-		/*Posizionamento oggetto sulla plancia di gioco*/
-		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
-				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
-				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
-				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")))
-		{ //caso 1x1
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += " ";
-			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
-		}
-		else
-		{ //caso 2x2
-			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += " ";
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += elemLblsGioco;
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX] += "1";
-
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += " ";
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += elemLblsGioco;
-			partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX+1] += "2";
-
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += " ";
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += elemLblsGioco;
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX] += "3";
-
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += " ";
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += elemLblsGioco;
-			partita.getScenario().getScenario()[j+posSchermataY+1][i+posSchermataX+1] += "4";
-		}
-	}
-
-	/**
-	 * Individua l'oggetto su cui è stato cliccato tenendo conto se interno al villaggio o esterno al villaggio
-	 * @param i X
-	 * @param j Y
-	 * @param interno true se interno ad una città, false altrimenti
-	 * @return Ritorna il nome dell'oggetto individuato
-	 */
-	public String individuaOggetto(int i, int j, boolean interno) //i è la x, j è la y
-	{
-		String strCercata = null;
-
-		StringTokenizer st;
-		int stItera = 0;
-
-		st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]);
-		while(st.hasMoreTokens()) {
-			if(stItera == 0) //controllo che il pavimento sia ghiaia
-				if(interno) //se e solo se l'edificio in questione è interno
-					if(!st.nextToken().equals("g"))
-					{
-						return null;
-					}
-			stItera++;
-			if(stItera > 1)
-				strCercata = st.nextToken();
-		}
-		if(strCercata == null)
-			return null;
-
-		strCercata = strCercata.replaceAll("_", " ");
-
-		return strCercata;
-	}
-
-	/**
-	 * Controlla se è possibile piazzare l'elemento in elemLblsGioco nella cella corrente
-	 * @param i X
-	 * @param j Y
-	 * @return true se possibile, false altrimenti
-	 */
-	public boolean isPiazzamentoPossibile(int i, int j) //i è la x, j è la y
-	{
-		int stItera;
-
-		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
-				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
-				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
-				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")) || elemLblsGioco.equals(Global.getLabels("s60")))
-		{
-			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
-			StringTokenizer st;
-			stItera = 0;
-
-			st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY][i+posSchermataX]);
-			while(st.hasMoreTokens()) {
-				if(stItera == 0) //controllo che il pavimento sia ghiaia
-					if(!st.nextToken().equals("g") && !elemLblsGioco.equals(Global.getLabels("s60")))
-					{
-						return false;
-					}
-				stItera++;
-				if(stItera > 1) //La lbl di posizione i,i è già impegnata
-				{
-					return false;
-				}
-			}
-
-		}
-		else
-		{
-			//controlliamo che le lbl di posizione i, j; i+1, j; i, j+1; i+1, j+1 siano disponibili (2x2)
-			for(int k = 0; k < 2; k++)
-			{
-				for(int u = 0; u < 2; u++)
-				{
-					//controlliamo che la lbl di posizione i+k, j+k sia disponibile (2x2)
-					StringTokenizer st;
-					stItera = 0;
-					
-					st = new StringTokenizer(partita.getScenario().getScenario()[j+posSchermataY+u][i+posSchermataX+k]);
-					while(st.hasMoreTokens()) {
-						if(stItera == 0) //controllo che il pavimento sia ghiaia
-							if(!st.nextToken().equals("g"))
-								return false;
-						stItera++;
-						if(stItera > 1) //La lbl di posizione i,i è già impegnata
-						{
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return true;
 	}
 
 	public String getAzioneLblsGioco() {

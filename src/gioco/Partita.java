@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -290,6 +291,8 @@ public class Partita {
 		int defTotale = 0;
 		GruppoMilitare gruppoDifesa = null;
 		
+		gruppoAttacco.setAttaccoPossibile(false);
+		
 		//trovo il gruppo in difesa
 		for(GruppoMilitare g: gruppiMilitariSchierati)
 		{
@@ -338,10 +341,10 @@ public class Partita {
 					.substring(0, scenario.getScenario()[gruppoDifesa.getPosY()][gruppoDifesa.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo difesa e di sua proprietà la rendo libera
-			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
+			controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 1);
 			
 			//se presente una cava adiacente a gruppo attacco libera la rendo di sua proprietà
-			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 0);
+			controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 0);
 			
 			return 1;
 			
@@ -375,12 +378,357 @@ public class Partita {
 					.substring(0, scenario.getScenario()[gruppoAttacco.getPosY()][gruppoAttacco.getPosX()].length() - 10);
 			
 			//se presente una cava adiacente a gruppo attacco e di sua proprietà la rendo libera
-			guiPartita.controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
+			controllaCava(gruppoAttacco.getPosX(), gruppoAttacco.getPosY(), 1);
 			
 			//se presente una cava adiacente a gruppo difesa libera la rendo di sua proprietà
-			guiPartita.controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 0);
+			controllaCava(gruppoDifesa.getPosX(), gruppoDifesa.getPosY(), 0);
 			
 			return 0;
+		}
+	}
+	
+	/**
+	 * Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
+	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun esercito
+	 * @param i X
+	 * @param j Y
+	 * @return nazionalità esercito, -1 se non presente
+	 */
+	public int esercitoPresente(int i, int j)
+	{
+		String str = scenario.getScenario()[j][i];
+		
+		if(str.contains(Global.getLabels("s72")))
+			return Integer.parseInt(str.substring(str.length()-1, str.length()));
+		
+		return -1;
+	}
+	
+	/**
+	 * Metodo che controlla se nella casella di posizione i, j è presente un municipio. Se è presente ritorna 0 se il municipio è romano,
+	 * 1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun municipio
+	 * @param i X
+	 * @param j Y
+	 * @return nazionalità municipio, -1 se non presente
+	 */
+	public int municipioPresente(int i, int j)
+	{
+		String str = scenario.getScenario()[j][i];
+		
+		if(str.contains(Global.getLabels("i49")))
+		{
+			if(i > 37 && i < 55 && j > 34 && j < 45) //romani
+				return 0;
+			if(i > 37 && i < 55 && j > 2 && j < 13) //britanni
+				return 1;
+			if(i > 6 && i < 24 && j > 18 && j < 29) //galli
+				return 2;
+			if(i > 68 && i < 86 && j > 18 && j < 29) //sassoni
+				return 3;
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * Fa muovere un gruppo militare
+	 * @param gruppoMilitare Gruppo militare
+	 * @param i X
+	 * @param j Y
+	 */
+	public void gruppoMilitareMuovi(GruppoMilitare gruppoMilitare, int i, int j)
+	{
+		//se presente una cava adiacente al gruppo militare e di sua proprietà la rendo libera
+		controllaCava(gruppoMilitare.getPosX(), gruppoMilitare.getPosY(), 1);
+		
+		//tolgo il gruppo militare dallo scenario di posizione vecchia
+		scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()] = 
+				scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()]
+				.substring(0, scenario.getScenario()[gruppoMilitare.getPosY()][gruppoMilitare.getPosX()].length() -Integer.parseInt(Global.getLabels("s135")));    //La linghezza è diversa a seconda della lingua
+		
+		//aggiorno la posizione in gruppo militare
+		gruppoMilitare.setPosX(i);
+		gruppoMilitare.setPosY(j);
+		gruppoMilitare.setMovimentoPossibile(false);
+		
+		//aggiorno la posizione nello scenario
+		scenario.aggiungiEsercito(i, j, giocatore.get(turnoCorrente).getCiviltà());
+		
+		//controllo se presente un falò lo raccolgo
+		controllaFalo(i, j);
+		
+		//se è presente una cava libera nelle celle adiacenti la gestisco
+		controllaCava(i, j, 0);
+	}
+	
+	/**
+	 * Metodo che libera la cava in posizione i,j dai possedimenti di cave del giocatore
+	 * @param i X
+	 * @param j Y
+	 */
+	public void liberaCava(int i, int j)
+	{
+		for(CavaDiRisorse c: caveScenario)
+		{
+			if(c.getX() == i && c.getY() == j)
+			{
+				c.setCiviltaProprietaria(-1);
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che permette al giocatore del turno corrente di conquistare la cava di posizione i, j
+	 * @param i X
+	 * @param j Y
+	 */
+	public void conquistaCava(int i, int j)
+	{
+		for(CavaDiRisorse c: caveScenario)
+		{
+			if(c.getX() == i && c.getY() == j)
+			{
+				if(c.getCiviltaProprietaria() == -1)
+					c.setCiviltaProprietaria(giocatore.get(turnoCorrente).getCiviltà());
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che controlla se è presente una cava nelle caselle vicine a i e j, ed eventualmente la controlla o la libera (azione)
+	 * @param i X
+	 * @param j Y
+	 * @param azione 0 controlla, 1 libera
+	 */
+	public void controllaCava(int i, int j, int azione)
+	{
+		String cella;
+		
+		if(j > 0) //controlla parte superiore
+		{
+			if(scenario.getScenario()[j-1][i].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
+						scenario.getScenario()[j-1][i].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i, j-1);
+					else
+						liberaCava(i, j-1);
+				}
+			}
+		}
+		if(i > 0) //controlla parte sx
+		{
+			if(scenario.getScenario()[j][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
+						scenario.getScenario()[j][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j);
+					else
+						liberaCava(i-1, j);
+				}
+			}
+		}
+		if(j < 47) //controlla parte bassa
+		{
+			if(scenario.getScenario()[j+1][i].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
+						scenario.getScenario()[j+1][i].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i, j+1);
+					else
+						liberaCava(i, j+1);
+				}
+			}
+		}
+		if(j < 92) //controlla parte dx
+		{
+			if(scenario.getScenario()[j][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
+						scenario.getScenario()[j][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j);
+					else
+						liberaCava(i+1, j);
+				}
+			}
+		}
+		if(j > 0 && j > 0) //controlla parte sx in alto
+		{
+			if(scenario.getScenario()[j-1][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
+						scenario.getScenario()[j-1][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j-1);
+					else
+						liberaCava(i-1, j-1);
+				}
+			}
+		}
+		if(i < 92 && j > 0) //controlla parte dx in alto
+		{
+			if(scenario.getScenario()[j-1][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
+						scenario.getScenario()[j-1][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j-1);
+					else
+						liberaCava(i+1, j-1);
+				}
+			}
+		}
+		if(i > 0 && j < 47) //sx in basso
+		{
+			if(scenario.getScenario()[j+1][i-1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
+						scenario.getScenario()[j+1][i-1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i-1, j+1);
+					else
+						liberaCava(i-1, j+1);
+				}
+			}
+		}
+		if(i < 92 && j < 47) //dx in basso
+		{
+			if(scenario.getScenario()[j+1][i+1].length() >= 3)
+			{
+				cella = scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
+						scenario.getScenario()[j+1][i+1].length());
+				if(cella.equals(" x") || cella.equals(" y") || cella.equals(" z"))
+				{
+					if(azione == 0)
+						conquistaCava(i+1, j+1);
+					else
+						liberaCava(i+1, j+1);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Controlla se è presente un falo in una delle caselle adiacenti. Se si lo raccoglie
+	 * @param i X
+	 * @param j Y
+	 */
+	public void controllaFalo(int i, int j)
+	{
+		if(j > 0) //controlla parte superiore
+		{
+			if(scenario.getScenario()[j-1][i].length() >= 3 && 
+					scenario.getScenario()[j-1][i].substring(scenario.getScenario()[j-1][i].length() - 2, 
+							scenario.getScenario()[j-1][i].length()).equals(" f")) //Se nella casella superiore c'è un falò
+			{
+				ottieniFalo(i, j-1);
+			}
+		}
+		if(i > 0) //controlla parte sx
+		{
+			if(scenario.getScenario()[j][i-1].length() >= 3 && 
+					scenario.getScenario()[j][i-1].substring(scenario.getScenario()[j][i-1].length() - 2, 
+							scenario.getScenario()[j][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			{
+				ottieniFalo(i-1, j);
+			}
+		}
+		if(j < 47) //controlla parte bassa
+		{
+			if(scenario.getScenario()[j+1][i].length() >= 3 && 
+					scenario.getScenario()[j+1][i].substring(scenario.getScenario()[j+1][i].length() - 2, 
+					scenario.getScenario()[j+1][i].length()).equals(" f")) //Se nella casella giu c'è un falò
+			{
+				ottieniFalo(i, j+1);
+			}
+		}
+		if(i < 92) //controlla parte dx
+		{
+			if(scenario.getScenario()[j][i+1].length() >= 3 && 
+					scenario.getScenario()[j][i+1].substring(scenario.getScenario()[j][i+1].length() - 2, 
+					scenario.getScenario()[j][i+1].length()).equals(" f")) //Se nella casella dx c'è un falò
+			{
+				ottieniFalo(i+1, j);
+			}
+		}
+		if(i > 0 && j > 0) //sx in alto
+		{
+			if(scenario.getScenario()[j-1][i-1].length() >= 3 && 
+					scenario.getScenario()[j-1][i-1].substring(scenario.getScenario()[j-1][i-1].length() - 2, 
+					scenario.getScenario()[j-1][i-1].length()).equals(" f")) //Se nella casella sx c'è un falò
+			{
+				ottieniFalo(i-1, j-1);
+			}
+		}
+		if(i < 92 && j > 0) //dx in alto
+		{
+			if(scenario.getScenario()[j-1][i+1].length() >= 3 && 
+					scenario.getScenario()[j-1][i+1].substring(scenario.getScenario()[j-1][i+1].length() - 2, 
+					scenario.getScenario()[j-1][i+1].length()).equals(" f")) //Se nella casella dx in alto c'è un falò
+			{
+				ottieniFalo(i+1, j-1);
+			}
+		}
+		if(i > 0 && j < 47) //sx in basso
+		{
+			if(scenario.getScenario()[j+1][i-1].length() >= 3 && 
+					scenario.getScenario()[j+1][i-1].substring(scenario.getScenario()[j+1][i-1].length() - 2, 
+					scenario.getScenario()[j+1][i-1].length()).equals(" f")) //Se nella casella sx in basso c'è un falò
+			{
+				ottieniFalo(i-1, j+1);
+			}
+		}
+		if(i < 92 && j < 47) //dx in basso
+		{
+			if(scenario.getScenario()[j+1][i+1].length() >= 3 && 
+					scenario.getScenario()[j+1][i+1].substring(scenario.getScenario()[j+1][i+1].length() - 2, 
+					scenario.getScenario()[j+1][i+1].length()).equals(" f")) //Se nella casella dx in basso c'è un falò
+			{
+				ottieniFalo(i+1, j+1);
+			}
+		}
+	}
+	
+	/**
+	 * Metodo che permette di ottenere un falò sulla mappa
+	 * @param i X
+	 * @param j Y
+	 */
+	public void ottieniFalo(int i, int j)
+	{
+		int bottino;
+		
+		//tolgo il falo dallo scenario
+		scenario.getScenario()[j][i] = scenario.getScenario()[j][i].substring(0, scenario.getScenario()[j][i].length() - 2);
+		
+		//calcolo valore falò: 10% di oro o materiali
+		if(Math.random() < 0.5) {
+			bottino = (int)(giocatore.get(turnoCorrente).getOro() * 0.1);
+			giocatore.get(turnoCorrente).setOro(giocatore.get(turnoCorrente).getOro() + bottino);
+		}
+		else
+		{
+			bottino = (int)(giocatore.get(turnoCorrente).getMateriali() * 0.1);
+			giocatore.get(turnoCorrente).setMateriali(
+					giocatore.get(turnoCorrente).getMateriali() + bottino);
 		}
 	}
 	
@@ -394,6 +742,9 @@ public class Partita {
 	{
 		int atkTotale = 0;
 		int defTotale = 0;
+		
+		gruppoAttacco.setAttaccoPossibile(false);
+		
 		if(giocatore.get(civiltaDifesa).getSconfitteMunicipioSubite() < 5)
 		{
 			
@@ -466,6 +817,387 @@ public class Partita {
 		return -1;
 	}
 
+	/**
+	 * Compra l'elemento e lo piazza sullo scenario
+	 * @param elemLblsGioco elemento da piazzare
+	 * @param i X
+	 * @param j Y
+	 */
+	public void compraEPiazza(String elemLblsGioco, int i, int j)
+	{
+		/*Scalo costo in oro*/
+		giocatore.get(turnoCorrente).setOro(
+		giocatore.get(turnoCorrente).getOro()-valoriDiGioco.getValoriOro().get(elemLblsGioco));
+		/*Scalo costo in materiali*/
+		giocatore.get(turnoCorrente).setMateriali(
+		giocatore.get(turnoCorrente).getMateriali()-valoriDiGioco.getValoriMat().get(elemLblsGioco));
+
+		giocatore.get(turnoCorrente).getStoricoPossedimenti().add(elemLblsGioco);
+		posizionaElementoSuScenario(elemLblsGioco, i, j);
+	}
+	
+	/**
+	 * Posiziona l'elemento contenuto nella variabile elemLblsGioco sullo scenario
+	 * @param elemLblsGioco elemento da posizionare
+	 * @param i X
+	 * @param j Y
+	 */
+	public void posizionaElementoSuScenario(String elemLblsGioco, int i, int j)
+	{
+		/*Posizionamento oggetto sulla plancia di gioco*/
+		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
+				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
+				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
+				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")))
+		{ //caso 1x1
+			scenario.getScenario()[j][i] += " ";
+			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
+			scenario.getScenario()[j][i] += elemLblsGioco;
+		}
+		else
+		{ //caso 2x2
+			elemLblsGioco = elemLblsGioco.replaceAll(" ", "_");
+			scenario.getScenario()[j][i] += " ";
+			scenario.getScenario()[j][i] += elemLblsGioco;
+			scenario.getScenario()[j][i] += "1";
+
+			scenario.getScenario()[j][i+1] += " ";
+			scenario.getScenario()[j][i+1] += elemLblsGioco;
+			scenario.getScenario()[j][i+1] += "2";
+
+			scenario.getScenario()[j+1][i] += " ";
+			scenario.getScenario()[j+1][i] += elemLblsGioco;
+			scenario.getScenario()[j+1][i] += "3";
+
+			scenario.getScenario()[j+1][i+1] += " ";
+			scenario.getScenario()[j+1][i+1] += elemLblsGioco;
+			scenario.getScenario()[j+1][i+1] += "4";
+		}
+	}
+	
+	/**
+	 * Vende struttura e la rimuove dallo scenario
+	 * @param nome Nome edificio
+	 * @param i X
+	 * @param j Y
+	 */
+	public void vendiERimuovi(String nome, int i, int j)
+	{
+		char ultimoChar = nome.charAt(nome.length() - 1);
+
+		if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4') {
+			nome = nome.substring(0, nome.length() - 1);
+		}
+		//Rimozione oggetto dai suoi possedimenti
+		for(int k = 0; k < giocatore.get(turnoCorrente).getStoricoPossedimenti().size(); k++)
+		{
+			if(giocatore.get(turnoCorrente).getStoricoPossedimenti().get(k).equals(nome)) {
+				giocatore.get(turnoCorrente).getStoricoPossedimenti().remove(k);
+			}
+		}
+		//Accredito della metà dell'oro e di materiali dell'oggetto venduto
+		giocatore.get(turnoCorrente).setOro(
+				giocatore.get(turnoCorrente).getOro() + (valoriDiGioco.getValoriOro().get(nome) / 2));
+		giocatore.get(turnoCorrente).setMateriali(
+				giocatore.get(turnoCorrente).getMateriali() + (valoriDiGioco.getValoriMat().get(nome) / 2));
+
+		rimuoviElementoDaScenario(i, j, ultimoChar);
+	}
+	
+	/**
+	 * Rimuove elemento dallo scenario
+	 * @param i X
+	 * @param j Y
+	 * @param ultimoChar Ultimo carattere della stringa dell'elemento da rimuovere
+	 */
+	public void rimuoviElementoDaScenario(int i, int j, char ultimoChar)
+	{
+		//Rimozione dell'oggetto dallo scenario
+		if(ultimoChar == '1')
+		{
+			scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+					.substring(0, scenario.getScenario()[j][i].lastIndexOf(" "));
+			scenario.getScenario()[j][i+1] = scenario.getScenario()[j][i+1]
+					.substring(0, scenario.getScenario()[j][i+1].lastIndexOf(" "));
+			scenario.getScenario()[j+1][i] = scenario.getScenario()[j+1][i]
+					.substring(0, scenario.getScenario()[j+1][i].lastIndexOf(" "));
+			scenario.getScenario()[j+1][i+1] = scenario.getScenario()[j+1][i+1]
+					.substring(0, scenario.getScenario()[j+1][i+1].lastIndexOf(" "));
+		}
+		else
+			if(ultimoChar == '2')
+			{
+				scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+						.substring(0, scenario.getScenario()[j][i].lastIndexOf(" "));
+				scenario.getScenario()[j][i-1] = scenario.getScenario()[j][i-1]
+						.substring(0, scenario.getScenario()[j][i-1].lastIndexOf(" "));
+				scenario.getScenario()[j+1][i] = scenario.getScenario()[j+1][i]
+						.substring(0, scenario.getScenario()[j+1][i].lastIndexOf(" "));
+				scenario.getScenario()[j+1][i-1] = scenario.getScenario()[j+1][i-1]
+						.substring(0, scenario.getScenario()[j+1][i-1].lastIndexOf(" "));
+			}
+			else
+				if(ultimoChar == '3')
+				{
+					scenario.getScenario()[j-1][i] = scenario.getScenario()[j-1][i]
+							.substring(0, scenario.getScenario()[j-1][i].lastIndexOf(" "));
+					scenario.getScenario()[j-1][i+1] = scenario.getScenario()[j-1][i+1]
+							.substring(0, scenario.getScenario()[j-1][i+1].lastIndexOf(" "));
+					scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+							.substring(0, scenario.getScenario()[j][i].lastIndexOf(" "));
+					scenario.getScenario()[j][i+1] = scenario.getScenario()[j][i+1]
+							.substring(0, scenario.getScenario()[j][i+1].lastIndexOf(" "));
+				}
+				else
+					if(ultimoChar == '4')
+					{
+						scenario.getScenario()[j-1][i-1] = scenario.getScenario()[j-1][i-1]
+								.substring(0, scenario.getScenario()[j-1][i-1].lastIndexOf(" "));
+						scenario.getScenario()[j-1][i] = scenario.getScenario()[j-1][i]
+								.substring(0, scenario.getScenario()[j-1][i].lastIndexOf(" "));
+						scenario.getScenario()[j][i-1] = scenario.getScenario()[j][i-1]
+								.substring(0, scenario.getScenario()[j][i-1].lastIndexOf(" "));
+						scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+								.substring(0, scenario.getScenario()[j][i].lastIndexOf(" "));
+					}
+					else
+					{
+						scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+								.substring(0, scenario.getScenario()[j][i].lastIndexOf(" "));
+					}
+	}
+	
+	/**
+	 * Posiziona elemento sulla plancia di gioco
+	 * @param elemLblsGioco Elemento
+	 * @param i X
+	 * @param j Y
+	 * @param ioldLblsGioco vecchia X
+	 * @param joldLblsGioco vecchia Y
+	 */
+	public void posizionaElemento(String elemLblsGioco, int i, int j, int ioldLblsGioco, int joldLblsGioco)
+	{
+		char ultimoChar = elemLblsGioco.charAt(elemLblsGioco.length() - 1);
+
+		rimuoviElementoDaScenario(ioldLblsGioco, joldLblsGioco, ultimoChar);
+
+		if(ultimoChar == '1' || ultimoChar == '2' || ultimoChar == '3' || ultimoChar == '4')
+			elemLblsGioco = elemLblsGioco.substring(0, elemLblsGioco.length() - 1);
+		posizionaElementoSuScenario(elemLblsGioco, i, j);
+	}
+	
+	/**
+	 * Metodo che controlla se la casella di indice i e j è adiacente a una città e ritorna 0 se vicino a romani, 1 se vicino a britanni,
+	 * 2 se vicino a galli, 3 se vicino a sassoni, -1 se non adiacente a nessuna città
+	 * @param i X
+	 * @param j Y
+	 * @return civiltà
+	 */
+	public int isVicinoACitta(int i, int j)
+	{
+		int SxX = -1;
+		int SuY = -1;
+		int DxX = -1;
+		int GiuY = -1;
+		
+		for(int k = 0; k < 4; k++)
+		{
+			switch(k)
+			{
+			case 0:
+				SxX = 38;
+				SuY = 35;
+				DxX = 54;
+				GiuY = 44;
+				break;
+			case 1:
+				SxX = 38;
+				SuY = 3;
+				DxX = 54;
+				GiuY = 12;
+				break;
+			case 2:
+				SxX = 7;
+				SuY = 19;
+				DxX = 23;
+				GiuY = 28;
+				break;
+			case 3:
+				SxX = 69;
+				SuY = 19;
+				DxX = 85;
+				GiuY = 28;
+				break;
+			}
+			if(i == SxX - 1 && j >= SuY - 1 && j <= GiuY + 1) //lato sx citta
+				return k;
+			if(j == SuY - 1 && i >= SxX && i <= DxX) //lato superiore citta
+				return k;
+			if(i == DxX + 1 && j >= SuY - 1 && j <= GiuY + 1) //lato dx citta
+				return k;
+			if(j == GiuY + 1 && i >= SxX && i <= DxX) //lato inferiore citta
+				return k;
+		}
+		
+		return -1;
+	}
+
+	/**
+	 * Individua l'oggetto su cui è stato cliccato tenendo conto se interno al villaggio o esterno al villaggio
+	 * @param i X
+	 * @param j Y
+	 * @param interno true se interno ad una città, false altrimenti
+	 * @return Ritorna il nome dell'oggetto individuato
+	 */
+	public String individuaOggetto(int i, int j, boolean interno) //i è la x, j è la y
+	{
+		String strCercata = null;
+
+		StringTokenizer st;
+		int stItera = 0;
+
+		st = new StringTokenizer(scenario.getScenario()[j][i]);
+		while(st.hasMoreTokens()) {
+			if(stItera == 0) //controllo che il pavimento sia ghiaia
+				if(interno) //se e solo se l'edificio in questione è interno
+					if(!st.nextToken().equals("g"))
+					{
+						return null;
+					}
+			stItera++;
+			if(stItera > 1)
+				strCercata = st.nextToken();
+		}
+		if(strCercata == null)
+			return null;
+
+		strCercata = strCercata.replaceAll("_", " ");
+
+		return strCercata;
+	}
+
+	/**
+	 * Controlla se è possibile piazzare l'elemento in elemLblsGioco nella cella corrente
+	 * @param elemLblsGioco elemento da piazzare
+	 * @param i X
+	 * @param j Y
+	 * @return true se possibile, false altrimenti
+	 */
+	public boolean isPiazzamentoPossibile(String elemLblsGioco, int i, int j) //i è la x, j è la y
+	{
+		int stItera;
+
+		if(elemLblsGioco.equals(Global.getLabels("i53")) || elemLblsGioco.equals(Global.getLabels("i54")) || elemLblsGioco.equals(Global.getLabels("i55")) ||
+				elemLblsGioco.equals(Global.getLabels("i56")) || elemLblsGioco.equals(Global.getLabels("i57")) || 
+				elemLblsGioco.equals(Global.getLabels("i58")) || elemLblsGioco.equals(Global.getLabels("i59")) ||
+				elemLblsGioco.equals(Global.getLabels("i60")) || elemLblsGioco.equals(Global.getLabels("i61")) || elemLblsGioco.equals(Global.getLabels("s60")))
+		{
+			//controlliamo che la lbl di posizione i, j sia disponibile (1x1)
+			StringTokenizer st;
+			stItera = 0;
+
+			st = new StringTokenizer(scenario.getScenario()[j][i]);
+			while(st.hasMoreTokens()) {
+				if(stItera == 0) //controllo che il pavimento sia ghiaia
+					if(!st.nextToken().equals("g") && !elemLblsGioco.equals(Global.getLabels("s60")))
+					{
+						return false;
+					}
+				stItera++;
+				if(stItera > 1) //La lbl di posizione i,i è già impegnata
+				{
+					return false;
+				}
+			}
+
+		}
+		else
+		{
+			//controlliamo che le lbl di posizione i, j; i+1, j; i, j+1; i+1, j+1 siano disponibili (2x2)
+			for(int k = 0; k < 2; k++)
+			{
+				for(int u = 0; u < 2; u++)
+				{
+					//controlliamo che la lbl di posizione i+k, j+k sia disponibile (2x2)
+					StringTokenizer st;
+					stItera = 0;
+					
+					st = new StringTokenizer(scenario.getScenario()[j+u][i+k]);
+					while(st.hasMoreTokens()) {
+						if(stItera == 0) //controllo che il pavimento sia ghiaia
+							if(!st.nextToken().equals("g"))
+								return false;
+						stItera++;
+						if(stItera > 1) //La lbl di posizione i,i è già impegnata
+						{
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Piazza esercito sul terreno di gioco
+	 * @param gruppoMilitare Gruppo militare
+	 * @param civilta Civiltà
+	 * @param i X
+	 * @param j Y
+	 */
+	public void piazzaEsercito(GruppoMilitare gruppoMilitare, int civilta, int i, int j)
+	{
+		gruppoMilitare.setCivilta(civilta);
+		gruppoMilitare.setPosX(i);
+		gruppoMilitare.setPosY(j);
+		for(String s: gruppoMilitare.getGruppoMilitare())
+		{
+			giocatore.get(turnoCorrente).getUnitaMunicipio().remove(s);
+		}
+		gruppiMilitariSchierati.add(gruppoMilitare);
+		giocatore.get(turnoCorrente).getGruppiInAttacco().add(gruppoMilitare);
+		scenario.aggiungiEsercito(i, j, civilta);
+		
+		//controllo la presenza di falo nelle caselle adiacenti
+		controllaFalo(i, j);
+		
+		//se è presente una cava libera nelle celle adiacenti la gestisco
+		controllaCava(i, j, 0);
+	}
+	
+	/**
+	 * Preleva l'esercito e lo inserisce nel municipio
+	 * @param i X
+	 * @param j Y
+	 */
+	public void prelevaEsercito(int i, int j)
+	{
+		int conta = 0, indice = -1;
+		
+		//prelevo il gruppo giusto
+		for(GruppoMilitare g: gruppiMilitariSchierati)
+		{
+			if(g.getPosX() == i && g.getPosY() == j)
+			{
+				indice = conta;
+				break;
+			}
+			conta++;
+		}
+		//Le truppe tornano nel municipio
+		for(String s: gruppiMilitariSchierati.get(indice).getGruppoMilitare())
+		{
+			giocatore.get(turnoCorrente).getUnitaMunicipio().add(s);
+		}
+		//Il gruppo militare viene sciolto
+		gruppiMilitariSchierati.remove(indice);
+		
+		//tolgo il gruppo militare dallo scenario
+		scenario.getScenario()[j][i] = scenario.getScenario()[j][i]
+				.substring(0, scenario.getScenario()[j][i].length() - 10);
+	}
+	
 	public List<Giocatore> getGiocatore() {
 		return giocatore;
 	}

@@ -30,7 +30,7 @@ format 213
   java_package "gioco"
   classview 128002 "gioco"
     
-    classdiagramsettings member_max_width 0 end
+    classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
     
     collaborationdiagramsettings end
     
@@ -2770,7 +2770,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	MysqlColumn
       end
 
-      operation 156290 "RoundedCornerButton"
+      operation 157058 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 0
 	
@@ -2782,7 +2782,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156418 "RoundedCornerButton"
+      operation 157186 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param inout name "icon" explicit_type "Icon"
@@ -2795,7 +2795,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156546 "RoundedCornerButton"
+      operation 157314 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param in name "text" explicit_type "String"
@@ -2808,7 +2808,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156674 "RoundedCornerButton"
+      operation 157442 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 1
 	  param inout name "a" explicit_type "Action"
@@ -2821,7 +2821,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156802 "RoundedCornerButton"
+      operation 157570 "RoundedCornerButton"
 	protected explicit_return_type ""
 	nparams 2
 	  param in name "text" explicit_type "String"
@@ -2835,7 +2835,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 156930 "updateUI"
+      operation 157698 "updateUI"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -2849,7 +2849,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157058 "initShape"
+      operation 157826 "initShape"
 	protected explicit_return_type "void"
 	nparams 0
 	
@@ -2861,7 +2861,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157186 "paintFocusAndRollover"
+      operation 157954 "paintFocusAndRollover"
 	private explicit_return_type "void"
 	nparams 2
 	  param inout name "g2" explicit_type "Graphics2D"
@@ -2875,7 +2875,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157314 "paintComponent"
+      operation 158082 "paintComponent"
 	protected explicit_return_type "void"
 	nparams 1
 	  param inout name "g" explicit_type "Graphics"
@@ -2890,7 +2890,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157442 "paintBorder"
+      operation 158210 "paintBorder"
 	protected explicit_return_type "void"
 	nparams 1
 	  param inout name "g" explicit_type "Graphics"
@@ -2905,7 +2905,7 @@ per migliorare l'aspetto dei JButton (per forma e colore dei bordi).
 	
       end
 
-      operation 157570 "contains"
+      operation 158338 "contains"
 	public explicit_return_type "boolean"
 	nparams 2
 	  param in name "x" explicit_type "int"
@@ -3104,7 +3104,7 @@ ${members}}
 	  b parent class_ref 132482 // Scenario
       end
 
-      operation 153090 "Partita"
+      operation 151554 "Partita"
 	package explicit_return_type ""
 	nparams 6
 	  param in name "situazioneDiGioco" explicit_type "String"
@@ -3132,7 +3132,7 @@ ${members}}
 "
       end
 
-      operation 153218 "creaPartita"
+      operation 151682 "creaPartita"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "nomeGiocatore" explicit_type "String"
@@ -3150,7 +3150,7 @@ ${members}}
 "
       end
 
-      operation 153346 "setupGUIPartita"
+      operation 151810 "setupGUIPartita"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -3164,7 +3164,7 @@ ${members}}
 "
       end
 
-      operation 153474 "avviaPartita"
+      operation 151938 "avviaPartita"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -3179,7 +3179,7 @@ altrimenti lascia giocare il giocatore finchè non passa il turno
 "
       end
 
-      operation 153602 "calcolaRisorse"
+      operation 152066 "calcolaRisorse"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "incrementa" explicit_type "boolean"
@@ -3196,7 +3196,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 153730 "esercitoAttaccaEsercito"
+      operation 152194 "esercitoAttaccaEsercito"
 	public explicit_return_type "int"
 	nparams 3
 	  param inout name "gruppoAttacco" type class_ref 128770 // GruppoMilitare
@@ -3217,7 +3217,159 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 153858 "esercitoAttaccaMunicipio"
+      operation 152322 "esercitoPresente"
+	public explicit_return_type "int"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
+1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun esercito
+@param i X
+@param j Y
+@return nazionalità esercito, -1 se non presente
+"
+      end
+
+      operation 152450 "municipioPresente"
+	public explicit_return_type "int"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che controlla se nella casella di posizione i, j è presente un municipio. Se è presente ritorna 0 se il municipio è romano,
+1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun municipio
+@param i X
+@param j Y
+@return nazionalità municipio, -1 se non presente
+"
+      end
+
+      operation 152578 "gruppoMilitareMuovi"
+	public explicit_return_type "void"
+	nparams 3
+	  param inout name "gruppoMilitare" type class_ref 128770 // GruppoMilitare
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Fa muovere un gruppo militare
+@param gruppoMilitare Gruppo militare
+@param i X
+@param j Y
+"
+      end
+
+      operation 152706 "liberaCava"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che libera la cava in posizione i,j dai possedimenti di cave del giocatore
+@param i X
+@param j Y
+"
+      end
+
+      operation 152834 "conquistaCava"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che permette al giocatore del turno corrente di conquistare la cava di posizione i, j
+@param i X
+@param j Y
+"
+      end
+
+      operation 152962 "controllaCava"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	  param in name "azione" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che controlla se è presente una cava nelle caselle vicine a i e j, ed eventualmente la controlla o la libera (azione)
+@param i X
+@param j Y
+@param azione 0 controlla, 1 libera
+"
+      end
+
+      operation 153090 "controllaFalo"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Controlla se è presente un falo in una delle caselle adiacenti. Se si lo raccoglie
+@param i X
+@param j Y
+"
+      end
+
+      operation 153218 "ottieniFalo"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che permette di ottenere un falò sulla mappa
+@param i X
+@param j Y
+"
+      end
+
+      operation 153346 "esercitoAttaccaMunicipio"
 	public explicit_return_type "int"
 	nparams 2
 	  param inout name "gruppoAttacco" type class_ref 128770 // GruppoMilitare
@@ -3236,7 +3388,213 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 "
       end
 
-      operation 153986 "getGiocatore"
+      operation 153474 "compraEPiazza"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "elemLblsGioco" explicit_type "String"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Compra l'elemento e lo piazza sullo scenario
+@param elemLblsGioco elemento da piazzare
+@param i X
+@param j Y
+"
+      end
+
+      operation 153602 "posizionaElementoSuScenario"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "elemLblsGioco" explicit_type "String"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Posiziona l'elemento contenuto nella variabile elemLblsGioco sullo scenario
+@param elemLblsGioco elemento da posizionare
+@param i X
+@param j Y
+"
+      end
+
+      operation 153730 "vendiERimuovi"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "nome" explicit_type "String"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Vende struttura e la rimuove dallo scenario
+@param nome Nome edificio
+@param i X
+@param j Y
+"
+      end
+
+      operation 153858 "rimuoviElementoDaScenario"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	  param in name "ultimoChar" explicit_type "char"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Rimuove elemento dallo scenario
+@param i X
+@param j Y
+@param ultimoChar Ultimo carattere della stringa dell'elemento da rimuovere
+"
+      end
+
+      operation 153986 "posizionaElemento"
+	public explicit_return_type "void"
+	nparams 5
+	  param in name "elemLblsGioco" explicit_type "String"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	  param in name "ioldLblsGioco" explicit_type "int"
+	  param in name "joldLblsGioco" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}, ${t4} ${p4}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Posiziona elemento sulla plancia di gioco
+@param elemLblsGioco Elemento
+@param i X
+@param j Y
+@param ioldLblsGioco vecchia X
+@param joldLblsGioco vecchia Y
+"
+      end
+
+      operation 154114 "isVicinoACitta"
+	public explicit_return_type "int"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Metodo che controlla se la casella di indice i e j è adiacente a una città e ritorna 0 se vicino a romani, 1 se vicino a britanni,
+2 se vicino a galli, 3 se vicino a sassoni, -1 se non adiacente a nessuna città
+@param i X
+@param j Y
+@return civiltà
+"
+      end
+
+      operation 154242 "individuaOggetto"
+	public explicit_return_type "String"
+	nparams 3
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	  param inout name "interno" explicit_type "boolean"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Individua l'oggetto su cui è stato cliccato tenendo conto se interno al villaggio o esterno al villaggio
+@param i X
+@param j Y
+@param interno true se interno ad una città, false altrimenti
+@return Ritorna il nome dell'oggetto individuato
+"
+      end
+
+      operation 154370 "isPiazzamentoPossibile"
+	public explicit_return_type "boolean"
+	nparams 3
+	  param in name "elemLblsGioco" explicit_type "String"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Controlla se è possibile piazzare l'elemento in elemLblsGioco nella cella corrente
+@param elemLblsGioco elemento da piazzare
+@param i X
+@param j Y
+@return true se possibile, false altrimenti
+"
+      end
+
+      operation 154498 "piazzaEsercito"
+	public explicit_return_type "void"
+	nparams 4
+	  param inout name "gruppoMilitare" type class_ref 128770 // GruppoMilitare
+	  param in name "civilta" explicit_type "int"
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Piazza esercito sul terreno di gioco
+@param gruppoMilitare Gruppo militare
+@param civilta Civiltà
+@param i X
+@param j Y
+"
+      end
+
+      operation 154626 "prelevaEsercito"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "i" explicit_type "int"
+	  param in name "j" explicit_type "int"
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	comment "Preleva l'esercito e lo inserisce nel municipio
+@param i X
+@param j Y
+"
+      end
+
+      operation 154754 "getGiocatore"
 	public return_type class_ref 128642 // Giocatore
 	nparams 0
 	
@@ -3248,7 +3606,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154114 "setGiocatore"
+      operation 154882 "setGiocatore"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "giocatore" explicit_type "List<Giocatore>"
@@ -3261,7 +3619,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154242 "getTurnoCorrente"
+      operation 155010 "getTurnoCorrente"
 	public explicit_return_type "int"
 	nparams 0
 	
@@ -3273,7 +3631,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154370 "getThreadCicloPartita"
+      operation 155138 "getThreadCicloPartita"
 	public return_type class_ref 132354 // ThreadCicloPartita
 	nparams 0
 	
@@ -3285,7 +3643,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154498 "setThreadCicloPartita"
+      operation 155266 "setThreadCicloPartita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "threadCicloPartita" type class_ref 132354 // ThreadCicloPartita
@@ -3298,7 +3656,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154626 "getOrdineGioco"
+      operation 155394 "getOrdineGioco"
 	public explicit_return_type "List<Integer>"
 	nparams 0
 	
@@ -3310,7 +3668,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154754 "getGuiPartita"
+      operation 155522 "getGuiPartita"
 	public return_type class_ref 129922 // GUIPartita
 	nparams 0
 	
@@ -3322,7 +3680,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 154882 "setGuiPartita"
+      operation 155650 "setGuiPartita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -3335,7 +3693,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155010 "setOrdineGioco"
+      operation 155778 "setOrdineGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "ordineGioco" explicit_type "List<Integer>"
@@ -3348,7 +3706,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155138 "setTurnoCorrente"
+      operation 155906 "setTurnoCorrente"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "turnoCorrente" explicit_type "int"
@@ -3361,7 +3719,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155266 "getSituazioneDiGioco"
+      operation 156034 "getSituazioneDiGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -3373,7 +3731,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155394 "setSituazioneDiGioco"
+      operation 156162 "setSituazioneDiGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "situazioneDiGioco" explicit_type "String"
@@ -3386,7 +3744,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155522 "getGruppiMilitariSchierati"
+      operation 156290 "getGruppiMilitariSchierati"
 	public return_type class_ref 128770 // GruppoMilitare
 	nparams 0
 	
@@ -3398,7 +3756,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155650 "setGruppiMilitariSchierati"
+      operation 156418 "setGruppiMilitariSchierati"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "gruppiMilitariSchierati" explicit_type "List<GruppoMilitare>"
@@ -3411,7 +3769,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155778 "getCaveScenario"
+      operation 156546 "getCaveScenario"
 	public return_type class_ref 128002 // CavaDiRisorse
 	nparams 0
 	
@@ -3423,7 +3781,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 155906 "setCaveScenario"
+      operation 156674 "setCaveScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "caveScenario" explicit_type "List<CavaDiRisorse>"
@@ -3436,7 +3794,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156034 "getScenario"
+      operation 156802 "getScenario"
 	public return_type class_ref 132482 // Scenario
 	nparams 0
 	
@@ -3448,7 +3806,7 @@ ed eventualmente incrementa le risorse in più che spettano al giocatore all'iniz
 	
       end
 
-      operation 156162 "setScenario"
+      operation 156930 "setScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "scenario" type class_ref 132482 // Scenario
@@ -4575,237 +4933,7 @@ ricrea la partita
 "
       end
 
-      operation 146690 "liberaCava"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che libera la cava in posizione i,j dai possedimenti di cave del giocatore
-@param i X
-@param j Y
-"
-      end
-
-      operation 146818 "conquistaCava"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che permette al giocatore del turno corrente di conquistare la cava di posizione i, j
-@param i X
-@param j Y
-"
-      end
-
-      operation 146946 "controllaCava"
-	public explicit_return_type "void"
-	nparams 3
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	  param in name "azione" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che controlla se è presente una cava nelle caselle vicine a i e j, ed eventualmente la controlla o la libera (azione)
-@param i X
-@param j Y
-@param azione 0 controlla, 1 libera
-"
-      end
-
-      operation 147074 "controllaFalo"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Controlla se è presente un falo in una delle caselle adiacenti. Se si lo raccoglie
-@param i X
-@param j Y
-"
-      end
-
-      operation 147202 "ottieniFalo"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che permette di ottenere un falò sulla mappa
-@param i X
-@param j Y
-"
-      end
-
-      operation 147330 "esercitoPresente"
-	public explicit_return_type "int"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che controlla se nella casella di posizione i, j è presente un esercito. Se è presente ritorna 0 se l'esercito è romano,
-1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun esercito
-@param i X
-@param j Y
-@return nazionalità esercito, -1 se non presente
-"
-      end
-
-      operation 147458 "municipioPresente"
-	public explicit_return_type "int"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che controlla se nella casella di posizione i, j è presente un municipio. Se è presente ritorna 0 se il municipio è romano,
-1 se inglese, 2 se francese, 3 se tedesco, -1 se non è presente alcun municipio
-@param i X
-@param j Y
-@return nazionalità municipio, -1 se non presente
-"
-      end
-
-      operation 147586 "isVicinoACitta"
-	public explicit_return_type "int"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Metodo che controlla se la casella di indice i e j è adiacente a una città e ritorna 0 se vicino a romani, 1 se vicino a britanni,
-2 se vicino a galli, 3 se vicino a sassoni, -1 se non adiacente a nessuna città
-@param i X
-@param j Y
-@return civiltà
-"
-      end
-
-      operation 147714 "rimuoviElementoDaScenario"
-	public explicit_return_type "void"
-	nparams 3
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	  param in name "ultimoChar" explicit_type "char"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Rimuove elemento dallo scenario
-@param i X
-@param j Y
-@param ultimoChar Ultimo carattere della stringa dell'elemento da rimuovere
-"
-      end
-
-      operation 147842 "posizionaElementoSuScenario"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Posiziona l'elemento contenuto nella variabile elemLblsGioco sullo scenario
-@param i X
-@param j Y
-"
-      end
-
-      operation 147970 "individuaOggetto"
-	public explicit_return_type "String"
-	nparams 3
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	  param inout name "interno" explicit_type "boolean"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Individua l'oggetto su cui è stato cliccato tenendo conto se interno al villaggio o esterno al villaggio
-@param i X
-@param j Y
-@param interno true se interno ad una città, false altrimenti
-@return Ritorna il nome dell'oggetto individuato
-"
-      end
-
-      operation 148098 "isPiazzamentoPossibile"
-	public explicit_return_type "boolean"
-	nparams 2
-	  param in name "i" explicit_type "int"
-	  param in name "j" explicit_type "int"
-	
-	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	comment "Controlla se è possibile piazzare l'elemento in elemLblsGioco nella cella corrente
-@param i X
-@param j Y
-@return true se possibile, false altrimenti
-"
-      end
-
-      operation 148226 "getAzioneLblsGioco"
+      operation 146690 "getAzioneLblsGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -4817,7 +4945,7 @@ ricrea la partita
 	
       end
 
-      operation 148354 "setAzioneLblsGioco"
+      operation 146818 "setAzioneLblsGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "azioneLblsGioco" explicit_type "String"
@@ -4830,7 +4958,7 @@ ricrea la partita
 	
       end
 
-      operation 148482 "getElemLblsGioco"
+      operation 146946 "getElemLblsGioco"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -4842,7 +4970,7 @@ ricrea la partita
 	
       end
 
-      operation 148610 "setElemLblsGioco"
+      operation 147074 "setElemLblsGioco"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "elemLblsGioco" explicit_type "String"
@@ -5715,7 +5843,7 @@ ${members}}
 	comment "Icone delle unità militari"
       end
 
-      operation 151682 "IconeGrafiche"
+      operation 150146 "IconeGrafiche"
 	package explicit_return_type ""
 	nparams 0
 	
@@ -5729,7 +5857,7 @@ ${members}}
 "
       end
 
-      operation 151810 "caricaIconeScenario"
+      operation 150274 "caricaIconeScenario"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "width" explicit_type "int"
@@ -5747,7 +5875,7 @@ ${members}}
 "
       end
 
-      operation 151938 "caricaAltreIcone"
+      operation 150402 "caricaAltreIcone"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -5761,7 +5889,7 @@ ${members}}
 "
       end
 
-      operation 152066 "getIconeScenario"
+      operation 150530 "getIconeScenario"
 	public explicit_return_type "Map<String, ImageIcon>"
 	nparams 0
 	
@@ -5773,7 +5901,7 @@ ${members}}
 	
       end
 
-      operation 152194 "setIconeScenario"
+      operation 150658 "setIconeScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "iconeScenario" explicit_type "Map<String, ImageIcon>"
@@ -5786,7 +5914,7 @@ ${members}}
 	
       end
 
-      operation 152322 "getIconeUMilitari"
+      operation 150786 "getIconeUMilitari"
 	public explicit_return_type "Map<String, ImageIcon>"
 	nparams 0
 	
@@ -5798,7 +5926,7 @@ ${members}}
 	
       end
 
-      operation 152450 "setIconeUMilitari"
+      operation 150914 "setIconeUMilitari"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "iconeUMilitari" explicit_type "Map<String, ImageIcon>"
@@ -5908,7 +6036,7 @@ ${members}}
 	comment "velocità unità"
       end
 
-      operation 159618 "ValoriDiGioco"
+      operation 160386 "ValoriDiGioco"
 	package explicit_return_type ""
 	nparams 0
 	
@@ -5922,7 +6050,7 @@ ${members}}
 "
       end
 
-      operation 159746 "inserisciCosti"
+      operation 160514 "inserisciCosti"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "nome" explicit_type "String"
@@ -5942,7 +6070,7 @@ ${members}}
 "
       end
 
-      operation 159874 "inserisciUMilitare"
+      operation 160642 "inserisciUMilitare"
 	public explicit_return_type "void"
 	nparams 6
 	  param in name "nome" explicit_type "String"
@@ -5968,7 +6096,7 @@ ${members}}
 "
       end
 
-      operation 160002 "getValoriRicerche"
+      operation 160770 "getValoriRicerche"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -5980,7 +6108,7 @@ ${members}}
 	
       end
 
-      operation 160130 "setValoriRicerche"
+      operation 160898 "setValoriRicerche"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriRicerche" explicit_type "Map<String, Integer>"
@@ -5993,7 +6121,7 @@ ${members}}
 	
       end
 
-      operation 160258 "getAtkUnita"
+      operation 161026 "getAtkUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6005,7 +6133,7 @@ ${members}}
 	
       end
 
-      operation 160386 "setAtkUnita"
+      operation 161154 "setAtkUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "atkUnita" explicit_type "Map<String, Integer>"
@@ -6018,7 +6146,7 @@ ${members}}
 	
       end
 
-      operation 160514 "getDefUnita"
+      operation 161282 "getDefUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6030,7 +6158,7 @@ ${members}}
 	
       end
 
-      operation 160642 "setDefUnita"
+      operation 161410 "setDefUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "defUnita" explicit_type "Map<String, Integer>"
@@ -6043,7 +6171,7 @@ ${members}}
 	
       end
 
-      operation 160770 "getVelUnita"
+      operation 161538 "getVelUnita"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6055,7 +6183,7 @@ ${members}}
 	
       end
 
-      operation 160898 "setVelUnita"
+      operation 161666 "setVelUnita"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "velUnita" explicit_type "Map<String, Integer>"
@@ -6068,7 +6196,7 @@ ${members}}
 	
       end
 
-      operation 161026 "getValoriOro"
+      operation 161794 "getValoriOro"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6080,7 +6208,7 @@ ${members}}
 	
       end
 
-      operation 161154 "setValoriOro"
+      operation 161922 "setValoriOro"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriOro" explicit_type "Map<String, Integer>"
@@ -6093,7 +6221,7 @@ ${members}}
 	
       end
 
-      operation 161282 "getValoriMat"
+      operation 162050 "getValoriMat"
 	public explicit_return_type "Map<String, Integer>"
 	nparams 0
 	
@@ -6105,7 +6233,7 @@ ${members}}
 	
       end
 
-      operation 161410 "setValoriMat"
+      operation 162178 "setValoriMat"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "valoriMat" explicit_type "Map<String, Integer>"
@@ -8845,7 +8973,7 @@ ${members}}
 	  b parent class_ref 129922 // GUIPartita
       end
 
-      operation 149378 "GUIPartitaOpzioni"
+      operation 147842 "GUIPartitaOpzioni"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -9168,7 +9296,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 149250 "GUIPartitaInformazioni"
+      operation 147714 "GUIPartitaInformazioni"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -9388,7 +9516,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 149506 "GUIPartitaRicerca"
+      operation 147970 "GUIPartitaRicerca"
 	package explicit_return_type ""
 	nparams 4
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -9410,7 +9538,7 @@ ${members}}
 "
       end
 
-      operation 149634 "creaGUI"
+      operation 148098 "creaGUI"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9424,7 +9552,7 @@ ${members}}
 "
       end
 
-      operation 149762 "dipingiBackground"
+      operation 148226 "dipingiBackground"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "gridXEClassica" explicit_type "int"
@@ -9444,7 +9572,7 @@ ${members}}
 "
       end
 
-      operation 149890 "from1to1"
+      operation 148354 "from1to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9458,7 +9586,7 @@ ${members}}
 "
       end
 
-      operation 150018 "from1to2"
+      operation 148482 "from1to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9472,7 +9600,7 @@ ${members}}
 "
       end
 
-      operation 150146 "from1to3"
+      operation 148610 "from1to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9486,7 +9614,7 @@ ${members}}
 "
       end
 
-      operation 150274 "from2to1"
+      operation 148738 "from2to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9500,7 +9628,7 @@ ${members}}
 "
       end
 
-      operation 150402 "from2to2"
+      operation 148866 "from2to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9514,7 +9642,7 @@ ${members}}
 "
       end
 
-      operation 150530 "from3to1"
+      operation 148994 "from3to1"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9528,7 +9656,7 @@ ${members}}
 "
       end
 
-      operation 150658 "from3to2"
+      operation 149122 "from3to2"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9542,7 +9670,7 @@ ${members}}
 "
       end
 
-      operation 150786 "from2to3"
+      operation 149250 "from2to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9556,7 +9684,7 @@ ${members}}
 "
       end
 
-      operation 150914 "from3to3"
+      operation 149378 "from3to3"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -9570,7 +9698,7 @@ ${members}}
 "
       end
 
-      operation 151042 "inserisci2"
+      operation 149506 "inserisci2"
 	public explicit_return_type "void"
 	nparams 6
 	  param in name "posx" explicit_type "int"
@@ -9596,7 +9724,7 @@ ${members}}
 "
       end
 
-      operation 151170 "inserisci3"
+      operation 149634 "inserisci3"
 	public explicit_return_type "void"
 	nparams 8
 	  param in name "posx" explicit_type "int"
@@ -9626,7 +9754,7 @@ ${members}}
 "
       end
 
-      operation 151298 "inserisci4"
+      operation 149762 "inserisci4"
 	public explicit_return_type "void"
 	nparams 10
 	  param in name "posx" explicit_type "int"
@@ -9660,7 +9788,7 @@ ${members}}
 "
       end
 
-      operation 151426 "inserisci1"
+      operation 149890 "inserisci1"
 	public explicit_return_type "void"
 	nparams 4
 	  param in name "posx" explicit_type "int"
@@ -9682,7 +9810,7 @@ ${members}}
 "
       end
 
-      operation 151554 "isRicercaRicercabile"
+      operation 150018 "isRicercaRicercabile"
 	public explicit_return_type "boolean"
 	nparams 1
 	  param in name "nome" explicit_type "String"
@@ -9950,7 +10078,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 148738 "GUIPartitaCostruisci"
+      operation 147202 "GUIPartitaCostruisci"
 	package explicit_return_type ""
 	nparams 3
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -9970,7 +10098,7 @@ ${members}}
 "
       end
 
-      operation 148866 "daiInformazioni"
+      operation 147330 "daiInformazioni"
 	public explicit_return_type "void"
 	nparams 1
 	  param in name "nome" explicit_type "String"
@@ -9986,7 +10114,7 @@ ${members}}
 "
       end
 
-      operation 148994 "popolaNegozio"
+      operation 147458 "popolaNegozio"
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "eta" explicit_type "String"
@@ -10004,7 +10132,7 @@ ${members}}
 "
       end
 
-      operation 149122 "aggiungiVoce"
+      operation 147586 "aggiungiVoce"
 	public explicit_return_type "void"
 	nparams 4
 	  param in name "nome" explicit_type "String"
@@ -10105,7 +10233,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 152578 "playSound"
+      operation 151042 "playSound"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10119,7 +10247,7 @@ ${members}}
 "
       end
 
-      operation 152706 "stopSound"
+      operation 151170 "stopSound"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10133,7 +10261,7 @@ ${members}}
 "
       end
 
-      operation 152834 "controlVolume"
+      operation 151298 "controlVolume"
 	class_operation package explicit_return_type "void"
 	nparams 0
 	
@@ -10147,7 +10275,7 @@ ${members}}
 "
       end
 
-      operation 152962 "scegliCanzone"
+      operation 151426 "scegliCanzone"
 	class_operation package explicit_return_type "File"
 	nparams 0
 	
@@ -10208,7 +10336,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 158466 "ThreadCicloPartita"
+      operation 159234 "ThreadCicloPartita"
 	package explicit_return_type ""
 	nparams 1
 	  param inout name "partita" type class_ref 129794 // Partita
@@ -10224,7 +10352,7 @@ ${members}}
 "
       end
 
-      operation 158594 "run"
+      operation 159362 "run"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10238,7 +10366,7 @@ ${members}}
 "
       end
 
-      operation 158722 "refreshMovimentiEAttacchi"
+      operation 159490 "refreshMovimentiEAttacchi"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10252,7 +10380,7 @@ ${members}}
 "
       end
 
-      operation 158850 "isTurnoPersona"
+      operation 159618 "isTurnoPersona"
 	public explicit_return_type "boolean"
 	nparams 0
 	
@@ -10264,7 +10392,7 @@ ${members}}
 	
       end
 
-      operation 158978 "setTurnoPersona"
+      operation 159746 "setTurnoPersona"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "turnoPersona" explicit_type "boolean"
@@ -10307,7 +10435,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 157698 "Scenario"
+      operation 158466 "Scenario"
 	package explicit_return_type ""
 	nparams 1
 	  param in name "n" explicit_type "int"
@@ -10323,7 +10451,7 @@ ${members}}
 "
       end
 
-      operation 157826 "casuale"
+      operation 158594 "casuale"
 	public explicit_return_type "String"
 	nparams 3
 	  param in name "min" explicit_type "int"
@@ -10344,7 +10472,7 @@ ${members}}
 "
       end
 
-      operation 157954 "casualeNum"
+      operation 158722 "casualeNum"
 	public explicit_return_type "int"
 	nparams 2
 	  param in name "min" explicit_type "int"
@@ -10363,7 +10491,7 @@ ${members}}
 "
       end
 
-      operation 158082 "aggiungiEsercito"
+      operation 158850 "aggiungiEsercito"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "i" explicit_type "int"
@@ -10383,7 +10511,7 @@ ${members}}
 "
       end
 
-      operation 158210 "getScenario"
+      operation 158978 "getScenario"
 	public explicit_return_type "String"
 	nparams 0
 	
@@ -10395,7 +10523,7 @@ ${members}}
 	
       end
 
-      operation 158338 "setScenario"
+      operation 159106 "setScenario"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "scenario" explicit_type "String"
@@ -10467,7 +10595,7 @@ ${members}}
 	MysqlColumn
       end
 
-      operation 159106 "ThreadScorrimentoSchermata"
+      operation 159874 "ThreadScorrimentoSchermata"
 	package explicit_return_type ""
 	nparams 2
 	  param inout name "guiPartita" type class_ref 129922 // GUIPartita
@@ -10485,7 +10613,7 @@ ${members}}
 "
       end
 
-      operation 159234 "run"
+      operation 160002 "run"
 	public explicit_return_type "void"
 	nparams 0
 	
@@ -10499,7 +10627,7 @@ ${members}}
 "
       end
 
-      operation 159362 "isScorri"
+      operation 160130 "isScorri"
 	public explicit_return_type "boolean"
 	nparams 0
 	
@@ -10511,7 +10639,7 @@ ${members}}
 	
       end
 
-      operation 159490 "setScorri"
+      operation 160258 "setScorri"
 	public explicit_return_type "void"
 	nparams 1
 	  param inout name "scorri" explicit_type "boolean"
@@ -10861,6 +10989,7 @@ ${definition}"
 ${package}
 ${imports}
 import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 ${definition}"
       associated_classes
@@ -11324,6 +11453,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 ${definition}"
       associated_classes

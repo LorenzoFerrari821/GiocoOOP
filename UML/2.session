@@ -2,10 +2,10 @@ window_sizes 1600 837 320 1275 737 54
 
 diagrams
   active  classdiagram_ref 128002 // GiocoOOPDiagram
-    1262 701 100 A4 0 0
+    1262 703 100 A4 0 0
 end
 show_stereotypes
-selected class_ref 129922 // GUIPartita
+selected class_ref 129666 // RoundedCornerButton
 open
   classview_ref 128002 // gioco
 end

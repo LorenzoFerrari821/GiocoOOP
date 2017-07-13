@@ -1,5 +1,5 @@
 class GUIPartitaRicerca
-!!!149506.java!!!	GUIPartitaRicerca(inout partita : Partita, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco, in proprietario : String)
+!!!147970.java!!!	GUIPartitaRicerca(inout partita : Partita, inout guiPartita : GUIPartita, inout valoriDiGioco : ValoriDiGioco, in proprietario : String)
 		ImageIcon icona = new ImageIcon("media/Icona.png");                  //Carichiamo l'icona personalizzata
 		Image scaledicona = icona.getImage().getScaledInstance(80, 60, Image.SCALE_SMOOTH);
 		setIconImage(scaledicona);  
@@ -71,7 +71,7 @@ class GUIPartitaRicerca
 		
 		add(new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 		add(pnlFooter, BorderLayout.SOUTH);
-!!!149634.java!!!	creaGUI() : void
+!!!148098.java!!!	creaGUI() : void
 		int valX = 1; //dichiarato qui perchè serve solo per il corretto posizionamento orizzontale grafico delle ricerche
 		
 		//Setting icone tick e cross
@@ -302,7 +302,7 @@ class GUIPartitaRicerca
 		contentPane.add(new JLabel("      "), c);
 		
 		dipingiBackground(gridXEClassica, gridXMedioevo, gridXEVittoriana);
-!!!149762.java!!!	dipingiBackground(in gridXEClassica : int, in gridXMedioevo : int, in gridXEVittoriana : int) : void
+!!!148226.java!!!	dipingiBackground(in gridXEClassica : int, in gridXMedioevo : int, in gridXEVittoriana : int) : void
 		c.gridy = 1;
 		c.gridx = gridXEClassica;
 		JLabel lblECla = new JLabel(Global.getLabels("s114"));
@@ -332,7 +332,7 @@ class GUIPartitaRicerca
 		contentPane.add(new JLabel("  "), c);
 		c.gridy++;
 		contentPane.add(new JLabel("  "), c);
-!!!149890.java!!!	from1to1() : void
+!!!148354.java!!!	from1to1() : void
 		c.gridx++;
 		c.gridy--;
 		JLabel lblOriz = new JLabel();
@@ -343,7 +343,7 @@ class GUIPartitaRicerca
 		JLabel lblOriz2 = new JLabel();
 		lblOriz2.setIcon(iconeGrafiche.newiconOriz);
 		contentPane.add(lblOriz2, c);
-!!!150018.java!!!	from1to2() : void
+!!!148482.java!!!	from1to2() : void
 		c.gridx++;
 		c.gridy--;
 		JLabel lblOriz = new JLabel();
@@ -369,7 +369,7 @@ class GUIPartitaRicerca
 		JLabel lbl2dxgiu = new JLabel();
 		lbl2dxgiu.setIcon(iconeGrafiche.newicon2dxgiu);
 		contentPane.add(lbl2dxgiu, c);
-!!!150146.java!!!	from1to3() : void
+!!!148610.java!!!	from1to3() : void
 	
 		c.gridx++;
 		c.gridy--;
@@ -411,7 +411,7 @@ class GUIPartitaRicerca
 		JLabel lbl2sudx = new JLabel();
 		lbl2sudx.setIcon(iconeGrafiche.newicon2sudx);
 		contentPane.add(lbl2sudx, c);
-!!!150274.java!!!	from2to1() : void
+!!!148738.java!!!	from2to1() : void
 		c.gridy -= 4;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -443,7 +443,7 @@ class GUIPartitaRicerca
 		JLabel lbl3su = new JLabel();
 		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
-!!!150402.java!!!	from2to2() : void
+!!!148866.java!!!	from2to2() : void
 		c.gridy -= 4;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -475,7 +475,7 @@ class GUIPartitaRicerca
 		JLabel lbl3su = new JLabel();
 		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
-!!!150530.java!!!	from3to1() : void
+!!!148994.java!!!	from3to1() : void
 		c.gridy -= 7;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -528,7 +528,7 @@ class GUIPartitaRicerca
 		JLabel lbl2sxsu = new JLabel();
 		lbl2sxsu.setIcon(iconeGrafiche.newicon2sxsu);
 		contentPane.add(lbl2sxsu, c);
-!!!150658.java!!!	from3to2() : void
+!!!149122.java!!!	from3to2() : void
 		c.gridy -= 7;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -560,7 +560,7 @@ class GUIPartitaRicerca
 		JLabel lbl3su = new JLabel();
 		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
-!!!150786.java!!!	from2to3() : void
+!!!149250.java!!!	from2to3() : void
 		c.gridy -= 4;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -607,7 +607,7 @@ class GUIPartitaRicerca
 		JLabel lbl2sudx = new JLabel();
 		lbl2sudx.setIcon(iconeGrafiche.newicon2sudx);
 		contentPane.add(lbl2sudx, c);
-!!!150914.java!!!	from3to3() : void
+!!!149378.java!!!	from3to3() : void
 		c.gridy -= 7;
 		c.gridx++;
 		JLabel lblOriz = new JLabel();
@@ -660,20 +660,20 @@ class GUIPartitaRicerca
 		JLabel lbl3su = new JLabel();
 		lbl3su.setIcon(iconeGrafiche.newicon3su);
 		contentPane.add(lbl3su, c);
-!!!151042.java!!!	inserisci2(in posx : int, in posy : int, in nome1 : String, in nome2 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon) : void
+!!!149506.java!!!	inserisci2(in posx : int, in posy : int, in nome1 : String, in nome2 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon) : void
 		
 		inserisci1(posx, posy, nome1, icona1);
 		inserisci1(posx, posy+3, nome2, icona2);
-!!!151170.java!!!	inserisci3(in posx : int, in posy : int, in nome1 : String, in nome2 : String, in nome3 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon, inout icona3 : ImageIcon) : void
+!!!149634.java!!!	inserisci3(in posx : int, in posy : int, in nome1 : String, in nome2 : String, in nome3 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon, inout icona3 : ImageIcon) : void
 		inserisci1(posx, posy, nome1, icona1);
 		inserisci1(posx, posy+3, nome2, icona2);
 		inserisci1(posx, posy+6, nome3, icona3);
-!!!151298.java!!!	inserisci4(in posx : int, in posy : int, in nome1 : String, in nome2 : String, in nome3 : String, in nome4 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon, inout icona3 : ImageIcon, inout icona4 : ImageIcon) : void
+!!!149762.java!!!	inserisci4(in posx : int, in posy : int, in nome1 : String, in nome2 : String, in nome3 : String, in nome4 : String, inout icona1 : ImageIcon, inout icona2 : ImageIcon, inout icona3 : ImageIcon, inout icona4 : ImageIcon) : void
 		inserisci1(posx, posy, nome1, icona1);
 		inserisci1(posx, posy+3, nome2, icona2);
 		inserisci1(posx, posy+6, nome3, icona3);
 		inserisci1(posx, posy+9, nome4, icona4);
-!!!151426.java!!!	inserisci1(in posx : int, in posy : int, in nome : String, inout icona : ImageIcon) : void
+!!!149890.java!!!	inserisci1(in posx : int, in posy : int, in nome : String, inout icona : ImageIcon) : void
 
 		//Aggiungo il nome della ricerca
 		c.gridx = posx;
@@ -784,7 +784,7 @@ class GUIPartitaRicerca
 		{
 			contentPane.add(lblcpyCross, c);
 		}
-!!!151554.java!!!	isRicercaRicercabile(in nome : String) : boolean
+!!!150018.java!!!	isRicercaRicercabile(in nome : String) : boolean
 		List<String> ric = new ArrayList<String>();
 		ric = partita.getGiocatore().get(partita.getGuiPartita().getIndiceProprietario()).getRicercheEffettuate();
 		int civ = partita.getGuiPartita().getIndiceProprietario();

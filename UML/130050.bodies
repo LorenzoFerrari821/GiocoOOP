@@ -1,8 +1,8 @@
 class IconeGrafiche
-!!!151682.java!!!	IconeGrafiche()
+!!!150146.java!!!	IconeGrafiche()
 		caricaIconeScenario(36, 37); //Questo metodo carica tutte le icone grafiche scenario all'interno del gioco con dimensione di default (36 e 37)
 		caricaAltreIcone();
-!!!151810.java!!!	caricaIconeScenario(in width : int, in height : int) : void
+!!!150274.java!!!	caricaIconeScenario(in width : int, in height : int) : void
 		iconeScenario = new HashMap<>();
 		iconeUMilitari = new HashMap<>();
 
@@ -649,7 +649,7 @@ class IconeGrafiche
 		iconlblPartita = new ImageIcon("media/asset_grafici/icone/germania.png");
 		scalelblPartita = iconlblPartita.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		iconeScenario.put(Global.getLabels("s134"), new ImageIcon(scalelblPartita));
-!!!151938.java!!!	caricaAltreIcone() : void
+!!!150402.java!!!	caricaAltreIcone() : void
 		ImageIcon iconTick = new ImageIcon("media/asset_grafici/icone/tick.png");
 		Image scaleTick = iconTick.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newiconTick = new ImageIcon(scaleTick);
@@ -887,11 +887,11 @@ class IconeGrafiche
 		ImageIcon icon2sxsu = new ImageIcon("media/asset_grafici/icone/frameRicerca/2sxsu.png");
 		Image scale2sxsu = icon2sxsu.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		newicon2sxsu = new ImageIcon(scale2sxsu);
-!!!152066.java!!!	getIconeScenario() : Map<String, ImageIcon>
+!!!150530.java!!!	getIconeScenario() : Map<String, ImageIcon>
 		return iconeScenario;
-!!!152194.java!!!	setIconeScenario(inout iconeScenario : Map<String, ImageIcon>) : void
+!!!150658.java!!!	setIconeScenario(inout iconeScenario : Map<String, ImageIcon>) : void
 		this.iconeScenario = iconeScenario;
-!!!152322.java!!!	getIconeUMilitari() : Map<String, ImageIcon>
+!!!150786.java!!!	getIconeUMilitari() : Map<String, ImageIcon>
 		return iconeUMilitari;
-!!!152450.java!!!	setIconeUMilitari(inout iconeUMilitari : Map<String, ImageIcon>) : void
+!!!150914.java!!!	setIconeUMilitari(inout iconeUMilitari : Map<String, ImageIcon>) : void
 		this.iconeUMilitari = iconeUMilitari;

@@ -1,5 +1,5 @@
 class ValoriDiGioco
-!!!159618.java!!!	ValoriDiGioco()
+!!!160386.java!!!	ValoriDiGioco()
 		valoriRicerche = new HashMap<String, Integer>();
 		valoriOro = new HashMap<String, Integer>();
 		valoriMat = new HashMap<String, Integer>();
@@ -134,36 +134,36 @@ class ValoriDiGioco
 		inserisciUMilitare(Global.getLabels("i46"), 40, 20, 40, 30, 5);
 		inserisciUMilitare(Global.getLabels("i45"), 40, 20, 40, 30, 5);
 		inserisciUMilitare(Global.getLabels("i47"), 40, 20, 40, 30, 5);
-!!!159746.java!!!	inserisciCosti(in nome : String, in oro : int, in mat : int) : void
+!!!160514.java!!!	inserisciCosti(in nome : String, in oro : int, in mat : int) : void
 		valoriOro.put(nome, oro);
 		valoriMat.put(nome, mat);
-!!!159874.java!!!	inserisciUMilitare(in nome : String, in oro : int, in mat : int, in atk : int, in def : int, in vel : int) : void
+!!!160642.java!!!	inserisciUMilitare(in nome : String, in oro : int, in mat : int, in atk : int, in def : int, in vel : int) : void
 		valoriOro.put(nome, oro);
 		valoriMat.put(nome, mat);
 		atkUnita.put(nome, atk);
 		defUnita.put(nome, def);
 		velUnita.put(nome, vel);
-!!!160002.java!!!	getValoriRicerche() : Map<String, Integer>
+!!!160770.java!!!	getValoriRicerche() : Map<String, Integer>
 		return valoriRicerche;
-!!!160130.java!!!	setValoriRicerche(inout valoriRicerche : Map<String, Integer>) : void
+!!!160898.java!!!	setValoriRicerche(inout valoriRicerche : Map<String, Integer>) : void
 		this.valoriRicerche = valoriRicerche;
-!!!160258.java!!!	getAtkUnita() : Map<String, Integer>
+!!!161026.java!!!	getAtkUnita() : Map<String, Integer>
 		return atkUnita;
-!!!160386.java!!!	setAtkUnita(inout atkUnita : Map<String, Integer>) : void
+!!!161154.java!!!	setAtkUnita(inout atkUnita : Map<String, Integer>) : void
 		this.atkUnita = atkUnita;
-!!!160514.java!!!	getDefUnita() : Map<String, Integer>
+!!!161282.java!!!	getDefUnita() : Map<String, Integer>
 		return defUnita;
-!!!160642.java!!!	setDefUnita(inout defUnita : Map<String, Integer>) : void
+!!!161410.java!!!	setDefUnita(inout defUnita : Map<String, Integer>) : void
 		this.defUnita = defUnita;
-!!!160770.java!!!	getVelUnita() : Map<String, Integer>
+!!!161538.java!!!	getVelUnita() : Map<String, Integer>
 		return velUnita;
-!!!160898.java!!!	setVelUnita(inout velUnita : Map<String, Integer>) : void
+!!!161666.java!!!	setVelUnita(inout velUnita : Map<String, Integer>) : void
 		this.velUnita = velUnita;
-!!!161026.java!!!	getValoriOro() : Map<String, Integer>
+!!!161794.java!!!	getValoriOro() : Map<String, Integer>
 		return valoriOro;
-!!!161154.java!!!	setValoriOro(inout valoriOro : Map<String, Integer>) : void
+!!!161922.java!!!	setValoriOro(inout valoriOro : Map<String, Integer>) : void
 		this.valoriOro = valoriOro;
-!!!161282.java!!!	getValoriMat() : Map<String, Integer>
+!!!162050.java!!!	getValoriMat() : Map<String, Integer>
 		return valoriMat;
-!!!161410.java!!!	setValoriMat(inout valoriMat : Map<String, Integer>) : void
+!!!162178.java!!!	setValoriMat(inout valoriMat : Map<String, Integer>) : void
 		this.valoriMat = valoriMat;
