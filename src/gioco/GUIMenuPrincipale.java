@@ -156,7 +156,7 @@ public class GUIMenuPrincipale extends JFrame {
 			public void mouseReleased(MouseEvent arg0) {
 				try {
 					audio = AudioSystem.getClip();
-					audio.open(AudioSystem.getAudioInputStream(new File("media/morte.wav")));
+					audio.open(AudioSystem.getAudioInputStream(new File("media/bottonepremuto.wav")));
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 					e1.printStackTrace();
 				}
