@@ -12,10 +12,7 @@ import java.util.ResourceBundle;
 public class Global { 
 	private static float livVolume=0;  //Volume standard
 	private static int tastiSchermata=0;  //Movimento col mouse
-	private static Locale[] supportedLocales = {
-			Locale.ITALIAN,
-			Locale.ENGLISH,
-	};
+	
 	
 	private static ResourceBundle labels=ResourceBundle.getBundle("Linguaggi/LabelsBundle",Locale.getDefault());    //Leggi le stringhe dal file a seconda della lingua dell'utente
 																													//Utilizzare Locale.ENGLISH per testare in inglese

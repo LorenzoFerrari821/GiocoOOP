@@ -97,6 +97,10 @@ public class GUIMenuPrincipale extends JFrame {
 	 */
 	public GUIMenuPrincipale() {                                
 		
+		
+		//Locale.setDefault(Locale.UK); Per cambiare anche i tasti iniziali
+		
+		
 		setTitle("Empire Conquerors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1280, 720));   
@@ -174,10 +178,7 @@ public class GUIMenuPrincipale extends JFrame {
 
 		btnNuovaPartita = new RoundedCornerButton();
 
-
-
-
-		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
+		if(Locale.getDefault().getLanguage().toString().equals(Locale.ITALIAN.toString()))
 			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartita.png");
 		else
 			iconbtnNuovaPartita = new ImageIcon("media/btnNuovaPartitaEN.png");
@@ -241,7 +242,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnCaricaSmall);
 
 		btnCaricaPartita = new RoundedCornerButton();
-		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
+		if(Locale.getDefault().getLanguage().toString().equals(Locale.ITALIAN.toString()))
 			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartita.png");
 		else
 			iconbtnCaricaPartita = new ImageIcon("media/btnCaricaPartitaEN.png");
@@ -364,7 +365,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnOpzioniSmall);
 
 		btnOpzioni = new RoundedCornerButton();
-		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
+		if(Locale.getDefault().getLanguage().toString().equals(Locale.ITALIAN.toString()))
 			iconbtnOpzioni = new ImageIcon("media/btnOpzioni.png");
 		else
 			iconbtnOpzioni = new ImageIcon("media/btnOpzioniEN.png");
@@ -485,7 +486,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnObiettiviSmall);
 
 		btnObiettivi = new RoundedCornerButton();
-		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
+		if(Locale.getDefault().getLanguage().toString().equals(Locale.ITALIAN.toString()))
 			iconbtnObiettivi = new ImageIcon("media/btnObiettivi.png");
 		else
 			iconbtnObiettivi = new ImageIcon("media/btnObiettiviEN.png");
@@ -531,7 +532,7 @@ public class GUIMenuPrincipale extends JFrame {
 		panelsx.add(btnEsciSmall);
 
 		btnEsci = new RoundedCornerButton();
-		if(Locale.getDefault().getLanguage().equals(Locale.ITALIAN))
+		if(Locale.getDefault().getLanguage().toString().equals(Locale.ITALIAN.toString()))
 			iconbtnEsci = new ImageIcon("media/btnEsci.png");
 		else
 			iconbtnEsci = new ImageIcon("media/btnEsciEN.png");
