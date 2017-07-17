@@ -584,7 +584,7 @@ public class GUIMenuPrincipale extends JFrame {
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentShown(ComponentEvent e) {
 				try {
-					panelNuovaPartita.getBtnAvvia().setEnabled(true);
+					panelNuovaPartita.getBtnAvvia().setEnabled(true);                  //Sblocca il bottone "Avvia" nel pannello nuova partita
 				} catch(NullPointerException npexc){};
 			}
 		});

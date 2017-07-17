@@ -241,7 +241,7 @@ public class GUINuovaPartita extends JPanel {
 				if(btnAvvia.isEnabled())
 				{
 					btnAvvia.setEnabled(false);
-					if(txtNomeGiocatore.getText().equals(""))
+					if(txtNomeGiocatore.getText().equals(""))                 //Il messaggio d'errore lo da dopo.
 						btnAvvia.setEnabled(true);
 					k=creaNuovaPartita();
 					if(k == 1)              //La partita si crea solo se non ci sono stati errori nella creazione del salvataggio (ovvero se k=1)
@@ -292,7 +292,7 @@ public class GUINuovaPartita extends JPanel {
 
 			if(txtNomeGiocatore.getText().equals(""))
 			{
-				JOptionPane.showMessageDialog(pnlMenu,Global.getLabels("e0"));
+				JOptionPane.showMessageDialog(pnlMenu,Global.getLabels("e0"));   //Errore nome giocatore vuoto
 				return -1;
 			}
 
