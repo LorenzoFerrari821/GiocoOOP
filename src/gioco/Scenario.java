@@ -15,7 +15,7 @@ public class Scenario {
 	 * @param n Indice di mappa scelta
 	 */
 	Scenario(int n) {
-		scenario = new String[48][93];
+		scenario = new String[48][93];  //Righe e colonne
 
 		if(n==0){ //Mappa predefinita
 			for(int i = 0; i < 48; i++)

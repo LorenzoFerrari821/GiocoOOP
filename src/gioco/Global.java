@@ -14,7 +14,7 @@ public class Global {
 	private static int tastiSchermata=0;  //Movimento col mouse
 	
 	
-	private static ResourceBundle labels=ResourceBundle.getBundle("Linguaggi/LabelsBundle",Locale.getDefault());    //Leggi le stringhe dal file a seconda della lingua dell'utente
+	private static ResourceBundle labels=ResourceBundle.getBundle("Linguaggi/LabelsBundle",Locale.ENGLISH);    //Leggi le stringhe dal file a seconda della lingua dell'utente
 																													//Utilizzare Locale.ENGLISH per testare in inglese
 	
 
